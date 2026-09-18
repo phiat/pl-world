@@ -50,7 +50,7 @@
   "influenced_by_external": [
     { "name": "Dylan", "year": 1992 }
   ],
-  "influenced": ["elixir", "julia", "swift", "rust", "clojure"],
+  "influenced": ["elixir", "julia", "swift", "rust", "clojure", "dart"],
   "traits": {
     "structured-control": { "level": "core", "note": "`if`/`unless`/`while`/`until`/`case` are expressions; Perl-style statement modifiers (`x if y`)." },
     "block-scope": { "level": "supported", "note": "def, class, module and blocks open new scopes, but if/while bodies do not." },
@@ -131,6 +131,7 @@
     },
     "signature": {
       "title": "Everything is an object; every method takes a block",
+      "concepts": ["everything-is-an-object"],
       "dialect": "Ruby 3.0+",
       "code": "# Everything is an object: even integers and nil answer messages.\nputs 42.class, nil.to_a.inspect, 7.respond_to?(:+)\n\n# Classes stay open: teach a built-in class a new method.\nclass Integer\n  def factorial = (1..self).reduce(1, :*)\nend\nputs 10.factorial\n\n# Blocks: any method can take a chunk of code and `yield` to it.\ndef timed(label)\n  result = yield\n  puts \"#{label} -> #{result}\"\nend\ntimed(\"sum of squares\") { (1..4).sum { |x| x * x } }\n\n# Loops are just methods that take blocks.\n5.downto(1) { |i| print i }\nputs \" liftoff!\"\n",
       "expected_output": "Integer\n[]\ntrue\n3628800\nsum of squares -> 30\n54321 liftoff!\n",

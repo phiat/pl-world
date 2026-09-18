@@ -6,7 +6,7 @@ Source-of-truth data for the PL World explorer. JSON files are hand-editable and
 | File | What |
 | --- | --- |
 | `schema.ts` | zod schema + TS types for everything below (the contract) |
-| `languages/<id>.json` | one file per language (50 ids, listed in `schema.ts`) |
+| `languages/<id>.json` | one file per language (58 ids, listed in `LANGUAGE_IDS` in `schema.ts`) |
 | `concepts.json` | 55 concepts ("genes"): origin language/year and popularizers |
 | `tasks.json` | 6 comparison tasks every language implements (the "windows") |
 
@@ -24,10 +24,10 @@ no folklore. Write in a neutral, encyclopedic, concise voice.
 **Privacy.** Web requests (Wikipedia API etc.) use a generic User-Agent such as
 `pl-world-research/0.1`. Never put personal details (names, emails) in headers or queries.
 
-**Lineage.** `influenced_by` / `influenced` may only reference the 50 ids; everything else
+**Lineage.** `influenced_by` / `influenced` may only reference ids in `LANGUAGE_IDS`; everything else
 goes in `influenced_by_external`. Choose `kind` carefully (`successor`, `dialect`, `superset`,
 `platform`, otherwise `influence`) and `weight` (`major` = a defining ancestor, `minor` = a
-borrowed feature). `primary_parent` is the single most direct ancestor among the 50 (it drives
+borrowed feature). `primary_parent` is the single most direct ancestor among those ids (it drives
 the tree layout) — `null` only for true roots (e.g. Fortran, Lisp, APL).
 
 **Traits.** Walk through *all 55* concepts in `concepts.json` for each language. Include a
@@ -67,6 +67,19 @@ miranda null, eiffel #4d6977, erlang #B83998, self #0579aa, perl #0298c3, haskel
 python #3572A5, lua #000080, r #198CE7, java #b07219, javascript #f1e05a, ruby #701516,
 php #4F5D95, ocaml #ef7a08, csharp #7355dd, scala #c22d40, fsharp #b845fc, clojure #db5855,
 go #00ADD8, rust #dea584, kotlin #A97BFF, elixir #6e4a7e, julia #a270ba, typescript #3178c6,
-swift #F05138, zig #ec915c`
+swift #F05138, zig #ec915c, awk #c30e9b, object-pascal null (#C9A227), oberon null (#6b8cae), j #9EEDFF,
+racket #3c5caa, nim #ffc200, dart #00B4AB, gleam #ffaff3`
 
-**Validate** with `deno run -A scripts/validate.ts <id> [<id>...]` until it reports 0 errors.
+**Validate** with `deno task validate <id> [<id>...]` until it reports 0 errors.
+
+## Adding a language
+
+1. Add the id to `LANGUAGE_IDS` in `schema.ts` (grouped by era) and write `languages/<id>.json`.
+2. Toolchain: prefer a pinned official image. Otherwise add `sandbox/<id>/Dockerfile` (image `plw-<id>`, set
+   `dockerfile` in the toolchain). Snippets run offline (`--network none`), so bake dependencies into the image, and
+   write only under `/src` and `/tmp`.
+3. `deno task images <id>`, then `deno task verify <id> --write` sets `verified` from real runs.
+4. Reciprocate lineage: add the id to each parent's `influenced` (and children's `influenced_by`), then run
+   `deno task validate` with no ids for the cross-reference report.
+5. Web: map the id to a highlight.js grammar in `web/lib/highlight.ts` and a CodeMirror mode in `web/lib/editor.ts`
+   (a close relative is fine), or it renders as plain text.

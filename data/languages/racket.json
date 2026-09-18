@@ -1,0 +1,216 @@
+{
+  "id": "racket",
+  "name": "Racket",
+  "aliases": ["PLT Scheme", "MzScheme"],
+  "year": 1995,
+  "year_note": "Wikipedia dates Racket to January 1995, when the PLT group at Rice University decided to build a Scheme-based programming environment for teaching, which grew into the DrScheme IDE and its PLT Scheme language. The language kept that name until 7 June 2010, when version 5.0 was released as Racket because it had grown well beyond Scheme; the Chez Scheme-based implementation, Racket CS, became the default in 8.0 (2021).",
+  "designers": ["Matthias Felleisen", "Matthew Flatt", "Robert Bruce Findler", "Shriram Krishnamurthi"],
+  "organization": "PLT (Rice University; later Northeastern, Utah, Northwestern and Brown)",
+  "country": "United States",
+  "tagline": "A Scheme descendant built for making languages: each module picks its #lang, and loops, classes and even type systems are libraries.",
+  "summary": "Racket is a general-purpose descendant of Scheme developed by the PLT research group as a platform for creating programming languages as well as for writing programs. Every module declares its language on a #lang line, and a hygienic macro system built on syntax objects lets libraries define anything from a new loop form to a complete dialect such as Typed Racket, Lazy Racket or the teaching languages of How to Design Programs. The same core provides higher-order contracts with blame, first-class and delimited continuations, a class system with mixins, and the DrRacket IDE used in introductory courses.",
+  "history": "Racket began in 1995 as an outreach project: Matthias Felleisen's PLT group at Rice University wanted to teach program design to beginners and concluded that they needed a dedicated teaching language and environment rather than standard Scheme and professional editors. Matthew Flatt assembled MrEd, the original virtual machine, from libscheme, wxWidgets and other free components, and with Robby Findler, Shriram Krishnamurthi and others the group built DrScheme, an IDE with graded teaching languages and an algebraic stepper, and wrote the textbook How to Design Programs (2001). Research on the system shaped the language: units and first-class classes with mixins (1998), a module system that separates compile-time from run-time code (2002), higher-order contracts with blame (2002), delimited continuations (2007) and Typed Scheme (2008), an early design for sound interoperation between typed and untyped modules.\n\nPLT Scheme 4.0 (2008) introduced the #lang line, immutable pairs and the for family of loops and comprehensions, and shipped Typed Scheme. Because the name had become misleading for a language that had grown far beyond the Scheme standards, it was renamed Racket with version 5.0 in June 2010; the announcement described it as 'still a dialect of Lisp and a descendant of Scheme'. Later releases added submodules (5.3, 2012), a package system and a minimal distribution (6.0, 2014), a macro expander based on sets of scopes (6.3, 2015) that was rewritten in Racket itself for 7.0 (2018), and Racket CS, running on Chez Scheme, as the default implementation from 8.0 (2021). Version 9.0 (2025) added parallel threads.\n\nRacket remains both a teaching language (DrRacket, the ProgramByDesign and Bootstrap curricula) and a laboratory for other languages: Arc, which runs Hacker News, is implemented in it, Pyret was first built on it, and Rhombus, a Racket-based language with conventional infix syntax, reached version 1.0 in 2026. Its macro research also travelled: Rust 1.0's hygiene implementation followed the Racket paper 'Macros that work together'.",
+  "innovations": [
+    "Language-oriented programming: every module names its language with #lang, and a language is an ordinary module that can supply its own reader, #%module-begin, #%app and other core forms",
+    "Higher-order contracts with blame (Findler and Felleisen, 2002), extending design by contract to first-class functions, objects and other values",
+    "Sound gradual typing between modules: Typed Racket (2008) with occurrence typing, where types become contracts at typed/untyped boundaries",
+    "Macros over syntax objects with phase-separated modules (2002), syntax-parse (2010) and the sets-of-scopes model of hygiene (2015)",
+    "Delimited continuations and continuation marks in a production system, underpinning exceptions, parameters, the algebraic stepper and a continuation-based web server",
+    "DrRacket and How to Design Programs: an IDE with graded teaching languages built around a systematic design recipe",
+    "First-class classes whose mixins are functions from class to class, and units as first-class, separately compiled components (1998)"
+  ],
+  "paradigms": ["functional", "imperative", "object-oriented", "metaprogramming", "reflective", "multi-paradigm"],
+  "family": "lisp",
+  "syntax_family": "s-expression",
+  "block_style": "s-expression",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "Values carry their types and primitives check them at run time; each struct declaration creates a new, distinct type. Contracts add checked specifications, usually at module boundaries. Typed Racket (#lang typed/racket), a sister language in the main distribution, adds sound static types with occurrence typing and local inference, and its modules interoperate with untyped ones through automatically generated contracts."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Racket CS uses Chez Scheme's generational collector; custodians let a program shut down, and optionally cap the memory of, the threads and resources of code it runs.",
+  "execution": ["native-compiled", "bytecode-vm", "jit"],
+  "status": "active",
+  "latest_version": "9.3",
+  "file_extensions": [".rkt", ".rktd", ".rktl", ".scrbl"],
+  "color": "#3c5caa",
+  "primary_parent": "scheme",
+  "influenced_by": [
+    { "id": "scheme", "kind": "dialect", "weight": "major", "note": "Began as PLT's Scheme implementation (MzScheme/DrScheme) and kept Scheme's core: lexical scope, proper tail calls, call/cc and hygienic macros. Renamed in 2010 while continuing as 'a dialect of Lisp and a descendant of Scheme'; Scheme itself continues separately." },
+    { "id": "eiffel", "kind": "influence", "weight": "minor", "note": "Racket's contract system starts from Eiffel's design by contract and extends it to higher-order values." }
+  ],
+  "influenced_by_external": [
+    { "name": "libscheme (Brent Benson)", "year": 1994, "note": "The embeddable Scheme interpreter from which Flatt built the original MzScheme/MrEd virtual machine." },
+    { "name": "syntax-case (Dybvig, Hieb and Bruggeman)", "year": 1992, "note": "Syntax objects and the syntax-case transformer style that Racket's macro system builds on." },
+    { "name": "Concurrent ML (John Reppy)", "year": 1991, "note": "Racket's event system (sync, channels, choice-evt) is based on Concurrent ML." },
+    { "name": "Chez Scheme", "year": 1985, "note": "Compiler back end and runtime of Racket CS, the default implementation since 8.0 (2021)." }
+  ],
+  "influenced": ["clojure", "rust", "scheme"],
+  "traits": {
+    "structured-control": { "level": "core", "note": "if, cond, case, when/unless, and the for family of loops over sequences." },
+    "block-scope": { "level": "core", "note": "Lexical scope throughout: let, let*, letrec and internal definitions in any body." },
+    "recursion": { "level": "core", "note": "Deep non-tail recursion does not hit a fixed stack limit; it is bounded by available memory." },
+    "exceptions": { "level": "core", "note": "raise and with-handlers over a hierarchy of exn structs; any value can be raised." },
+    "coroutines": { "level": "supported", "note": "No dedicated form; built from first-class and delimited continuations. Racket threads are preemptive green threads, and since 9.0 (2025) threads created in a pool can run in parallel." },
+    "generators": { "level": "core", "note": "Sequences (in-range, in-list, in-hash, custom sequences) and lazy streams drive the for loops; racket/generator adds yield-based generators built on continuations." },
+    "pattern-matching": { "level": "core", "note": "match from racket/match (part of #lang racket): patterns over lists, vectors, structs, hash tables and regexps, extensible with match expanders; no exhaustiveness checking." },
+    "tail-calls": { "level": "core", "note": "Guaranteed, as in Scheme; named let and for loops run in constant space." },
+    "continuations": { "level": "core", "note": "call/cc plus delimited, composable continuations (prompts, call/comp, racket/control's shift/reset and relatives) and continuation marks; the web server uses continuations to write interactive web programs in direct style." },
+    "static-typing": { "level": "supported", "since": 2008, "version": "PLT Scheme 4.0 (Typed Scheme)", "note": "Through Typed Racket (#lang typed/racket), a sister language in the main distribution; plain Racket is dynamically typed." },
+    "type-inference": { "level": "supported", "since": 2008, "version": "PLT Scheme 4.0 (Typed Scheme)", "note": "Typed Racket uses local type inference: function definitions usually carry annotations, while the types of local bindings, expressions and most polymorphic instantiations are inferred." },
+    "generics": { "level": "supported", "since": 2008, "version": "PLT Scheme 4.0 (Typed Scheme)", "note": "Typed Racket's polymorphic types (All (A) ...) and polymorphic structs. Untyped Racket's 'generic interfaces' are dynamic dispatch, not parametric polymorphism." },
+    "algebraic-data-types": { "level": "supported", "note": "Structs plus match model sum types; Typed Racket expresses them as untagged union types such as (U Rectangle Triangle), refined by occurrence typing." },
+    "option-types": { "level": "supported", "note": "In Typed Racket, (Option T) is (U T #f), and occurrence typing requires a check before the value is used; untyped Racket conventionally returns #f for 'no result'." },
+    "gradual-typing": { "level": "core", "since": 2008, "version": "PLT Scheme 4.0 (Typed Scheme)", "note": "Typed and untyped modules interoperate soundly: types become contracts at module boundaries, so violations are caught there and blamed on the untyped side (Tobin-Hochstadt and Felleisen, DLS 2006 and POPL 2008). Shallow and Optional Typed Racket (2022) trade guarantees for lower boundary costs." },
+    "interfaces": { "level": "supported", "note": "Interfaces in the racket/class object system, and generic interfaces for structs (racket/generic: define-generics and #:methods, since 5.3 in 2012)." },
+    "classes": { "level": "supported", "note": "racket/class (part of #lang racket): first-class classes with single inheritance, mixins and traits; the GUI toolkit and DrRacket are built on it." },
+    "inheritance": { "level": "supported", "note": "Single inheritance in racket/class; struct types can also extend a parent struct type." },
+    "traits-mixins": { "level": "supported", "note": "Classes are first-class values, so a mixin is a function from class to class (Flatt, Krishnamurthi and Felleisen, POPL 1998); racket/trait adds traits." },
+    "abstract-data-types": { "level": "supported", "note": "A module can export a struct's operations while hiding its constructor and fields; struct instances are opaque to reflection by default." },
+    "modules": { "level": "core", "note": "Every file is a module that declares its language (#lang) and keeps compile-time and run-time code in separate phases; submodules such as module+ main and module+ test arrived in 5.3 (2012)." },
+    "design-by-contract": { "level": "core", "note": "racket/contract: contracts on module exports (contract-out) and on functions, including higher-order ones, with blame assigned to the party that broke the agreement (Findler and Felleisen, ICFP 2002)." },
+    "first-class-functions": { "level": "core", "note": "lambda (or λ) with optional and keyword arguments; case-lambda for arity dispatch." },
+    "closures": { "level": "core" },
+    "immutability": { "level": "supported", "since": 2008, "version": "PLT Scheme 4.0", "note": "Pairs, and therefore lists, have been immutable since 4.0 (mutable pairs are a separate mcons type); struct fields are immutable unless declared #:mutable, and immutable hash tables are standard. Variables can still be reassigned with set!, and vectors and strings are often mutable." },
+    "list-comprehensions": { "level": "core", "since": 2008, "version": "PLT Scheme 4.0", "note": "for/list, for*/list, for/vector, for/hash, for/sum and for/fold, with #:when and #:unless filters." },
+    "lazy-evaluation": { "level": "supported", "note": "Strict by default; delay/force promises, lazy streams (racket/stream), and a lazy dialect, Lazy Racket (#lang lazy)." },
+    "garbage-collection": { "level": "core" },
+    "pointers": { "level": "supported", "note": "Only through the ffi/unsafe foreign interface (C pointers, malloc, ptr-ref and ptr-set!); ordinary Racket code has no pointers." },
+    "actors": { "level": "supported", "note": "Every thread has a mailbox (thread-send, thread-receive), and places run in parallel and communicate over place channels; there is no built-in supervision or distribution." },
+    "csp-channels": { "level": "core", "note": "Synchronous channels and Concurrent ML-style first-class events (sync, choice-evt, handle-evt) are built into racket/base; racket/async-channel adds buffered channels." },
+    "macros": { "level": "core", "note": "define-syntax with syntax-rules, syntax-case and syntax-parse. Much of the language itself (for loops, match, classes, Typed Racket) is implemented as macros." },
+    "hygienic-macros": { "level": "core", "note": "Hygienic by default through syntax objects that carry lexical context; the expander has used Flatt's sets-of-scopes model since 6.3 (2015), and syntax-parse (Culpepper and Felleisen, 2010) adds declarative patterns with automatic error messages." },
+    "homoiconicity": { "level": "core", "note": "Code is read as S-expressions, but macros transform syntax objects: S-expressions annotated with lexical context and source locations." },
+    "reflection": { "level": "supported", "note": "eval with namespaces, module and struct introspection, procedure-arity and object-name; inspectors control what reflection can see." },
+    "compile-time-execution": { "level": "core", "note": "Macro transformers are ordinary Racket code running at phase 1, and the module system keeps compile-time state separate from run-time state (Flatt, 'Composable and compilable macros', ICFP 2002)." },
+    "hot-code-reload": { "level": "library", "note": "dynamic-rerequire (racket/rerequire) reloads modules whose source has changed into a running program." },
+    "array-programming": { "level": "library", "note": "math/array in the main distribution: multidimensional arrays with broadcasting, written in Typed Racket." },
+    "logic-unification": { "level": "library", "note": "Racklog (Prolog-style logic programming embedded in Racket) and #lang datalog ship with the main distribution." },
+    "regex-builtin": { "level": "core", "note": "Regexp literals #rx\"...\" and #px\"...\" (Perl-style syntax) are part of the reader; regexp-match and friends in racket/base also work on byte strings and input ports." }
+  },
+  "milestones": [
+    { "year": 1995, "event": "PLT at Rice University starts building a Scheme-based teaching environment, which becomes DrScheme" },
+    { "year": 1998, "event": "Units and first-class classes with mixins published (PLDI, POPL)" },
+    { "year": 2001, "event": "How to Design Programs published by MIT Press" },
+    { "year": 2002, "event": "Higher-order contracts with blame and the phase-separated macro/module system presented at ICFP" },
+    { "year": 2004, "event": "PLaneT package repository ships with PLT Scheme" },
+    { "year": 2008, "event": "PLT Scheme 4.0: #lang, immutable pairs, for loops and Typed Scheme" },
+    { "year": 2010, "event": "PLT Scheme renamed Racket with version 5.0 (June)" },
+    { "year": 2012, "event": "Racket 5.3: submodules and generic interfaces" },
+    { "year": 2014, "event": "Racket 6.0: package system and a minimal distribution" },
+    { "year": 2015, "event": "Racket 6.3: macro expander based on sets of scopes" },
+    { "year": 2018, "event": "Racket 7.0: macro expander rewritten in Racket, preparing the move to Chez Scheme" },
+    { "year": 2019, "event": "Racket 7.5 relicensed under MIT or Apache 2.0" },
+    { "year": 2021, "event": "Racket 8.0: Racket CS on Chez Scheme becomes the default implementation" },
+    { "year": 2025, "event": "Racket 9.0 adds parallel threads" },
+    { "year": 2026, "event": "Rhombus 1.0, a conventional-syntax language built on Racket, released" }
+  ],
+  "trivia": [
+    "The name was chosen because it was unused, easy to pronounce and spell, and had 'a vague connection to the word “scheme”'; the announcement also dubbed Racket programmers 'Racketeers'.",
+    "Hacker News runs on Arc, a Lisp dialect implemented in Racket.",
+    "Rust 1.0's hygiene code lived in a file named mtwt.rs, after 'Macros that work together', the Racket expander paper whose algorithm it implemented."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Racket 9.3 (#lang racket/base)",
+      "code": "#lang racket/base\n\n(displayln \"Hello, World!\")\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "The #lang line names the module's language. racket/base is the small core and loads about three times faster than #lang racket, which adds the full standard library (contracts, classes, match, list and string utilities). A bare \"Hello, World!\" expression at module level would print its value in quoted form, so displayln is used.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Racket 9.3 (#lang racket/base)",
+      "code": "#lang racket/base\n\n(define (factorial n)\n  (if (zero? n)\n      1\n      (* n (factorial (sub1 n)))))\n\n;; Runs when this file is the program, not when another module requires it.\n(module+ main\n  (displayln (factorial 10)))\n",
+      "expected_output": "3628800\n",
+      "notes": "Integers are exact and arbitrary-precision, so (factorial 100) is exact too, and deep non-tail recursion is limited by memory rather than a fixed stack. module+ main declares a submodule that racket runs only when the file is the program, like Python's if __name__ == '__main__'; a module+ test submodule conventionally holds rackunit tests.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Racket 9.3 (#lang racket/base)",
+      "code": "#lang racket/base\n\n(for ([i (in-range 1 16)])\n  (displayln\n   (cond [(zero? (modulo i 15)) \"FizzBuzz\"]\n         [(zero? (modulo i 3)) \"Fizz\"]\n         [(zero? (modulo i 5)) \"Buzz\"]\n         [else i])))\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "for iterates over any sequence, and in-range is half-open, so (in-range 1 16) is 1..15. Square brackets are interchangeable with parentheses; by convention they mark clauses and binding pairs.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Racket 9.3 (#lang racket/base)",
+      "code": "#lang racket/base\n(require racket/string)                 ; string-join\n\n;; for/list is a comprehension: walk a sequence, filter, collect.\n(define squares\n  (for/list ([x (in-range 1 11)] #:when (even? x))\n    (* x x)))\n\n(displayln (string-join (map number->string squares) \" \"))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "for/list is Racket's comprehension form: #:when filters, and for*/list, for/vector, for/sum and for/fold follow the same pattern. The map/filter pipeline (map (λ (x) (* x x)) (filter even? (range 1 11))) works too, with range from racket/list.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Racket 9.3 (#lang racket/base)",
+      "code": "#lang racket/base\n(require racket/match)\n\n;; A Shape is one of:\n;;  - (rectangle Number Number)\n;;  - (triangle Number Number)\n(struct rectangle (width height))\n(struct triangle (base height))\n\n;; area : Shape -> Number\n(define (area s)\n  (match s\n    [(rectangle w h) (* w h)]\n    [(triangle b h) (/ (* b h) 2)]))\n\n;; name : Shape -> String\n(define (name s)\n  (match s\n    [(rectangle _ _) \"Rectangle\"]\n    [(triangle _ _) \"Triangle\"]))\n\n(for ([s (list (rectangle 3 4) (triangle 10 3))])\n  (printf \"~a: ~a\\n\" (name s) (area s)))\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Written in the How to Design Programs style: a data definition in comments, one struct per variant, and functions whose shape follows the data, here via match. Structs are immutable and opaque by default, and (/ 30 2) is the exact integer 15. Alternatives are generic interfaces (racket/generic), the racket/class object system, or Typed Racket, where the data definition becomes a union type.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Languages as libraries (#lang)",
+      "concepts": ["macros", "hygienic-macros", "compile-time-execution", "modules"],
+      "dialect": "Racket 9.3 (#lang racket/base with syntax/parse)",
+      "code": "#lang racket/base\n;; Every module names its language, and a language is just a module that\n;; exports syntax. `rpn` is a tiny postfix language, compiled to Racket\n;; at expansion time; `calc` is a module written in it.\n(module rpn racket/base\n  (require (for-syntax racket/base syntax/parse))\n  (provide (rename-out [rpn-module-begin #%module-begin]) #%datum + - * /)\n  (begin-for-syntax                        ; runs inside the compiler\n    (define (rpn->racket toks stack)\n      (syntax-parse toks\n        [() (car stack)]\n        [(n:number . more) (rpn->racket #'more (cons #'n stack))]\n        [(op:id . more)\n         (rpn->racket #'more\n                      (cons #`(op #,(cadr stack) #,(car stack)) (cddr stack)))])))\n  (define-syntax (rpn-module-begin stx)\n    (syntax-parse stx\n      [(_ line ...)\n       #:with (expr ...) (map (λ (l) (rpn->racket l '())) (attribute line))\n       #'(#%module-begin (printf \"~s => ~s => ~a\\n\" 'line 'expr expr) ...)])))\n\n(module calc (submod \"..\" rpn)             ; like a file starting `#lang rpn`\n  (3 4 + 2 *)\n  (1 2 3 4 + + +))\n\n(require 'calc)\n",
+      "expected_output": "(3 4 + 2 *) => (* (+ 3 4) 2) => 14\n(1 2 3 4 + + +) => (+ 1 (+ 2 (+ 3 4))) => 10\n",
+      "notes": "rpn is a complete, if tiny, language: its #%module-begin receives the whole body of any module written in it, and a syntax-parse function running at expansion time turns each postfix line into a prefix Racket expression. rpn exports only #%datum (so numbers are allowed) and + - * /, so any other word in a calc program is an unbound identifier, reported at compile time. Hygiene keeps the template's printf and quote bound to racket/base even though calc's language provides neither. Installed as a collection, the same module could start a file as #lang s-exp rpn (or #lang rpn, given a small reader module); Typed Racket, Scribble and the HtDP teaching languages are built the same way.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Racket CS",
+        "version": "9.3",
+        "docker_image": "racket/racket:9.3-full",
+        "run": "racket {file}",
+        "notes": "Official image with the full distribution, so #lang typed/racket, lazy, datalog, the HtDP teaching languages, math and racklog are available too. racket compiles the module in memory and writes nothing to disk, so it also runs with a read-only root filesystem. A #lang racket/base program starts in about 0.1 s; #lang racket about 0.3 s; #lang typed/racket about 1 s (type checking)."
+      },
+      {
+        "name": "Racket CS (minimal)",
+        "version": "9.3",
+        "docker_image": "racket/racket:9.3",
+        "run": "racket {file}",
+        "notes": "Minimal Racket (racket/base and the core collections, including racket/match, racket/contract, racket/class and syntax/parse; about a third of the size). Runs all six snippets, but not Typed Racket or other main-distribution languages."
+      }
+    ],
+    "browser": null,
+    "notes": "No mature, self-contained in-browser Racket was found: RacketScript compiles Racket to JavaScript but is experimental and its compiler itself runs on Racket, so the container is the only option here."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Racket_(programming_language)",
+    "homepage": "https://racket-lang.org/",
+    "spec": "https://docs.racket-lang.org/reference/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Racket_(programming_language)",
+    "https://racket-lang.org/new-name.html",
+    "https://racket-lang.org/team.html",
+    "https://www2.ccs.neu.edu/racket/pubs/manifesto.pdf",
+    "https://web.archive.org/web/20130202224019/http://blog.racket-lang.org/2008/06/plt-scheme-version-4.html",
+    "https://blog.racket-lang.org/2012/08/racket-v53.html",
+    "https://blog.racket-lang.org/2014/02/racket-v60.html",
+    "https://blog.racket-lang.org/2015/11/racket-v63.html",
+    "https://blog.racket-lang.org/2018/07/racket-v7-0.html",
+    "https://blog.racket-lang.org/2019/11/racket-v7-5.html",
+    "https://blog.racket-lang.org/2021/02/racket-v8-0.html",
+    "https://blog.racket-lang.org/2025/11/racket-v9-0.html",
+    "https://blog.racket-lang.org/2026/08/racket-v9-3.html",
+    "https://blog.racket-lang.org/2026/06/rhombus-v1.0.html",
+    "https://docs.racket-lang.org/reference/sync.html",
+    "https://docs.racket-lang.org/ts-guide/index.html",
+    "https://docs.racket-lang.org/guide/contracts.html",
+    "https://www.cs.utah.edu/plt/scope-sets/",
+    "https://raw.githubusercontent.com/rust-lang/rust/1.0.0/src/libsyntax/ext/mtwt.rs",
+    "https://clojure.org/about/spec",
+    "https://doi.org/10.1145/268946.268961",
+    "https://doi.org/10.1145/581478.581484",
+    "https://doi.org/10.1145/1176617.1176755",
+    "https://doi.org/10.1145/1328438.1328486",
+    "https://doi.org/10.1145/1863543.1863577",
+    "https://github.com/racketscript/racketscript"
+  ]
+}

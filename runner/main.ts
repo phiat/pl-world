@@ -26,6 +26,11 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } });
 
 async function handleRun(req: Request): Promise<Response> {
+  // A JSON content type can't be sent cross-origin without a CORS preflight, which this server never grants,
+  // so other websites open in the browser can't submit code.
+  if (!req.headers.get("content-type")?.startsWith("application/json")) {
+    return json({ error: "Content-Type must be application/json" }, 415);
+  }
   let body: { lang?: unknown; code?: unknown };
   try {
     body = await req.json();
@@ -71,7 +76,11 @@ async function handleRun(req: Request): Promise<Response> {
   return new Response(stream, { headers: { "content-type": "text/event-stream", "cache-control": "no-cache" } });
 }
 
+// Only loopback names: a DNS-rebinding page (evil.example resolving to 127.0.0.1) arrives with its own Host.
+const LOCAL_HOST = /^(127\.0\.0\.1|localhost|\[::1\])(:\d+)?$/;
+
 Deno.serve({ hostname: "127.0.0.1", port }, async (req) => {
+  if (!LOCAL_HOST.test(req.headers.get("host") ?? "")) return json({ error: "forbidden host" }, 403);
   const url = new URL(req.url);
   if (req.method === "GET" && url.pathname === "/health") {
     const v = await new Deno.Command("docker", {

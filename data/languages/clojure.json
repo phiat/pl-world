@@ -47,12 +47,12 @@
     { "id": "csharp", "kind": "influence", "weight": "minor", "note": "The 'C' in the name; Hickey's dotLisp targeted .NET." },
     { "id": "cpp", "kind": "influence", "weight": "minor" },
     { "id": "ruby", "kind": "influence", "weight": "minor" },
-    { "id": "go", "kind": "influence", "weight": "minor", "note": "core.async (2013) adopted Go's goroutine-and-channel model as go blocks and channels." }
+    { "id": "go", "kind": "influence", "weight": "minor", "note": "core.async (2013) adopted Go's goroutine-and-channel model as go blocks and channels." },
+    { "id": "racket", "kind": "influence", "weight": "minor", "note": "Listed in Wikipedia's infobox (citing Typed Clojure, whose type system follows Typed Racket); the clojure.spec rationale names Racket's contracts as prior art." }
   ],
   "influenced_by_external": [
     { "name": "Ideal Hash Trees (Phil Bagwell)", "year": 2001, "note": "Hash array mapped tries underlie Clojure's persistent maps and vectors." },
     { "name": "Communicating Sequential Processes (Tony Hoare)", "year": 1978, "note": "The model behind core.async." },
-    { "name": "Racket", "note": "Listed among Clojure's influences." },
     { "name": "Wolfram Language", "note": "Listed among Clojure's influences." }
   ],
   "influenced": ["elixir"],
@@ -135,6 +135,7 @@
     },
     "signature": {
       "title": "Immutable values, managed change",
+      "concepts": ["immutability", "stm"],
       "dialect": "Clojure 1.12",
       "code": ";; Values never change: \"updating\" returns a new version that shares\n;; structure with the old one.\n(def v1 {:lang \"Clojure\" :hosts [\"JVM\"]})\n(def v2 (update v1 :hosts conj \"JS\"))\n(prn v1)\n(prn v2)\n\n;; Identities that do change are explicit references. Here: STM refs,\n;; updated by 10 threads in coordinated, retrying transactions.\n(def checking (ref 1000))\n(def savings  (ref 0))\n(let [workers (doall (for [_ (range 10)]\n                       (future (dotimes [_ 100]\n                                 (dosync (alter checking dec)\n                                         (alter savings inc))))))]\n  (run! deref workers))\n(println @checking @savings (+ @checking @savings))\n(shutdown-agents)\n",
       "expected_output": "{:lang \"Clojure\", :hosts [\"JVM\"]}\n{:lang \"Clojure\", :hosts [\"JVM\" \"JS\"]}\n0 1000 1000\n",

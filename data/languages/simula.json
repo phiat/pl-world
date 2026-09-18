@@ -79,7 +79,8 @@
     "eiffel",
     "clu",
     "pascal",
-    "ada"
+    "ada",
+    "object-pascal"
   ],
   "traits": {
     "structured-control": {
@@ -201,6 +202,7 @@
     },
     "signature": {
       "title": "Objects as coroutines (Detach / Resume)",
+      "concepts": ["coroutines", "classes"],
       "dialect": "Simula 67 (Simula Standard 1986 as accepted by GNU Cim)",
       "code": "Begin\n    ! Every Simula object can be a coroutine: Detach suspends it,\n      Resume transfers control to another object where it left off;\n    Class Player(Who); Text Who;\n    Begin\n        Ref(Player) Other;\n        Integer I;\n        Detach;\n        For I := 1 Step 1 Until 3 Do\n        Begin\n            OutText(Who); OutInt(I, 2); OutImage;\n            Resume(Other)\n        End\n    End;\n\n    Ref(Player) Ping, Pong;\n    Ping :- New Player(\"Ping\");\n    Pong :- New Player(\"Pong\");\n    Ping.Other :- Pong;\n    Pong.Other :- Ping;\n    Resume(Ping);\n    OutText(\"Done\"); OutImage\nEnd;\n",
       "expected_output": "Ping 1\nPong 1\nPing 2\nPong 2\nPing 3\nPong 3\nDone\n",

@@ -88,7 +88,8 @@
   "influenced": [
     "fsharp",
     "rust",
-    "scala"
+    "scala",
+    "gleam"
   ],
   "traits": {
     "structured-control": {
@@ -297,6 +298,7 @@
     },
     "signature": {
       "title": "Effect handlers: resumable, user-defined effects",
+      "concepts": ["effect-handlers"],
       "dialect": "OCaml 5.3+",
       "code": "(* OCaml 5 effect handlers: declare an effect, perform it, handle it. *)\ntype _ Effect.t += Yield : int -> unit Effect.t\n\n(* An ordinary loop that yields values: no callbacks, threads or monads. *)\nlet squares n =\n  for i = 1 to n do\n    Effect.perform (Yield (i * i))\n  done\n\n(* The handler decides what Yield means, then resumes the paused loop. *)\nlet () =\n  let total = ref 0 in\n  match squares 5 with\n  | () -> Printf.printf \"total = %d\\n\" !total\n  | effect Yield x, k ->\n      Printf.printf \"got %d\\n\" x;\n      total := !total + x;\n      Effect.Deep.continue k ()\n",
       "expected_output": "got 1\ngot 4\ngot 9\ngot 16\ngot 25\ntotal = 55\n",

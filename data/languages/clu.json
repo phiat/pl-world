@@ -244,6 +244,7 @@
     },
     "signature": {
       "title": "Clusters: data abstraction with signals",
+      "concepts": ["abstract-data-types", "exceptions"],
       "dialect": "CLU (Portable CLU 3.7)",
       "code": "% A cluster is an abstract data type: its representation (rep) is hidden,\n% and only the listed operations can touch it. cvt crosses the boundary.\nstack = cluster [t: type] is create, push, pop\n    rep = array[t]\n\n    create = proc () returns (cvt)\n        return(rep$new())\n    end create\n\n    push = proc (s: cvt, x: t)\n        rep$addh(s, x)\n    end push\n\n    pop = proc (s: cvt) returns (t) signals (empty)\n        return(rep$remh(s))\n            except when bounds: signal empty end\n    end pop\nend stack\n\nstart_up = proc ()\n    po: stream := stream$primary_output()\n    s: stack[string] := stack[string]$create()\n    stack[string]$push(s, \"abstraction\")\n    stack[string]$push(s, \"data\")\n    while true do\n        stream$putl(po, stack[string]$pop(s))\n    end except when empty: stream$putl(po, \"empty!\") end\nend start_up\n",
       "expected_output": "data\nabstraction\nempty!\n",

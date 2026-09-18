@@ -88,19 +88,15 @@
       "kind": "influence",
       "weight": "minor",
       "note": "Listed by Wikipedia; as in BCPL, line ends can terminate statements, so semicolons rarely appear in source."
+    },
+    {
+      "id": "oberon",
+      "kind": "influence",
+      "weight": "major",
+      "note": "The Go FAQ credits the Pascal/Modula/Oberon family with significant input (declarations, packages). Per Donovan & Kernighan, Oberon removed the interface/implementation file split, Oberon-2 shaped package, import and declaration syntax, and Object Oberon supplied the method-receiver syntax. Co-designer Robert Griesemer did his doctorate under Mössenböck and Wirth at ETH Zurich."
     }
   ],
   "influenced_by_external": [
-    {
-      "name": "Oberon",
-      "year": 1987,
-      "note": "Removed the split between module interface and implementation files, as Go does."
-    },
-    {
-      "name": "Oberon-2",
-      "year": 1991,
-      "note": "Syntax for packages, imports and declarations (Donovan & Kernighan)."
-    },
     {
       "name": "Object Oberon",
       "note": "Syntax for method declarations with receivers (Donovan & Kernighan)."
@@ -131,7 +127,8 @@
     }
   ],
   "influenced": [
-    "zig"
+    "zig",
+    "gleam"
   ],
   "traits": {
     "structured-control": {
@@ -295,6 +292,7 @@
     },
     "signature": {
       "title": "Goroutines and channels: a concurrent prime sieve",
+      "concepts": ["csp-channels"],
       "dialect": "Go 1",
       "code": "package main\n\nimport \"fmt\"\n\n// Concurrent prime sieve: a chain of goroutines linked by channels,\n// one filter goroutine per prime found so far.\nfunc generate(ch chan<- int) {\n\tfor i := 2; ; i++ {\n\t\tch <- i\n\t}\n}\n\nfunc filter(in <-chan int, out chan<- int, prime int) {\n\tfor n := range in {\n\t\tif n%prime != 0 {\n\t\t\tout <- n\n\t\t}\n\t}\n}\n\nfunc main() {\n\tch := make(chan int)\n\tgo generate(ch)\n\tvar primes []int\n\tfor i := 0; i < 10; i++ {\n\t\tprime := <-ch\n\t\tprimes = append(primes, prime)\n\t\tnext := make(chan int)\n\t\tgo filter(ch, next, prime)\n\t\tch = next\n\t}\n\tfmt.Println(primes)\n}\n",
       "expected_output": "[2 3 5 7 11 13 17 19 23 29]\n",

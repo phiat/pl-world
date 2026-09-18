@@ -55,7 +55,7 @@
   "influenced_by_external": [
     {"name": "Mesa", "year": 1976, "note": "Listed among C++'s influences (exceptions and modularity)."}
   ],
-  "influenced": ["java", "csharp", "rust", "python", "perl", "php", "lua", "ruby", "zig"],
+  "influenced": ["java", "csharp", "rust", "python", "perl", "php", "lua", "ruby", "zig", "dart", "nim"],
   "traits": {
     "structured-control": {"level": "core"},
     "block-scope": {"level": "core"},

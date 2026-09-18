@@ -2,6 +2,7 @@ import { HttpError, page } from "fresh";
 import { define } from "../../utils.ts";
 import CodeWindow from "../../islands/CodeWindow.tsx";
 import { DnaStrip } from "../../components/DnaStrip.tsx";
+import { PageHead } from "../../components/PageHead.tsx";
 import { LangChip } from "../../components/LangChip.tsx";
 import {
   byId,
@@ -9,6 +10,7 @@ import {
   closestByTraits,
   concepts,
   type Language,
+  languages,
   laterInfluencesOf,
   parentsOf,
   tasks,
@@ -30,7 +32,7 @@ const chip = (id: string, extra?: string) => {
   return <LangChip key={id} id={id} name={l.name} family={l.family} extra={extra} />;
 };
 
-export default define.page<typeof handler>(function LanguagePage({ data: { lang: l, task } }) {
+export default define.page<typeof handler>(function LanguagePage({ data: { lang: l, task }, url }) {
   const parents = parentsOf(l.id).sort((a, b) => (a.weight > b.weight ? 1 : -1));
   const kids = childrenOf(l.id).sort((a, b) => byId.get(a.child)!.year - byId.get(b.child)!.year);
   const later = laterInfluencesOf(l.id);
@@ -38,7 +40,7 @@ export default define.page<typeof handler>(function LanguagePage({ data: { lang:
   const t0 = l.runtime.toolchains[0];
   return (
     <section class="wrap lang-page" style={`--lc:${famColor(l.family)}`}>
-      <title>{`${l.name} · PL World`}</title>
+      <PageHead title={l.name} description={`${l.name} (${l.year}): ${l.tagline}`} url={url} />
       <div class="pl-head">
         <span class="eyebrow">{FAMILY[l.family]?.label} family · {l.year}</span>
         <h2>
@@ -139,7 +141,7 @@ export default define.page<typeof handler>(function LanguagePage({ data: { lang:
           <div class="chips">
             {kids.length
               ? kids.map((e) => chip(e.child, String(byId.get(e.child)!.year)))
-              : <span class="note">None among these 50</span>}
+              : <span class="note">None among these {languages.length}</span>}
           </div>
         </div>
         <div class="pl-sec">

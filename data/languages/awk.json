@@ -1,0 +1,160 @@
+{
+  "id": "awk",
+  "name": "AWK",
+  "aliases": ["awk", "nawk", "new awk", "oawk", "POSIX awk"],
+  "year": 1977,
+  "year_note": "Written at Bell Labs in 1977 and distributed with Version 7 Unix (1979). The much-extended 'new awk' (begun 1985, public in UNIX System V Release 3.1 in 1987) is the language of the 1988 book and of the POSIX standard, and the one shown here.",
+  "designers": ["Alfred Aho", "Peter Weinberger", "Brian Kernighan"],
+  "organization": "Bell Labs",
+  "country": "United States",
+  "tagline": "The pattern-action language of the Unix pipeline: input split into fields for free, associative arrays, one-line reports.",
+  "summary": "AWK is a small, interpreted, data-driven language for scanning and transforming text. A program is a list of pattern { action } rules run against every input line, which arrives already split into fields $1..$NF; variables need no declarations, values are strings and numbers at once, and the associative array is the only data structure. Named after its Bell Labs authors Aho, Weinberger and Kernighan, it became a standard Unix utility required by POSIX and a direct ancestor of Perl.",
+  "history": "Alfred Aho, Peter Weinberger and Brian Kernighan wrote AWK at Bell Labs in 1977; the name is their initials. Kernighan has said that one goal was a tool that could handle numbers as easily as strings, and that a pattern-searching language by Marc Rochkind was an inspiration. AWK joined the line-at-a-time, pattern-directed model of sed and grep (Aho had written egrep) to C-like expressions, automatic field splitting and associative arrays, and was implemented with yacc. Distributed with Version 7 Unix and described in Software: Practice and Experience in 1979, it gave the Unix pipeline a computational tool alongside the Bourne shell.\n\nFrom 1985 the authors substantially extended the language, adding user-defined functions, input from several streams through getline, dynamic regular expressions, delete, do-while, the ?: operator and built-ins such as sub, gsub and match. This 'new awk' (nawk), incompatible with the original in places, became widely available with UNIX System V Release 3.1 (1987) and was documented in 'The AWK Programming Language' (1988). System V Release 4 (1989) added ENVIRON, the -v option and toupper/tolower, and the POSIX standard (1992) pinned the language down with feedback from both the Bell Labs and the GNU implementers.\n\nPaul Rubin began GNU Awk (gawk) in 1986; maintained by Arnold Robbins since about 1994, it is widely deployed on GNU/Linux and adds many extensions. Mike Brennan's mawk and BusyBox awk are other independent implementations, while Kernighan's own code, released as free software in the 1990s and nicknamed 'the One True AWK', is the awk of macOS, the BSDs and Android. In 2023 Aho, Kernighan and Weinberger published a second edition of their book, together with a One True AWK that handles UTF-8 and CSV input.",
+  "innovations": [
+    "The pattern { action } program: an implicit loop reads each input record, tests every pattern and runs the matching actions, with BEGIN and END rules for setup and summaries (sed's model grown into a programming language)",
+    "Automatic field splitting: each record arrives as $1..$NF, with NR, NF, FS and OFS as built-in variables",
+    "Associative arrays as the everyday (and only) data structure, created on first use; Perl 1.0 took them up under the same name, and Lua's designers credit SNOBOL and AWK for their tables",
+    "Regular-expression literals (/re/) and the ~ and !~ match operators inside an expression language; Perl and JavaScript adopted the slash-delimited literals, and Perl the tilde",
+    "Values that are strings and numbers at once, converted by context, a coercion Lua's designers say they took from AWK",
+    "Made the one-line program typed at the shell prompt a standard Unix way to extract data and produce reports"
+  ],
+  "paradigms": ["scripting", "procedural", "imperative"],
+  "family": "scripting",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "No declarations. A scalar is a number, a string or both (a 'strnum', such as an input field that looks numeric), converted implicitly by each operator: `x + 0` forces a number and `x \"\"` a string, and a comparison is numeric only when both sides are numbers or numeric-looking input. Arrays and scalars are separate kinds. Wikipedia's infobox gives AWK's typing as 'none'."
+  },
+  "memory": "reference-counting",
+  "memory_note": "Fully automatic, with no pointers or references to manage: strings have value semantics, and arrays can be passed to functions (by reference) but not assigned, returned or nested in POSIX awk, so no cycles can form. gawk and mawk share strings through reference counts; the One True AWK copies strings and frees them when they are overwritten or deleted.",
+  "execution": ["interpreted"],
+  "status": "maintained",
+  "latest_version": "POSIX.1-2024; One True AWK 20260426; gawk 5.4.1",
+  "file_extensions": [".awk"],
+  "color": "#c30e9b",
+  "primary_parent": "c",
+  "influenced_by": [
+    { "id": "c", "kind": "influence", "weight": "major", "note": "Expression syntax and operators (with C's precedence from 1985), if/while/for, printf, and the braces of actions and functions." }
+  ],
+  "influenced_by_external": [
+    { "name": "sed", "year": 1974, "note": "The line-at-a-time, pattern-directed processing model, and /regex/ addresses inherited from ed." },
+    { "name": "egrep", "note": "Alfred Aho's extended regular expressions, the syntax AWK's patterns use." },
+    { "name": "SNOBOL", "year": 1962, "note": "String processing; listed among AWK's influences. SNOBOL4's tables were an earlier form of associative array." }
+  ],
+  "influenced": ["perl", "lua", "javascript"],
+  "traits": {
+    "structured-control": { "level": "core", "note": "if/else, while, for, for (key in array) and do-while, plus `next` (skip to the next record) and `exit`." },
+    "recursion": { "level": "core", "since": 1985, "version": "new awk (nawk)", "note": "User-defined functions arrived in 1985. Scalars are passed by value and arrays by reference; extra parameters serve as local variables, since every other variable is global." },
+    "regex-builtin": { "level": "core", "note": "/re/ literals as patterns and operands, the ~ and !~ operators, regexes in split, sub, gsub and match, and FS as a regex; the syntax is egrep's extended regular expressions (POSIX ERE)." }
+  },
+  "milestones": [
+    { "year": 1977, "event": "AWK written at Bell Labs by Aho, Weinberger and Kernighan" },
+    { "year": 1979, "event": "Ships with Version 7 Unix; paper in Software: Practice and Experience" },
+    { "year": 1985, "event": "Work on 'new awk' begins: user-defined functions, getline, dynamic regular expressions" },
+    { "year": 1986, "event": "Paul Rubin begins GNU Awk (gawk)" },
+    { "year": 1987, "event": "New awk ships in UNIX System V Release 3.1" },
+    { "year": 1988, "event": "'The AWK Programming Language' published" },
+    { "year": 1989, "event": "System V Release 4 awk adds ENVIRON, -v and toupper/tolower" },
+    { "year": 1992, "event": "awk standardized in POSIX (Command Language and Utilities)" },
+    { "year": 2023, "event": "Second edition of the AWK book; the One True AWK gains UTF-8 and CSV input" }
+  ],
+  "trivia": [
+    "The name is pronounced like 'auk', the seabird drawn on the cover of 'The AWK Programming Language'.",
+    "The gawk manual opens its history of AWK with a recipe: one part egrep, one part snobol, two parts ed and three parts C, blended with lex and yacc.",
+    "Perl 1.0's manual page (1987) pitched Perl at problems that 'would ordinarily use sed or awk or sh' but exceeded their capabilities, and Perl shipped with a2p, a translator from awk to Perl.",
+    "Brendan Eich has said that JavaScript's eight-letter `function` keyword came from AWK."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "POSIX awk (One True AWK)",
+      "code": "BEGIN { print \"Hello, World!\" }\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "A program made only of BEGIN rules runs before any input is read and then exits, so the input file the runner passes is never opened. `print` ends its output with ORS, a newline by default.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "POSIX awk (One True AWK)",
+      "code": "function factorial(n) {\n    return n <= 1 ? 1 : n * factorial(n - 1)\n}\n\nBEGIN { print factorial(10) }\n",
+      "expected_output": "3628800\n",
+      "notes": "User-defined functions arrived with 'new awk' in 1985; in the 1977 awk this would have been a loop. All numbers are double-precision floats, exact for integers up to 2^53. A call to a user-defined function allows no space before the parenthesis, since juxtaposition means concatenation.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "POSIX awk (One True AWK)",
+      "code": "BEGIN {\n    for (i = 1; i <= 15; i++) {\n        s = (i % 3 ? \"\" : \"Fizz\") (i % 5 ? \"\" : \"Buzz\")   # side by side = concatenated\n        print (s == \"\" ? i : s)\n    }\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "AWK has no concatenation operator: expressions placed side by side are joined, so the Fizz and Buzz parts combine into one string. `i % 3` is 0, which is false, for multiples of 3. The ?: operator arrived with new awk in 1985.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "POSIX awk (One True AWK)",
+      "code": "# No lists and no first-class functions: the built-in sequence is the record.\n# Assigning to $0 splits a string into fields $1..$NF; one loop filters and maps.\nBEGIN {\n    $0 = \"1 2 3 4 5 6 7 8 9 10\"\n    for (i = 1; i <= NF; i++)\n        if ($i % 2 == 0) {\n            out = out sep $i * $i     # juxtaposition concatenates; * binds tighter\n            sep = \" \"\n        }\n    print out\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "On real input the same job is a pattern (the filter) plus an action (the map), one number per line: `seq 10 | awk '$1 % 2 == 0 { printf \"%s%d\", sep, $1 * $1; sep = \" \" } END { print \"\" }'`. `split(s, arr)` is the other way to turn a string into an array. POSIX awk cannot pass functions as values; gawk 4.0 (2011) added indirect calls, `@name(args)`, where `name` holds a function's name as a string.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "POSIX awk (One True AWK)",
+      "code": "# A shape is a record whose first field names its type; rules dispatch on it.\n# The program reads its own source as input (awk -f main.awk main.awk), and\n# the data are the lines that begin with \"#>\".\n#> Rectangle 3 4\n#> Triangle 10 3\n\n$0 !~ /^#> / { next }                  # skip the program's own lines\n             { $0 = substr($0, 4) }    # drop the marker; assigning $0 re-splits fields\n\n$1 == \"Rectangle\" { area = $2 * $3 }        # width * height\n$1 == \"Triangle\"  { area = $2 * $3 / 2 }    # base * height / 2\n                  { printf \"%s: %d\\n\", $1, area }\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "AWK has no structs, objects or first-class functions: data are records and fields, and a rule's pattern does the dispatch. The runner calls `awk -f main.awk main.awk`, so the program reads its own source; the `#>` lines are comments to the parser and data to the rules. Assigning to $0 (new in 1985) re-splits the record into fields. A function could instead dispatch with an if chain on the type, and in gawk an indirect call (`fn = \"area_\" $1; @fn($2, $3)`) could choose a function by name.",
+      "verified": true
+    },
+    "signature": {
+      "title": "pattern { action }",
+      "concepts": ["regex-builtin"],
+      "dialect": "POSIX awk (One True AWK)",
+      "code": "# pattern { action }: each rule runs on every input line its pattern matches,\n# with the line already split into fields $1..$NF. The program reads its own\n# source (awk -f main.awk main.awk); the data are the \"#>\" lines: region,\n# product, units sold.\n#> north  widget  12\n#> south  gadget   7\n#> north  gadget   3\n#> east   widget   9\n#> south  widget   5\n\n$0 !~ /^#> / { next }                  # skip the program's own lines\n             { $0 = substr($0, 4) }    # drop the marker; assigning $0 re-splits it\n!seen[$1]++  { region[++n] = $1 }      # first sighting of a region, in input order\n             { units[$1] += $3; total += $3 }\n/widget/     { widgets += $3 }         # a regular expression is a pattern too\nEND {\n    for (i = 1; i <= n; i++)\n        printf \"%-6s %3d\\n\", region[i], units[region[i]]\n    printf \"total  %3d (widgets %d)\\n\", total, widgets\n}\n",
+      "expected_output": "north   15\nsouth   12\neast     9\ntotal   36 (widgets 26)\n",
+      "notes": "Every input line is tested against each pattern in turn. `!seen[$1]++` is true only the first time a key appears (the post-increment returns the old count, 0), the classic AWK dedupe idiom; it records regions in input order because `for (key in array)` order is unspecified. Array elements, counters and totals spring into existence on first use as 0 or \"\". As in the shapes snippet, the program reads its own source (`awk -f main.awk main.awk`) and treats the `#>` comment lines as data; with a real file this would be `awk -f report.awk sales.txt`.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "The One True AWK (BWK awk)",
+        "version": "20260426",
+        "docker_image": "plw-awk",
+        "install": "Multi-stage build on alpine:3.24: apk add build-base bison git; git clone --branch 20260426 https://github.com/onetrueawk/awk; make; copy a.out to /usr/local/bin/awk in a plain alpine:3.24 image and remove BusyBox's awk link",
+        "run": "awk -f {file} {file}",
+        "notes": "The source file is also passed as the input file, because the run step's stdin is /dev/null: pattern-action programs can carry their data as comment lines, and programs with only BEGIN rules never read it. Builds in about 10 seconds; the image is about 9 MB.",
+        "dockerfile": "sandbox/awk/Dockerfile"
+      },
+      {
+        "name": "GNU Awk (gawk)",
+        "version": "5.2.1",
+        "run": "gawk --posix -f {file} {file}",
+        "notes": "All six snippets give identical output under gawk --posix 5.2.1, mawk 1.3.4 and BusyBox 1.37 awk."
+      }
+    ],
+    "browser": { "name": "AWK live editor (mawk compiled with Emscripten)", "url": "https://awk.js.org/", "notes": "A hobby site that runs mawk client-side; not packaged as a reusable library (snippets not verified against it)." },
+    "notes": "The One True AWK is Kernighan's implementation, the version described in the AWK book and the awk of macOS and the BSDs. Running `awk -f main.awk main.awk` lets pattern-action programs process their own source, so the snippets that need input embed it as `#>` comment lines."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/AWK",
+    "homepage": "https://awk.dev/",
+    "spec": "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/AWK",
+    "https://doi.org/10.1002/spe.4380090403",
+    "https://www.gnu.org/software/gawk/manual/html_node/History.html",
+    "https://www.gnu.org/software/gawk/manual/html_node/V7_002fSVR3_002e1.html",
+    "https://www.gnu.org/software/gawk/manual/html_node/SVR4.html",
+    "https://www.gnu.org/software/gawk/manual/html_node/POSIX.html",
+    "https://www.gnu.org/software/gawk/manual/html_node/Feature-History.html",
+    "https://github.com/onetrueawk/awk",
+    "https://awk.dev/",
+    "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/awk.html",
+    "https://www.lua.org/doc/hopl.pdf",
+    "https://github.com/Perl/perl5/blob/perl-1.0/perl.man.1",
+    "https://en.wikipedia.org/wiki/JavaScript",
+    "https://en.wikipedia.org/wiki/Grep"
+  ]
+}

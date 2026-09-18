@@ -54,7 +54,7 @@
     { "name": "Icon", "year": 1977, "note": "Generators (PEP 255)." },
     { "name": "Dylan", "year": 1992, "note": "The C3 method resolution order adopted in Python 2.3." }
   ],
-  "influenced": ["ruby", "javascript", "go", "fsharp", "julia", "swift"],
+  "influenced": ["ruby", "javascript", "go", "fsharp", "julia", "swift", "nim"],
   "traits": {
     "structured-control": { "level": "core", "note": "Loops also take an `else` clause; there is no goto." },
     "block-scope": { "level": "supported", "note": "Scopes are per function, class and comprehension, not per block; nested functions are lexically scoped (LEGB rule)." },
@@ -142,6 +142,7 @@
     },
     "signature": {
       "title": "Generators and comprehensions",
+      "concepts": ["generators", "list-comprehensions"],
       "dialect": "Python 3",
       "code": "from itertools import count, islice\n\n\ndef primes():\n    \"\"\"An infinite generator: each value is computed only when asked for.\"\"\"\n    found = []\n    for n in count(2):\n        if all(n % p for p in found if p * p <= n):\n            found.append(n)\n            yield n\n\n\nfirst = list(islice(primes(), 10))\nprint(first)\n\n# Comprehensions for lists, dicts and sets read like set-builder notation.\nprint({p: p ** 2 for p in first if p % 4 == 1})\nprint([(a, b) for a, b in zip(first, first[1:]) if b - a == 2])\nprint(sum(p for p in first if p > 10))\n",
       "expected_output": "[2, 3, 5, 7, 11, 13, 17, 19, 23, 29]\n{5: 25, 13: 169, 17: 289, 29: 841}\n[(3, 5), (5, 7), (11, 13), (17, 19)]\n112\n",

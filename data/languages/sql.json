@@ -205,6 +205,7 @@
     },
     "signature": {
       "title": "Say what, not how",
+      "concepts": ["declarative-queries"],
       "dialect": "SQL:1999 (SQLite 3.46, PostgreSQL 18)",
       "code": "-- Data lives in relations (tables); a query states WHAT to find,\n-- and the engine's planner decides HOW (join order, indexes...).\nCREATE TABLE language  (name VARCHAR(20) PRIMARY KEY, year INTEGER);\nCREATE TABLE influence (parent VARCHAR(20), child VARCHAR(20));\n\nINSERT INTO language VALUES\n  ('Lisp', 1958), ('ML', 1973), ('Scheme', 1975),\n  ('Miranda', 1985), ('Haskell', 1990), ('OCaml', 1996);\nINSERT INTO influence VALUES\n  ('Lisp', 'ML'), ('Lisp', 'Scheme'), ('ML', 'Miranda'), ('ML', 'Haskell'),\n  ('ML', 'OCaml'), ('Miranda', 'Haskell'), ('Scheme', 'Haskell');\n\n-- Which languages influenced at least two others, and when was the first?\nSELECT p.name, COUNT(*) AS children, MIN(c.year) AS first_child\nFROM language p\nJOIN influence i ON i.parent = p.name\nJOIN language c  ON c.name = i.child\nGROUP BY p.name\nHAVING COUNT(*) >= 2\nORDER BY children DESC, p.name;\n",
       "expected_output": "ML|3|1985\nLisp|2|1973\n",

@@ -120,6 +120,7 @@
     },
     "signature": {
       "title": "defmacro: code that writes code",
+      "concepts": ["macros"],
       "dialect": "ANSI Common Lisp",
       "code": ";; DEFMACRO: a function from code to code, run at compile time.\n;; Paul Graham's anaphoric IF deliberately captures the symbol IT --\n;; something a hygienic macro system would not let you do.\n(defmacro aif (test then &optional else)\n  `(let ((it ,test))\n     (if it ,then ,else)))\n\n;; The expansion is just a list, so we can print it...\n(let ((*print-pretty* nil))\n  (format t \"~S~%\" (macroexpand-1 '(aif (assoc :b alist) (cdr it) :none))))\n\n;; ...and use the new control structure like a built-in.\n(let ((alist '((:a . 1) (:b . 2))))\n  (format t \"~S~%\" (aif (assoc :b alist) (cdr it) :none)))\n",
       "expected_output": "(LET ((IT (ASSOC :B ALIST))) (IF IT (CDR IT) :NONE))\n2\n",

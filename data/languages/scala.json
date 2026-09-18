@@ -354,6 +354,7 @@
     },
     "signature": {
       "title": "Type classes with givens",
+      "concepts": ["type-classes"],
       "dialect": "Scala 3.9",
       "code": "// A type class: behaviour attached to types from the outside.\ntrait Show[A]:\n  extension (a: A) def show: String\n\ncase class Point(x: Int, y: Int)\n\n// Instances are `given`s; the compiler finds them by type.\ngiven Show[Int]:\n  extension (n: Int) def show = n.toString\n\ngiven Show[Point]:\n  extension (p: Point) def show = s\"Point(${p.x.show}, ${p.y.show})\"\n\n// A conditional instance: Show[List[A]] exists whenever Show[A] does.\ngiven [A: Show] => Show[List[A]]:\n  extension (xs: List[A]) def show = xs.map(_.show).mkString(\"[\", \", \", \"]\")\n\ndef describe[A: Show](label: String, value: A): String = s\"$label = ${value.show}\"\n\n@main def demo(): Unit =\n  println(describe(\"ints\", List(1, 2, 3)))\n  println(describe(\"points\", List(Point(1, 2), Point(3, 4))))\n  println(describe(\"nested\", List(List(1), List(2, 3))))\n",
       "expected_output": "ints = [1, 2, 3]\npoints = [Point(1, 2), Point(3, 4)]\nnested = [[1], [2, 3]]\n",

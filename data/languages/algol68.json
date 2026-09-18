@@ -187,6 +187,7 @@
     },
     "signature": {
       "title": "User-defined operators and priorities",
+      "concepts": ["operator-overloading"],
       "dialect": "ALGOL 68 Revised Report (Algol 68 Genie, UPPER stropping)",
       "code": "MODE VEC = STRUCT (INT x, y);\n\n# New meanings for old operators... #\nOP + = (VEC a, b) VEC: (x OF a + x OF b, y OF a + y OF b);\nOP * = (INT k, VEC v) VEC: (k * x OF v, k * y OF v);\n\n# ...and brand-new operators with a declared priority #\nPRIO DOT = 7;\nOP DOT = (VEC a, b) INT: x OF a * x OF b + y OF a * y OF b;\nOP SHOW = (VEC v) STRING:\n   \"(\" + whole(x OF v, 0) + \", \" + whole(y OF v, 0) + \")\";\n\nVEC p = (1, 2), q = (3, 4);\nprint((SHOW (p + 2 * q), newline));\nprint((whole(p DOT q + 1, 0), newline))   # DOT binds tighter than + #\n",
       "expected_output": "(7, 10)\n12\n",

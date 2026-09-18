@@ -1,0 +1,443 @@
+{
+  "id": "dart",
+  "name": "Dart",
+  "aliases": [
+    "Dash",
+    "dartlang"
+  ],
+  "year": 2011,
+  "year_note": "An internal Google memo of November 2010 proposed the language under the code name Dash; Dart was unveiled as a technical preview at the GOTO conference in Aarhus on 10 October 2011, and Dart 1.0, the first stable SDK, followed on 14 November 2013.",
+  "designers": [
+    "Lars Bak",
+    "Kasper Lund"
+  ],
+  "organization": "Google",
+  "country": "Denmark",
+  "tagline": "Google's would-be JavaScript replacement that became Flutter's language: sound null safety, isolates, JIT hot reload and AOT native code.",
+  "summary": "Dart is a class-based, garbage-collected language with C-style syntax, created at Google for structured web applications and now best known as the language of the Flutter UI toolkit. Its type system has been soundly static since Dart 2 (2018), with local type inference and, since 2021, sound null safety; Dart 3 (2023) added records, pattern matching and sealed class hierarchies. The same code can run on a JIT-compiling virtual machine with stateful hot reload during development, be compiled ahead of time to native machine code, or be compiled to JavaScript or WebAssembly for browsers. Concurrency combines Futures and Streams on a single-threaded event loop with share-nothing isolates.",
+  "history": "Dart grew out of a November 2010 internal Google memo that proposed, alongside continued work on JavaScript itself, a new language code-named Dash whose goal was 'ultimately to replace JavaScript as the lingua franca of web development on the open web platform'. It was designed by Lars Bak, who had led the development of Chrome's V8 JavaScript engine, and Kasper Lund at Google in Aarhus, Denmark; Bak and Gilad Bracha unveiled it at the GOTO conference there on 10 October 2011 as a class-based, optionally typed language for 'structured web programming' that ran either on its own virtual machine or compiled to JavaScript. Critics argued that plans to build the Dart VM into Chrome would fragment the web. Dart 1.0 shipped on 14 November 2013, Ecma standardized the language as ECMA-408 in 2014, and Dart 1.9 (March 2015) added async/await, sync* and async* generators and enums. That same month Google dropped the plan to integrate the VM into Chrome and focused on compiling Dart to JavaScript.\n\nDart found its main role in Flutter, Google's cross-platform UI toolkit (first released in 2017, 1.0 in December 2018), which uses the VM's JIT compiler for stateful hot reload during development and ahead-of-time native compilation for release builds. Dart 2 (August 2018) replaced the original unsound optional types with a sound static type system and type inference. Features aimed at UI code and native platforms followed: collection if/for and spreads in literals (2.3, 2019), self-contained native executables (2.6), extension methods (2.7), and sound null safety in Dart 2.12 (March 2021), which the package ecosystem adopted library by library.\n\nDart 3 (May 2023) made null safety mandatory and added records, patterns with exhaustive switch expressions, and class modifiers such as sealed, final, base and interface. Later releases added extension types (3.3), compilation to WebAssembly (3.4, 2024), dot shorthands (3.10, 2025) and primary constructors (3.13, August 2026), while an experimental macro system was abandoned in January 2025 after about two years of prototyping.",
+  "innovations": [
+    "Stateful hot reload: the Dart VM loads changed libraries into a running program while keeping its state, the signature workflow of Flutter development",
+    "One language for a JIT-compiling VM during development and ahead-of-time native compilation for release, plus compilation to JavaScript and WebAssembly for browsers",
+    "Sound null safety retrofitted onto an established language and package ecosystem, migrated library by library through per-library language versions (2.12, 2021)",
+    "Isolates: share-nothing, actor-style concurrency units, each with its own memory and event loop, in a mainstream C-family language",
+    "Asynchronous generators (async*) and await for loops over Streams, alongside async/await and sync* generators, as language features since Dart 1.9 (2015)",
+    "Method cascades (..) adopted from Smalltalk, and collection if/for and spreads inside collection literals (2.3) for declarative UI code"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "object-oriented",
+    "imperative",
+    "functional",
+    "reflective"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Sound static typing since Dart 2 (2018), enforced by static checks plus run-time checks; Dart 1 had optional, unsound type annotations. Types are non-nullable by default since 2.12 (mandatory since 3.0), and `dynamic` opts out of static checking. Generics are reified and covariant. Classes are nominal, but records (3.0) and function types are structural."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Generational garbage collection in the Dart VM and AOT runtime; code compiled for the web relies on the JavaScript engine's collector or on WasmGC.",
+  "execution": [
+    "jit",
+    "native-compiled",
+    "transpiled"
+  ],
+  "status": "active",
+  "latest_version": "3.13.4 (September 2026)",
+  "file_extensions": [
+    ".dart"
+  ],
+  "color": "#00B4AB",
+  "primary_parent": "javascript",
+  "influenced_by": [
+    {
+      "id": "javascript",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Conceived (as 'Dash', 2010) to replace JavaScript on the web while keeping its dynamic, no-compile-step workflow; designed by V8's lead developer, it shares JavaScript's single-threaded event-loop model of asynchrony and compiles to JavaScript (dart2js) to run in browsers."
+    },
+    {
+      "id": "java",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Listed by Wikipedia. The familiar class model and surface syntax: type-before-name declarations, class/extends/implements with single inheritance, generics, static members and exceptions."
+    },
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Method cascades (..) come from Smalltalk (Bracha, 2012); every value is an object, operators are methods, and unhandled messages go to noSuchMethod, much like Smalltalk's doesNotUnderstand:."
+    },
+    {
+      "id": "erlang",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Isolates follow the actor model of Erlang processes: no shared memory, communication only by message passing."
+    },
+    {
+      "id": "csharp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; Dart's null-safety design borrowed C#'s rule that a null-aware operator short-circuits the rest of a method chain (Nystrom, 'Understanding null safety')."
+    },
+    {
+      "id": "ruby",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia, which credits Ruby (with Strongtalk) as an influence on Dart's mixins."
+    },
+    {
+      "id": "self",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "dart:mirrors follows the mirror-based reflection that Gilad Bracha and David Ungar described in 2004, first implemented in Self; Lars Bak had worked on the Self virtual machine."
+    },
+    {
+      "id": "c",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; C-style statements, operators and braces."
+    },
+    {
+      "id": "cpp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; constructor initializer lists (`: x = 0`) and `operator` method declarations resemble C++."
+    },
+    {
+      "id": "swift",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia. Swift (2014) postdates Dart, so any influence is on later versions; the Dart 3 patterns specification notes that its null-check pattern (`case var s?`) uses the same syntax as Swift."
+    },
+    {
+      "id": "typescript",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia, whose citation (the Dart team's October 2012 post welcoming TypeScript) describes two parallel efforts to bring optional static types to web development rather than a specific borrowing."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Strongtalk",
+      "year": 1993,
+      "note": "Listed by Wikipedia. An optionally typed Smalltalk by Gilad Bracha and David Griswold whose high-performance VM Lars Bak helped build at Animorphic Systems (1994–1997); Dart 1's optional types echo it, and Wikipedia also credits it for Dart's mixins."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if/else, for, for-in, while, do and switch; switch expressions and if-case since Dart 3.0; labelled break/continue."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "try/on/catch/finally, throw and rethrow; any non-null object can be thrown, and there are no checked exceptions."
+    },
+    "coroutines": {
+      "level": "supported",
+      "since": 2015,
+      "version": "Dart 1.9",
+      "note": "async functions and sync*/async* generators are compiler-transformed, stackless (one-level) coroutines; there is no general coroutine API."
+    },
+    "generators": {
+      "level": "core",
+      "since": 2015,
+      "version": "Dart 1.9",
+      "note": "sync* functions yield lazy Iterables and async* functions yield Streams; yield* delegates to another sequence."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "since": 2023,
+      "version": "Dart 3.0",
+      "note": "Patterns in switch statements and expressions, if-case and destructuring declarations: record, list, map, object, null-check and relational patterns with guards, and exhaustiveness checking over sealed types and enums."
+    },
+    "static-typing": {
+      "level": "core",
+      "since": 2018,
+      "version": "Dart 2.0",
+      "note": "Dart 1 was optionally typed: annotations produced only static warnings and were enforced at run time only in a development 'checked mode'. Dart 2 made the type system sound."
+    },
+    "type-inference": {
+      "level": "core",
+      "since": 2018,
+      "version": "Dart 2.0",
+      "note": "Local inference for var/final variables, generic type arguments, closure parameters from context, and fields and overriding method signatures from initializers and supertypes."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Reified generic classes and methods: type arguments exist at run time and can be tested (`is List<int>`). Generic classes are covariant, with run-time checks where that could be unsound."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "since": 2023,
+      "version": "Dart 3.0",
+      "note": "Sealed classes with final subclasses act as closed sum types checked for exhaustiveness in switches, and records are anonymous, structurally typed product types."
+    },
+    "option-types": {
+      "level": "core",
+      "since": 2021,
+      "version": "Dart 2.12",
+      "note": "Sound null safety: T is non-nullable and T? admits null, with ?., ??, ! and flow-based type promotion. Mandatory since Dart 3.0 (2023)."
+    },
+    "gradual-typing": {
+      "level": "supported",
+      "note": "The `dynamic` type switches off static checking for a value, deferring member lookup and type checks to run time. Dart 1 instead used optional typing, in which annotations did not affect run-time behaviour."
+    },
+    "structural-typing": {
+      "level": "supported",
+      "since": 2023,
+      "version": "Dart 3.0",
+      "note": "Only for record types and function types; classes and interfaces are nominal."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Every class implicitly defines an interface that any other class can `implements`; the `interface` modifier (Dart 3.0) makes a class implementable but not extendable outside its library."
+    },
+    "classes": {
+      "level": "core",
+      "note": "Named and factory constructors, getters and setters; the class modifiers base, final, interface, sealed and mixin arrived in Dart 3.0, and primary constructors in 3.13."
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Single inheritance of classes, combined with mixins and implicit interfaces."
+    },
+    "everything-is-an-object": {
+      "level": "supported",
+      "note": "Every value, including numbers, functions and null, is an object and operators are method calls; control flow is built-in syntax rather than message sending."
+    },
+    "traits-mixins": {
+      "level": "core",
+      "note": "Mixins applied with `with`; dedicated `mixin` declarations (with `on` superclass constraints) since Dart 2.1 (2018)."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Privacy is per library: identifiers starting with _ are invisible outside their library; getters and setters hide representation, and extension types (Dart 3.3) give a zero-cost static interface over a hidden representation."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Every file is a library with import/export, show/hide combinators, prefixes and deferred loading; pub packages group libraries."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Instance methods declared with `operator` for a fixed set of operators (+, ==, [], ~/ and others); no new symbols."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Functions are objects; arrow (=>) syntax, anonymous functions, and method and constructor tear-offs (2.15)."
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "final and const bindings, deeply immutable canonicalized const objects, immutable records and unmodifiable collections; mutability is the default."
+    },
+    "list-comprehensions": {
+      "level": "core",
+      "since": 2019,
+      "version": "Dart 2.3",
+      "note": "Collection for and if inside list, set and map literals: [for (var x in xs) if (x.isEven) x * x]."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "Iterable operations such as where and map, and sync* generators, are lazy; `late` variables with initializers are evaluated on first use. Evaluation is otherwise strict."
+    },
+    "garbage-collection": {
+      "level": "core"
+    },
+    "pointers": {
+      "level": "library",
+      "since": 2021,
+      "version": "Dart 2.12",
+      "note": "dart:ffi's Pointer<T> and native allocation (malloc/calloc from package:ffi) for C interop on native platforms; not used in ordinary code."
+    },
+    "actors": {
+      "level": "core",
+      "note": "All Dart code runs in isolates, each with its own memory, global fields and event loop, communicating only through ports (dart:isolate); Isolate.run (2.19) runs a function in a new isolate. Not available on the web."
+    },
+    "async-await": {
+      "level": "core",
+      "since": 2015,
+      "version": "Dart 1.9",
+      "note": "Built on the Future and Stream APIs; async* generators and await for handle asynchronous sequences."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "dart:mirrors works only on the JIT-mode VM, not in AOT-compiled (including Flutter) or web code; elsewhere reflection is limited to runtimeType and type tests, and code generation replaces it."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "note": "Constant expressions and const constructors are evaluated and canonicalized at compile time; code generation is done by build_runner generators, and the planned macro feature was cancelled in 2025."
+    },
+    "hot-code-reload": {
+      "level": "core",
+      "note": "The JIT-mode VM reloads changed libraries into a running isolate while preserving its state, which powers Flutter's stateful hot reload; not available in AOT-compiled release builds."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "The RegExp class in dart:core, with JavaScript-compatible syntax; there are no regex literals."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2010,
+      "event": "Internal Google memo proposes 'Dash', a new language to eventually replace JavaScript on the web (November)"
+    },
+    {
+      "year": 2011,
+      "event": "Dart unveiled at GOTO Aarhus (10 October)"
+    },
+    {
+      "year": 2013,
+      "event": "Dart 1.0, the first stable SDK (14 November)"
+    },
+    {
+      "year": 2014,
+      "event": "Ecma publishes the first edition of the ECMA-408 Dart standard"
+    },
+    {
+      "year": 2015,
+      "event": "Dart 1.9 adds async/await and sync*/async* generators; plan to ship the Dart VM in Chrome dropped (March)"
+    },
+    {
+      "year": 2018,
+      "event": "Dart 2: sound static type system with inference (August); Flutter 1.0 (December)"
+    },
+    {
+      "year": 2019,
+      "event": "Dart 2.3 adds collection if/for and spreads; Dart 2.6 compiles to native executables"
+    },
+    {
+      "year": 2021,
+      "event": "Dart 2.12: sound null safety; dart:ffi becomes stable (March)"
+    },
+    {
+      "year": 2023,
+      "event": "Dart 3: mandatory null safety, records, patterns and class modifiers (May)"
+    },
+    {
+      "year": 2024,
+      "event": "Dart 3.3 adds extension types; Dart 3.4 compiles to WebAssembly"
+    },
+    {
+      "year": 2025,
+      "event": "Work on macros stopped (January); Dart 3.10 adds dot shorthands (November)"
+    },
+    {
+      "year": 2026,
+      "event": "Dart 3.13 adds primary constructors (August)"
+    }
+  ],
+  "trivia": [
+    "The leaked 2010 memo that proposed the language called it Dash and stated that its goal was 'ultimately to replace JavaScript as the lingua franca of web development on the open web platform'.",
+    "Ecma's ECMA-408 standard stopped at its 4th edition (December 2015), which describes Dart 1; later versions of the language are specified in the Dart team's own specification drafts.",
+    "Lars Bak left Google in 2017 and co-founded Toit with Kasper Lund, a startup building an Internet-of-things platform and a programming language of the same name."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Dart 3.13",
+      "code": "void main() {\n  print('Hello, World!');\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Execution starts at a top-level main(); print writes a line to standard output. Single and double quotes are interchangeable.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Dart 3.13",
+      "code": "int factorial(int n) => n <= 1 ? 1 : n * factorial(n - 1);\n\nvoid main() {\n  print(factorial(10));\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "An arrow (=>) body is shorthand for a single returned expression. int is a 64-bit integer on native platforms; when compiled to JavaScript it is a JavaScript number, exact only up to 2^53.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Dart 3.13",
+      "code": "void main() {\n  for (var i = 1; i <= 15; i++) {\n    // A switch expression over a record of remainders (Dart 3 patterns).\n    final word = switch ((i % 3, i % 5)) {\n      (0, 0) => 'FizzBuzz',\n      (0, _) => 'Fizz',\n      (_, 0) => 'Buzz',\n      _ => '$i',\n    };\n    print(word);\n  }\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "The record (i % 3, i % 5) is matched against record patterns in a Dart 3 switch expression; _ is a wildcard, and '$i' is string interpolation. Before Dart 3 this would be an if/else-if chain.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Dart 3.13",
+      "code": "void main() {\n  final numbers = List.generate(10, (i) => i + 1);\n\n  // where = filter; both return lazy Iterables, forced by join.\n  final squares = numbers.where((n) => n.isEven).map((n) => n * n);\n  print(squares.join(' '));\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "where and map are lazy; join iterates the pipeline once. A collection-for literal (Dart 2.3) builds the same list: [for (var n = 1; n <= 10; n++) if (n.isEven) n * n].",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Dart 3.13",
+      "code": "sealed class Shape {}\n\nfinal class Rectangle extends Shape {\n  final int width, height;\n  Rectangle(this.width, this.height);\n}\n\nfinal class Triangle extends Shape {\n  final int base, height;\n  Triangle(this.base, this.height);\n}\n\n// Shape is sealed, so the compiler checks that this switch is exhaustive.\nint area(Shape shape) => switch (shape) {\n  Rectangle(:final width, :final height) => width * height,\n  Triangle(:final base, :final height) => base * height ~/ 2,\n};\n\nvoid main() {\n  print('Rectangle: ${area(Rectangle(3, 4))}');\n  print('Triangle: ${area(Triangle(10, 3))}');\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "sealed (Dart 3.0) limits direct subclasses to the same library, so the switch needs no default case, and adding a new Shape makes it a compile error. Rectangle(:final width, :final height) is an object pattern that tests the type and binds getters; ~/ is integer division. The classic object-oriented form, an abstract class with an `int get area` overridden in each subclass, is equally idiomatic, and Dart 3.13's primary constructors shorten each subclass to one line: final class Rectangle(final int width, final int height) extends Shape;",
+      "verified": true
+    },
+    "signature": {
+      "title": "Isolates and async streams",
+      "concepts": [
+        "actors",
+        "async-await",
+        "generators"
+      ],
+      "dialect": "Dart 3.13",
+      "code": "import 'dart:isolate';\n\nvar calls = 0; // top-level state: each isolate has its own copy\n\nint fib(int n) {\n  calls++;\n  return n < 2 ? n : fib(n - 1) + fib(n - 2);\n}\n\n// async* returns a Stream: values arrive over time, consumed with await for.\nStream<String> results(List<int> inputs) async* {\n  for (final n in inputs) {\n    // Run the closure in a fresh isolate; only the result comes back, as a message.\n    final (value, count) = await Isolate.run(() => (fib(n), calls));\n    yield 'fib($n) = $value after $count calls in its isolate';\n  }\n}\n\nFuture<void> main() async {\n  await for (final line in results([10, 20])) {\n    print(line);\n  }\n  print('calls made in the main isolate: $calls');\n}\n",
+      "expected_output": "fib(10) = 55 after 177 calls in its isolate\nfib(20) = 6765 after 21891 calls in its isolate\ncalls made in the main isolate: 0\n",
+      "notes": "Each isolate has its own copy of top-level variables, so the worker isolates' increments of `calls` never reach the main isolate: isolates share no mutable state and communicate only by messages. Isolate.run (Dart 2.19) spawns an isolate, runs the closure there and completes a Future with its result. results is an async* generator whose Stream is consumed with await for, and final (value, count) destructures a Dart 3 record. Isolates exist only on native platforms, not when Dart is compiled for the web.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Dart SDK (JIT VM)",
+        "version": "3.13.4",
+        "docker_image": "dart:3.13",
+        "run": "dart {file}",
+        "notes": "Official Docker image. `dart {file}` compiles the source to kernel in memory and runs it on the JIT VM in about 0.15 s, and writes nothing outside /src, so it also works with a read-only root filesystem. `dart run {file}` goes through the dartdev CLI, which first writes analytics settings to $HOME/.dart-tool (it fails on a read-only root unless HOME=/tmp) and is slightly slower; `dart compile exe {file} -o {out}` AOT-compiles a native executable in about 0.7 s more."
+      }
+    ],
+    "browser": null,
+    "notes": "DartPad (dartpad.dev) runs Dart and Flutter code in the browser, but compilation happens on a hosted backend service (dart_services); the compilers do not run client-side. Isolates are unavailable when Dart is compiled to JavaScript or WebAssembly."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+    "homepage": "https://dart.dev/",
+    "spec": "https://dart.dev/resources/language/spec"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Dart_(programming_language)",
+    "https://developers.googleblog.com/2011/10/dart-language-for-structured-web.html",
+    "https://www.theregister.com/2011/09/14/google_project_kill_javascript/",
+    "https://www.infoworld.com/article/2306152/google-dart-aims-to-supplant-fundamentally-flawed-javascript.html",
+    "https://news.dartlang.org/2012/02/method-cascades-in-dart-posted-by-gilad.html",
+    "https://news.dartlang.org/2012/10/the-dart-team-welcomes-typescript.html",
+    "https://news.dartlang.org/2013/11/dart-10-stable-sdk-for-structured-web.html",
+    "https://news.dartlang.org/2015/03/dart-19-release-youve-been-await-ing-for.html",
+    "https://news.dartlang.org/2015/03/dart-for-entire-web.html",
+    "https://www.ecma-international.org/publications-and-standards/standards/ecma-408/",
+    "https://dart.dev/resources/language/evolution",
+    "https://github.com/dart-lang/sdk/blob/stable/CHANGELOG.md",
+    "https://dart.dev/null-safety/understanding-null-safety",
+    "https://github.com/dart-lang/language/blob/main/accepted/3.0/patterns/feature-specification.md",
+    "https://dart.dev/language/type-system",
+    "https://dart.dev/language/generics",
+    "https://dart.dev/language/concurrency",
+    "https://dart.dev/blog/an-update-on-dart-macros-data-serialization",
+    "https://docs.flutter.dev/tools/hot-reload",
+    "https://en.wikipedia.org/wiki/Flutter_(software)",
+    "https://en.wikipedia.org/wiki/Lars_Bak_(computer_programmer)",
+    "https://en.wikipedia.org/wiki/Strongtalk",
+    "https://github.com/dart-lang/dart-pad"
+  ]
+}

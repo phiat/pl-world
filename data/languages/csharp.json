@@ -93,14 +93,15 @@
       "kind": "influence",
       "weight": "minor",
       "note": "yield-based iterators (C# 2.0) descend from CLU's iterators."
+    },
+    {
+      "id": "object-pascal",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Hejlsberg's Delphi: native properties ('Delphi was the first product I worked on to natively support properties, and then that got carried over to C#'), events, and bound method pointers that became delegates (via Visual J++), within a component-oriented design."
     }
   ],
   "influenced_by_external": [
-    {
-      "name": "Delphi (Object Pascal)",
-      "year": 1995,
-      "note": "Hejlsberg's earlier language: properties, events and component-oriented design."
-    },
     {
       "name": "Visual J++",
       "year": 1996,
@@ -126,7 +127,10 @@
     "kotlin",
     "rust",
     "swift",
-    "typescript"
+    "typescript",
+    "object-pascal",
+    "dart",
+    "nim"
   ],
   "traits": {
     "structured-control": {
@@ -386,6 +390,7 @@
     },
     "signature": {
       "title": "async/await",
+      "concepts": ["async-await"],
       "dialect": "C# 14 (.NET 10 file-based app)",
       "code": "// async/await: asynchronous code written in direct style.\nvar slow = FetchAsync(\"slow\", delayMs: 300, value: 40);\nvar fast = FetchAsync(\"fast\", delayMs: 50, value: 2);\n\nint[] results = await Task.WhenAll(slow, fast);   // both run concurrently\nConsole.WriteLine($\"total = {results.Sum()}\");\n\nstatic async Task<int> FetchAsync(string name, int delayMs, int value)\n{\n    Console.WriteLine($\"{name}: started\");\n    await Task.Delay(delayMs);        // suspends without blocking a thread\n    Console.WriteLine($\"{name}: done\");\n    return value;\n}\n",
       "expected_output": "slow: started\nfast: started\nfast: done\nslow: done\ntotal = 42\n",
@@ -421,6 +426,8 @@
   "sources": [
     "https://en.wikipedia.org/wiki/C_Sharp_(programming_language)",
     "https://en.wikipedia.org/wiki/CLU_(programming_language)",
-    "https://github.com/MicrosoftLearning/c-sharp-minor"
+    "https://github.com/MicrosoftLearning/c-sharp-minor",
+    "https://web.archive.org/web/2010/http://www.computerworld.com.au/article/261958/a-z_programming_languages_c_/?pp=2",
+    "https://web.archive.org/web/20120627043929/http://java.sun.com/docs/white/delegates.html"
   ]
 }

@@ -1,0 +1,278 @@
+{
+  "id": "oberon",
+  "name": "Oberon",
+  "aliases": [
+    "Oberon-2",
+    "Oberon-07",
+    "Revised Oberon"
+  ],
+  "year": 1987,
+  "year_note": "Wirth drafted the first ideas in 1985, and the language was fully defined in early 1986 in close cooperation with Jürg Gutknecht; the report appeared as an ETH Zurich technical report in 1987 and in Software—Practice and Experience in July 1988, with a revised report in 1990. The Oberon operating system written in it was released in 1989. Oberon-2 (Mössenböck and Wirth) followed in 1991, and Wirth's own final revision, Oberon-07, was defined in 2007 and last revised in 2016.",
+  "designers": [
+    "Niklaus Wirth",
+    "Jürg Gutknecht"
+  ],
+  "organization": "ETH Zurich",
+  "country": "Switzerland",
+  "tagline": "Wirth's distillation of Modula-2: a 16-page report, garbage collection, and record type extension as its one big new idea.",
+  "summary": "Oberon is Niklaus Wirth's successor to Modula-2, designed with Jürg Gutknecht at ETH Zurich as the language of the Oberon operating system and workstation. It pursued simplicity by subtraction, dropping variant records, enumerations, subranges and separate definition modules, and added one major feature: type extension, which lets a record type extend another and makes heterogeneous, extensible data structures type-safe through run-time type tests and guards. Garbage collection, module-qualified imports and a SYSTEM pseudo-module that fences off low-level code complete a language whose report runs to about 16 pages. Its revisions Oberon-2 (1991) and Oberon-07 (2007–2016) carried the design on, and the Oberon line shaped the declarations, packages and method syntax of Go.",
+  "history": "During a second sabbatical at Xerox PARC in 1984–85, Niklaus Wirth met the Cedar system, whose windowed, command-driven style of work inspired him while its complexity appalled him; his ETH colleague Jürg Gutknecht spent the summer of 1985 at PARC as well. Back in Zurich the two set out to build a comparable system from scratch for the Ceres workstation, together with a language that would increase the power of Modula-2 while reducing its complexity. Wirth drafted the first ideas in 1985 and, with Gutknecht, fully defined the language in early 1986, deriving the first compiler from his single-pass Modula-2 compiler to generate NS32032 code. The language was published in 1987, and the Oberon system, which Wirth and Gutknecht programmed in their spare time over more than two years, was released in 1989 and documented in full in the book Project Oberon (1992).\n\nThe design worked by subtraction. Variant records (whose omittable tag let programs breach the type system), enumerations, subranges, general set types, unqualified imports and type-transfer functions were removed, and in 1988 separate definition modules were merged into the module text, with exported names simply marked by an asterisk. Wirth counted only two additions: type inclusion among the numeric types, and type extension, which together with procedure-typed record fields gives an object-oriented style without classes. Oberon became the language of ETH's introductory courses in 1990 and was ported to x86, 68000, SPARC, MIPS and POWER processors in the early 1990s.\n\nIn 1991 Hanspeter Mössenböck and Wirth published Oberon-2, a redesign of the experimental Object Oberon that added type-bound procedures (methods), read-only export and the FOR loop; its descendants include Component Pascal and Active Oberon. Robert Griesemer, who did his doctorate at ETH under Mössenböck and Wirth, later co-designed Go, whose FAQ credits the Pascal/Modula/Oberon family for its declarations and packages. Wirth's own final revision, Oberon-07 (2007, last revised 2016), removed LOOP, EXIT and WITH, made a function's RETURN part of its declaration and imported variables read-only, and became the language of Project Oberon 2013, which Wirth and Paul Reed rebuilt on an FPGA board around a RISC processor of Wirth's own design.",
+  "innovations": [
+    "Type extension: a record type declared as RECORD (Base) … END inherits its base's fields and is assignment-compatible with it, giving single inheritance in a Pascal-family language without a class construct",
+    "Run-time type tests (v IS T) and checked type guards (v(T)) that make heterogeneous and extensible data structures type-safe, replacing Pascal's and Modula-2's unchecked variant records",
+    "Extensible message records dispatched by a single handler procedure, the Oberon system's way to add operations to existing objects without changing their modules",
+    "Export marks (*) on declarations instead of separate definition modules, with every imported identifier qualified by its module name (Out.String)",
+    "Radical minimalism: a language report of about 16 pages, and a whole system (compiler, editor and window system) in under 200 KB that compiled itself in under 40 seconds",
+    "Garbage collection as a requirement of a statically typed language used to write an entire operating system"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured",
+    "object-oriented"
+  ],
+  "family": "algol",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "Record and pointer types are compatible by name, but a variable of a base type may hold any extension of it; the dynamic type is checked at run time by type tests (v IS T) and type guards (v(T)), which trap on failure. Array indices and NIL dereferences are checked at run time, and unsafe operations require importing the SYSTEM pseudo-module."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "NEW allocates and there is no DISPOSE. Wirth made a single global garbage collector part of the Oberon system, arguing that watertight type safety is its prerequisite; OBNC uses the Boehm–Demers–Weiser collector.",
+  "execution": [
+    "native-compiled",
+    "transpiled"
+  ],
+  "status": "maintained",
+  "latest_version": "Oberon-07 (report revision of 3 May 2016)",
+  "file_extensions": [
+    ".Mod",
+    ".obn",
+    ".ob2"
+  ],
+  "color": "#6b8cae",
+  "primary_parent": "modula2",
+  "influenced_by": [
+    {
+      "id": "modula2",
+      "kind": "successor",
+      "weight": "major",
+      "note": "Wirth set out to increase Modula-2's power while reducing its complexity; the first Oberon compiler was derived from his single-pass Modula-2 compiler."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Cedar",
+      "note": "Xerox PARC's Cedar system, met on Wirth's 1984–85 sabbatical, inspired the Oberon operating system the language was built for, as an example of both what to do and what not to do."
+    },
+    {
+      "name": "Mesa",
+      "year": 1976,
+      "note": "Via Modula-2: Wirth describes Oberon's modules as a further simplification of Mesa's module machinery."
+    },
+    {
+      "name": "Object Oberon",
+      "note": "Experimental ETH extension with classes and methods; Oberon-2 (1991) was its redesign."
+    }
+  ],
+  "influenced": [
+    "go",
+    "java",
+    "nim"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "IF/ELSIF, WHILE, REPEAT, CASE and FOR, each closed by END. FOR was absent from the 1987 language and reinstated by Oberon-2. Oberon-07 removed LOOP/EXIT, gave WHILE extra ELSIF guards (Dijkstra's form), allows CASE over extended types, and makes a function's RETURN the final clause of its body."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Nested procedures with lexical scope; in Oberon-07 a nested procedure sees its own locals and module-level objects, but not the variables of enclosing procedures."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Type extension: RECORD (Base) … END adds fields to a base record type; single inheritance only. Behaviour is attached through procedure-typed fields, or in Oberon-2 through type-bound procedures that extensions can override."
+    },
+    "classes": {
+      "level": "supported",
+      "note": "No class construct: Wirth presents a record with procedure-typed fields ('methods') as the object type. Oberon-2 (1991) binds procedures to record types, which comes close to classes; Oberon-07 did not adopt this."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Export marks decide visibility field by field, so a module can export a pointer type while keeping its fields private; imported variables are read-only in Oberon-07."
+    },
+    "modules": {
+      "level": "core",
+      "note": "The module is the unit of compilation and loading. Since 1988 one text per module, with export marks (*), replaces Modula-2's separate definition modules; import lists name modules only, so every imported identifier is qualified (Out.String), optionally through an alias (IMPORT T := Texts)."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Procedure types let procedures be stored and passed with checked signatures; only global procedures can be assigned, and there are no anonymous procedures or closures."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Required by the language's design: NEW has no counterpart for freeing memory."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "Typed POINTER TO record types (the 1990 language also allowed arrays) with implicit dereferencing (p.f) and NIL checks; no address arithmetic outside the SYSTEM pseudo-module (ADR, GET, PUT, VAL)."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1985,
+      "event": "After sabbaticals at Xerox PARC, Wirth and Gutknecht begin designing the Oberon language and system"
+    },
+    {
+      "year": 1986,
+      "event": "Language fully defined; the first compiler targets the NS32032-based Ceres workstation"
+    },
+    {
+      "year": 1987,
+      "event": "First published as an ETH Zurich technical report"
+    },
+    {
+      "year": 1988,
+      "event": "Separate definition modules merged into module texts, with exported names marked by *"
+    },
+    {
+      "year": 1989,
+      "event": "The Oberon operating system is released"
+    },
+    {
+      "year": 1990,
+      "event": "Revised language report; Oberon becomes the language of ETH's introductory courses"
+    },
+    {
+      "year": 1991,
+      "event": "Oberon-2 (Mössenböck and Wirth) adds type-bound procedures and reinstates FOR"
+    },
+    {
+      "year": 1992,
+      "event": "Project Oberon (Wirth and Gutknecht) publishes the complete system source"
+    },
+    {
+      "year": 1997,
+      "event": "Oberon microsystems' Oberon/L, an Oberon-2 dialect, is renamed Component Pascal"
+    },
+    {
+      "year": 2007,
+      "event": "Wirth defines Oberon-07, a revision of the original Oberon rather than of Oberon-2"
+    },
+    {
+      "year": 2013,
+      "event": "Project Oberon 2013: Wirth and Paul Reed rebuild the system in Oberon-07 on an FPGA with Wirth's RISC processor"
+    },
+    {
+      "year": 2016,
+      "event": "Final revision of the Oberon-07 report (3 May 2016)"
+    }
+  ],
+  "trivia": [
+    "Wirth named the project after the moon of Uranus that the Voyager probe photographed as the work began, as a tribute to a well-planned engineering project, and noted that Oberon is also the king of the elves.",
+    "Wirth recalled that the first Oberon report was only 16 pages long; the 1990 revision is also 16 pages.",
+    "The whole Oberon system, including its compiler, text editor and window system, occupied less than 200 KB of memory and compiled itself in under 40 seconds on a 25 MHz machine.",
+    "Wirth later wrote that merging a module's definition and implementation into one text 'may have been a mistake from the pedagogical point of view'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Oberon-07 (OBNC 0.17.2)",
+      "code": "MODULE Hello;\n  IMPORT Out;\nBEGIN\n  Out.String(\"Hello, World!\"); Out.Ln\nEND Hello.\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Out is a basic library module from the Oakwood guidelines, which OBNC implements. Import lists name modules only, so every imported name is qualified. The Oberon system itself has no main program: an exported parameterless procedure (e.g. Hello.Run*) is a command, run by clicking its name in any text, and output goes to the log through the Texts module.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Oberon-07 (OBNC 0.17.2)",
+      "code": "MODULE Factorial;\n  IMPORT Out;\n\n  PROCEDURE Fact(n: INTEGER): INTEGER;\n    VAR r: INTEGER;\n  BEGIN\n    IF n <= 1 THEN r := 1 ELSE r := n * Fact(n - 1) END\n    RETURN r                          (* the one RETURN closes the body *)\n  END Fact;\n\nBEGIN\n  Out.Int(Fact(10), 0); Out.Ln\nEND Factorial.\n",
+      "expected_output": "3628800\n",
+      "notes": "Oberon-07 makes RETURN part of the procedure body: a function has exactly one, at the very end, with no semicolon before it, so the result is computed into a local first. The 1987 language and Oberon-2 allowed RETURN statements anywhere, as in Modula-2. INTEGER is 32 bits in OBNC's default build.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Oberon-07 (OBNC 0.17.2)",
+      "code": "MODULE FizzBuzz;\n  IMPORT Out;\n  VAR i: INTEGER;\nBEGIN\n  FOR i := 1 TO 15 DO\n    IF i MOD 15 = 0 THEN Out.String(\"FizzBuzz\")\n    ELSIF i MOD 3 = 0 THEN Out.String(\"Fizz\")\n    ELSIF i MOD 5 = 0 THEN Out.String(\"Buzz\")\n    ELSE Out.Int(i, 0)\n    END;\n    Out.Ln\n  END\nEND FizzBuzz.\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "The 1987/1990 Oberon had no FOR statement, so the original would use a WHILE loop; Oberon-2 reinstated FOR and Oberon-07 kept it. Keywords are upper case and identifiers are case-sensitive, as in Modula-2.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Oberon-07 (OBNC 0.17.2)",
+      "code": "MODULE MapFilter;\n  IMPORT Out;\n\n  TYPE\n    Predicate = PROCEDURE (x: INTEGER): BOOLEAN;   (* procedure types *)\n    Mapping = PROCEDURE (x: INTEGER): INTEGER;\n\n  VAR xs: ARRAY 10 OF INTEGER; i: INTEGER;\n\n  PROCEDURE IsEven(x: INTEGER): BOOLEAN; RETURN ~ODD(x) END IsEven;\n  PROCEDURE Square(x: INTEGER): INTEGER; RETURN x * x END Square;\n\n  (* Open array parameter: any length; LEN gives it. Value arrays are read-only. *)\n  PROCEDURE FilterMap(a: ARRAY OF INTEGER; keep: Predicate; f: Mapping);\n    VAR i: INTEGER; first: BOOLEAN;\n  BEGIN\n    first := TRUE;\n    FOR i := 0 TO LEN(a) - 1 DO\n      IF keep(a[i]) THEN\n        IF ~first THEN Out.Char(\" \") END;\n        Out.Int(f(a[i]), 0); first := FALSE\n      END\n    END;\n    Out.Ln\n  END FilterMap;\n\nBEGIN\n  FOR i := 0 TO 9 DO xs[i] := i + 1 END;\n  FilterMap(xs, IsEven, Square)\nEND MapFilter.\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Procedure types make procedures first-class values without closures: only global procedures may be assigned or passed, and there are no anonymous procedures. ~ is NOT. The open array parameter takes an array of any length; in Oberon-07 structured value parameters are read-only, so they can be passed by reference without copying.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Oberon-07 (OBNC 0.17.2)",
+      "code": "MODULE Shapes;\n  IMPORT Out;\n\n  TYPE\n    Shape = POINTER TO ShapeDesc;\n    ShapeDesc = RECORD\n      area: PROCEDURE (s: Shape): INTEGER        (* a \"method\": a procedure-typed field *)\n    END;\n    Rectangle = POINTER TO RECORD (ShapeDesc) width, height: INTEGER END;  (* type extension *)\n    Triangle = POINTER TO RECORD (ShapeDesc) base, height: INTEGER END;\n\n  VAR r: Rectangle; t: Triangle;\n\n  PROCEDURE RectArea(s: Shape): INTEGER;\n    RETURN s(Rectangle).width * s(Rectangle).height    (* s(T) is a checked type guard *)\n  END RectArea;\n\n  PROCEDURE TriArea(s: Shape): INTEGER;\n    RETURN s(Triangle).base * s(Triangle).height DIV 2\n  END TriArea;\n\n  PROCEDURE Show(name: ARRAY OF CHAR; s: Shape);\n  BEGIN\n    Out.String(name); Out.String(\": \"); Out.Int(s.area(s), 0); Out.Ln\n  END Show;\n\nBEGIN\n  NEW(r); r.width := 3; r.height := 4; r.area := RectArea;\n  NEW(t); t.base := 10; t.height := 3; t.area := TriArea;\n  Show(\"Rectangle\", r); Show(\"Triangle\", t)\nEND Shapes.\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Oberon dropped Modula-2's variant records in favour of type extension: Rectangle and Triangle extend ShapeDesc, and a procedure-typed field acts as the method, called as s.area(s), which is the style Wirth gives for object-oriented programming in Oberon. Oberon-2 binds the procedure to the type instead, PROCEDURE (r: Rectangle) Area(): INTEGER, called as r.Area(), a receiver-first declaration style that resurfaced in Go's methods.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Type extension: messages that grow",
+      "concepts": [
+        "inheritance"
+      ],
+      "dialect": "Oberon-07 (OBNC 0.17.2)",
+      "code": "MODULE Messages;\n  IMPORT Out;\n\n  TYPE\n    Msg = RECORD END;                              (* an empty base type... *)\n    DrawMsg = RECORD (Msg) END;                    (* ...extended by new message types *)\n    MoveMsg = RECORD (Msg) dx, dy: INTEGER END;\n    Figure = RECORD x, y: INTEGER END;\n\n  VAR fig: Figure; draw: DrawMsg; move: MoveMsg;\n\n  (* One handler takes every message, even kinds added by later modules. *)\n  PROCEDURE Handle(VAR f: Figure; VAR m: Msg);\n  BEGIN\n    IF m IS MoveMsg THEN                           (* run-time type test *)\n      INC(f.x, m(MoveMsg).dx); INC(f.y, m(MoveMsg).dy)   (* type guard *)\n    ELSIF m IS DrawMsg THEN\n      Out.String(\"figure at \"); Out.Int(f.x, 0); Out.Char(\",\"); Out.Int(f.y, 0); Out.Ln\n    END                                            (* other messages are ignored *)\n  END Handle;\n\nBEGIN\n  fig.x := 1; fig.y := 2;\n  Handle(fig, draw);\n  move.dx := 3; move.dy := 4; Handle(fig, move);\n  Handle(fig, draw)\nEND Messages.\n",
+      "expected_output": "figure at 1,2\nfigure at 4,6\n",
+      "notes": "The message-handler pattern of the Oberon system. Messages are records extending a common base and are passed as VAR parameters, so their dynamic type travels with them. The handler tests it with IS and narrows it with a type guard, m(MoveMsg), which traps if wrong. A module written later can define new message types without touching this one. Oberon-07 can also dispatch with a type CASE (CASE m OF MoveMsg: … | DrawMsg: … END).",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "OBNC",
+        "version": "0.17.2",
+        "docker_image": "plw-oberon",
+        "dockerfile": "sandbox/oberon/Dockerfile",
+        "install": "curl -O https://miasap.se/obnc/downloads/obnc_0.17.2.tar.gz && ./build && ./install (needs gcc and libgc-dev)",
+        "compile": "obnc-build {file} {out}",
+        "run": "{out}",
+        "notes": "Karl Landström's Oberon-07 compiler, which translates each module to C and compiles it with gcc against the Boehm GC. OBNC requires a file to be named after its module, so obnc-build (baked into the image) copies the source to <Module>.Mod before calling obnc."
+      }
+    ],
+    "browser": {
+      "name": "Project Oberon RISC emulator (JavaScript)",
+      "url": "https://schierlm.github.io/OberonEmulator/",
+      "notes": "Michael Schierl's JavaScript port of Peter de Wachter's emulator runs Wirth's complete Project Oberon 2013 system, including its Oberon-07 compiler, in the browser. Programs there write to the system log through Texts rather than Out."
+    },
+    "notes": "Wirth's own compilers targeted the Ceres workstations (NS32000) and, from 2013, his RISC processor. For Oberon-2 code with type-bound procedures, the Vishap Oberon Compiler (voc) and the Oxford Oberon-2 Compiler are maintained alternatives; oberonjs is an unmaintained Oberon-07 to JavaScript compiler."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Oberon_(programming_language)",
+    "homepage": "https://people.inf.ethz.ch/wirth/Oberon/",
+    "spec": "https://people.inf.ethz.ch/wirth/Oberon/Oberon07.Report.pdf"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Oberon_(programming_language)",
+    "https://en.wikipedia.org/wiki/Oberon-2",
+    "https://en.wikipedia.org/wiki/Oberon_(operating_system)",
+    "https://free.oberon.org/files/Modula2_and_Oberon.pdf",
+    "https://people.inf.ethz.ch/wirth/ProjectOberon/PO.System.pdf",
+    "https://people.inf.ethz.ch/wirth/Oberon/Oberon.Report.pdf",
+    "https://people.inf.ethz.ch/wirth/Oberon/Oberon07.Report.pdf",
+    "https://people.inf.ethz.ch/wirth/Oberon/Oberon07.pdf",
+    "https://go.dev/doc/faq",
+    "https://en.wikipedia.org/wiki/Robert_Griesemer",
+    "https://en.wikipedia.org/wiki/Java_(programming_language)",
+    "https://nim-lang.org/faq.html",
+    "https://en.wikipedia.org/wiki/Component_Pascal",
+    "https://miasap.se/obnc/",
+    "https://github.com/schierlm/OberonEmulator"
+  ]
+}

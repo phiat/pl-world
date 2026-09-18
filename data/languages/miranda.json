@@ -229,6 +229,7 @@
     },
     "signature": {
       "title": "Lazy infinite lists",
+      "concepts": ["lazy-evaluation"],
       "dialect": "Miranda (mira 2.068)",
       "code": "|| Lazy evaluation: infinite lists are ordinary values, and only\n|| the part that is demanded ever gets computed.\n\nprimes = sieve [2..]\nsieve (p:x) = p : sieve [n | n <- x; n mod p ~= 0]\n\n|| Pythagorean triples: a ZF expression over an unbounded generator.\ntriples = [(a, b, c) | c <- [1..]; b <- [1..c]; a <- [1..b]; a*a + b*b = c*c]\n\nmain = lay [show (take 10 primes), show (take 4 triples)]\n",
       "expected_output": "[2,3,5,7,11,13,17,19,23,29]\n[(3,4,5),(6,8,10),(5,12,13),(9,12,15)]\n",

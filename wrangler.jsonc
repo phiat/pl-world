@@ -1,0 +1,12 @@
+// Cloudflare Workers deployment of the web app: read-only, since the sandbox runner stays local
+// (code windows show each snippet's recorded, verified output instead).
+//   deno task deploy        (builds, then `wrangler deploy`; CLOUDFLARE_API_TOKEN from .env or the environment)
+{
+  "name": "pl-world",
+  "main": "web/worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "directory": "web/_fresh/client" },
+  "version_metadata": { "binding": "CF_VERSION_METADATA" },
+  "observability": { "enabled": true }
+}

@@ -310,6 +310,7 @@
     },
     "signature": {
       "title": "Null safety in the type system",
+      "concepts": ["option-types"],
       "dialect": "Kotlin 2.4 (JVM)",
       "code": "// Nullability is part of the type: String is never null, String? may be.\ndata class User(val name: String, val email: String?)\n\n// An extension on a nullable receiver, using ?. (safe call) and ?: (elvis).\nfun User?.domain(): String = this?.email?.substringAfter('@') ?: \"(none)\"\n\nfun main() {\n    val users: List<User?> = listOf(User(\"ada\", \"ada@example.org\"), User(\"bob\", null), null)\n    for (u in users) println(\"${u?.name ?: \"nobody\"} -> ${u.domain()}\")\n\n    val email = users[0]?.email\n    // println(email.length)                 // compile error: email is String?\n    if (email != null) println(email.length)  // smart cast to String after the check\n\n    println(users[0]?.copy(name = \"lovelace\"))  // data classes get copy() and toString()\n}\n",
       "expected_output": "ada -> example.org\nbob -> (none)\nnobody -> (none)\n15\nUser(name=lovelace, email=ada@example.org)\n",

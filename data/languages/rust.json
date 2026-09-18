@@ -109,6 +109,12 @@
       "kind": "influence",
       "weight": "minor",
       "note": "Cited by Hoare among the older languages Rust drew on."
+    },
+    {
+      "id": "racket",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Rust 1.0's macro hygiene (libsyntax/ext/mtwt.rs) implemented the algorithm of 'Macros that work together' (Flatt, Culpepper, Darais and Findler, JFP 2012), a paper on Racket's macro expander; the Rust bibliography also lists it."
     }
   ],
   "influenced_by_external": [
@@ -171,7 +177,9 @@
   "influenced": [
     "swift",
     "zig",
-    "php"
+    "php",
+    "nim",
+    "gleam"
   ],
   "traits": {
     "structured-control": {
@@ -406,6 +414,7 @@
     },
     "signature": {
       "title": "Ownership and borrowing",
+      "concepts": ["ownership"],
       "dialect": "Rust 2024 edition",
       "code": "// Ownership: every value has one owner; borrows are checked at compile time.\nfn total_len(words: &[String]) -> usize {\n    words.iter().map(|w| w.len()).sum() // shared borrow: read-only\n}\n\nfn shout(words: &mut Vec<String>) {\n    for w in words.iter_mut() {\n        *w = w.to_uppercase(); // exclusive borrow: may mutate\n    }\n}\n\nfn consume(words: Vec<String>) -> String {\n    words.join(\"-\") // takes ownership; `words` is freed on return\n}\n\nfn main() {\n    let mut words = vec![String::from(\"own\"), String::from(\"borrow\")];\n    println!(\"{}\", total_len(&words));\n    shout(&mut words);\n    let joined = consume(words); // `words` is moved here...\n    // println!(\"{:?}\", words);  // ...so this line would not compile\n    println!(\"{joined}\");\n}\n",
       "expected_output": "9\nOWN-BORROW\n",
@@ -441,6 +450,7 @@
     "https://www.technologyreview.com/2023/02/14/1067869/rust-worlds-fastest-growing-programming-language/",
     "https://blog.rust-lang.org/2016/08/10/Shape-of-errors-to-come/",
     "https://foundation.rust-lang.org/news/2021-02-08-hello-world/",
-    "https://en.wikipedia.org/wiki/PHP"
+    "https://en.wikipedia.org/wiki/PHP",
+    "https://raw.githubusercontent.com/rust-lang/rust/1.0.0/src/libsyntax/ext/mtwt.rs"
   ]
 }

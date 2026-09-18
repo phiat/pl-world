@@ -1,0 +1,43 @@
+#!/bin/sh
+# gleam-run -- compile and run one Gleam module without network access.
+#
+#   gleam-run FILE            build and run FILE's main function
+#   gleam-run --build FILE    compile only (the sandbox's compile step)
+#   gleam-run --exec          run what --build compiled (the sandbox's run step)
+#
+# /opt/plw-gleam is a project whose dependencies (gleam_stdlib, gleam_erlang, gleam_otp) were downloaded
+# and compiled when the image was built. It is copied to /tmp with its build/ directory and timestamps
+# intact, so only the user's module (src/main.gleam) is compiled. Build output and diagnostics go to
+# stderr, leaving stdout to the program. Nothing is written outside /tmp.
+set -e
+dir=/tmp/plw-gleam
+export HOME=/tmp XDG_CACHE_HOME=/tmp/.cache ERL_CRASH_DUMP=/tmp/erl_crash.dump
+export ERL_INETRC="${ERL_INETRC:-/etc/plw-gleam.inetrc}"
+
+build() {
+  [ -f "$1" ] || { echo "gleam-run: no such file: $1" >&2; exit 2; }
+  rm -rf "$dir"
+  cp -a /opt/plw-gleam "$dir"
+  cp "$1" "$dir/src/main.gleam"
+  cd "$dir"
+  gleam build --no-print-progress >&2
+}
+
+# The same erl command `gleam run --module main` uses, minus its second pass over the build, which
+# would print every compiler warning again. Gleam's runtime-error report is always coloured, so ANSI
+# escapes are stripped from stderr; stdout is passed through untouched.
+run() {
+  [ -d "$dir/build" ] || { echo "gleam-run: nothing built; run gleam-run --build FILE first" >&2; exit 2; }
+  cd "$dir"
+  esc=$(printf '\033')
+  set -o pipefail
+  { erl -pa build/dev/erlang/*/ebin -eval 'plw@@main:run(main)' -noshell -extra 2>&1 >&3 3>&- \
+    | sed "s/$esc\[[0-9;]*m//g" >&2; } 3>&1
+}
+
+case "$1" in
+  --build) build "$2" ;;
+  --exec) run ;;
+  -*) echo "usage: gleam-run [--build] FILE | gleam-run --exec" >&2; exit 2 ;;
+  *) build "$1"; run ;;
+esac

@@ -192,6 +192,7 @@
     },
     "signature": {
       "title": "Stack words and an extensible compiler",
+      "concepts": ["concatenative"],
       "dialect": "Forth-2012 (Gforth 0.7.3)",
       "code": "\\ Words take and leave values on an implicit data stack.\n: square ( n -- n^2 )  dup * ;\n: cube   ( n -- n^3 )  dup square * ;\n5 cube . cr                     \\ 125\n1 2 3 .s cr                     \\ peek at the stack: <3> 1 2 3\n+ * . cr                        \\ 1 * (2 + 3)\n\n\\ CREATE ... DOES> makes a new *defining* word: the compiler is extensible.\n: counter ( \"name\" -- )  create 0 ,  does> ( -- n )  1 over +! @ ;\ncounter clicks\nclicks . clicks . clicks . cr   \\ each call bumps its own private cell\n",
       "expected_output": "125 \n<3> 1 2 3 \n5 \n1 2 3 \n",

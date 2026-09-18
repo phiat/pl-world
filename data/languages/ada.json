@@ -127,7 +127,8 @@
     "eiffel",
     "java",
     "python",
-    "ruby"
+    "ruby",
+    "nim"
   ],
   "traits": {
     "structured-control": {
@@ -318,6 +319,7 @@
     },
     "signature": {
       "title": "Strong types and range checks",
+      "concepts": ["static-typing"],
       "dialect": "Ada 95 (GNAT, -gnat2022)",
       "code": "with Ada.Text_IO; use Ada.Text_IO;\n\nprocedure Strong_Types is\n   type Celsius is range -273 .. 1_000;   -- a new integer type with its own range\n   type Floor   is range -2 .. 120;       -- also an integer, but a distinct type\n   type Day     is (Mon, Tue, Wed, Thu, Fri, Sat, Sun);\n   subtype Weekend is Day range Sat .. Sun;\n\n   Temp : Celsius := 20;\nbegin\n   --  Temp := Floor'(3);   -- rejected at compile time: Floor is not Celsius\n   for D in Weekend loop\n      Put_Line (Day'Image (D) & \" is day\" & Integer'Image (Day'Pos (D) + 1));\n   end loop;\n   Temp := Temp - 300;                    -- -280 is out of range: checked at run time\n   Put_Line (\"unreachable\" & Celsius'Image (Temp));\nexception\n   when Constraint_Error =>\n      Put_Line (\"Constraint_Error: Celsius must stay within -273 .. 1000\");\nend Strong_Types;\n",
       "expected_output": "SAT is day 6\nSUN is day 7\nConstraint_Error: Celsius must stay within -273 .. 1000\n",

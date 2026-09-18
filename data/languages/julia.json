@@ -135,6 +135,7 @@
     },
     "signature": {
       "title": "Multiple dispatch: new types plug into existing code",
+      "concepts": ["multiple-dispatch"],
       "dialect": "Julia 1.13",
       "code": "# A new number type: forward-mode automatic differentiation in a dozen lines.\nstruct Dual <: Number\n    val::Float64   # f(x)\n    der::Float64   # f'(x)\nend\n\n# Teach existing generic functions about Dual by adding methods.\nBase.:+(a::Dual, b::Dual) = Dual(a.val + b.val, a.der + b.der)\nBase.:*(a::Dual, b::Dual) = Dual(a.val * b.val, a.val * b.der + a.der * b.val)\nBase.sin(a::Dual) = Dual(sin(a.val), cos(a.val) * a.der)\nBase.convert(::Type{Dual}, x::Real) = Dual(x, 0)\nBase.promote_rule(::Type{Dual}, ::Type{<:Real}) = Dual\n\nderivative(f, x) = f(Dual(x, 1)).der\n\nf(x) = 3x^2 + 2x + 1               # written with no knowledge of Dual\nprintln(derivative(f, 2.0))         # 6x + 2 at x = 2\nprintln(derivative(sin, 0.0))       # cos(0): Base.sin now accepts Dual\n",
       "expected_output": "14.0\n1.0\n",

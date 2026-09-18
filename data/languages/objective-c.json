@@ -246,6 +246,7 @@
     },
     "signature": {
       "title": "Categories and dynamic messaging",
+      "concepts": ["reflection"],
       "dialect": "Objective-C 2.0 (Clang + GNUstep Foundation, manual retain/release)",
       "code": "#import <Foundation/Foundation.h>\n\n// A category adds methods to an existing class -- even Foundation's NSString.\n@interface NSString (Shouting)\n- (NSString *)shout;\n@end\n\n@implementation NSString (Shouting)\n- (NSString *)shout { return [[self uppercaseString] stringByAppendingString:@\"!\"]; }\n@end\n\nint main(void) {\n    @autoreleasepool {\n        NSString *s = @\"hello\";\n        printf(\"%s\\n\", [[s shout] UTF8String]);\n\n        // Selectors are values; the receiver decides at run time what a message means.\n        SEL sel = NSSelectorFromString(@\"shout\");\n        printf(\"%s\\n\", [[s performSelector:sel] UTF8String]);\n        printf(\"NSNumber responds to shout? %s\\n\", [@42 respondsToSelector:sel] ? \"YES\" : \"NO\");\n\n        // Messaging nil is legal: it does nothing and returns nil / 0.\n        NSString *nothing = nil;\n        printf(\"length of [nil shout]: %lu\\n\", (unsigned long)[[nothing shout] length]);\n    }\n    return 0;\n}\n",
       "expected_output": "HELLO!\nHELLO!\nNSNumber responds to shout? NO\nlength of [nil shout]: 0\n",

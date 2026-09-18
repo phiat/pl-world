@@ -22,7 +22,9 @@
     },
     "images": "deno run --allow-read --allow-run --allow-env runner/images.ts",
     "verify": "deno run --allow-read --allow-write=data/languages --allow-run=docker --allow-env runner/verify.ts",
-    "test": "deno test --allow-read --allow-run=docker --allow-env runner/"
+    "test": "deno test --allow-read --allow-run=docker --allow-env runner/",
+    "preview": "deno task --cwd web build && npx --yes wrangler@4 dev",
+    "deploy": "deno task --cwd web build && npx --yes wrangler@4 deploy"
   },
   "fmt": {
     "lineWidth": 120

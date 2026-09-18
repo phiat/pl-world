@@ -341,6 +341,7 @@
     },
     "signature": {
       "title": "Type classes and laziness",
+      "concepts": ["type-classes", "lazy-evaluation"],
       "dialect": "Haskell 2010 (GHC 9.14)",
       "code": "import Data.List (intercalate)\n\n-- A type class is an interface; types opt in with instances.\nclass Pretty a where\n  pretty :: a -> String\n\ninstance Pretty Bool where\n  pretty b = if b then \"yes\" else \"no\"\n\ninstance Pretty Integer where\n  pretty n = '#' : show n\n\n-- Instances compose: lists and pairs of Pretty things are Pretty.\ninstance Pretty a => Pretty [a] where\n  pretty xs = \"[\" ++ intercalate \", \" (map pretty xs) ++ \"]\"\n\ninstance (Pretty a, Pretty b) => Pretty (a, b) where\n  pretty (x, y) = \"<\" ++ pretty x ++ \" \" ++ pretty y ++ \">\"\n\n-- Laziness: an infinite list defined in terms of itself.\nfibs :: [Integer]\nfibs = 0 : 1 : zipWith (+) fibs (drop 1 fibs)\n\nmain :: IO ()\nmain = do\n  putStrLn (pretty (take 10 fibs))\n  putStrLn (pretty (zip [True, False, True] fibs))\n",
       "expected_output": "[#0, #1, #1, #2, #3, #5, #8, #13, #21, #34]\n[<yes #0>, <no #1>, <yes #1>]\n",

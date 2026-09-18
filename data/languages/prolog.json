@@ -246,6 +246,7 @@
     },
     "signature": {
       "title": "Facts, rules and backtracking",
+      "concepts": ["logic-unification"],
       "dialect": "ISO Prolog (SWI-Prolog 10)",
       "code": "% Facts: a small family tree.\nparent(tom, bob).\nparent(tom, liz).\nparent(bob, ann).\nparent(bob, pat).\nparent(pat, jim).\n\n% Rules: ancestor is the transitive closure of parent.\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).\n\n% Queries: backtracking enumerates every solution, in either direction.\nmain :-\n    write('Descendants of tom:'),\n    ( ancestor(tom, D), write(' '), write(D), fail ; nl ),\n    write('Ancestors of jim:'),\n    ( ancestor(A, jim), write(' '), write(A), fail ; nl ).\n",
       "expected_output": "Descendants of tom: bob liz ann pat jim\nAncestors of jim: pat tom bob\n",

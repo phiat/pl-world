@@ -1,0 +1,450 @@
+{
+  "id": "nim",
+  "name": "Nim",
+  "aliases": [
+    "Nimrod"
+  ],
+  "year": 2008,
+  "year_note": "Andreas Rumpf began the language, then called Nimrod, in 2005. Its compiler, first written in Pascal/Delphi, compiled itself for the first time in 2006, which Rumpf calls Nim's 'official birth year'; the first public release, Nimrod 0.6.0, followed on 22 August 2008. The language was renamed Nim with version 0.10.2 (December 2014); 1.0 came in September 2019 and 2.0 in August 2023.",
+  "designers": [
+    "Andreas Rumpf"
+  ],
+  "organization": "Nim Lang Team",
+  "tagline": "Python-like syntax over Pascal-family semantics: a statically typed systems language compiled via C, with AST macros from Lisp.",
+  "summary": "Nim is a statically typed, compiled, multi-paradigm language that generates C, C++, Objective-C or JavaScript and hands the result to an existing compiler. Its creator set out to combine Ada's strong type system and safety checks, Lisp's metaprogramming and Python's readable syntax: blocks are delimited by indentation, while templates and AST macros run inside the compiler. Memory is managed by deterministic reference counting with move semantics and a cycle collector (ORC), and an effect system tracks exceptions and side effects.",
+  "history": "Andreas Rumpf started Nim, then called Nimrod after the biblical king, in 2005 after an unsuccessful search for a suitable systems programming language. As he later put it, the C family (C, C++, Objective-C) was flexible but unsafe, while the Pascal family (Pascal, Modula-2, Modula-3, Ada, Oberon) was safer and compiled fast but had verbose syntax and little metaprogramming; Nimrod was to take Ada's type system and safety, Lisp's macros and Python's concise syntax, and compile to C for portability and optimisation. The first compiler was written in Pascal/Delphi. Rumpf wrote a translator, pas2nim, to convert it into Nimrod, and the compiler first compiled itself in 2006. The first public release, 0.6.0, followed in August 2008.\n\nThe language was renamed Nim, 'for marketing reasons' according to Rumpf, with version 0.10.2 in December 2014. That release also deprecated the Delphi-style 'T' and 'P' prefixes on type names. Nimble, the package manager created by Dominik Picheta, has shipped with the compiler since 0.12.0 (2015). Nim 1.0 (September 2019) introduced a backward-compatibility guarantee for the stable part of the language. Development is led by Rumpf with a community of volunteer contributors.\n\nNim was long garbage-collected, by default with deferred reference counting backed by a mark-and-sweep pass for cycles. Rumpf's 2017 essay 'Nim without GC', which cites ParaSail, C++ and Rust, proposed a design based on destructors and move semantics instead. It shipped as ARC in version 1.2 (2020), and in 1.4 later that year as ORC, which adds a cycle collector based on trial deletion. Nim 2.0 (August 2023) made ORC the default, added default values for object fields and forbidden effect tags, and took overloadable enums out of experimental status. The 2.2 series (from October 2024) made generics, typedesc and static types effectively stable.",
+  "innovations": [
+    "A macro system for a statically typed, indentation-based language: hygienic templates and AST macros that run in the compiler's VM on untyped or type-checked code, plus experimental term-rewriting macros",
+    "Compilation via C, C++, Objective-C or JavaScript, reusing mature C compilers for optimisation and portability and making FFI with those languages direct",
+    "ORC: deterministic, non-atomic reference counting with compiler-inferred moves and destructors, plus a trial-deletion cycle collector invoked only for types that may be cyclic",
+    "Memory management chosen per build (--mm:orc, arc, refc, markAndSweep, boehm, go or none) rather than fixed by the language",
+    "An effect system in which proc types record raised exceptions and user-defined tags, `func` promises compiler-checked freedom from side effects, and `forbids` rules effects out",
+    "Uniform function call syntax: `a.f(b)` and `f(a, b)` are the same call, so free procedures chain like methods"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "imperative",
+    "procedural",
+    "structured",
+    "object-oriented",
+    "functional",
+    "generic",
+    "metaprogramming",
+    "concurrent"
+  ],
+  "family": "algol",
+  "syntax_family": "offside",
+  "block_style": "indentation",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "mixed",
+    "notes": "The manual specifies structural equivalence for most types (tuples, procedure types, arrays, seqs) and name equivalence for objects, enums, distinct and generic types. `distinct` makes an incompatible copy of a type and subranges such as Natural are range-checked, both in the manner of Ada. Generic bodies are type-checked mainly at instantiation, as with C++ templates."
+  },
+  "memory": "reference-counting",
+  "memory_note": "Since 2.0 the default is ORC: ARC's non-atomic reference counting, with destructors and compiler-inferred moves that elide most count updates, plus a cycle collector based on trial deletion that only handles types that may be cyclic (an {.acyclic.} annotation opts a type out). Other strategies are chosen per build with --mm (arc, refc, markAndSweep, boehm, go, none), and untraced `ptr` memory is managed by hand with alloc/dealloc.",
+  "execution": [
+    "native-compiled",
+    "transpiled"
+  ],
+  "status": "active",
+  "latest_version": "2.2.12",
+  "file_extensions": [
+    ".nim",
+    ".nims",
+    ".nimble"
+  ],
+  "color": "#ffc200",
+  "primary_parent": "object-pascal",
+  "influenced_by": [
+    {
+      "id": "object-pascal",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Chosen as primary parent: 'Delphi' ranks second in the FAQ's list of influences, after Modula-3 (not in this set). Rumpf wrote the first compiler in Pascal/Delphi and translated it to Nim with pas2nim. Wikipedia credits Object Pascal for type-safe bit sets (set[char]), case statement syntax and many type and library names, and its Delphi-style T/P type-name prefixes were deprecated only in 0.10.2."
+    },
+    {
+      "id": "ada",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Rumpf wanted 'Ada's strong type system and safety aspects': subrange types, distinct types and checked variant records (case objects)."
+    },
+    {
+      "id": "python",
+      "kind": "influence",
+      "weight": "major",
+      "note": "The off-side rule and many keywords; Rumpf wanted 'Python's readable but concise syntax' without its dynamic typing."
+    },
+    {
+      "id": "lisp",
+      "kind": "influence",
+      "weight": "major",
+      "note": "The macro system and AST manipulation; Rumpf observed that neither the C nor the Pascal family had looked at Lisp's macros."
+    },
+    {
+      "id": "cpp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Operator overloading and generic programming (FAQ and Wikipedia); C++ is also a compilation target."
+    },
+    {
+      "id": "oberon",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "The `*` export marker on declarations and fields."
+    },
+    {
+      "id": "rust",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; Rumpf's 2017 'Nim without GC' cites Rust's mechanisms alongside ParaSail and C++ in the design that became ARC/ORC."
+    },
+    {
+      "id": "csharp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "async/await: Nimrod 0.9.4 (2014) added an await macro that 'behaves similar to C#'s await'; Wikipedia also credits C# for lambda macros."
+    },
+    {
+      "id": "pascal",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Dr. Dobb's (2014) described the design as straddling Pascal and Python; inclusive `..` ranges, `div`/`mod` and sets are Pascal traits that arrived via Delphi."
+    },
+    {
+      "id": "c",
+      "kind": "platform",
+      "weight": "minor",
+      "note": "The default backend: Nim emits C for GCC, Clang or MSVC to compile, and imports C functions directly through pragmas."
+    },
+    {
+      "id": "javascript",
+      "kind": "platform",
+      "weight": "minor",
+      "note": "A second backend (`nim js`) targets browsers and Node.js."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Modula-3",
+      "year": 1988,
+      "note": "First in the FAQ's list of influences; source of the distinction between traced (`ref`) and untraced (`ptr`) pointers."
+    },
+    {
+      "name": "ParaSail",
+      "year": 2009,
+      "note": "Listed by Wikipedia; its 'pointer-free programming' motivated the destructor and move-semantics design behind ARC/ORC."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "`if`, `case`, `while`, `for` and labelled `block`/`break`; `if`, `case` and `block` are also expressions."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Every branch and `block` opens a scope; `defer` runs code at scope exit."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "No guaranteed tail-call elimination; the C compiler may optimise tail calls in release builds."
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "try/except/finally and `raise`; the `{.raises: [].}` effect lists what a proc may raise and is checked by the compiler. Defects (bounds, overflow) signal bugs rather than recoverable errors."
+    },
+    "coroutines": {
+      "level": "supported",
+      "note": "Closure iterators are resumable functions (asymmetric coroutines) and underlie async procs; std/coro offers stackful coroutines behind -d:nimCoroutines."
+    },
+    "generators": {
+      "level": "core",
+      "note": "`iterator` with `yield`: inline iterators are expanded into the calling for loop, while closure iterators are first-class values."
+    },
+    "pattern-matching": {
+      "level": "supported",
+      "note": "`case` over enums, ordinals and strings is checked for exhaustiveness, and object variants are dispatched on their discriminator; destructuring is limited to tuple unpacking, so full pattern matching comes from macro libraries such as fusion/matching."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Local: `let`/`var` and `auto` return types infer from the expression; 2.0 added top-down inference, e.g. for `let x: seq[(float, byte)] = @[(1, 2)]`."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Generic procs and types constrained by type classes such as SomeInteger or `int | float`, plus `static[T]` value parameters."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "Object variants (a `case` section inside an object) are tagged unions whose fields are checked against the discriminator at run time (FieldDefect); tuples and objects are the product types."
+    },
+    "type-classes": {
+      "level": "supported",
+      "note": "Built-in type classes (SomeInteger, SomeNumber) and `A | B` unions constrain generics, and concepts define user type classes that any type with the required operations matches, without explicit instances. The `Self`-based concept syntax entered the main manual in 2.2.4 (2025); the older form is still experimental."
+    },
+    "option-types": {
+      "level": "library",
+      "note": "std/options provides Option[T]; `ref` and `ptr` are nullable by default, and `not nil` checking is experimental (strictNotNil)."
+    },
+    "structural-typing": {
+      "level": "supported",
+      "note": "Tuples, procedure types, arrays and seqs are compared structurally, and concepts match types by the operations they support; objects, enums and distinct types are nominal."
+    },
+    "ownership": {
+      "level": "supported",
+      "note": "Under ARC/ORC, `sink` parameters take ownership and `lent` results borrow. The compiler infers moves and inserts copies where needed instead of rejecting programs, and declaring a type's `=copy` hook with {.error.} makes it move-only."
+    },
+    "interfaces": {
+      "level": "supported",
+      "note": "No interface declarations: concepts state the operations a type must provide, and dynamic dispatch uses `method` on object hierarchies."
+    },
+    "classes": {
+      "level": "supported",
+      "note": "`object` types with `method`s for dynamic dispatch; procedures are not declared inside types, and method-call syntax comes from UFCS."
+    },
+    "inheritance": {
+      "level": "supported",
+      "note": "Single inheritance from RootObj (`ref object of RootObj`), tested with `of`; idiomatic code uses it sparingly outside exception hierarchies."
+    },
+    "multiple-dispatch": {
+      "level": "supported",
+      "note": "A `method` can dispatch on all of its object parameters, but since 0.20 (2019) multi-methods need --multimethods:on; otherwise dispatch uses the first parameter."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Module-level encapsulation: procs, types and object fields are private unless marked with the `*` export marker, taken from Oberon."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Each file is a module: `import`, `from m import x`, `export` and `include`; packages come through Nimble."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Operators are ordinary procs named in backticks, e.g. proc `+`(a, b: Vec): Vec, and new operators can be built from operator characters."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Procs are values whose types include the calling convention; anonymous `proc` expressions, with `=>` and `->` sugar from std/sugar."
+    },
+    "closures": {
+      "level": "core",
+      "note": "Nested and anonymous procs capture their environment (the `closure` calling convention); std/sugar's `capture` copies loop variables."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "`let` (single assignment) and `const` (compile time) versus `var`; parameters are read-only unless declared `var`. Because seq and string are value types, `let` makes them deeply immutable, but objects behind a `ref` stay mutable."
+    },
+    "list-comprehensions": {
+      "level": "library",
+      "note": "The `collect` macro in std/sugar builds seqs, sets and tables from for/if blocks: `collect(for x in 1..10: (if x mod 2 == 0: x * x))`."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "Evaluation is strict, but iterators produce values on demand and untyped template parameters are substituted unevaluated (call by name)."
+    },
+    "purity": {
+      "level": "supported",
+      "note": "Opt-in per routine: `func` is `proc {.noSideEffect.}`, and the compiler rejects global-state access and I/O inside it; the experimental strictFuncs mode also forbids mutation through ref parameters."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "ORC's cycle collector reclaims cyclic garbage; refc (deferred reference counting with mark-and-sweep, the default before 2.0), markAndSweep, Boehm and Go's collector remain selectable with --mm."
+    },
+    "reference-counting": {
+      "level": "core",
+      "note": "ARC/ORC (default since 2.0) use non-atomic counts with compiler-inserted destructors and moves; refc, the earlier default, was deferred reference counting."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "Untraced `ptr T` with `addr`, `cast` and alloc/dealloc for manual memory and C interop, next to traced `ref T` (the Modula-3 distinction); pointer arithmetic needs casts or ptr UncheckedArray."
+    },
+    "csp-channels": {
+      "level": "library",
+      "note": "Threads exchange messages over typed Channel[T] queues from the system library; the official `threading` package provides newer channels."
+    },
+    "async-await": {
+      "level": "library",
+      "since": 2014,
+      "version": "Nimrod 0.9.4",
+      "note": "std/asyncdispatch (or the chronos library) implements `{.async.}` and `await` as macros that turn procs into closure iterators, with no dedicated language support."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Mostly at compile time: macros inspect types (getTypeImpl) and `fieldPairs` iterates over object fields. Run-time type information is limited to `of` checks and the low-level std/typeinfo module."
+    },
+    "macros": {
+      "level": "core",
+      "note": "Templates (hygienic substitution) and AST macros over NimNode trees built with `quote do` or the macros API; macro arguments can be untyped (raw syntax) or typed (already checked). Term-rewriting macros, which match patterns in ordinary code, are experimental."
+    },
+    "hygienic-macros": {
+      "level": "core",
+      "note": "Templates are hygienic by default ({.inject.} or {.dirty.} opt out); AST macros create fresh identifiers with genSym."
+    },
+    "homoiconicity": {
+      "level": "supported",
+      "note": "Macros receive and return code as NimNode syntax trees manipulated with ordinary Nim; Wikipedia lists homoiconicity among the Lisp influences, but source is not written as data as in Lisp."
+    },
+    "compile-time-execution": {
+      "level": "core",
+      "note": "A VM inside the compiler runs ordinary Nim for `const` initialisers, `static:` blocks, `when` conditions and macros; {.compileTime.} procs exist only at compile time. NimScript reuses the same VM for build scripts."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "note": "--hotCodeReloading:on builds a program whose modules, other than the main module, can be recompiled and reloaded while it runs, keeping the state of existing globals."
+    },
+    "significant-whitespace": {
+      "level": "core",
+      "note": "The off-side rule, as in Python; a statement may continue on the next line after a binary operator or comma, and tabs are rejected ('tabs are not allowed')."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "std/re and std/nre wrap the PCRE library; no regex literals. The pure-Nim `regex` package on Nimble is an alternative."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2005,
+      "event": "Andreas Rumpf begins Nimrod, with a first compiler written in Pascal/Delphi"
+    },
+    {
+      "year": 2006,
+      "event": "The compiler, translated to Nimrod with pas2nim, first compiles itself"
+    },
+    {
+      "year": 2008,
+      "event": "First public release, Nimrod 0.6.0 (22 August)"
+    },
+    {
+      "year": 2014,
+      "event": "Nimrod 0.9.4 adds async/await via the asyncdispatch module (April)"
+    },
+    {
+      "year": 2014,
+      "event": "Renamed Nim with version 0.10.2 (29 December)"
+    },
+    {
+      "year": 2015,
+      "event": "Nimble becomes the official package manager (0.12.0)"
+    },
+    {
+      "year": 2019,
+      "event": "Nim 1.0 (23 September) with a backward-compatibility guarantee"
+    },
+    {
+      "year": 2020,
+      "event": "ARC memory management ships in 1.2; ORC, adding a cycle collector, in 1.4"
+    },
+    {
+      "year": 2023,
+      "event": "Nim 2.0 (1 August): ORC becomes the default memory management"
+    },
+    {
+      "year": 2024,
+      "event": "Nim 2.2.0 (2 October): generics, typedesc and static types stabilised"
+    }
+  ],
+  "trivia": [
+    "Nimrod was named after the biblical king; Rumpf says the name was shortened to Nim 'for marketing reasons'.",
+    "Identifiers are style-insensitive: apart from the first character, case and underscores are ignored, so `useHttps`, `use_https` and `useHTTPS` name the same variable.",
+    "According to the FAQ, the keyword is `proc` because 'procedure' was the traditional term, while a function in the mathematical sense has no side effects; Nim's `func` is exactly `proc {.noSideEffect.}`."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Nim 2.2",
+      "code": "echo \"Hello, World!\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "`echo` is an ordinary procedure that appends a newline; command-call syntax lets it be called without parentheses.",
+      "concepts": [],
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Nim 2.2",
+      "code": "func factorial(n: Natural): Natural =\n  if n <= 1: 1\n  else: n * factorial(n - 1)\n\necho factorial(10)\n",
+      "expected_output": "3628800\n",
+      "notes": "`func` is a `proc` that the compiler checks for side effects. Natural is the subrange `range[0..high(int)]`, checked at run time as in Ada. The body is an `if` expression whose value becomes the result. int is 64-bit, and debug builds raise an OverflowDefect beyond factorial(20).",
+      "concepts": [],
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Nim 2.2",
+      "code": "for i in 1..15:\n  if i mod 15 == 0: echo \"FizzBuzz\"\n  elif i mod 3 == 0: echo \"Fizz\"\n  elif i mod 5 == 0: echo \"Buzz\"\n  else: echo i\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`1..15` is an inclusive range and `mod` a word operator, both Pascal-family traits; `echo i` converts the int with `$`.",
+      "concepts": [],
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Nim 2.2",
+      "code": "import std/[sequtils, strutils, sugar]\n\nlet squares = toSeq(1..10).filter(x => x mod 2 == 0).map(x => x * x)\necho squares.join(\" \")\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Uniform function call syntax turns map(filter(toSeq(1..10), ...), ...) into a method-style chain, and `x => ...` is a lambda macro from std/sugar. The templates filterIt/mapIt (`.filterIt(it mod 2 == 0).mapIt(it * it)`) avoid closures altogether, and std/sugar's `collect` macro gives a comprehension-like form.",
+      "concepts": [],
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Nim 2.2",
+      "code": "type\n  ShapeKind = enum Rectangle, Triangle\n  Shape = object            # an object variant: a checked tagged union\n    height: int\n    case kind: ShapeKind\n    of Rectangle: width: int\n    of Triangle: base: int\n\nfunc area(s: Shape): int =\n  case s.kind               # the compiler checks that every kind is covered\n  of Rectangle: s.width * s.height\n  of Triangle: s.base * s.height div 2\n\nlet shapes = [Shape(kind: Rectangle, width: 3, height: 4),\n              Shape(kind: Triangle, base: 10, height: 3)]\nfor s in shapes:\n  echo s.kind, \": \", s.area   # `$` names the enum value; s.area is area(s)\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "An object variant: the `kind` discriminator selects which fields exist, and reading `width` from a Triangle raises a FieldDefect at run time. Field names must be unique across branches, so the shared `height` sits before the `case`. The alternative is inheritance (`ref object of RootObj`) with dynamically dispatched `method`s, which idiomatic Nim uses sparingly.",
+      "concepts": [],
+      "verified": true
+    },
+    "signature": {
+      "title": "Code that runs in the compiler",
+      "concepts": [
+        "compile-time-execution",
+        "macros"
+      ],
+      "dialect": "Nim 2.2",
+      "code": "import std/macros\n\n# An ordinary function; the compiler's VM runs it when a constant needs it.\nfunc fibs(n: int): seq[int] =\n  result = @[0, 1]\n  while result.len < n: result.add result[^1] + result[^2]\n\nconst table = fibs(12)       # computed during compilation, stored as data\n\n# A macro receives its argument as a syntax tree and returns new code.\nmacro show(e: untyped): untyped =\n  let src = e.repr           # the expression's source text, from the AST\n  quote do:\n    echo `src`, \" = \", `e`\n\nshow table\nshow table[^1] div table[5]\nshow table.len\n",
+      "expected_output": "table = @[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]\ntable[^1] div table[5] = 17\ntable.len = 12\n",
+      "notes": "`const table = fibs(12)` makes the compiler's VM run an ordinary func, so the binary holds only the finished seq; `result` is the implicit return variable and `^1` indexes from the end. `show` is a macro: it receives `table[^1] div table[5]` as a syntax tree, turns it back into source text with `repr`, and splices both into new code with `quote do`, much like std/sugar's `dump`.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Nim (official Docker image)",
+        "version": "2.2.12",
+        "docker_image": "nimlang/nim:2.2.12",
+        "compile": "nim c --hints:off --nimcache:/tmp/nimcache -o:{out} {file}",
+        "run": "{out}",
+        "notes": "Debian bookworm with Nim 2.2.12 and GCC 12. The default debug build (runtime checks on, unoptimised C) compiles a snippet in about 0.35 to 0.6 s, so no pre-warmed image is needed; -d:release switches the C compiler to -O3 at the cost of compile time. --nimcache keeps all generated files under /tmp, so the toolchain also runs with a read-only root filesystem."
+      }
+    ],
+    "browser": null,
+    "notes": "No credible in-browser build of the compiler is known; the official Nim Playground compiles on a server. `nim js` compiles the same code to JavaScript, and NimScript (`nim e file.nims`) runs a subset of Nim on the compiler's VM."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+    "homepage": "https://nim-lang.org/",
+    "spec": "https://nim-lang.org/docs/manual.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+    "https://nim-lang.org/faq.html",
+    "https://web.archive.org/web/2020/https://sourcesort.com/interview/andreas-rumpf-on-creating-and-growing-nim",
+    "https://web.archive.org/web/20160626002904/http://nim-lang.org/news.html",
+    "https://github.com/nim-lang/pas2nim",
+    "https://www.drdobbs.com/open-source/nimrod-a-new-systems-programming-languag/240165321",
+    "https://www.drdobbs.com/jvm/the-rise-and-fall-of-languages-in-2013/240165192",
+    "https://nim-lang.org/blog/2014/04/21/version-094-released.html",
+    "https://nim-lang.org/blog/2014/12/29/version-0102-released.html",
+    "https://nim-lang.org/blog/2019/09/23/version-100-released.html",
+    "https://nim-lang.org/araq/destructors.html",
+    "https://nim-lang.org/blog/2020/10/15/introduction-to-arc-orc-in-nim.html",
+    "https://nim-lang.org/blog/2020/12/08/introducing-orc.html",
+    "https://nim-lang.org/blog/2023/08/01/nim-v20-released.html",
+    "https://nim-lang.org/blog/2024/10/02/nim-220-2010.html",
+    "https://nim-lang.org/blog/2026/09/08/nim-2212.html",
+    "https://nim-lang.org/docs/manual.html",
+    "https://nim-lang.org/docs/mm.html",
+    "https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml"
+  ]
+}

@@ -43,7 +43,7 @@
   "influenced_by_external": [
     { "name": "ECMAScript 6 drafts", "year": 2012, "note": "Classes, modules and arrow functions were adopted from the in-progress ES6 proposals and then tracked TC39's final design." }
   ],
-  "influenced": [],
+  "influenced": ["dart"],
   "traits": {
     "structured-control": { "level": "core" },
     "block-scope": { "level": "core", "note": "let/const, as in modern JavaScript." },
@@ -129,6 +129,7 @@
     },
     "signature": {
       "title": "Structural types, computed at the type level",
+      "concepts": ["structural-typing"],
       "dialect": "TypeScript 6.0 (Deno 2.9)",
       "code": "interface Point { x: number; y: number }\n\n// Structural: anything with numeric x and y is a Point; no `implements` needed.\nconst norm = (p: Point): number => Math.hypot(p.x, p.y);\nconst pixel = { x: 3, y: 4, color: \"red\" };\nconsole.log(norm(pixel));\n\n// Type-level programming: compute a new type from an old one.\ntype Getters<T> = {\n  [K in keyof T & string as `get${Capitalize<K>}`]: () => T[K];\n};\n\nfunction getters<T extends object>(obj: T): Getters<T> {\n  const out: Record<string, () => unknown> = {};\n  for (const [k, v] of Object.entries(obj)) {\n    out[`get${k[0].toUpperCase()}${k.slice(1)}`] = () => v;\n  }\n  return out as Getters<T>;\n}\n\nconst g = getters(pixel); // { getX: () => number; getY: () => number; getColor: () => string }\nconsole.log(g.getColor(), g.getX() * g.getY());\n// g.getZ();  // error TS2339: Property 'getZ' does not exist on type 'Getters<...>'\n",
       "expected_output": "5\nred 12\n",

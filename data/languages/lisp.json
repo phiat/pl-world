@@ -88,7 +88,8 @@
     "ruby",
     "scala",
     "smalltalk",
-    "swift"
+    "swift",
+    "nim"
   ],
   "traits": {
     "structured-control": {
@@ -198,6 +199,7 @@
     },
     "signature": {
       "title": "Code is data: symbolic differentiation",
+      "concepts": ["homoiconicity"],
       "dialect": "LISP 1.5 (S-expression form, run by the l15 interpreter)",
       "code": "(DEFINE (QUOTE (\n  (DERIV (LAMBDA (E X)\n    (COND ((ATOM E) (COND ((EQ E X) 1) (T 0)))\n          ((EQ (CAR E) (QUOTE PLUS))\n           (LIST (QUOTE PLUS) (DERIV (CADR E) X) (DERIV (CADDR E) X)))\n          ((EQ (CAR E) (QUOTE TIMES))\n           (LIST (QUOTE PLUS)\n                 (LIST (QUOTE TIMES) (CADR E) (DERIV (CADDR E) X))\n                 (LIST (QUOTE TIMES) (DERIV (CADR E) X) (CADDR E)))))))\n)))\n\n(CSETQ DX (DERIV (QUOTE (PLUS (TIMES X X) (TIMES 3 X))) (QUOTE X)))\n(PRINT DX)\n(PRINT (EVAL DX (LIST (CONS (QUOTE X) 5))))\n",
       "expected_output": "(PLUS (PLUS (TIMES X 1) (TIMES 1 X)) (PLUS (TIMES 3 1) (TIMES 0 X)))\n13\n",

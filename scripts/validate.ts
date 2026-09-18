@@ -47,6 +47,9 @@ for (const id of requested) {
     }
     if (t.id === "signature" && !s.title) e(`signature snippet needs a title`);
     if (!s.code.trim()) e(`snippet "${t.id}" has empty code`);
+    for (const c of s.concepts) {
+      if (!lang.traits[c]) e(`snippet "${t.id}" demonstrates "${c}" but the language has no such trait`);
+    }
   }
   const parents = new Set(lang.influenced_by.map((l) => l.id));
   if (parents.has(lang.id)) e(`influenced_by contains itself`);

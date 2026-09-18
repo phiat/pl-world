@@ -1,0 +1,338 @@
+{
+  "id": "gleam",
+  "name": "Gleam",
+  "aliases": [],
+  "year": 2016,
+  "year_note": "Louis Pilfold's first commit to the public repository is dated 30 June 2016 (Wikipedia gives 13 June 2016). The first numbered release, v0.1, followed on 15 April 2019, and v1.0 on 4 March 2024.",
+  "designers": [
+    "Louis Pilfold"
+  ],
+  "country": "United Kingdom",
+  "tagline": "A small, friendly, statically typed functional language for the Erlang VM and JavaScript: ML-style types in a C-like syntax.",
+  "summary": "Gleam is a statically typed functional language that compiles to Erlang, running on the BEAM virtual machine alongside Erlang and Elixir code, or to JavaScript. It pairs Hindley–Milner-style type inference, custom types checked by exhaustive pattern matching, and errors as Result values (there is no null and there are no exceptions) with a deliberately small, brace-based syntax. Processes, actors and supervisors come from the BEAM through the gleam_erlang and gleam_otp packages, with typed messages. A single binary provides the compiler, build tool, package manager, formatter and language server.",
+  "history": "Louis Pilfold began Gleam in 2016 as a statically typed language for the Erlang virtual machine; the name rhymes with, and is a synonym of, BEAM. The prototype compilers were written in Erlang, but the lack of static types made refactoring them slow and error-prone, so from December 2018 the compiler was rewritten in Rust. The first numbered release, v0.1, came out on 15 April 2019, addressed to programmers who liked 'the actor based concurrency model and durable runtime of Erlang and Elixir, and the sound type system of OCaml, ReasonML, or Elm'.\n\nThe language changed substantially during the 0.x series. Gleam OTP, a type-safe actor library compatible with Erlang's OTP, appeared in October 2020, and v0.16 (June 2021) added JavaScript as a second compilation target. The try keyword for chaining Results (v0.9) was generalised into the use expression in v0.25 (November 2022) and removed in v0.27 (March 2023), and full exhaustiveness checking arrived in v0.33 (December 2023). Version 1.0, released on 4 March 2024, promised backwards compatibility and a conservative approach to new features, with effort going into tooling, the language server and libraries instead.\n\nGleam is a community project rather than a corporate one: at 1.0 Pilfold was its one full-time developer, funded through GitHub Sponsors, alongside part-time volunteers. It entered the Stack Overflow Developer Survey in 2025 as the second most admired language, the first all-Gleam conference, Gleam Gathering, met in Bristol in February 2026, and the standard library reached 1.0 that April.",
+  "innovations": [
+    "The use expression: a single piece of syntax that hands the rest of a block to a function as a callback, covering Result chaining, early returns and resource scoping without exceptions, macros or monad syntax",
+    "A sound, fully inferred static type system on the Erlang VM whose compiled modules can be called directly from Erlang and Elixir",
+    "Type-safe OTP: processes, actors and supervisors with typed messages, built as libraries (gleam_erlang, gleam_otp) rather than language features",
+    "One language compiling to both the BEAM and JavaScript runtimes, including browsers, from the same source",
+    "An all-in-one toolchain (compiler, build tool, Hex package manager, formatter, language server) in one binary, with a WebAssembly build of the compiler that runs in the browser"
+  ],
+  "paradigms": [
+    "functional",
+    "concurrent"
+  ],
+  "family": "ml",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "global",
+    "equivalence": "nominal",
+    "notes": "Hindley–Milner-style inference: annotations are optional everywhere, including on top-level functions. No subtyping, type classes, overloading or implicit conversions; Int and Float have separate operators (+ and +.). Values from Erlang or JavaScript enter through typed @external declarations or runtime decoders."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Collected by the host runtime: the BEAM's per-process heaps on the Erlang target, or the JavaScript engine's collector.",
+  "execution": [
+    "transpiled",
+    "bytecode-vm",
+    "jit"
+  ],
+  "status": "active",
+  "latest_version": "1.18.1 (August 2026)",
+  "file_extensions": [
+    ".gleam"
+  ],
+  "color": "#ffaff3",
+  "primary_parent": "erlang",
+  "influenced_by": [
+    {
+      "id": "erlang",
+      "kind": "platform",
+      "weight": "major",
+      "note": "Compiles to Erlang source and runs on the BEAM, sharing its processes, OTP, garbage collector and Hex packages; the prototype compilers were written in Erlang, and the name is a play on BEAM."
+    },
+    {
+      "id": "ocaml",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Named with Elm and Rust as an inspiration for the type system in the v1.0 announcement; v0.1 was pitched at fans of 'the sound type system of OCaml, ReasonML, or Elm'. The FAQ calls Gleam 'an impure functional language like OCaml or Erlang'."
+    },
+    {
+      "id": "rust",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Cited as a type-system inspiration; the brace syntax (fn, let, pub, -> return types) resembles Rust's, the FAQ credits Rust's developer tooling as an inspiration, and the compiler itself is written in Rust."
+    },
+    {
+      "id": "elixir",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia. Like Elixir's, the |> pipe passes the left value as the first argument of the call; Gleam shares Elixir's Hex package ecosystem, and its build tool can compile Elixir dependencies."
+    },
+    {
+      "id": "javascript",
+      "kind": "platform",
+      "weight": "minor",
+      "note": "Second compilation target since v0.16 (2021): Gleam compiles to JavaScript modules for browsers, Node.js, Deno and Bun."
+    },
+    {
+      "id": "go",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; the v0.25 announcement names Go, with Elm and Lua, as a model for a small and consistent language."
+    },
+    {
+      "id": "lua",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named, with Elm and Go, as a model for a small and consistent language in the v0.25 announcement."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Elm",
+      "year": 2012,
+      "note": "Named first among the type-system inspirations at v1.0 and as a model of a small language; like Elm, Gleam rules out type classes."
+    },
+    {
+      "name": "Alpaca",
+      "year": 2016,
+      "note": "An ML-inspired, statically typed language for the Erlang VM, listed by Wikipedia; Gleam's early FAQ contrasted Alpaca's auto-currying, untagged unions and ML syntax with Gleam's choices."
+    },
+    {
+      "name": "ReasonML",
+      "year": 2016,
+      "note": "Named with OCaml and Elm in the v0.1 announcement."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "supported",
+      "note": "case (with guards) is the only conditional, and it is an expression; there is no if and there are no loop statements, so iteration is recursion or list and int.range functions."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "{ ... } blocks are expressions, and variables bound inside one are not visible outside it."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Functions in a module may be defined in any order and call each other (mutual recursion since v0.12, 2020)."
+    },
+    "generators": {
+      "level": "library",
+      "note": "Lazy Yielder sequences (unfold, iterate, repeatedly) from the core team's gleam_yielder package, split out of the standard library's gleam/iterator in 2024; no yield keyword."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "case over one or several subjects, with guards, alternative patterns, string-prefix and bit-array patterns; let assert for refutable bindings. Complete exhaustiveness checking since v0.33 (2023)."
+    },
+    "tail-calls": {
+      "level": "core",
+      "note": "Proper tail calls on the BEAM; on JavaScript the compiler turns self-recursive tail calls into while loops."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Hindley–Milner-style; types are fully inferred and annotations are optional."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Type parameters in functions and custom types: List(a), Result(value, error), Dict(k, v)."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "Custom types declare variants, each a record constructor with optional labelled fields; tuples are written #(a, b)."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "There is no null: Result(a, e) is in the prelude and Option(a) in gleam/option. Nil is an ordinary unit value."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "pub opaque type exports a type while keeping its constructors private to the defining module."
+    },
+    "modules": {
+      "level": "core",
+      "note": "One module per file (gleam/list is src/gleam/list.gleam), explicit pub exports, qualified or unqualified imports, and incremental compilation per module."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Anonymous fn(x) { ... } functions and function captures such as add(1, _)."
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "core",
+      "note": "All data is immutable and there is no mutation operator; names can be rebound with let but values never change. Mutable state lives in processes or Erlang's ETS."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Provided by the BEAM or the JavaScript runtime."
+    },
+    "actors": {
+      "level": "library",
+      "note": "Processes with typed Subjects (gleam_erlang) and actors and supervisors (gleam_otp) on the Erlang target; message passing is typed in libraries, not built into the language."
+    },
+    "async-await": {
+      "level": "library",
+      "note": "No async keyword: on the JavaScript target, use value <- promise.await(p) from the gleam_javascript package turns the rest of the block into the promise's callback."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "note": "The BEAM's code reloading works on the Erlang target, but upgrades are not type-checked and gleam_otp is not designed around them."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "The core team's gleam_regexp package (split out of the standard library in 2024); no literal syntax."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2016,
+      "event": "Louis Pilfold's first commit (30 June); prototype compilers written in Erlang"
+    },
+    {
+      "year": 2018,
+      "event": "Compiler rewrite in Rust begins (December)"
+    },
+    {
+      "year": 2019,
+      "event": "v0.1, the first numbered release (15 April)"
+    },
+    {
+      "year": 2020,
+      "event": "v0.12 and Gleam OTP v0.1: type-safe actors and supervisors (31 October)"
+    },
+    {
+      "year": 2021,
+      "event": "v0.16 compiles to JavaScript as well as Erlang (17 June)"
+    },
+    {
+      "year": 2022,
+      "event": "v0.25 introduces the use expression (24 November)"
+    },
+    {
+      "year": 2023,
+      "event": "v0.33 adds exhaustiveness checking for case expressions (18 December)"
+    },
+    {
+      "year": 2024,
+      "event": "Gleam v1.0 released (4 March)"
+    },
+    {
+      "year": 2025,
+      "event": "Debuts in the Stack Overflow Developer Survey as the second most admired language (70%)"
+    },
+    {
+      "year": 2026,
+      "event": "First Gleam Gathering conference in Bristol (21 February); gleam_stdlib 1.0 (18 April)"
+    }
+  ],
+  "trivia": [
+    "The FAQ explains the name: 'Gleam rhymes with and is a synonym of \"beam\", which is the name of the Erlang virtual machine.'",
+    "Integer division by zero returns 0: Gleam does not throw implicit exceptions and the BEAM has no infinity value, so the standard library offers Result-returning division for code that needs to know.",
+    "The mascot is Lucy, a starfish; according to the FAQ, Gleam programmers are 'Gleamlins'.",
+    "In the 2025 Stack Overflow Developer Survey, its first appearance there, Gleam was the second most admired language at 70%, behind Rust's 72%."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Gleam 1.18 (Erlang target, gleam_stdlib 1.0)",
+      "code": "import gleam/io\n\npub fn main() -> Nil {\n  io.println(\"Hello, World!\")\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Every runnable module exposes a public main function. gleam/io comes from gleam_stdlib, an ordinary Hex package that the build tool downloads like any other dependency; gleam run compiles the project to Erlang (or to JavaScript with --target javascript) and calls main.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Gleam 1.18 (Erlang target, gleam_stdlib 1.0)",
+      "code": "import gleam/int\nimport gleam/io\n\npub fn factorial(n: Int) -> Int {\n  case n {\n    0 -> 1\n    _ -> n * factorial(n - 1)\n  }\n}\n\npub fn main() -> Nil {\n  factorial(10)\n  |> int.to_string\n  |> io.println\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "case is Gleam's only conditional; _ matches anything. Ints are arbitrary-precision on the Erlang target but JavaScript numbers on the JavaScript target. For deep recursion the idiom is a private tail-recursive helper with an accumulator.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Gleam 1.18 (Erlang target, gleam_stdlib 1.0)",
+      "code": "import gleam/int\nimport gleam/io\n\nfn fizzbuzz(n: Int) -> String {\n  // case can match several subjects at once\n  case n % 3, n % 5 {\n    0, 0 -> \"FizzBuzz\"\n    0, _ -> \"Fizz\"\n    _, 0 -> \"Buzz\"\n    _, _ -> int.to_string(n)\n  }\n}\n\npub fn main() -> Nil {\n  // No loops: int.range folds over 1 to 15 (the upper bound is exclusive)\n  int.range(from: 1, to: 16, with: Nil, run: fn(_, n) {\n    io.println(fizzbuzz(n))\n  })\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "case matches two subjects at once. There are no loop statements: int.range (added to the standard library in 2026, replacing list.range) folds a function over a range of integers, here with Nil as the unused accumulator; a recursive helper is the other idiom.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Gleam 1.18 (Erlang target, gleam_stdlib 1.0)",
+      "code": "import gleam/int\nimport gleam/io\nimport gleam/list\nimport gleam/string\n\npub fn main() -> Nil {\n  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n  |> list.filter(int.is_even)\n  |> list.map(fn(x) { x * x })\n  |> list.map(int.to_string)\n  |> string.join(with: \" \")\n  |> io.println\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "|> passes the value on its left as the first argument of the call on its right. int.is_even is passed by name and fn(x) { x * x } is an anonymous function. The list is written out because gleam_stdlib 1.0 dropped list.range; int.range(from: 10, to: 0, with: [], run: list.prepend) builds the same list.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Gleam 1.18 (Erlang target, gleam_stdlib 1.0)",
+      "code": "import gleam/int\nimport gleam/io\n\n// A custom type with two variants; each variant is a record constructor.\npub type Shape {\n  Rectangle(width: Int, height: Int)\n  Triangle(base: Int, height: Int)\n}\n\npub fn area(shape: Shape) -> Int {\n  case shape {\n    Rectangle(width:, height:) -> width * height\n    Triangle(base:, height:) -> base * height / 2\n  }\n}\n\npub fn main() -> Nil {\n  let rectangle = Rectangle(width: 3, height: 4)\n  let triangle = Triangle(base: 10, height: 3)\n  io.println(\"Rectangle: \" <> int.to_string(area(rectangle)))\n  io.println(\"Triangle: \" <> int.to_string(area(triangle)))\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Shape is a custom type (a sum type) whose variants are records with labelled fields; case must cover every variant. Rectangle(width:, height:) uses the label shorthand added in v1.4 (2024), and / on Ints is integer division. There are no classes or interfaces: behaviour lives in functions that match on the data.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Errors as values: Result, use and exhaustive case",
+      "concepts": [
+        "algebraic-data-types",
+        "pattern-matching"
+      ],
+      "dialect": "Gleam 1.18 (Erlang target, gleam_stdlib 1.0)",
+      "code": "import gleam/int\nimport gleam/io\nimport gleam/list\nimport gleam/result\n\npub type MathError {\n  NotANumber(String)\n  DivisionByZero\n}\n\nfn parse(text: String) -> Result(Int, MathError) {\n  int.parse(text) |> result.replace_error(NotANumber(text))\n}\n\n// Each `use` hands the rest of the block to result.try: an Error returns early.\nfn divide(a: String, b: String) -> Result(Int, MathError) {\n  use x <- result.try(parse(a))\n  use y <- result.try(parse(b))\n  case y {\n    0 -> Error(DivisionByZero)\n    _ -> Ok(x / y)\n  }\n}\n\npub fn main() -> Nil {\n  use #(a, b) <- list.each([#(\"84\", \"2\"), #(\"84\", \"two\"), #(\"84\", \"0\")])\n  // case must be exhaustive: drop a branch and the program does not compile.\n  io.println(case divide(a, b) {\n    Ok(n) -> a <> \" / \" <> b <> \" = \" <> int.to_string(n)\n    Error(NotANumber(text)) -> \"not a number: \" <> text\n    Error(DivisionByZero) -> \"cannot divide \" <> a <> \" by zero\"\n  })\n}\n",
+      "expected_output": "84 / 2 = 42\nnot a number: two\ncannot divide 84 by zero\n",
+      "notes": "Gleam has no exceptions and no null: failure is an ordinary Result value. Each use x <- result.try(...) passes the rest of the block to result.try as a callback, so an Error returns early without nesting, and use #(a, b) <- list.each(...) reuses the same syntax for a loop body. The final case is checked for exhaustiveness against MathError. The zero check is explicit because Gleam's integer division by zero returns 0.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "Gleam (Erlang target)",
+        "version": "1.18.1 (Erlang/OTP 29; gleam_stdlib 1.0.5, gleam_erlang 1.3.0, gleam_otp 1.3.0)",
+        "docker_image": "plw-gleam",
+        "dockerfile": "sandbox/gleam/Dockerfile",
+        "compile": "gleam-run --build {file}",
+        "run": "gleam-run --exec",
+        "notes": "plw-gleam is the official ghcr.io/gleam-lang/gleam:v1.18.1-erlang-alpine image plus a template project whose dependencies are downloaded and compiled at build time, since the sandbox has no network for Hex. gleam-run --build copies the template with its build cache to /tmp, installs the file as src/main.gleam and runs gleam build; --exec starts main with the same erl command gleam run uses. Diagnostics go to stderr. An inetrc makes erl resolve names from /etc/hosts only: without network its boot-time DNS lookup otherwise stalls about 5 s per start."
+      }
+    ],
+    "browser": {
+      "name": "Gleam Playground (compiler compiled to WebAssembly)",
+      "url": "https://playground.gleam.run/",
+      "notes": "The official playground and language tour compile Gleam in the browser with the WebAssembly build of the compiler and run the JavaScript output in the page."
+    },
+    "notes": "All six snippets also give identical output on the JavaScript target (gleam run --target javascript with Node.js 24)."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Gleam_(programming_language)",
+    "homepage": "https://gleam.run/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Gleam_(programming_language)",
+    "https://gleam.run/frequently-asked-questions/",
+    "https://github.com/gleam-lang/website/blob/39b202cfe58bd4f2ff104e26ea5aa1b0dabc498b/frequently-asked-questions.md",
+    "https://github.com/gleam-lang/gleam/commit/4d791cbf8e7ef93f9174103e4a547f1262cb7ace",
+    "https://github.com/gleam-lang/gleam/commit/4a16942466e4f23d84ded269a676bf990cd0a33c",
+    "https://gleam.run/news/hello-gleam/",
+    "https://gleam.run/news/gleam-v0.12-and-gleam-otp-v0.1-released/",
+    "https://gleam.run/news/v0.16-gleam-compiles-to-javascript/",
+    "https://gleam.run/news/v0.25-introducing-use-expressions/",
+    "https://gleam.run/news/v0.27-hello-panic-goodbye-try/",
+    "https://gleam.run/news/v0.33-exhaustive-gleam/",
+    "https://gleam.run/news/gleam-version-1/",
+    "https://gleam.run/news/supercharged-labels/",
+    "https://gleam.run/news/join-us-at-gleam-gathering/",
+    "https://gleam.run/news/single-file-gleam-beam-programs-with-escript/",
+    "https://github.com/gleam-lang/gleam/releases",
+    "https://github.com/gleam-lang/stdlib/blob/main/CHANGELOG.md",
+    "https://tour.gleam.run/",
+    "https://survey.stackoverflow.co/2025/technology",
+    "https://github.com/lpil"
+  ]
+}

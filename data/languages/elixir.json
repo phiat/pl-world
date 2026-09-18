@@ -75,7 +75,7 @@
     }
   ],
   "influenced_by_external": [],
-  "influenced": [],
+  "influenced": ["gleam"],
   "traits": {
     "structured-control": {
       "level": "supported",
@@ -266,6 +266,7 @@
     },
     "signature": {
       "title": "Pipelines, pattern matching and processes",
+      "concepts": ["pattern-matching", "actors"],
       "dialect": "Elixir 1.20 (.exs script)",
       "code": "parent = self()\n\n# Spawn a lightweight BEAM process that transforms text through a pipeline...\nspawn(fn ->\n  counts =\n    \"the quick brown fox jumps over the lazy dog the end\"\n    |> String.split()\n    |> Enum.frequencies()\n\n  send(parent, {:counts, counts})\nend)\n\n# ...and pattern-match on the reply: a tagged tuple holding a map with a \"the\" key.\nreceive do\n  {:counts, %{\"the\" => n} = counts} ->\n    IO.puts(\"\\\"the\\\" appears #{n} times among #{map_size(counts)} distinct words\")\nafter\n  1_000 -> IO.puts(\"no reply\")\nend\n",
       "expected_output": "\"the\" appears 3 times among 9 distinct words\n",

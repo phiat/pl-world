@@ -251,7 +251,7 @@
     "origin": {
       "external": "Siek & Taha (gradual typing)",
       "year": 2006,
-      "note": "Common Lisp type declarations were an early optional-typing precedent."
+      "note": "Common Lisp type declarations were an early optional-typing precedent. Tobin-Hochstadt and Felleisen's 'Interlanguage migration' (DLS 2006) independently developed sound typed/untyped interoperation at module boundaries, shipped as Typed Scheme in PLT Scheme 4.0 (2008)."
     },
     "popularized_by": [
       "typescript",
@@ -698,7 +698,8 @@
     },
     "popularized_by": [
       "scheme",
-      "rust"
+      "rust",
+      "racket"
     ]
   },
   {
@@ -758,7 +759,8 @@
     },
     "popularized_by": [
       "erlang",
-      "elixir"
+      "elixir",
+      "dart"
     ]
   },
   {
@@ -837,9 +839,10 @@
     "origin": {
       "external": "QED / ed (Ken Thompson)",
       "year": 1968,
-      "note": "SNOBOL (1962) pioneered string pattern matching but not regular expressions; Perl made regexes core syntax."
+      "note": "SNOBOL (1962) pioneered string pattern matching but not regular expressions; AWK (1977) put /regex/ literals and the ~ match operator into a language's expressions, and Perl made regexes core syntax."
     },
     "popularized_by": [
+      "awk",
       "perl",
       "ruby",
       "javascript"

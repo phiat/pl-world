@@ -1,39 +1,24 @@
 import { define } from "../utils.ts";
-import River, { type RiverEdge, type RiverNode } from "../islands/River.tsx";
-import { concepts, edges, languages } from "../lib/world.ts";
-import type { ConceptLite, TraitLite } from "../lib/meta.ts";
+import River from "../islands/River.tsx";
+import { PageHead } from "../components/PageHead.tsx";
+import { concepts, languages } from "../lib/world.ts";
+import { riverEdges, riverNodes } from "../lib/river.ts";
+import type { ConceptLite } from "../lib/meta.ts";
 
-const nodes: RiverNode[] = languages.map((l) => ({
-  id: l.id,
-  name: l.name,
-  year: l.year,
-  family: l.family,
-  status: l.status,
-  tagline: l.tagline,
-  designers: l.designers,
-  traits: Object.fromEntries(
-    Object.entries(l.traits).map((
-      [c, t],
-    ) => [c, { level: t!.level, since: t!.since, version: t!.version, note: t!.note }]),
-  ) as Record<string, TraitLite>,
-}));
-const riverEdges: RiverEdge[] = edges.map((e) => ({
-  parent: e.parent,
-  child: e.child,
-  kind: e.kind,
-  weight: e.weight,
-  retro: e.retro,
-}));
-const conceptLites = concepts as ConceptLite[];
+const nodes = riverNodes();
 
 export default define.page(function Home({ url }) {
   const gene = url.searchParams.get("gene") ?? "";
   return (
     <section class="wrap">
+      <PageHead
+        description={`Seventy years of programming languages: where ${languages.length} languages came from, what they are made of, and the same programs side by side.`}
+        url={url}
+      />
       <River
         nodes={nodes}
         edges={riverEdges}
-        concepts={conceptLites}
+        concepts={concepts as ConceptLite[]}
         initialGene={concepts.some((c) => c.id === gene) ? gene : ""}
       />
     </section>

@@ -1,0 +1,387 @@
+{
+  "id": "object-pascal",
+  "name": "Object Pascal",
+  "aliases": [
+    "Delphi",
+    "Delphi language",
+    "Apple Object Pascal",
+    "Turbo Pascal with Objects",
+    "Borland Pascal with Objects",
+    "Free Pascal",
+    "Lazarus"
+  ],
+  "year": 1986,
+  "year_note": "Larry Tesler's 'Object Pascal Report', a revision of Apple's Lisa Clascal (1983) made with Niklaus Wirth, is dated February 1985; the project became an Apple product, together with the MacApp framework, in 1986, the year Borland added similar extensions to Turbo Pascal for the Macintosh. Turbo Pascal 5.5 brought objects to the PC in 1989, and Delphi 1.0 (14 February 1995) introduced the class-based dialect most code uses today.",
+  "designers": [
+    "Larry Tesler",
+    "Niklaus Wirth",
+    "Anders Hejlsberg"
+  ],
+  "organization": "Apple Computer; Borland (Delphi)",
+  "country": "United States",
+  "tagline": "Pascal with objects: Apple's MacApp language, then Borland Delphi, whose properties, events and components shaped RAD tools and C#.",
+  "summary": "Object Pascal is the family of object-oriented extensions to Pascal that Apple defined in 1985 with Niklaus Wirth and that Borland's Turbo Pascal and Delphi turned into one of the main languages for Windows desktop software. Its Delphi dialect adds classes with properties, events built on method pointers and run-time type information that lets a visual designer create, configure and wire components, along with units, exceptions, interfaces and, later, generics and anonymous methods. It compiles quickly to native code and is maintained today through Embarcadero Delphi and the open-source Free Pascal compiler and Lazarus IDE.",
+  "history": "Object Pascal grew out of Clascal, the object-oriented Pascal that Larry Tesler's group at Apple built for the Lisa in 1983 as a faster, more familiar alternative to Smalltalk. For the Macintosh the team revised it with Niklaus Wirth, who persuaded them to drop the word 'class' in favour of the 'object type', and Tesler's 'Object Pascal Report' (February 1985) placed the specification in the public domain. It shipped in 1986 with the MacApp application framework, in which the first versions of Adobe Photoshop were written; Symantec's THINK Pascal also supported it, but Apple moved MacApp to C++ in 1991.\n\nBorland added similar extensions to Turbo Pascal for the Macintosh (1986) and brought objects to the PC with Turbo Pascal 5.5 (1989), whose `object` types underlay the Turbo Vision and Object Windows frameworks. With Delphi (February 1995), a team led by Anders Hejlsberg introduced a new model: heap-allocated `class` types used through references, a common TObject root with metaclasses, structured exceptions, properties, method pointers for events and run-time type information for published members. With the Visual Component Library and a two-way visual form designer, these made Delphi a leading rapid application development tool for Windows. Later versions added COM-compatible interfaces (1997), dynamic arrays and overloading (1998), generics and anonymous methods (Delphi 2009), extended RTTI with attributes (Delphi 2010), macOS and mobile targets (from 2011) and type-inferred inline variables (2018).\n\nHejlsberg joined Microsoft in 1996, worked on Visual J++ and then led the design of C#, which carried Delphi's properties into the language and turned its bound method pointers into delegates; Sun, consulting Borland, had prototyped and rejected Delphi-style method references for Java in favour of inner classes. Delphi passed from Borland to CodeGear (2006) and Embarcadero (2008) and has been released about every six months since 2016, while the open-source Free Pascal compiler (1.0 in 2000) and the Lazarus IDE implement the Delphi dialect alongside their own ObjFPC dialect on many platforms.",
+  "innovations": [
+    "An object-oriented extension of Pascal (Clascal 1983, Object Pascal 1985) whose specification Apple placed in the public domain, and which Symantec's THINK Pascal and Borland's Turbo Pascal adopted",
+    "The property-method-event component model: properties with read/write accessors and events as method pointers (`procedure … of object`), later carried into C# as properties, events and delegates",
+    "Run-time type information for published members, metaclasses and virtual constructors, which let a visual designer and the .dfm streaming system create, configure and wire components by name",
+    "Visual rapid application development on a native-code, object-oriented compiler (Delphi, 1995): a two-way form designer, a component library and a fast single-pass compiler",
+    "COM-compatible interfaces whose reference counting the compiler manages (Delphi 3, 1997), alongside reference-counted strings and dynamic arrays and manually freed objects"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured",
+    "object-oriented",
+    "event-driven",
+    "generic",
+    "reflective"
+  ],
+  "family": "algol",
+  "syntax_family": "algol",
+  "block_style": "begin-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Statically and nominally checked like Pascal. Delphi 10.3 (2018) added `var X := Expr` inline declarations with local inference (not in Free Pascal 3.2). Variant and `array of const` carry types at run time, while typecasts, untyped pointers and variant records are unchecked escape hatches."
+  },
+  "memory": "mixed",
+  "memory_note": "Class instances are created with a constructor and freed explicitly (Free, usually in try..finally, or by an owning component); strings, dynamic arrays, interface references and anonymous methods are reference-counted. Delphi's iOS and Android compilers used automatic reference counting for objects from 2013 until Delphi 10.4 (2020) returned to one model.",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "Delphi 13.1 Florence (March 2026); Free Pascal 3.2.2 (May 2021)",
+  "file_extensions": [
+    ".pas",
+    ".dpr",
+    ".pp",
+    ".lpr"
+  ],
+  "color": "#C9A227",
+  "primary_parent": "pascal",
+  "influenced_by": [
+    {
+      "id": "pascal",
+      "kind": "superset",
+      "weight": "major",
+      "note": "Apple defined Object Pascal as an extension of (Lisa) Pascal adding a fifth structuring method, the object type; the Borland dialect grew from Turbo Pascal's extended Pascal."
+    },
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Clascal was built as a faster, more familiar alternative to Smalltalk on the Lisa; Tesler came from Xerox PARC, and Dan Ingalls urged the implicit `self` in methods."
+    },
+    {
+      "id": "simula",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "The 1985 Object Pascal Report names Simula 67 and Smalltalk-80 as the languages whose object concept it brings to Pascal."
+    },
+    {
+      "id": "csharp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Retro influence: after Delphi 8 (2003) targeted .NET, native Delphi gained C#-like features such as for..in loops (Delphi 2005), operator overloading (Delphi 2006) and attributes (Delphi 2010)."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Clascal",
+      "year": 1983,
+      "note": "Apple's object-oriented Lisa Pascal, used for the Lisa Toolkit; Object Pascal is its 1985 revision made with Niklaus Wirth."
+    },
+    {
+      "name": "Turbo Pascal",
+      "year": 1983,
+      "note": "Hejlsberg's fast Pascal compiler for Borland; its units, strings and low-level extensions, and from version 5.5 (1989) its object model, are the base of the Delphi dialect."
+    },
+    {
+      "name": "UCSD Pascal",
+      "year": 1977,
+      "note": "Source of the unit (interface/implementation) system used by Lisa Pascal and Turbo Pascal."
+    },
+    {
+      "name": "Microsoft COM",
+      "year": 1993,
+      "note": "Delphi 3's interfaces (1997) are binary-compatible with COM interfaces, including their reference counting."
+    }
+  ],
+  "influenced": [
+    "csharp",
+    "java",
+    "nim"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if/case/while/repeat/for as in Pascal, plus Break, Continue and Exit, and for..in over arrays, strings, sets and enumerable collections (Delphi 2005)."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Nested procedures with lexical scope as in Pascal; Delphi 10.3 (2018) added inline `var` declarations scoped to a begin…end block (not in Free Pascal 3.2)."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "since": 1995,
+      "version": "Delphi 1",
+      "note": "try..except with `on E: EClass do` handlers, try..finally for cleanup and raise; exceptions are objects descending from Exception."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "supported",
+      "since": 2018,
+      "version": "Delphi 10.3",
+      "note": "`var X := Expr` inline declarations; not supported by Free Pascal 3.2."
+    },
+    "generics": {
+      "level": "core",
+      "since": 2008,
+      "version": "Delphi 2009",
+      "note": "Generic classes, records, interfaces and methods with constraints, and the Generics.Collections library (TList<T>, TDictionary<K,V>). Free Pascal 2.2 (2007) had generics first, with its own generic/specialize syntax, and accepts Delphi's syntax in Delphi mode."
+    },
+    "algebraic-data-types": {
+      "level": "supported",
+      "note": "Pascal's variant records (a case part inside a record) remain; the tag is not enforced, so they are not type-safe sum types."
+    },
+    "gradual-typing": {
+      "level": "supported",
+      "since": 1996,
+      "version": "Delphi 2",
+      "note": "Variant values carry their type at run time and convert implicitly, and calls on Variants holding OLE Automation objects are late-bound; all other code is statically typed."
+    },
+    "interfaces": {
+      "level": "core",
+      "since": 1997,
+      "version": "Delphi 3",
+      "note": "Interfaces with GUIDs, compatible with COM and reference-counted through IInterface; a class can delegate an interface to a field or property with `implements`."
+    },
+    "classes": {
+      "level": "core",
+      "note": "Apple's Object Pascal and Turbo Pascal 5.5 used `object` types; Delphi (1995) introduced heap-allocated `class` types with a common TObject root, class references (`class of`) and virtual constructors. The old `object` types are still accepted."
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Single implementation inheritance with virtual and dynamic methods, `override`, `abstract` and `inherited`; a class may implement several interfaces."
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "note": "Class and record helpers add methods to existing types, and `implements` delegates an interface to a field or property; neither is a true mixin."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "private, protected, public and published sections (plus strict private/strict protected) and each unit's interface/implementation split hide representations."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Units with separate interface and implementation sections and initialization/finalization blocks, compiled separately; the model comes from UCSD Pascal via Lisa Pascal and Turbo Pascal."
+    },
+    "operator-overloading": {
+      "level": "supported",
+      "since": 2005,
+      "version": "Delphi 2006",
+      "note": "`class operator` declarations on records; Free Pascal also allows global operator overloads."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Procedural types (a Turbo Pascal extension) and method pointers (`procedure … of object`, the basis of Delphi's events); anonymous methods (`reference to function`) since Delphi 2009. Free Pascal 3.2 has no anonymous functions."
+    },
+    "closures": {
+      "level": "core",
+      "since": 2008,
+      "version": "Delphi 2009",
+      "note": "Anonymous methods capture outer variables by reference, moving them into a reference-counted heap frame; before that, nested procedures gave only downward closures."
+    },
+    "reference-counting": {
+      "level": "core",
+      "since": 1996,
+      "version": "Delphi 2",
+      "note": "Long (copy-on-write) strings, dynamic arrays (Delphi 4), interface references and anonymous methods are reference-counted; class instances are freed manually, except under the ARC mobile compilers of 2013–2020."
+    },
+    "pointers": {
+      "level": "core",
+      "note": "Typed and untyped pointers, `@` address-of, PChar arithmetic and inline assembler on some targets; class-typed variables are implicit pointers."
+    },
+    "reflection": {
+      "level": "core",
+      "since": 1995,
+      "version": "Delphi 1",
+      "note": "RTTI for published properties and methods drives the form designer and .dfm streaming (TypInfo unit); Delphi 2010 added extended RTTI (System.Rtti) with custom attributes. Every object knows its ClassName, ClassParent and InstanceSize."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "since": 2010,
+      "version": "Delphi XE",
+      "note": "System.RegularExpressions, based on PCRE; Free Pascal ships the RegExpr unit. There are no regex literals."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1983,
+      "event": "Clascal, Apple's object-oriented Pascal, ships with the Lisa Workshop"
+    },
+    {
+      "year": 1985,
+      "event": "Larry Tesler's Object Pascal Report, designed with Niklaus Wirth, is released into the public domain"
+    },
+    {
+      "year": 1986,
+      "event": "Object Pascal and MacApp become Apple products; Borland's Turbo Pascal for Macintosh adds similar extensions"
+    },
+    {
+      "year": 1989,
+      "event": "Turbo Pascal 5.5 brings object types to MS-DOS"
+    },
+    {
+      "year": 1991,
+      "event": "Apple's MacApp 3.0 moves from Object Pascal to C++"
+    },
+    {
+      "year": 1995,
+      "event": "Delphi 1.0: classes, properties, events, exceptions, RTTI and the VCL"
+    },
+    {
+      "year": 1997,
+      "event": "Delphi 3 adds COM-compatible interfaces"
+    },
+    {
+      "year": 2000,
+      "event": "Free Pascal 1.0 released"
+    },
+    {
+      "year": 2003,
+      "event": "Delphi 8 compiles Object Pascal to .NET"
+    },
+    {
+      "year": 2008,
+      "event": "Delphi 2009 adds generics, anonymous methods and Unicode strings; Embarcadero acquires CodeGear"
+    },
+    {
+      "year": 2011,
+      "event": "Delphi XE2 adds 64-bit Windows, macOS and the cross-platform FireMonkey framework"
+    },
+    {
+      "year": 2012,
+      "event": "Lazarus 1.0 released"
+    },
+    {
+      "year": 2018,
+      "event": "Delphi 10.3 adds inline variables with type inference"
+    },
+    {
+      "year": 2025,
+      "event": "Delphi 13 adds a ternary (conditional) operator"
+    }
+  ],
+  "trivia": [
+    "Wirth persuaded Apple to drop the word 'class': in the 1985 Object Pascal Report a class is simply an 'object type', declared with the keyword `object`. Delphi reintroduced `class` in 1995.",
+    "'Delphi' began as an internal codename suggested by Borland developer Danny Thorpe, after the oracle: 'If you want to talk to [the] Oracle, go to Delphi.'",
+    "Adobe Photoshop was originally written in Object Pascal on Apple's MacApp framework.",
+    "The first compiler for Nim (then Nimrod) was written in Object Pascal and built with Free Pascal."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Delphi dialect (Free Pascal 3.2.2, -Mdelphi)",
+      "code": "program Hello;\n\n{$APPTYPE CONSOLE}\n\nbegin\n  Writeln('Hello, World!');\nend.\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "{$APPTYPE CONSOLE} is how Delphi's console-application template starts; Free Pascal accepts it and ignores it on Linux. Output is always open, so unlike ISO Pascal the program heading needs no (output) parameter.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Delphi dialect (Free Pascal 3.2.2, -Mdelphi)",
+      "code": "program Factorial;\n\n{$APPTYPE CONSOLE}\n\nfunction Fact(N: Integer): Int64;\nbegin\n  if N <= 1 then\n    Result := 1\n  else\n    Result := N * Fact(N - 1);\nend;\n\nbegin\n  Writeln(Fact(10));\nend.\n",
+      "expected_output": "3628800\n",
+      "notes": "`Result` is an implicit variable holding the function's return value (a Delphi addition; assigning to the function name, as in ISO Pascal, still works). Writeln prints numbers without padding.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Delphi dialect (Free Pascal 3.2.2, -Mdelphi)",
+      "code": "program FizzBuzz;\n\n{$APPTYPE CONSOLE}\n\nuses\n  SysUtils;\n\nvar\n  I: Integer;\n  S: string;\nbegin\n  for I := 1 to 15 do\n  begin\n    S := '';\n    if I mod 3 = 0 then S := S + 'Fizz';\n    if I mod 5 = 0 then S := S + 'Buzz';\n    if S = '' then S := IntToStr(I);\n    Writeln(S);\n  end;\nend.\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`string` is a reference-counted, copy-on-write heap string with no length limit (Delphi 2's long strings; UTF-16 since Delphi 2009), so + needs no buffer management. IntToStr comes from the SysUtils unit. In Free Pascal's Delphi mode `string` is an 8-bit AnsiString.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Delphi dialect (Free Pascal 3.2.2, -Mdelphi)",
+      "code": "program MapFilter;\n\n{$APPTYPE CONSOLE}\n\ntype\n  TIntPredicate = function(X: Integer): Boolean;  { procedural types }\n  TIntFunc = function(X: Integer): Integer;\n\nfunction IsEven(X: Integer): Boolean; begin Result := not Odd(X) end;\nfunction Square(X: Integer): Integer; begin Result := X * X end;\n\nfunction FilterMap(const Xs: array of Integer; Keep: TIntPredicate;\n  F: TIntFunc): TArray<Integer>;\nvar\n  X: Integer;\nbegin\n  Result := nil;\n  for X in Xs do\n    if Keep(X) then Result := Result + [F(X)];  { dynamic arrays grow with + }\nend;\n\nvar\n  Ys: TArray<Integer>;\n  I: Integer;\nbegin\n  Ys := FilterMap([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], IsEven, Square);\n  for I := 0 to High(Ys) do\n  begin\n    if I > 0 then Write(' ');\n    Write(Ys[I]);\n  end;\n  Writeln;\nend.\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Procedural types make functions typed values that can be stored and passed; dynamic arrays take [..] literals and grow with + (Delphi XE7). Since Delphi 2009 the usual style passes anonymous methods, e.g. `function(X: Integer): Boolean begin Result := not Odd(X) end`, to parameters of type TFunc<Integer, Boolean>; Free Pascal 3.2.2 has no anonymous functions, so this version names its functions. The RTL has no built-in map/filter, and loops over arrays or TList<T> are the norm.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Delphi dialect (Free Pascal 3.2.2, -Mdelphi)",
+      "code": "program Shapes;\n\n{$APPTYPE CONSOLE}\n\ntype\n  TShape = class\n    function Area: Integer; virtual; abstract;\n  end;\n\n  TRectangle = class(TShape)\n    Width, Height: Integer;\n    constructor Create(AWidth, AHeight: Integer);\n    function Area: Integer; override;\n  end;\n\n  TTriangle = class(TShape)\n    Base, Height: Integer;\n    constructor Create(ABase, AHeight: Integer);\n    function Area: Integer; override;\n  end;\n\nconstructor TRectangle.Create(AWidth, AHeight: Integer);\nbegin inherited Create; Width := AWidth; Height := AHeight end;\n\nfunction TRectangle.Area: Integer;\nbegin Result := Width * Height end;\n\nconstructor TTriangle.Create(ABase, AHeight: Integer);\nbegin inherited Create; Base := ABase; Height := AHeight end;\n\nfunction TTriangle.Area: Integer;\nbegin Result := Base * Height div 2 end;\n\nvar\n  Shapes: TArray<TShape>;\n  S: TShape;\nbegin\n  Shapes := [TRectangle.Create(3, 4), TTriangle.Create(10, 3)];\n  for S in Shapes do\n  begin\n    Writeln(Copy(S.ClassName, 2, MaxInt), ': ', S.Area);  { ClassName via RTTI }\n    S.Free;\n  end;\nend.\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Methods are declared in the class and implemented separately, as in a unit's interface and implementation sections. `virtual; abstract;` and `override` give dynamic dispatch through the base class. Objects live on the heap and are freed explicitly. Every object reports its ClassName through RTTI; dropping the conventional T prefix gives the label. Members declared before any visibility section are public.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Properties and events: the component model",
+      "concepts": [
+        "classes",
+        "first-class-functions"
+      ],
+      "dialect": "Delphi dialect (Free Pascal 3.2.2, -Mdelphi)",
+      "code": "program Events;\n\n{$APPTYPE CONSOLE}\n\ntype\n  TChangeEvent = procedure(Sender: TObject; Value: Integer) of object;\n\n  TThermostat = class\n  private\n    FTemp: Integer;\n    FOnChange: TChangeEvent;\n    procedure SetTemp(Value: Integer);\n  public\n    property Temp: Integer read FTemp write SetTemp;\n    property OnChange: TChangeEvent read FOnChange write FOnChange;\n  end;\n\n  TDisplay = class\n    procedure Show(Sender: TObject; Value: Integer);\n  end;\n\nprocedure TThermostat.SetTemp(Value: Integer);\nbegin\n  if Value = FTemp then Exit;\n  FTemp := Value;\n  if Assigned(FOnChange) then FOnChange(Self, Value);  { fire the event }\nend;\n\nprocedure TDisplay.Show(Sender: TObject; Value: Integer);\nbegin\n  Writeln(Sender.ClassName, '.Temp = ', Value);\nend;\n\nvar\n  T: TThermostat;\n  D: TDisplay;\nbegin\n  T := TThermostat.Create;\n  D := TDisplay.Create;\n  try\n    T.Temp := 18;           { no handler yet: nothing happens }\n    T.OnChange := D.Show;   { a method pointer binds object + method }\n    T.Temp := 21;\n    T.Temp := 21;           { same value: the setter fires no event }\n    T.Temp := 23;\n  finally\n    D.Free;\n    T.Free;\n  end;\nend.\n",
+      "expected_output": "TThermostat.Temp = 21\nTThermostat.Temp = 23\n",
+      "notes": "A property reads like a field but routes reads and writes through fields or methods (here SetTemp filters and notifies). An event is just a property of a method-pointer type (`procedure … of object`), which stores both code and object, so any compatible method of any object can handle it. In the VCL, events such as OnClick are published properties of this kind: the Object Inspector lists them and the .dfm loader wires handlers by name through RTTI. Hejlsberg carried properties into C#, where method pointers reappeared as delegates. Objects are freed by hand, hence try..finally.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Free Pascal",
+        "version": "3.2.2",
+        "docker_image": "plw-pascal",
+        "dockerfile": "sandbox/pascal/Dockerfile",
+        "install": "apt-get install -y fp-compiler",
+        "compile": "fpc -Mdelphi -v0 -l- -o{out} {file}",
+        "run": "{out}",
+        "notes": "Reuses the plw-pascal image (debian:trixie-slim + Free Pascal 3.2.2). -Mdelphi selects Free Pascal's Delphi-compatibility mode, equivalent to {$mode delphi} in the source: long strings, Result, Delphi generics syntax and procedure-variable assignment without @. Compiles in about 0.1 s and writes only to the working directory."
+      }
+    ],
+    "browser": {
+      "name": "pas2js (Free Pascal's Object Pascal to JavaScript compiler)",
+      "url": "https://wiki.freepascal.org/pas2js",
+      "notes": "Transpiles Object Pascal to JavaScript and can itself run in the browser; it ships a smaller RTL than native Free Pascal, so snippets may need adapting."
+    },
+    "notes": "The sandbox runs Delphi-dialect code with Free Pascal 3.2.2 in Delphi mode. Newer Delphi features (anonymous methods, inline variables, the ternary operator) need Embarcadero's Windows-hosted Delphi compiler (a free Community Edition exists); Free Pascal's development branch has anonymous functions but not the others."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Object_Pascal",
+    "homepage": "https://www.embarcadero.com/products/delphi",
+    "spec": "https://www.freepascal.org/docs-html/ref/ref.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Object_Pascal",
+    "https://en.wikipedia.org/wiki/Delphi_(software)",
+    "https://en.wikipedia.org/wiki/History_of_Delphi_(software)",
+    "https://en.wikipedia.org/wiki/Clascal",
+    "https://en.wikipedia.org/wiki/MacApp",
+    "https://en.wikipedia.org/wiki/Larry_Tesler",
+    "https://en.wikipedia.org/wiki/Turbo_Pascal",
+    "https://en.wikipedia.org/wiki/Anders_Hejlsberg",
+    "https://en.wikipedia.org/wiki/Free_Pascal",
+    "https://en.wikipedia.org/wiki/Lazarus_(software)",
+    "https://en.wikipedia.org/wiki/Nim_(programming_language)",
+    "https://en.wikipedia.org/wiki/C_Sharp_(programming_language)",
+    "https://bitsavers.org/pdf/apple/mac/developer/MacApp/Object_Pascal_For_The_Macintosh_19850214.pdf",
+    "https://web.archive.org/web/20120627043929/http://java.sun.com/docs/white/delegates.html",
+    "https://web.archive.org/web/2010/http://www.computerworld.com.au/article/261958/a-z_programming_languages_c_/?pp=2",
+    "https://www.artima.com/articles/delegates-components-and-simplexity",
+    "https://blog.marcocantu.com/blog/2026-march-delphi131-released.html",
+    "https://www.freepascal.org/",
+    "https://wiki.freepascal.org/pas2js"
+  ]
+}

@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Validate data
+        run: deno task validate
+      - name: Format and lint (scripts, runner, schema)
+        run: deno fmt --check scripts runner data/*.ts && deno lint scripts runner data
+      - name: Install web dependencies
+        run: deno install
+        working-directory: web
+      - name: Web format, lint and type check
+        run: deno task check
+        working-directory: web
+      - name: Build (data, layout, app)
+        run: deno task build
+        working-directory: web
+      - name: Runner tests (end to end on gcc:14)
+        run: docker pull gcc:14 && deno task test
+
+  # Runs the snippets of every language whose data file changed, on its real toolchain.
+  verify-changed:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Changed languages
+        id: changed
+        run: |
+          ids=$(git diff --name-only "origin/${{ github.base_ref }}...HEAD" -- 'data/languages/*.json' 'sandbox/**' \
+            | sed -nE 's#^data/languages/([^/]+)\.json$#\1#p; s#^sandbox/([^/]+)/.*#\1#p' | sort -u | tr '\n' ' ')
+          echo "ids=$ids" >> "$GITHUB_OUTPUT"
+          echo "changed: ${ids:-none}"
+      - name: Build or pull images
+        if: steps.changed.outputs.ids != ''
+        run: deno task images ${{ steps.changed.outputs.ids }}
+      - name: Verify snippets
+        if: steps.changed.outputs.ids != ''
+        run: deno task verify ${{ steps.changed.outputs.ids }}

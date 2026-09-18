@@ -96,7 +96,8 @@
   ],
   "influenced": [
     "ada",
-    "lua"
+    "lua",
+    "oberon"
   ],
   "traits": {
     "structured-control": {
@@ -247,6 +248,7 @@
     },
     "signature": {
       "title": "Modules: walls around data",
+      "concepts": ["modules"],
       "dialect": "PIM4 Modula-2 (GNU Modula-2, -fpim4)",
       "code": "MODULE Modules;\nFROM InOut IMPORT WriteString, WriteCard, WriteLn;\n\n  MODULE Stack;                      (* a local module: a wall around its data *)\n    EXPORT Push, Pop, Empty;         (* only these names are visible outside *)\n    VAR items: ARRAY [1..16] OF CARDINAL;\n        top: CARDINAL;\n\n    PROCEDURE Push(x: CARDINAL); BEGIN INC(top); items[top] := x END Push;\n    PROCEDURE Pop(): CARDINAL; BEGIN DEC(top); RETURN items[top + 1] END Pop;\n    PROCEDURE Empty(): BOOLEAN; BEGIN RETURN top = 0 END Empty;\n  BEGIN\n    top := 0                         (* module initialisation runs first *)\n  END Stack;\n\nVAR i: CARDINAL;\nBEGIN\n  FOR i := 1 TO 5 DO Push(i * i) END;\n  (* 'items' and 'top' are out of scope here; only the exports are usable *)\n  WriteCard(Pop(), 0);\n  WHILE NOT Empty() DO WriteString(\" \"); WriteCard(Pop(), 0) END;\n  WriteLn\nEND Modules.\n",
       "expected_output": "25 16 9 4 1\n",

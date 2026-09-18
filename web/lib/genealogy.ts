@@ -1,6 +1,7 @@
 // Server-side layouts for the Genealogy view: the family tree (primary parents against a time axis), the
 // influence web (every lineage edge, laid out by ELK at build time in scripts/build-layout.ts) and pedigrees.
 import layout from "../../dist/genealogy.json" with { type: "json" };
+import { YEAR_TO } from "./meta.ts";
 import { byId, type Edge, edges, type Language, languages } from "./world.ts";
 
 export type ChartNode = {
@@ -92,7 +93,7 @@ export const tree: Chart & { roots: string[] } = (() => {
     chartEdges.push(edgeProps(e, d));
   }
   return {
-    width: treeX(2026) + 150,
+    width: treeX(YEAR_TO) + 150,
     height: TOP + row * ROW + gap + 20,
     nodes,
     edges: chartEdges,

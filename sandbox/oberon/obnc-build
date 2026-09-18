@@ -1,0 +1,18 @@
+#!/bin/sh
+# obnc-build SRC OUT -- build an executable from one Oberon module, whatever SRC is called.
+# OBNC requires a module's file to be named after it (MODULE Hello -> Hello.Mod), so copy the
+# source to <Module>.Mod first. Everything is written next to the source (plus a .obnc/ dir).
+set -eu
+src=$1
+out=$2
+name=$(sed -n 's/^[[:space:]]*MODULE[[:space:]][[:space:]]*\([A-Za-z][A-Za-z0-9]*\).*/\1/p' "$src" | head -n 1)
+if [ -z "$name" ]; then
+	echo "obnc-build: no 'MODULE Name;' header found in $src" >&2
+	exit 2
+fi
+case $src in */*) ;; *) src=./$src ;; esac
+target=$(dirname "$src")/$name.Mod
+if [ "$target" != "$src" ]; then
+	cp "$src" "$target"
+fi
+exec obnc -o "$out" "$target"

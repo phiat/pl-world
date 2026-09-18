@@ -51,6 +51,10 @@ CREATE TABLE snippets (
   title TEXT, dialect TEXT, code TEXT, expected_output TEXT, notes TEXT, verified INTEGER,
   PRIMARY KEY (lang, task)
 );
+CREATE TABLE snippet_concepts (
+  lang TEXT, task TEXT, concept TEXT REFERENCES concepts(id),
+  PRIMARY KEY (lang, task, concept), FOREIGN KEY (lang, task) REFERENCES snippets(lang, task)
+);
 CREATE TABLE milestones (lang TEXT REFERENCES languages(id), year INTEGER, event TEXT);
 CREATE TABLE toolchains (
   lang TEXT REFERENCES languages(id), ord INTEGER, name TEXT, version TEXT,
@@ -116,8 +120,9 @@ for (const l of languages) {
   l.innovations.forEach((text, ord) => ins("innovations", { lang: l.id, ord, text }));
   l.influenced_by_external.forEach((x) => ins("external_influences", { lang: l.id, ...x }));
   for (const [concept, t] of Object.entries(l.traits)) ins("traits", { lang: l.id, concept, ...t });
-  for (const [task, s] of Object.entries(l.snippets)) {
+  for (const [task, { concepts: shows, ...s }] of Object.entries(l.snippets)) {
     ins("snippets", { lang: l.id, task, ...s, verified: s.verified ? 1 : 0 });
+    for (const concept of shows) ins("snippet_concepts", { lang: l.id, task, concept });
   }
   l.milestones.forEach((m) => ins("milestones", { lang: l.id, ...m }));
   l.runtime.toolchains.forEach((t, ord) => ins("toolchains", { lang: l.id, ord, ...t }));

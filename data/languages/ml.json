@@ -273,6 +273,7 @@
     },
     "signature": {
       "title": "Types without annotations",
+      "concepts": ["type-inference"],
       "dialect": "Standard ML '97",
       "code": "(* Not one type annotation: Hindley-Milner inference finds the most\n   general type of each definition (shown in the comments). *)\n\n(* compose : ('a -> 'b) * ('c -> 'a) -> 'c -> 'b *)\nfun compose (f, g) x = f (g x)\n\n(* foldr : ('a * 'b -> 'b) -> 'b -> 'a list -> 'b *)\nfun foldr f z []        = z\n  | foldr f z (x :: xs) = f (x, foldr f z xs)\n\n(* length : 'a list -> int -- works on a list of anything *)\nfun length xs = foldr (fn (_, n) => n + 1) 0 xs\n\n(* sum : int list -> int  *)\nfun sum xs = foldr (op +) 0 xs\n\n(* The same polymorphic code, used at several types. *)\nval () = print (Int.toString (length [\"a\", \"b\", \"c\"]) ^ \"\\n\")\nval () = print (Int.toString (length [true, false]) ^ \"\\n\")\nval () = print (compose (Int.toString, sum) [1, 2, 3, 4] ^ \"\\n\")\nval () = print (foldr (op ^) \"\" [\"M\", \"L\"] ^ \"\\n\")\n",
       "expected_output": "3\n2\n10\nML\n",

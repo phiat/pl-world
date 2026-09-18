@@ -107,7 +107,8 @@
   ],
   "influenced": [
     "rust",
-    "php"
+    "php",
+    "dart"
   ],
   "traits": {
     "structured-control": {
@@ -342,6 +343,7 @@
     },
     "signature": {
       "title": "Optionals and enums with associated values",
+      "concepts": ["option-types", "algebraic-data-types"],
       "dialect": "Swift 6",
       "code": "// Optionals and enums with associated values: absence and alternatives\n// live in the type system, and `switch` must handle every case.\nenum Payment {\n    case cash\n    case card(last4: String)\n    case voucher(code: String, discount: Int?)\n}\n\nfunc describe(_ p: Payment) -> String {\n    switch p {\n    case .cash:\n        return \"cash\"\n    case .card(let last4):\n        return \"card ending \\(last4)\"\n    case .voucher(let code, let discount?):\n        return \"voucher \\(code) (-\\(discount)%)\"\n    case .voucher(let code, nil):\n        return \"voucher \\(code)\"\n    }\n}\n\nlet payments: [Payment] = [.cash, .card(last4: \"4242\"), .voucher(code: \"SWIFT\", discount: 10)]\nfor p in payments { print(describe(p)) }\n\nlet nickname: String? = nil\nprint(\"Hello, \\(nickname ?? \"guest\")!\")   // nil-coalescing unwraps safely\n",
       "expected_output": "cash\ncard ending 4242\nvoucher SWIFT (-10%)\nHello, guest!\n",

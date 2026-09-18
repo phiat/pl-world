@@ -24,12 +24,18 @@ export type World = {
 
 const dataDir = new URL("./", import.meta.url);
 
-/** Reads data/languages/*.json. Missing files are skipped (reported via onSkip); invalid ones throw. */
-export async function loadWorld(opts: { onSkip?: (id: string) => void } = {}): Promise<World> {
+/**
+ * Reads data/languages/*.json. Missing files are skipped (reported via onSkip); invalid ones throw.
+ * `ids` limits loading to those languages, so one broken file doesn't stop work on another.
+ */
+export async function loadWorld(
+  opts: { ids?: readonly string[]; onSkip?: (id: string) => void } = {},
+): Promise<World> {
   const concepts = Concept.array().parse(conceptsJson);
   const tasks = Task.array().parse(tasksJson);
   const languages: Language[] = [];
   for (const id of LANGUAGE_IDS) {
+    if (opts.ids?.length && !opts.ids.includes(id)) continue;
     let raw: string;
     try {
       raw = await Deno.readTextFile(new URL(`languages/${id}.json`, dataDir));

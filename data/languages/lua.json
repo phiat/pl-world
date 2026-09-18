@@ -40,14 +40,14 @@
     { "id": "scheme", "kind": "influence", "weight": "major", "note": "Semantic model: first-class anonymous functions with lexical scoping, proper tail calls, a single namespace for functions and values; its influence grew over Lua's evolution." },
     { "id": "modula2", "kind": "influence", "weight": "minor", "note": "Control-structure syntax (while, if, repeat–until); the authors cite 'Modula'." },
     { "id": "clu", "kind": "influence", "weight": "minor", "note": "Multiple assignment and multiple return values." },
-    { "id": "cpp", "kind": "influence", "weight": "minor", "note": "Declaring local variables only where they are needed." }
+    { "id": "cpp", "kind": "influence", "weight": "minor", "note": "Declaring local variables only where they are needed." },
+    { "id": "awk", "kind": "influence", "weight": "minor", "note": "Associative arrays (with SNOBOL), the name gsub, and automatic string-to-number coercion in arithmetic, per the HOPL III paper." }
   ],
   "influenced_by_external": [
     { "name": "SOL (Simple Object Language)", "note": "Tecgraf's data-description language; Lua kept its table-constructor syntax for records and lists." },
-    { "name": "SNOBOL", "year": 1962, "note": "Associative arrays, which Lua made into first-class tables; string pattern matching." },
-    { "name": "AWK", "year": 1977, "note": "Associative arrays and pattern-matching functions such as gsub." }
+    { "name": "SNOBOL", "year": 1962, "note": "Associative arrays, which Lua made into first-class tables; string pattern matching." }
   ],
-  "influenced": ["ruby", "julia"],
+  "influenced": ["ruby", "julia", "gleam"],
   "traits": {
     "structured-control": { "level": "core", "note": "while, repeat–until, numeric and generic for; `goto` added in 5.2." },
     "block-scope": { "level": "core", "note": "`local` variables are scoped to their block; undeclared names are globals (5.5 adds explicit `global` declarations)." },
@@ -120,6 +120,7 @@
     },
     "signature": {
       "title": "Stackful coroutines",
+      "concepts": ["coroutines"],
       "dialect": "Lua 5.x",
       "code": "-- Coroutines are stackful: yield works from deep inside nested calls.\nlocal function walk(tree)\n  for _, node in ipairs(tree) do\n    if type(node) == \"table\" then\n      walk(node)                  -- plain recursion, no 'yield from' needed\n    else\n      coroutine.yield(node)\n    end\n  end\nend\n\nlocal function leaves(tree)\n  return coroutine.wrap(function() walk(tree) end)\nend\n\nlocal found = {}\nfor leaf in leaves({ 1, { 2, { 3, 4 } }, { { 5 } }, 6 }) do\n  found[#found + 1] = leaf\nend\nprint(table.concat(found, \" \"))\n\n-- Values flow both ways: resume passes arguments in, yield hands results out.\nlocal co = coroutine.create(function(a)\n  local b = coroutine.yield(a + 1)\n  return a * b\nend)\nprint(coroutine.resume(co, 10))   --> true  11\nprint(coroutine.resume(co, 5))    --> true  50\nprint(coroutine.status(co))       --> dead\n",
       "expected_output": "1 2 3 4 5 6\ntrue\t11\ntrue\t50\ndead\n",

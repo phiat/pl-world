@@ -1,19 +1,19 @@
 # PL World
 
-An explorable museum of 50 programming languages, from Fortran (1957) to Zig (2016). It covers where each language came
-from (lineage), what it is made of (traits as genes), and how it feels: the same six programs side by side, all runnable
-on real toolchains in sandboxed containers. See [DESIGN.md](DESIGN.md) for the full design.
+An explorable museum of 58 programming languages, from Fortran (1957) to Zig and Gleam (2016). It covers where each
+language came from (lineage), what it is made of (traits as genes), and how it feels: the same six programs side by
+side, all runnable on real toolchains in sandboxed containers. See [DESIGN.md](DESIGN.md) for the full design.
 
 ![The River: seventy years of languages by family, tracing C's ancestors and descendants while "lexical closures" is selected](docs/screenshots/river.png)
 
-|                                                                                                                                                              |                                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
-| ![Rosetta Desk: Fortran, C and Smalltalk windows in period skins, each run in a sandbox and matching its expected output](docs/screenshots/rosetta-desk.png) | ![Language page for Haskell: trait DNA, a runnable snippet, parents and children](docs/screenshots/language-page.png) |
-| **Rosetta Desk:** the same program in five eras, each window run on its real toolchain                                                                       | **Language page:** trait DNA, runnable snippets, lineage and history                                                  |
-| ![Family tree: every language hanging from its primary parent on a time axis, tracing Java](docs/screenshots/family-tree.png)                                | ![Pedigree of Python: three generations of ancestors and two of descendants](docs/screenshots/pedigree.png)           |
-| **Genealogy:** the family tree by primary parent                                                                                                             | **Pedigree:** ancestors and descendants of one language, with the reasons                                             |
-| ![Genome: the language by concept matrix sorted by similarity to Haskell, with convergent-evolution pairs](docs/screenshots/genome.png)                      |                                                                                                                       |
-| **Genome:** 50 languages × 55 concepts, and languages that converged independently                                                                           |                                                                                                                       |
+|                                                                                                                                                              |                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Rosetta Desk: Fortran, C and Smalltalk windows in period skins, each run in a sandbox and matching its expected output](docs/screenshots/rosetta-desk.png) | ![Language page for Haskell: trait DNA, a runnable snippet, parents and children](docs/screenshots/language-page.png)                  |
+| **Rosetta Desk:** the same program in five eras, each window run on its real toolchain                                                                       | **Language page:** trait DNA, runnable snippets, lineage and history                                                                   |
+| ![Family tree: every language hanging from its primary parent on a time axis, tracing Java](docs/screenshots/family-tree.png)                                | ![Pedigree of Python: three generations of ancestors and two of descendants](docs/screenshots/pedigree.png)                            |
+| **Genealogy:** the family tree by primary parent                                                                                                             | **Pedigree:** ancestors and descendants of one language, with the reasons                                                              |
+| ![Genome: the language by concept matrix sorted by similarity to Haskell, with convergent-evolution pairs](docs/screenshots/genome.png)                      | ![Concept page for actors: origin, popularizers, adoption curve and the Erlang and Elixir snippets](docs/screenshots/concept-page.png) |
+| **Genome:** 58 languages × 55 concepts, and languages that converged independently                                                                           | **Concept page:** where an idea came from, how it spread, and code built around it                                                     |
 
 ## Run it locally
 
@@ -32,10 +32,12 @@ works without the runner. Its Run buttons then report that the runner is down.
 | Route                            | What it is                                                                                                                                                                                                                                                    |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `/`                              | **River**: languages on a time × family chart with lineage links. Hover to trace ancestry, scrub or play the years, pick a concept (`?gene=closures`) to watch it spread.                                                                                     |
-| `/tree`                          | **Genealogy**: the family tree (each language under its primary parent, on a time axis), the influence web (all 219 lineage links, `?view=web`) and pedigrees (`?of=python`): three generations of ancestors, two of descendants, and the notes on each link. |
+| `/tree`                          | **Genealogy**: the family tree (each language under its primary parent, on a time axis), the influence web (all 262 lineage links, `?view=web`) and pedigrees (`?of=python`): three generations of ancestors, two of descendants, and the notes on each link. |
 | `/lang/:id`                      | **Language page**: trait DNA, runnable snippets for each task, history, innovations, parents/children, closest languages by traits, milestones.                                                                                                               |
 | `/compare?l=c,lisp,apl&t=shapes` | **Rosetta Desk**: up to six period-skinned code windows, editable (CodeMirror, Ctrl/⌘+Enter to run) and runnable, plus a trait diff.                                                                                                                          |
-| `/genome?sort=sim&to=rust`       | **Genome**: a 50 × 55 language × concept matrix and convergent-evolution pairs.                                                                                                                                                                               |
+| `/genome?sort=sim&to=rust`       | **Genome**: a 58 × 55 language × concept matrix and convergent-evolution pairs.                                                                                                                                                                               |
+| `/concepts`                      | **Concepts**: all 55 concepts by category, each with its origin, carrier count and an adoption sparkline.                                                                                                                                                     |
+| `/concept/:id`                   | **Concept page**: origin and popularizers, an adoption curve (carriers per year by level), the River with only carriers lit, every carrier with the year it took the idea up, snippets built around it and concepts it is often found with.                   |
 
 ## Tasks
 
@@ -50,6 +52,8 @@ works without the runner. Its Run buttons then report that the runner is down.
 | `deno task verify [ids] [--task t] [--write]`    | Run every snippet in the sandbox and compare with its expected output                   |
 | `deno task test`                                 | Runner unit and integration tests (needs Docker)                                        |
 | `cd web && deno task build && deno task start`   | Production build served by `deno serve`                                                 |
+| `deno task preview`                              | The production build in local `wrangler dev` (hosted mode)                              |
+| `deno task deploy`                               | Build and deploy to Cloudflare Workers (needs `CLOUDFLARE_API_TOKEN`)                   |
 
 ## Layout
 
@@ -58,7 +62,7 @@ data/        source of truth: schema.ts (zod), languages/*.json, concepts.json, 
 scripts/     validate.ts, build-db.ts, build-layout.ts (ELK layout for the influence web)
 runner/      sandbox runner: sandbox.ts (docker plans, streaming), main.ts (HTTP/SSE), images.ts, verify.ts
 sandbox/     Dockerfiles for toolchains without a usable public image (ALGOL 60, Simula, BCPL, B, CLU, …)
-web/         Fresh 2 app: routes/ (SSR pages, /api/run proxy), islands/ (River, GenealogyChart, CodeWindow, …)
+web/         Fresh 2 app: routes/ (SSR pages, /api/run proxy), islands/ (River, GenealogyChart, CodeWindow, …), lib/
 design/      the static prototype
 docs/        README screenshots
 ```
@@ -67,5 +71,24 @@ docs/        README screenshots
 
 Each run gets a fresh container with `--network none`, 1 GB memory, 2 CPUs, 512 pids, all capabilities dropped,
 `no-new-privileges`, tmpfs work dirs and a 90 s wall clock. Output is capped at 64 KB. The runner listens on 127.0.0.1
-only. This is enough for local use. A public deployment would also need gVisor (`--runtime runsc`), a non-root user, a
-read-only root filesystem and rate limits (see DESIGN.md §4).
+only, answers only loopback `Host` names (against DNS rebinding) and only `application/json` posts (so other websites
+open in your browser can't submit code). This is enough for local use. A public runner would also need gVisor
+(`--runtime runsc`), a non-root user, a read-only root filesystem and rate limits (see DESIGN.md §4).
+
+## Hosted copy (Cloudflare Workers)
+
+The web app also runs on Cloudflare Workers, read-only: there is no runner behind it, so Run shows each snippet's
+recorded output (verified on its real toolchain) and points to this repo for live runs. `wrangler.jsonc` and
+`web/worker.js` wrap the Fresh build, serve static files from Workers Assets and cache rendered pages at the edge per
+deployed version. Put `CLOUDFLARE_API_TOKEN` in `.env` (git-ignored) or the environment, then `deno task deploy`. To
+back a hosted copy with a runner, set `RUNNER_URL` on the worker.
+
+## Contributing
+
+Language data lives in `data/languages/<id>.json`; `data/README.md` has the research conventions and `languages/c.json`
+is the reference example. `deno task validate` checks the data. CI runs it on every push, and on pull requests it also
+builds the sandbox image and runs the snippets of every language whose data or `sandbox/` recipe changed.
+
+## License
+
+[MIT](LICENSE)

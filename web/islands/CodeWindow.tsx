@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "preact/hooks";
-import { type Era, normalizeOutput } from "../lib/meta.ts";
+import { type Era, normalizeOutput, REPO_URL } from "../lib/meta.ts";
 import type { EditorHandle } from "../lib/editor.ts";
 
 export type CodeWindowProps = {
@@ -39,6 +39,8 @@ type Run =
   | { state: "idle" }
   | { state: "running"; phase: "starting" | "compiling" | "running"; command?: string; stdout: string; stderr: string }
   | { state: "done"; command?: string; result: RunResult; code: string }
+  /** No runner behind this copy of the site (the hosted version); `recorded` = show the verified output. */
+  | { state: "hosted"; recorded: boolean }
   | { state: "error"; message: string };
 
 const RULER = "         1         2         3         4         5         6         7\n" +
@@ -78,7 +80,8 @@ export default function CodeWindow(p: CodeWindowProps) {
       });
       if (!res.ok || !res.body) {
         const body = await res.json().catch(() => ({}));
-        setRun({ state: "error", message: body.error ?? `The runner answered ${res.status}.` });
+        if (body.hosted) setRun({ state: "hosted", recorded: source === p.code && p.verified });
+        else setRun({ state: "error", message: body.error ?? `The runner answered ${res.status}.` });
         return;
       }
       const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
@@ -215,7 +218,7 @@ export default function CodeWindow(p: CodeWindowProps) {
           <pre class="win-code" dangerouslySetInnerHTML={{ __html: p.html }} />
         )}
       </div>
-      {run.state !== "idle" && <Output run={run} expected={edited ? null : p.expected} />}
+      {run.state !== "idle" && <Output run={run} expected={edited ? null : p.expected} toolchain={p.toolchain} />}
       <div class="win-foot">
         {p.dialect} · {p.toolchain}
         {edited ? " · edited" : p.verified ? " · ✓ verified" : " · unverified"}
@@ -224,7 +227,20 @@ export default function CodeWindow(p: CodeWindowProps) {
   );
 }
 
-function Output({ run, expected }: { run: Run; expected: string | null }) {
+function Output({ run, expected, toolchain }: { run: Run; expected: string | null; toolchain: string }) {
+  if (run.state === "hosted") {
+    const clone = <a href={REPO_URL}>clone the repo</a>;
+    return (
+      <div class="win-out">
+        {run.recorded && expected !== null && <pre>{expected}</pre>}
+        <div class="status">
+          {run.recorded
+            ? <>Recorded output, verified on {toolchain}. This site can't run code: {clone} to run it live.</>
+            : <>This site can't run code: {clone} to run edited code in a sandbox.</>}
+        </div>
+      </div>
+    );
+  }
   if (run.state === "error") {
     return (
       <div class="win-out">

@@ -45,7 +45,7 @@
     { "name": "Assembly (PDP-11)", "year": 1970, "note": "Operators like ++ map naturally onto PDP-11 addressing modes (though they predate it in B)." },
     { "name": "PL/I", "year": 1964, "note": "Via Multics; the -> operator and some syntax." }
   ],
-  "influenced": ["cpp", "objective-c", "java", "javascript", "csharp", "perl", "php", "python", "go", "rust", "zig", "swift", "lua", "julia"],
+  "influenced": ["cpp", "objective-c", "java", "javascript", "csharp", "perl", "php", "python", "go", "rust", "zig", "swift", "lua", "julia", "awk", "dart"],
   "traits": {
     "structured-control": { "level": "core" },
     "block-scope": { "level": "core" },
@@ -106,6 +106,7 @@
     },
     "signature": {
       "title": "Pointers all the way down",
+      "concepts": ["pointers"],
       "dialect": "C99",
       "code": "#include <stdio.h>\n\n/* Classic K&R string copy: the pointer idiom C is famous for. */\nvoid copy(char *dst, const char *src) {\n    while ((*dst++ = *src++))\n        ;\n}\n\nint main(void) {\n    char buf[32];\n    copy(buf, \"pointers!\");\n    for (char *p = buf; *p; p++)\n        printf(\"%c@%td \", *p, p - buf);\n    putchar('\\n');\n    return 0;\n}\n",
       "expected_output": "p@0 o@1 i@2 n@3 t@4 e@5 r@6 s@7 !@8 \n",

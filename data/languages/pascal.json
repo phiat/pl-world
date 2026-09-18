@@ -83,7 +83,9 @@
     "eiffel",
     "java",
     "csharp",
-    "go"
+    "go",
+    "object-pascal",
+    "nim"
   ],
   "traits": {
     "structured-control": {

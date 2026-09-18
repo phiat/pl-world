@@ -91,7 +91,9 @@
     "fsharp",
     "clojure",
     "rust",
-    "go"
+    "go",
+    "dart",
+    "gleam"
   ],
   "traits": {
     "structured-control": {
@@ -258,6 +260,7 @@
     },
     "signature": {
       "title": "Processes, messages and 'let it crash'",
+      "concepts": ["actors"],
       "dialect": "Erlang/OTP 29 (escript)",
       "code": "-module(signature).\n-export([main/1]).\n\n%% A process shares nothing; it only receives messages from its mailbox.\nworker() ->\n    receive\n        {From, {square, N}} -> From ! {self(), N * N}, worker();\n        {_From, crash}      -> exit(boom)\n    end.\n\nmain(_Args) ->\n    process_flag(trap_exit, true),         % turn linked crashes into messages\n    Pid = spawn_link(fun worker/0),\n    Pid ! {self(), {square, 7}},\n    receive {Pid, Result} -> io:format(\"7 squared is ~p~n\", [Result]) end,\n    Pid ! {self(), crash},\n    receive {'EXIT', Pid, Reason} -> io:format(\"worker died: ~p~n\", [Reason]) end.\n",
       "expected_output": "7 squared is 49\nworker died: boom\n",

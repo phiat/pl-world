@@ -46,9 +46,36 @@ const hljsClasses = tagHighlighter([
 
 const legacy = (parser: StreamParser<unknown>) => StreamLanguage.define(parser);
 
+// J has no CodeMirror mode: comments, strings, control words (`if.` … `end.`), copulas and numbers.
+const jParser: StreamParser<unknown> = {
+  name: "j",
+  token(stream) {
+    if (stream.eatSpace()) return null;
+    if (stream.match(/^NB\..*/)) return "comment";
+    if (stream.match(/^'(?:[^']|'')*'?/)) return "string";
+    if (
+      stream.match(
+        /^(?:assert|break|case|catch[dt]?|continue|do|else|elseif|end|fcase|for(?:_\w+)?|if|return|select|throw|try|while|whilst)\./,
+      )
+    ) {
+      return "keyword";
+    }
+    if (stream.match(/^=[.:]/)) return "keyword";
+    if (stream.match(/^_?\d[\w.]*/)) return "number";
+    if (stream.match(/^[A-Za-z]\w*/)) return "variableName";
+    stream.next();
+    return null;
+  },
+};
+
+// Nim reads like Python with its own keywords.
+const NIM_KEYWORDS = ("proc func let var const type object enum tuple ref ptr macro template iterator method " +
+  "converter case of when discard distinct mod div shl shr xor nil block static defer concept do export include " +
+  "mixin bind addr cast using").split(" ");
+
 // Modes per language. Close relatives stand in where CodeMirror has no mode of its own:
-// the ALGOL family uses Pascal, Ada uses VHDL (itself derived from Ada), Prolog uses Erlang
-// (whose syntax came from Prolog), Elixir uses Ruby, Zig uses Rust, B uses C.
+// the ALGOL family (Oberon, Object Pascal) uses Pascal, Ada uses VHDL (itself derived from Ada), Prolog uses
+// Erlang (whose syntax came from Prolog), Elixir uses Ruby, Zig and Gleam use Rust, AWK uses Perl, B uses C.
 const MODES: Record<string, () => Promise<Extension>> = {
   fortran: () => import("@codemirror/legacy-modes/mode/fortran").then((m) => legacy(m.fortran)),
   algol60: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
@@ -67,17 +94,21 @@ const MODES: Record<string, () => Promise<Extension>> = {
   ml: () => import("@codemirror/legacy-modes/mode/mllike").then((m) => legacy(m.sml)),
   sql: () => import("@codemirror/legacy-modes/mode/sql").then((m) => legacy(m.standardSQL)),
   scheme: () => import("@codemirror/legacy-modes/mode/scheme").then((m) => legacy(m.scheme)),
+  awk: () => import("@codemirror/legacy-modes/mode/perl").then((m) => legacy(m.perl)),
   modula2: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
   ada: () => import("@codemirror/legacy-modes/mode/vhdl").then((m) => legacy(m.vhdl)),
   "common-lisp": () => import("@codemirror/legacy-modes/mode/commonlisp").then((m) => legacy(m.commonLisp)),
   "objective-c": () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.objectiveC)),
   cpp: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.cpp)),
+  "object-pascal": () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
   miranda: () => import("@codemirror/legacy-modes/mode/haskell").then((m) => legacy(m.haskell)),
   eiffel: () => import("@codemirror/legacy-modes/mode/eiffel").then((m) => legacy(m.eiffel)),
   erlang: () => import("@codemirror/legacy-modes/mode/erlang").then((m) => legacy(m.erlang)),
   perl: () => import("@codemirror/legacy-modes/mode/perl").then((m) => legacy(m.perl)),
+  oberon: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
   self: () => import("@codemirror/legacy-modes/mode/smalltalk").then((m) => legacy(m.smalltalk)),
   haskell: () => import("@codemirror/legacy-modes/mode/haskell").then((m) => legacy(m.haskell)),
+  j: () => Promise.resolve(legacy(jParser)),
   python: () => import("@codemirror/legacy-modes/mode/python").then((m) => legacy(m.python)),
   lua: () => import("@codemirror/legacy-modes/mode/lua").then((m) => legacy(m.lua)),
   r: () => import("@codemirror/legacy-modes/mode/r").then((m) => legacy(m.r)),
@@ -85,19 +116,29 @@ const MODES: Record<string, () => Promise<Extension>> = {
   javascript: () => import("@codemirror/legacy-modes/mode/javascript").then((m) => legacy(m.javascript)),
   php: () => import("@codemirror/lang-php").then((m) => m.php()),
   ruby: () => import("@codemirror/legacy-modes/mode/ruby").then((m) => legacy(m.ruby)),
+  racket: () => import("@codemirror/legacy-modes/mode/scheme").then((m) => legacy(m.scheme)),
   ocaml: () => import("@codemirror/legacy-modes/mode/mllike").then((m) => legacy(m.oCaml)),
   csharp: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.csharp)),
   scala: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.scala)),
   fsharp: () => import("@codemirror/legacy-modes/mode/mllike").then((m) => legacy(m.fSharp)),
   clojure: () => import("@codemirror/legacy-modes/mode/clojure").then((m) => legacy(m.clojure)),
+  // mkPython is exported by the mode but missing from its type declarations.
+  nim: () =>
+    import("@codemirror/legacy-modes/mode/python").then((m) =>
+      legacy(
+        (m as unknown as { mkPython(conf: object): StreamParser<unknown> }).mkPython({ extra_keywords: NIM_KEYWORDS }),
+      )
+    ),
   go: () => import("@codemirror/legacy-modes/mode/go").then((m) => legacy(m.go)),
   kotlin: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.kotlin)),
+  dart: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.dart)),
   elixir: () => import("@codemirror/legacy-modes/mode/ruby").then((m) => legacy(m.ruby)),
   julia: () => import("@codemirror/legacy-modes/mode/julia").then((m) => legacy(m.julia)),
   rust: () => import("@codemirror/legacy-modes/mode/rust").then((m) => legacy(m.rust)),
   typescript: () => import("@codemirror/legacy-modes/mode/javascript").then((m) => legacy(m.typescript)),
   swift: () => import("@codemirror/legacy-modes/mode/swift").then((m) => legacy(m.swift)),
   zig: () => import("@codemirror/legacy-modes/mode/rust").then((m) => legacy(m.rust)),
+  gleam: () => import("@codemirror/legacy-modes/mode/rust").then((m) => legacy(m.rust)),
 };
 
 /** The snippet's own indent step: a tab if it uses tabs, else the smallest increase between lines. */

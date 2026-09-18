@@ -36,21 +36,22 @@
   "color": "#b07219",
   "primary_parent": "cpp",
   "influenced_by": [
-    {"id": "cpp", "kind": "influence", "weight": "major", "note": "Syntax and much of the class model, minus pointers, operator overloading and multiple inheritance of classes."},
-    {"id": "smalltalk", "kind": "influence", "weight": "major", "note": "A bytecode virtual machine, garbage collection and a single-rooted class hierarchy."},
-    {"id": "objective-c", "kind": "influence", "weight": "minor", "note": "Interfaces resemble Objective-C protocols; dynamic class loading and run-time type information."},
-    {"id": "c", "kind": "influence", "weight": "minor", "note": "Primitive types, operators and statement syntax (via C++)."},
-    {"id": "simula", "kind": "influence", "weight": "minor", "note": "Classes, objects and virtual methods."},
-    {"id": "lisp", "kind": "influence", "weight": "minor", "note": "Garbage collection."},
-    {"id": "clu", "kind": "influence", "weight": "minor", "note": "Exception handling."},
-    {"id": "pascal", "kind": "influence", "weight": "minor", "note": "UCSD Pascal's portable p-code virtual machine."}
+    { "id": "cpp", "kind": "influence", "weight": "major", "note": "Syntax and much of the class model, minus pointers, operator overloading and multiple inheritance of classes." },
+    { "id": "smalltalk", "kind": "influence", "weight": "major", "note": "A bytecode virtual machine, garbage collection and a single-rooted class hierarchy." },
+    { "id": "objective-c", "kind": "influence", "weight": "minor", "note": "Interfaces resemble Objective-C protocols; dynamic class loading and run-time type information." },
+    { "id": "c", "kind": "influence", "weight": "minor", "note": "Primitive types, operators and statement syntax (via C++)." },
+    { "id": "simula", "kind": "influence", "weight": "minor", "note": "Classes, objects and virtual methods." },
+    { "id": "lisp", "kind": "influence", "weight": "minor", "note": "Garbage collection." },
+    { "id": "clu", "kind": "influence", "weight": "minor", "note": "Exception handling." },
+    { "id": "pascal", "kind": "influence", "weight": "minor", "note": "UCSD Pascal's portable p-code virtual machine." },
+    { "id": "object-pascal", "kind": "influence", "weight": "minor", "note": "Sun designed the JDK 1.1 event model and JavaBeans (1996) with Borland's input, prototyping Delphi-style bound method references before choosing inner classes." },
+    { "id": "oberon", "kind": "influence", "weight": "minor", "note": "Listed by Wikipedia on Wirth's account that Sun's Java team licensed and studied the Oberon compiler sources before Java's release; both share compactness, type safety, garbage collection and single inheritance." }
   ],
   "influenced_by_external": [
-    {"name": "Mesa", "year": 1976},
-    {"name": "Modula-3", "year": 1988},
-    {"name": "Oberon", "year": 1987}
+    { "name": "Mesa", "year": 1976 },
+    { "name": "Modula-3", "year": 1988 }
   ],
-  "influenced": ["csharp", "scala", "kotlin", "clojure", "javascript", "php", "typescript"],
+  "influenced": ["csharp", "scala", "kotlin", "clojure", "javascript", "php", "typescript", "dart"],
   "traits": {
     "structured-control": {"level": "core"},
     "block-scope": {"level": "core"},
@@ -166,6 +167,7 @@
   "sources": [
     "https://en.wikipedia.org/wiki/Java_(programming_language)",
     "https://openjdk.org/jeps/512",
-    "https://labs.leaningtech.com/blog/cheerpj-4.1"
+    "https://labs.leaningtech.com/blog/cheerpj-4.1",
+    "https://web.archive.org/web/20120627043929/http://java.sun.com/docs/white/delegates.html"
   ]
 }

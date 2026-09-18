@@ -49,13 +49,13 @@
     { "id": "java", "kind": "influence", "weight": "major", "note": "Management required it to 'look like Java'; also the name, `this`, the Date class and the primitive/object split (string vs String)." },
     { "id": "c", "kind": "influence", "weight": "minor", "note": "JavaScript 1.0's statement syntax was modelled directly on C." },
     { "id": "perl", "kind": "influence", "weight": "minor", "note": "Regular-expression syntax and semantics, and the push/pop/shift/unshift/splice array methods (JavaScript 1.2)." },
-    { "id": "python", "kind": "influence", "weight": "minor", "note": "slice/concat methods (JavaScript 1.2); later iterators, generators and destructuring." }
+    { "id": "python", "kind": "influence", "weight": "minor", "note": "slice/concat methods (JavaScript 1.2); later iterators, generators and destructuring." },
+    { "id": "awk", "kind": "influence", "weight": "minor", "note": "The function declaration syntax (Eich: \"'function', eight letters, I was influenced by AWK\") and the for-in statement." }
   ],
   "influenced_by_external": [
-    { "name": "AWK", "year": 1977, "note": "The function declaration syntax and the for-in statement." },
     { "name": "HyperTalk (HyperCard)", "year": 1987, "note": "Inspired the event-handler model of the original Netscape DOM (onclick and friends)." }
   ],
-  "influenced": ["typescript", "php", "kotlin"],
+  "influenced": ["typescript", "php", "kotlin", "dart", "gleam"],
   "traits": {
     "structured-control": { "level": "core" },
     "block-scope": { "level": "core", "since": 2015, "version": "ES2015", "note": "let/const are block-scoped; the original var is function-scoped." },
@@ -134,6 +134,7 @@
     },
     "signature": {
       "title": "Closures and the event loop",
+      "concepts": ["closures", "first-class-functions"],
       "dialect": "ECMAScript 2017+ (Node.js / Deno)",
       "code": "// Closures hold private state; one event loop interleaves all async work.\nfunction counter() {\n  let n = 0; // captured, invisible outside\n  return () => ++n;\n}\nconst step = counter();\n\nconst wait = (ms, value) =>\n  new Promise((resolve) => setTimeout(() => resolve(value), ms));\n\nasync function main() {\n  console.log(`${step()}: start`);\n  setTimeout(() => console.log(`${step()}: timer callback (task queue)`), 0);\n  Promise.resolve().then(() => console.log(`${step()}: promise callback (microtask)`));\n  console.log(`${step()}: synchronous code always finishes first`);\n  const msg = await wait(10, \"resumed after await\");\n  console.log(`${step()}: ${msg}`);\n}\n\nmain();\n",
       "expected_output": "1: start\n2: synchronous code always finishes first\n3: promise callback (microtask)\n4: timer callback (task queue)\n5: resumed after await\n",

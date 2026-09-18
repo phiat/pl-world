@@ -9,8 +9,8 @@ import { localImages, withTag } from "./sandbox.ts";
 
 const args = parseArgs(Deno.args, { boolean: ["rebuild", "dry-run"] });
 const root = new URL("../", import.meta.url).pathname;
-const { languages } = await loadWorld();
 const ids = args._.map(String);
+const { languages } = await loadWorld({ ids });
 const have = await localImages();
 
 const sh = async (cmd: string, argv: string[], cwd = root) => {

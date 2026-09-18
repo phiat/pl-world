@@ -1,10 +1,21 @@
-// Proxy to the local sandbox runner (runner/main.ts). The browser never talks to it directly.
+// Proxy to the sandbox runner (runner/main.ts). The browser never talks to it directly.
 import { define } from "../../utils.ts";
-
-const RUNNER_URL = Deno.env.get("RUNNER_URL") ?? "http://127.0.0.1:8787";
+import { REPO_URL } from "../../lib/meta.ts";
+import { RUNNER_URL } from "../../lib/runner.ts";
 
 export const handler = define.handlers({
   async POST(ctx) {
+    // Same-origin JSON only: a cross-site form or text/plain POST must not reach the runner.
+    const site = ctx.req.headers.get("sec-fetch-site");
+    if ((site && site !== "same-origin") || !ctx.req.headers.get("content-type")?.startsWith("application/json")) {
+      return Response.json({ error: "Cross-site or non-JSON requests are not accepted." }, { status: 403 });
+    }
+    if (!RUNNER_URL) {
+      return Response.json(
+        { error: `This copy of PL World can't run code. Clone ${REPO_URL} to run every window live.`, hosted: true },
+        { status: 503 },
+      );
+    }
     try {
       const upstream = await fetch(`${RUNNER_URL}/run`, {
         method: "POST",

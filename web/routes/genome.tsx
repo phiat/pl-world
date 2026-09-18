@@ -1,5 +1,6 @@
 import { define } from "../utils.ts";
 import GenomeSort from "../islands/GenomeSort.tsx";
+import { PageHead } from "../components/PageHead.tsx";
 import { byId, convergentPairs, type Language, languages, orderedConcepts, similarity } from "../lib/world.ts";
 import { CATEGORIES, CATEGORY, famColor, FAMILIES } from "../lib/meta.ts";
 
@@ -42,6 +43,11 @@ export default define.page(function Genome({ url }) {
 
   return (
     <section class="wrap">
+      <PageHead
+        title="Genome"
+        description={`${languages.length} programming languages × ${orderedConcepts.length} concepts: which ideas each language carries, and which languages converged on the same designs independently.`}
+        url={url}
+      />
       <div class="desk-bar">
         <h2>Genome</h2>
         <GenomeSort sort={sort} to={ref.id} options={options} />
@@ -65,7 +71,7 @@ export default define.page(function Genome({ url }) {
               );
             })}
             {orderedConcepts.map((c, i) => (
-              <a key={c.id} href={`/?gene=${c.id}`}>
+              <a key={c.id} href={`/concept/${c.id}`}>
                 <text class="collab" transform={`translate(${colX[i] + CELL / 2 + 4},${HEAD - 14}) rotate(-62)`}>
                   <title>{`${c.name}: ${c.summary}`}</title>
                   {c.name}
@@ -141,7 +147,7 @@ export default define.page(function Genome({ url }) {
           <h3>Reading the matrix</h3>
           <p>
             Solid = core to the language · half = supported · dashed = library. Hover a cell for details. Click a
-            language for its page, or a concept to watch it spread on the River.
+            language or a concept for its page.
           </p>
         </aside>
       </div>

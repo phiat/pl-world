@@ -2,6 +2,7 @@ import { define } from "../utils.ts";
 import GenealogyChart from "../islands/GenealogyChart.tsx";
 import NavSelect from "../islands/NavSelect.tsx";
 import { LangChip } from "../components/LangChip.tsx";
+import { PageHead } from "../components/PageHead.tsx";
 import { byId, type Edge, languages } from "../lib/world.ts";
 import { pedigree, type PedigreeCard, tree, web } from "../lib/genealogy.ts";
 import { famColor, FAMILY } from "../lib/meta.ts";
@@ -28,7 +29,13 @@ export default define.page(function Genealogy({ url }) {
 
   return (
     <section class="wrap genealogy">
-      <title>{l ? `${l.name} pedigree · PL World` : "Genealogy · PL World"}</title>
+      <PageHead
+        title={l ? `${l.name} pedigree` : view === "web" ? "Influence web" : "Genealogy"}
+        description={l
+          ? `Three generations of ${l.name}'s ancestors and two of its descendants, with what passed down each link.`
+          : "The family tree of programming languages: each language under its primary parent, on a time axis."}
+        url={url}
+      />
       <div class="desk-bar">
         <h2>Genealogy</h2>
         <nav aria-label="Layout">
@@ -54,7 +61,7 @@ export default define.page(function Genealogy({ url }) {
         <p class="note lede">
           Each language hangs from its <b>primary parent</b>, the one it most directly descends from, on a time axis.
           {" "}
-          {rootNames.length} have no parent among these 50:{" "}
+          {rootNames.length} have no parent among these {languages.length}:{" "}
           {rootNames.join(", ")}. Hover to trace a line of descent; click for a pedigree.
         </p>
       )}
@@ -154,7 +161,7 @@ function Relations({ title, edges, side }: { title: string; edges: Edge[]; side:
   return (
     <div>
       <h3 class="eyebrow">{title}</h3>
-      {edges.length === 0 && <p class="note">Nothing among these 50 languages.</p>}
+      {edges.length === 0 && <p class="note">Nothing among these {languages.length} languages.</p>}
       <ul>
         {edges.map((e) => {
           const other = byId.get(side === "parent" ? e.parent : e.child)!;

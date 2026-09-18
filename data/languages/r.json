@@ -119,6 +119,7 @@
     },
     "signature": {
       "title": "Vectors, data frames and formulas",
+      "concepts": ["array-programming"],
       "dialect": "R 4.6",
       "code": "# Vectors, data frames, NA and model formulas are built into the language.\ntrial <- data.frame(\n  dose     = 1:5,\n  response = c(2.2, 4.0, NA, 8.1, 9.7)\n)\n\nfit <- lm(response ~ dose, data = trial)          # \"response modelled by dose\"\ncat(sprintf(\"slope = %.2f\\n\", coef(fit)[[\"dose\"]]))  # the NA row is skipped\n\ntrial$predicted <- round(predict(fit, trial), 1)  # a whole column at once\nprint(trial[trial$dose > 2, ])                    # rows picked by a logical vector\n",
       "expected_output": "slope = 1.91\n  dose response predicted\n3    3       NA       6.0\n4    4      8.1       7.9\n5    5      9.7       9.8\n",

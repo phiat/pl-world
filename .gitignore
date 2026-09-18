@@ -1,3 +1,10 @@
 # generated
 dist/
 design/prototype/pl-world.html
+# secrets
+.env
+.env.*
+!.env.example
+.dev.vars
+# wrangler
+.wrangler/

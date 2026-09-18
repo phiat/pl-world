@@ -1,6 +1,12 @@
 import FindLanguage from "../islands/FindLanguage.tsx";
 
-const VIEWS = [["/", "River"], ["/tree", "Genealogy"], ["/compare", "Rosetta Desk"], ["/genome", "Genome"]] as const;
+const VIEWS = [
+  ["/", "River"],
+  ["/tree", "Genealogy"],
+  ["/compare", "Rosetta Desk"],
+  ["/genome", "Genome"],
+  ["/concepts", "Concepts"],
+] as const;
 
 export function Header(
   { path, stats, languages }: {
@@ -9,7 +15,8 @@ export function Header(
     languages: { id: string; name: string; year: number; aliases: string[] }[];
   },
 ) {
-  const current = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+  const current = (href: string) =>
+    href === "/" ? path === "/" : path.startsWith(href) || (href === "/concepts" && path.startsWith("/concept/"));
   return (
     <header class="top wrap">
       <a class="brand" href="/">

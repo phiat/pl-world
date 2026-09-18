@@ -107,7 +107,9 @@
     "php",
     "common-lisp",
     "ada",
-    "cobol"
+    "cobol",
+    "object-pascal",
+    "dart"
   ],
   "traits": {
     "structured-control": {
@@ -256,6 +258,7 @@
     },
     "signature": {
       "title": "Everything is a message",
+      "concepts": ["everything-is-an-object"],
       "dialect": "GNU Smalltalk 3.2 (Smalltalk-80 with GNU bracket syntax)",
       "code": "\"Control flow is just messages sent to objects - so you can add your own.\"\nBoolean extend [\n    unless: aBlock [ ^self ifFalse: aBlock ]\n]\n\nObject subclass: Echo [\n    doesNotUnderstand: aMessage [ ^'echo: ', aMessage selector ]\n]\n\nTranscript\n    showCr: (3 + 4) printString;\n    showCr: (3 perform: #between:and: with: 1 with: 5) printString;\n    showCr: 3 class name, ' ', true class name;\n    showCr: ((2 > 3) unless: ['2 > 3 is false']);\n    showCr: (Echo new frobnicate: 42).\n",
       "expected_output": "7\ntrue\nSmallInteger True\n2 > 3 is false\necho: frobnicate:\n",

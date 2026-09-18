@@ -64,7 +64,8 @@
   "influenced_by_external": [],
   "influenced": [
     "javascript",
-    "lua"
+    "lua",
+    "dart"
   ],
   "traits": {
     "structured-control": {
@@ -189,6 +190,7 @@
     },
     "signature": {
       "title": "Prototypes and dynamic inheritance",
+      "concepts": ["prototypes"],
       "dialect": "Self 2024.1",
       "code": "\"No classes: objects are made by copying prototypes and share\n behaviour by delegating to parent slots (marked with *).\"\nlobby _AddSlots: (| happy = (| mood = 'wags its tail' |).\n                    grumpy = (| mood = 'growls' |) |).\nlobby _AddSlots: (| dog = (| parent* = traits clonable.\n    temper* <- happy.   \"an assignable parent: dynamic inheritance\"\n    name <- 'dog'.\n    report = ( (name, ' ', mood) printLine ) |) |).\n\n(dog copy name: 'Rex') report.\n((dog copy name: 'Fido') temper: grumpy) report.\ndog report.\n((dog copy name: 'Spot') _AddSlots: (| mood = 'rolls over' |)) report.\n",
       "expected_output": "Rex wags its tail\nFido growls\ndog wags its tail\nSpot rolls over\n",

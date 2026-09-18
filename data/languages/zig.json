@@ -230,6 +230,7 @@
     },
     "signature": {
       "title": "comptime: types as values",
+      "concepts": ["compile-time-execution"],
       "dialect": "Zig 0.16.0",
       "code": "const std = @import(\"std\");\n\n// Types are comptime values: a generic type is a function that returns one.\nfn Pair(comptime T: type) type {\n    return struct {\n        a: T,\n        b: T,\n        fn max(self: @This()) T {\n            return @max(self.a, self.b);\n        }\n    };\n}\n\nfn fib(n: u64) u64 {\n    return if (n < 2) n else fib(n - 1) + fib(n - 2);\n}\n\npub fn main(init: std.process.Init) !void {\n    var buf: [128]u8 = undefined;\n    var stdout: std.Io.File.Writer = .init(.stdout(), init.io, &buf);\n    const p = Pair(f32){ .a = 2.5, .b = 1.5 };\n    const f = comptime fib(10); // run by the compiler: the binary just holds 55\n    try stdout.interface.print(\"max={d} fib(10)={d}\\n\", .{ p.max(), f });\n    try stdout.interface.flush();\n}\n",
       "expected_output": "max=2.5 fib(10)=55\n",

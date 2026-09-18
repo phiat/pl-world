@@ -26,6 +26,7 @@ export const LANGUAGE_IDS = [
   "ml",
   "sql",
   "clu",
+  "awk",
   "scheme",
   "modula2",
   // 1980–1990: objects, modules, functional purity
@@ -34,11 +35,14 @@ export const LANGUAGE_IDS = [
   "common-lisp",
   "cpp",
   "miranda",
+  "object-pascal",
   "eiffel",
   "erlang",
   "self",
+  "oberon",
   "perl",
   "haskell",
+  "j",
   // 1991–2004: the internet era
   "python",
   "lua",
@@ -47,20 +51,24 @@ export const LANGUAGE_IDS = [
   "javascript",
   "ruby",
   "php",
+  "racket",
   "ocaml",
   "csharp",
   "scala",
   // 2005–today: modern
   "fsharp",
   "clojure",
+  "nim",
   "go",
   "rust",
   "kotlin",
+  "dart",
   "elixir",
   "julia",
   "typescript",
   "swift",
   "zig",
+  "gleam",
 ] as const;
 
 export const LanguageId = z.enum(LANGUAGE_IDS);
@@ -206,6 +214,7 @@ export const Snippet = z.object({
   code: z.string(),
   expected_output: z.string(),
   notes: z.string().optional(),
+  concepts: z.array(ConceptId).default([]), // concepts the snippet is built to demonstrate (signature snippets)
   verified: z.boolean().default(false), // set true only after running in the sandbox
 });
 

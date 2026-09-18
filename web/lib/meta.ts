@@ -1,5 +1,11 @@
 // Small, client-safe constants and helpers (islands import this; keep it free of data imports).
 
+export const REPO_URL = "https://github.com/phiat/pl-world";
+
+/** The time axis shared by the River, the family tree and adoption curves. A constant rather than the clock,
+ * because Cloudflare Workers report the epoch at module scope. Bump it each year. */
+export const YEAR_FROM = 1955, YEAR_TO = 2026;
+
 export const FAMILIES = [
   ["fortran", "Fortran", "#6f63d0"],
   ["cobol", "COBOL", "#9b7653"],

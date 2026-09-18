@@ -1,0 +1,3 @@
+% Resolve host names from /etc/hosts only. Sandbox containers have no network, and the default
+% native (DNS) lookup that erl makes at boot waits ~5 s for the unreachable resolver.
+{lookup, [file]}.

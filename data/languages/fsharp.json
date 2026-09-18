@@ -325,6 +325,7 @@
     },
     "signature": {
       "title": "Computation expressions: async and your own",
+      "concepts": ["async-await"],
       "dialect": "F# 10 (F# Interactive script, .fsx)",
       "code": "// A computation expression builder: let! short-circuits when a step is None.\ntype MaybeBuilder() =\n    member _.Bind(x, f) = Option.bind f x\n    member _.Return x = Some x\n\nlet maybe = MaybeBuilder()\n\nlet parse (s: string) =\n    match System.Int32.TryParse s with\n    | true, n -> Some n\n    | _ -> None\n\nlet addStrings a b = maybe {\n    let! x = parse a\n    let! y = parse b\n    return x + y }\n\n// The same notation powers async workflows (2007), the ancestor of async/await.\nlet total = async {\n    let! parts = Async.Parallel [ async { return 20 }; async { return 22 } ]\n    return Array.sum parts }\n\nprintfn \"%A\" (addStrings \"20\" \"22\")\nprintfn \"%A\" (addStrings \"20\" \"x\")\nprintfn \"%d\" (Async.RunSynchronously total)\n",
       "expected_output": "Some 42\nNone\n42\n",

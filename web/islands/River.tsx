@@ -1,5 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { CATEGORIES, CATEGORY, type ConceptLite, famColor, FAMILIES, FAMILY, type TraitLite } from "../lib/meta.ts";
+import {
+  CATEGORIES,
+  CATEGORY,
+  type ConceptLite,
+  famColor,
+  FAMILIES,
+  FAMILY,
+  type TraitLite,
+  YEAR_FROM as YMIN,
+  YEAR_TO as YMAX,
+} from "../lib/meta.ts";
 import { DnaStrip } from "../components/DnaStrip.tsx";
 
 export type RiverNode = {
@@ -14,12 +24,29 @@ export type RiverNode = {
 };
 export type RiverEdge = { parent: string; child: string; kind: string; weight: string; retro: boolean };
 
-type Props = { nodes: RiverNode[]; edges: RiverEdge[]; concepts: ConceptLite[]; initialGene?: string };
+type Props = {
+  nodes: RiverNode[];
+  edges: RiverEdge[];
+  concepts: ConceptLite[];
+  initialGene?: string;
+  /** On a concept page: the gene is fixed and the page supplies the heading and the concept card. */
+  embedded?: boolean;
+};
 
-const YMIN = 1955, YMAX = 2026, PX = 17, X0 = 132, TOP = 40, ROW = 25, LPAD = 9;
+const PX = 17, X0 = 132, TOP = 40, ROW = 25, LPAD = 9;
 const xOf = (y: number) => X0 + (y - YMIN) * PX;
 
-function layout(nodes: RiverNode[]) {
+/** The line under a node's name while a concept is selected: where it originated, or when the language took it up. */
+function subLabel(n: RiverNode, concept?: ConceptLite): string {
+  if (!concept) return "";
+  if (concept.origin.lang === n.id) return `origin ${concept.origin.year}`;
+  const t = n.traits[concept.id];
+  return t?.since ? (t.version ? `${t.version}, ${t.since}` : `since ${t.since}`) : "";
+}
+
+// Rows are packed so neither a name (13px sans) nor the selected concept's sub-label (10.5px mono) runs into the
+// next language on its row, which means the rows reflow when the concept changes.
+function layout(nodes: RiverNode[], concept?: ConceptLite) {
   const pos = new Map<string, { x: number; y: number }>();
   const lanes: { family: string; y: number; h: number }[] = [];
   let y = TOP, maxX = xOf(YMAX);
@@ -29,7 +56,7 @@ function layout(nodes: RiverNode[]) {
     const rowEnds: number[] = [];
     const rowOf = new Map<string, number>();
     for (const n of members) {
-      const nx = xOf(n.year), width = 16 + n.name.length * 7.4;
+      const nx = xOf(n.year), width = Math.max(16 + n.name.length * 7.4, 15 + subLabel(n, concept).length * 6.4);
       let r = rowEnds.findIndex((end) => end + 6 < nx);
       if (r < 0) {
         r = rowEnds.length;
@@ -57,11 +84,12 @@ function edgePath(e: RiverEdge, p: { x: number; y: number }, c: { x: number; y: 
   return `M${p.x},${p.y} C${p.x + dx},${p.y} ${c.x - dx},${c.y} ${c.x},${c.y}`;
 }
 
-export default function River({ nodes, edges, concepts, initialGene = "" }: Props) {
+export default function River({ nodes, edges, concepts, initialGene = "", embedded = false }: Props) {
   const byId = useMemo(() => new Map(nodes.map((n) => [n.id, n])), [nodes]);
-  const { pos, lanes, width, height } = useMemo(() => layout(nodes), [nodes]);
   const [year, setYear] = useState(YMAX);
   const [gene, setGene] = useState(initialGene);
+  const concept = gene ? concepts.find((c) => c.id === gene) : undefined;
+  const { pos, lanes, width, height } = useMemo(() => layout(nodes, concept), [nodes, concept]);
   const [minor, setMinor] = useState(false);
   const [retro, setRetro] = useState(false);
   const [hover, setHover] = useState<string | null>(null);
@@ -70,6 +98,7 @@ export default function River({ nodes, edges, concepts, initialGene = "" }: Prop
   const raf = useRef(0);
 
   useEffect(() => {
+    if (embedded) return;
     const url = new URL(location.href);
     if (gene) url.searchParams.set("gene", gene);
     else url.searchParams.delete("gene");
@@ -120,7 +149,6 @@ export default function River({ nodes, edges, concepts, initialGene = "" }: Prop
     return { anc, desc };
   }, [focus, year, minor, retro, edges]);
 
-  const concept = gene ? concepts.find((c) => c.id === gene) : undefined;
   const geneColor = concept ? CATEGORY[concept.category].color : undefined;
   const traitAt = (n: RiverNode) => {
     const t = gene ? n.traits[gene] : undefined;
@@ -150,19 +178,25 @@ export default function River({ nodes, edges, concepts, initialGene = "" }: Prop
 
   return (
     <div>
-      <div class="intro">
-        <div>
-          <h1>
-            Seventy years of programming languages, <em>and the ideas they passed on.</em>
-          </h1>
-          <p>
-            Hover a language to trace its ancestors (amber) and descendants (blue). Drag the year to rewind history, or
-            pick a concept to watch it spread through the family.
-          </p>
-        </div>
+      <div class={embedded ? "intro embedded" : "intro"}>
+        {!embedded && (
+          <div>
+            <h1>
+              Seventy years of programming languages, <em>and the ideas they passed on.</em>
+            </h1>
+            <p>
+              Hover a language to trace its ancestors (amber) and descendants (blue). Drag the year to rewind history,
+              or pick a concept to watch it spread through the family.
+            </p>
+          </div>
+        )}
         <div class="yearbox" aria-live="polite">
           <strong>{year}</strong>
-          <span>{nodes.filter((n) => n.year <= year).length} of {nodes.length} languages exist</span>
+          <span>
+            {embedded && concept
+              ? `${carriers} of ${nodes.filter((n) => n.year <= year).length} languages carry it`
+              : `${nodes.filter((n) => n.year <= year).length} of ${nodes.length} languages exist`}
+          </span>
         </div>
       </div>
 
@@ -182,36 +216,44 @@ export default function River({ nodes, edges, concepts, initialGene = "" }: Prop
             setYear(Number(e.currentTarget.value));
           }}
         />
-        <label class="ctl">
-          Concept
-          <select id="gene" value={gene} onChange={(e) => setGene(e.currentTarget.value)}>
-            <option value="">None</option>
-            {CATEGORIES.map(([cat, label]) => (
-              <optgroup key={cat} label={label}>
-                {concepts.filter((c) => c.category === cat).map((c) => <option key={c.id} value={c.id}>{c.name}
-                </option>)}
-              </optgroup>
-            ))}
-          </select>
-        </label>
+        {!embedded && (
+          <label class="ctl">
+            Concept
+            <select id="gene" value={gene} onChange={(e) => setGene(e.currentTarget.value)}>
+              <option value="">None</option>
+              {CATEGORIES.map(([cat, label]) => (
+                <optgroup key={cat} label={label}>
+                  {concepts.filter((c) => c.category === cat).map((c) => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+          </label>
+        )}
         <label class="ctl">
           <input id="minor" type="checkbox" checked={minor} onChange={(e) => setMinor(e.currentTarget.checked)} />{" "}
           Minor influences
         </label>
-        <label
-          class="ctl"
-          title="A newer language feeding ideas back into a later version of an older one (Kotlin → PHP 8)"
-        >
-          <input id="retro" type="checkbox" checked={retro} onChange={(e) => setRetro(e.currentTarget.checked)} />{" "}
-          Cross-pollination
-        </label>
+        {!embedded && (
+          <label
+            class="ctl"
+            title="A newer language feeding ideas back into a later version of an older one (Kotlin → PHP 8)"
+          >
+            <input id="retro" type="checkbox" checked={retro} onChange={(e) => setRetro(e.currentTarget.checked)} />
+            {" "}
+            Cross-pollination
+          </label>
+        )}
       </div>
 
-      {concept && (
+      {concept && !embedded && (
         <div class="gene-card" style={`--gc:${geneColor}`}>
           <div>
             <span class="eyebrow" style={`color:${geneColor}`}>{CATEGORY[concept.category].label}</span>
-            <h3>{concept.name}</h3>
+            <h3>
+              {concept.name} <a class="more" href={`/concept/${concept.id}`}>concept page →</a>
+            </h3>
           </div>
           <div class="count">
             {carriers}
@@ -288,11 +330,7 @@ export default function River({ nodes, edges, concepts, initialGene = "" }: Prop
                 const p = pos.get(n.id)!;
                 const t = traitAt(n);
                 const isOrigin = concept?.origin.lang === n.id;
-                const label = isOrigin
-                  ? `origin ${concept!.origin.year}`
-                  : t?.since
-                  ? (t.version ? `${t.version}, ${t.since}` : `since ${t.since}`)
-                  : "";
+                const label = isOrigin || t ? subLabel(n, concept) : "";
                 return (
                   <g
                     key={n.id}
@@ -333,7 +371,9 @@ export default function River({ nodes, edges, concepts, initialGene = "" }: Prop
             <h3>{pin.name}</h3>
             <div class="note">{pin.designers.join(", ")}</div>
             <p class="tag">{pin.tagline}</p>
-            <DnaStrip traits={pin.traits} concepts={concepts} />
+            {embedded && concept
+              ? <TraitLine name={concept.name} t={pin.traits[concept.id]} />
+              : <DnaStrip traits={pin.traits} concepts={concepts} />}
             <div class="pl-actions">
               <a class="btn primary" href={`/lang/${pin.id}`}>Open page</a>
               <a class="btn" href={`/compare?add=${pin.id}`}>Add to Rosetta Desk</a>
@@ -387,5 +427,17 @@ export default function River({ nodes, edges, concepts, initialGene = "" }: Prop
         </span>
       </div>
     </div>
+  );
+}
+
+function TraitLine({ name, t }: { name: string; t?: TraitLite }) {
+  if (!t) return <p class="trait-line none">No {name.toLowerCase()}.</p>;
+  const when = t.version ? ` since ${t.version}${t.since ? ` (${t.since})` : ""}` : t.since ? ` since ${t.since}` : "";
+  return (
+    <p class="trait-line">
+      <b>{t.level}</b>
+      {when}
+      {t.note && <span class="note">{t.note}</span>}
+    </p>
   );
 }

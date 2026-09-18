@@ -1,0 +1,310 @@
+{
+  "id": "j",
+  "name": "J",
+  "aliases": [
+    "J language",
+    "Jsoftware J"
+  ],
+  "year": 1990,
+  "year_note": "Roger Hui wrote the first line of the implementation on 27 August 1989, after Arthur Whitney's one-page C prototype. J was first demonstrated to the Toronto APL SIG in February 1990 and first released at the APL90 conference in Copenhagen in August 1990.",
+  "designers": [
+    "Kenneth E. Iverson",
+    "Roger Hui"
+  ],
+  "organization": "Iverson Software Inc. (renamed Jsoftware in 2000)",
+  "country": "Canada",
+  "tagline": "Iverson and Hui's ASCII successor to APL: array programming built on verb rank and tacit trains, as in mean =: +/ % #.",
+  "summary": "J is an array programming language designed by Kenneth E. Iverson and Roger Hui as a successor to APL that uses only ASCII: each primitive is a single character or a two-character word ending in a period or colon, such as i. (integers) or +/ (sum). Following Iverson's 'A Dictionary of APL', programs are built from nouns, verbs, adverbs and conjunctions, and the rank of verbs and tacit trains of verbs (hooks and forks) are central, so that mean =: +/ % # defines the mean as 'sum divided by count'. J is developed by Jsoftware and has been free software under the GPLv3 since 2011.",
+  "history": "J grew out of the 'dictionary APL' that Kenneth Iverson developed at I. P. Sharp Associates in Toronto after leaving IBM in 1980: 'Rationalized APL' (1983) and 'A Dictionary of APL' (1987), together with the rank operator, which Arthur Whitney invented in 1982, and the hook and fork, which Iverson and Eugene McDonnell devised in 1988 and published as 'Phrasal Forms' (1989). Iverson wanted this APL to be freely available, printable on standard printers and portable, which meant giving up APL's special characters. In the summer of 1989 Whitney wrote a one-page interpreter fragment in C in a single afternoon; Roger Hui studied it for a week and on 27 August 1989 wrote the first line of the implementation, naming it J when he first saved the file.\n\nHui and Iverson demonstrated J to the Toronto APL SIG in February 1990 and in May joined Iverson Software Inc., founded that February by Ken's son Eric Iverson, who adapted his SHARP APL session manager to J. The language was released at the APL90 conference in Copenhagen in August 1990 and described in the paper 'APL\\?' by Hui, Iverson, McDonnell and Whitney. Explicit definition took several months to arrive, so at first every J verb was written tacitly. Control structures followed in 1994, object-oriented programming with locales in J4 (1998) and a 64-bit version in 2005; the company was renamed Jsoftware in 2000.\n\nKen Iverson died in 2004. Jsoftware released the J source under the GPLv3 in March 2011, and since 2016 Henry Rich has led work on the engine, adding direct definitions in double braces (J9.02, 2020), multithreading (J9.4, 2023) and new numeric types (J9.6, 2025). Many J ideas returned to APL through Roger Hui's later work at Dyalog: Dyalog APL 14.0 (2014) adopted function trains, the rank operator and other J primitives, and newer array languages such as BQN and Uiua also draw on J.",
+  "innovations": [
+    "An ASCII spelling of APL: each primitive is one character, optionally inflected with a period or colon (i., +/, #:), so the notation needs no special keyboard, font or printer",
+    "Trains: the hook (f g) and fork (f g h) compose verbs without naming their arguments, making tacit (point-free) definition complete; J was their first implementation",
+    "Rank as a property of every verb: primitives and user-defined verbs have ranks, and the rank conjunction \" (from SHARP APL) applies any verb to cells of a chosen rank",
+    "Gerunds: verbs tied into a noun list with ` so that conjunctions such as agenda (@.) can select from and apply them"
+  ],
+  "paradigms": [
+    "array",
+    "functional",
+    "object-oriented"
+  ],
+  "family": "array",
+  "syntax_family": "apl",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "Every value is an array (a noun) of one type: boolean, integer, floating, complex, extended integer, rational, character, symbol or box. The interpreter converts between numeric representations automatically; mixing incompatible types, as in 'a' + 1, is a domain error."
+  },
+  "memory": "reference-counting",
+  "memory_note": "Arrays have value semantics and carry reference counts, so storage is freed as soon as it is unreferenced (values cannot form cycles). Object locales are not collected and are freed explicitly with codestroy.",
+  "execution": [
+    "interpreted"
+  ],
+  "status": "maintained",
+  "latest_version": "J9.7 (9.7.1, April 2026)",
+  "file_extensions": [
+    ".ijs"
+  ],
+  "color": "#9EEDFF",
+  "primary_parent": "apl",
+  "influenced_by": [
+    {
+      "id": "apl",
+      "kind": "successor",
+      "weight": "major",
+      "note": "Iverson's own successor to APL, implementing the revised 'dictionary APL' in ASCII without compatibility constraints."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "SHARP APL",
+      "year": 1983,
+      "note": "I. P. Sharp's dialect introduced boxed (enclosed) arrays and composition operators (1981) and the rank operator, link, lev and dex (1983); its Unix port SAX was Hui's daily system before J."
+    },
+    {
+      "name": "A Dictionary of APL (Iverson)",
+      "year": 1987,
+      "note": "J set out to implement the dictionary; its terms (noun, verb, adverb, conjunction) and parse table shaped the language and the C parser."
+    },
+    {
+      "name": "A (Arthur Whitney)",
+      "year": 1988,
+      "note": "Whitney's dialect at Morgan Stanley, reported at APL89, informed J's treatment of cells, items and formatting."
+    },
+    {
+      "name": "FP (Backus)",
+      "year": 1977,
+      "note": "'Phrasal Forms' (1989) notes that a fork with catenation in the middle gives FP's construction functional form; J's tacit style is function-level programming in Backus's sense."
+    },
+    {
+      "name": "Combinatory logic (Schönfinkel, Curry)",
+      "year": 1924,
+      "note": "'Phrasal Forms' presents the hook as the S combinator and the fork as Curry's formalizing combinator Φ."
+    }
+  ],
+  "influenced": [
+    "apl"
+  ],
+  "traits": {
+    "array-programming": {
+      "level": "core",
+      "note": "Every value is an array; verbs apply to whole arrays according to their rank, and adverbs such as / (insert), \\ (prefix) and /. (key) replace loops."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Verbs can be named, written anonymously as tacit trains, and passed to adverbs and conjunctions (including user-defined ones), but verb arguments are always nouns; gerunds (`) store verbs as nouns."
+    },
+    "recursion": {
+      "level": "supported",
+      "note": "Named verbs can call themselves, and the primitive $: refers to the verb it appears in, allowing anonymous tacit recursion; array primitives are usually preferred."
+    },
+    "structured-control": {
+      "level": "supported",
+      "since": 1994,
+      "version": "J Release 2.01",
+      "note": "Control words inside explicit definitions: if./elseif./else., while./whilst., for./for_name., select./case., break./continue./return. Tacit code uses agenda (@.) and power (^:) instead."
+    },
+    "block-scope": {
+      "level": "supported",
+      "note": "Scope is per definition: =. assigns a name local to the running explicit definition and =: assigns in the current locale; control blocks do not create scopes, and nested definitions cannot see enclosing locals."
+    },
+    "exceptions": {
+      "level": "supported",
+      "since": 1992,
+      "version": "J 6.0",
+      "note": "The adverse conjunction :: supplies a fallback verb on error; control structures add try./catch./catcht., throw. and assert."
+    },
+    "classes": {
+      "level": "supported",
+      "since": 1998,
+      "version": "J4.01",
+      "note": "Classes and objects are locales (namespaces): coclass defines a class, conew creates an instance in a numbered locale, and members are referenced as name__obj. Built by standard-library verbs on the locale primitives."
+    },
+    "inheritance": {
+      "level": "supported",
+      "since": 1998,
+      "version": "J4.01",
+      "note": "coinsert adds ancestor classes to a locale's search path; several ancestors are allowed."
+    },
+    "prototypes": {
+      "level": "supported",
+      "note": "A locale's search path can name other object locales, so an object can delegate directly to another object; classes are the documented idiom."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "Scripts are loaded with load and require (addons come from a package manager), and locales act as namespaces; there are no export lists."
+    },
+    "reference-counting": {
+      "level": "core",
+      "note": "Array storage is reclaimed when its reference count reaches zero; J values cannot form cycles, but object locales must be destroyed explicitly."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Foreign conjunctions inspect the session: 4!:0 (name class), 4!:1 (name list), 5!:5 (a definition as text), 18!: (locales); \". executes a string and : defines verbs from text."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "note": "Names in definitions are resolved when executed (unless fixed with f.), so reloading a script or reassigning a verb in a running session changes the behavior of existing callers."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "The regex script (PCRE2) is loaded at startup and provides rxmatch, rxall, rxrplc and related verbs; there is no literal syntax."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1987,
+      "event": "'A Dictionary of APL' published"
+    },
+    {
+      "year": 1989,
+      "event": "Iverson and McDonnell's 'Phrasal Forms' introduces hooks and forks (APL89)"
+    },
+    {
+      "year": 1989,
+      "event": "Roger Hui writes the first line of J (27 August)"
+    },
+    {
+      "year": 1990,
+      "event": "First demonstration at the Toronto APL SIG (February)"
+    },
+    {
+      "year": 1990,
+      "event": "J released at APL90 in Copenhagen (August)"
+    },
+    {
+      "year": 1994,
+      "event": "Release 2.01 adds control structures"
+    },
+    {
+      "year": 1998,
+      "event": "J4.01: object-oriented programming with locales"
+    },
+    {
+      "year": 2000,
+      "event": "Iverson Software Inc. renamed Jsoftware"
+    },
+    {
+      "year": 2004,
+      "event": "Kenneth Iverson dies"
+    },
+    {
+      "year": 2005,
+      "event": "J5.04 introduces 64-bit J"
+    },
+    {
+      "year": 2011,
+      "event": "Source released under the GPLv3 (March)"
+    },
+    {
+      "year": 2014,
+      "event": "Dyalog APL 14.0 adopts J's function trains and rank operator"
+    },
+    {
+      "year": 2020,
+      "event": "J9.02 adds direct definitions in double braces"
+    },
+    {
+      "year": 2023,
+      "event": "J9.4 adds multithreading and GMP-based exact arithmetic"
+    },
+    {
+      "year": 2026,
+      "event": "J9.7 released"
+    }
+  ],
+  "trivia": [
+    "The name was chosen a few minutes after the first line of code was written, when Hui had to save the interpreter source file for the first time.",
+    "Arthur Whitney's one-page fragment that started J supported only one function (+), one operator (/), one-letter names and arrays of rank 0 and 1.",
+    "Hui designed the C parser to mirror the parse table in 'A Dictionary of APL' so closely that Iverson eventually replaced the dictionary's table with the one from the C source.",
+    "Iverson recalled recruiting Hui to work on J; Hui later wrote that at the time he felt he had recruited Iverson."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "J9.7 (jconsole script)",
+      "code": "echo 'Hello, World!'\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "In an interactive J session, typing 'Hello, World!' displays it, but a script run by jconsole shows nothing unless it prints: echo is the standard library's verb for writing a formatted value and a newline to the session output. Standalone scripts usually end with exit ''; the sandbox runs jconsole -jscript, which exits at the end of input.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "J9.7 (jconsole script)",
+      "code": "NB. An explicit verb: y is its argument, and a lone ) ends the definition\nfactorial =: monad define\n  if. y <: 1 do. 1 else. y * factorial y - 1 end.\n)\necho factorial 10\n",
+      "expected_output": "3628800\n",
+      "notes": "monad define is the standard library's readable spelling of 3 : 0 (a monadic verb whose body follows). Since J9.02 the same verb can be a direct definition: factorial =: {{ if. y <: 1 do. 1 else. y * factorial y - 1 end. }}. Tacitly, $: refers to the verb itself: 1:`(] * $:@<:)@.(1&<). The primitive ! also gives factorials, but !10 returns a float and displays as 3.6288e6.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "J9.7 (jconsole script)",
+      "code": "NB. 0 = 3 5 | y gives two bits; #. reads them as binary to pick 1 of 4 boxes\nfizzbuzz =: monad define\n  (#. 0 = 3 5 | y) { (\": y) ; 'Buzz' ; 'Fizz' ; 'FizzBuzz'\n)\necho@> fizzbuzz\"0 >: i. 15\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "3 5 | y takes both remainders at once; #. (base 2) turns the bits into 0-3, and { picks the formatted number (\":), Buzz, Fizz or FizzBuzz from four boxes joined with ;. The rank conjunction in fizzbuzz\"0 applies the verb to each number of >: i. 15 (1 to 15), and echo@> opens each box and prints it on its own line.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "J9.7 (jconsole script)",
+      "code": "evens =: #~ 0 = 2&|       NB. a hook: y #~ (0 = 2&| y) keeps the items with remainder 0\necho *: evens >: i. 10    NB. >: i. 10 is 1 2 ... 10, and *: squares each item\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "No loop or lambda: evens is a tacit hook, (f g) y = y f (g y), where 2&| (remainder by 2, with 2 bonded as the left argument) runs over the whole list and #~ copies the items whose mask bit is 1. *: squares every element, and numeric lists display space-separated.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "J9.7 (jconsole script)",
+      "code": "NB. Shapes as rows of a table: a kind tag, then two dimensions\nshapes =: 0 3 4 ,: 1 10 3\nkinds  =: ;: 'Rectangle Triangle'\nNB. A gerund (a list of verbs, joined with `) indexed by the tag through agenda (@.)\narea =: (*/@}.)`(-:@(*/)@}.) @. {.\nshow =: (>@({&kinds)@{.) , ': ' , \":@area\necho@show\"1 shapes\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Data is a table with one row per shape; polymorphism comes from a gerund, two verbs tied with `, and agenda @. {., which uses the row's first item to choose which verb computes the area (product of the dimensions, or half of it with -:). show\"1 applies the formatter to each row (rank 1). J also has classes built on locales (coclass, conew, coinsert), but tables and gerunds are the more J-like model.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Tacit trains and rank: mean =: +/ % #",
+      "concepts": [
+        "array-programming"
+      ],
+      "dialect": "J9.7 (jconsole script)",
+      "code": "NB. A fork: (f g h) y means (f y) g (h y), so the mean is \"sum divided by count\"\nmean =: +/ % #\necho mean 1 2 3 4\nNB. On a 3-by-4 table the items are rows: +/ adds the rows and # counts them\nm =: i. 3 4\necho m\necho mean m\nNB. The rank conjunction \" applies a verb to cells: mean\"1 averages each row\necho mean\"1 m\nNB. A hook: (f g) y means y f (g y), so (- mean) gives deviations from the mean\nsd =: %:@mean@:*:@:(- mean)\necho sd 2 4 4 4 5 5 7 9\n",
+      "expected_output": "2.5\n0 1  2  3\n4 5  6  7\n8 9 10 11\n4 5 6 7\n1.5 5.5 9.5\n2\n",
+      "notes": "mean is a fork of three verbs, +/ (sum), % (divide) and # (tally), and never names its argument. Applied to a table it averages the rows (giving column means); the rank conjunction \" reapplies the same verb to each row. sd composes verbs with @ and @: (the latter applies to whole results rather than cell by cell) around the hook (- mean), giving the population standard deviation, 2.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "J (Jsoftware)",
+        "version": "9.7.1",
+        "docker_image": "plw-j",
+        "dockerfile": "sandbox/j/Dockerfile",
+        "install": "FROM debian:trixie-slim; ADD https://www.jsoftware.com/download/j9.7/install/j9.7.1_linux.tar.gz (sha256-checked) and extract to /opt/j9.7; ENV PATH=/opt/j9.7/bin:$PATH HOME=/tmp",
+        "run": "jconsole -jscript {file}",
+        "notes": "Jsoftware's Linux base-system build (engine, jconsole and standard library, about 5 MB). -jscript runs the file without an interactive prompt, exits at the end of input, and exits with status 3 on an untrapped error, with the message on stderr. The profile creates its user folders under $HOME, so HOME=/tmp keeps every write in the tmpfs; tested with a read-only root filesystem. The engine source is GPLv3 (github.com/jsoftware/jsource)."
+      }
+    ],
+    "browser": {
+      "name": "J Playground",
+      "url": "https://jsoftware.github.io/j-playground/bin/html2/",
+      "notes": "Jsoftware's browser console, running the J engine compiled to WebAssembly with Emscripten; not tested with these snippets."
+    },
+    "notes": "A run takes about 30 ms, most of it loading the standard library from the profile. Scripts do not display results automatically, so programs print with echo (or stdout for text without a newline); boxed values display with Unicode box-drawing characters."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/J_(programming_language)",
+    "homepage": "https://www.jsoftware.com/",
+    "spec": "https://code.jsoftware.com/wiki/NuVoc"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/J_(programming_language)",
+    "https://en.wikipedia.org/wiki/Roger_Hui",
+    "https://aplwiki.com/wiki/J",
+    "https://aplwiki.com/wiki/Jsoftware",
+    "https://www.jsoftware.com/papers/remembering.htm",
+    "https://www.jsoftware.com/papers/J1990.htm",
+    "https://www.jsoftware.com/papers/fork.htm",
+    "https://www.jsoftware.com/papers/",
+    "http://jsoftware.com/pipermail/general/2002-March/010962.html",
+    "https://www.jsoftware.com/download/j9.7/install/",
+    "https://github.com/jsoftware/j-playground"
+  ]
+}

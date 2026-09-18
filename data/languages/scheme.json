@@ -38,7 +38,8 @@
   "primary_parent": "lisp",
   "influenced_by": [
     { "id": "lisp", "kind": "dialect", "weight": "major", "note": "A Lisp dialect; the first interpreter was written in MacLisp." },
-    { "id": "algol60", "kind": "influence", "weight": "major", "note": "Lexical scoping and block structure, the feature that most distinguished Scheme from earlier Lisps." }
+    { "id": "algol60", "kind": "influence", "weight": "major", "note": "Lexical scoping and block structure, the feature that most distinguished Scheme from earlier Lisps." },
+    { "id": "racket", "kind": "influence", "weight": "minor", "note": "R6RS (2007) was co-edited by PLT's Matthew Flatt, and its acknowledgements cite the PLT Scheme manual among its influences." }
   ],
   "influenced_by_external": [
     { "name": "Actor model (Carl Hewitt)", "year": 1973, "note": "Scheme started as an interpreter for experimenting with actors." },
@@ -46,7 +47,7 @@
     { "name": "MacLisp", "note": "Host language of the first Scheme interpreter and source of much of its vocabulary." },
     { "name": "Lambda calculus (Alonzo Church)", "note": "The 'extended lambda calculus' of the original memo's title." }
   ],
-  "influenced": ["common-lisp", "clojure", "haskell", "javascript", "lua", "python", "r", "ruby", "rust", "scala"],
+  "influenced": ["common-lisp", "clojure", "haskell", "javascript", "lua", "python", "r", "ruby", "rust", "scala", "racket"],
   "traits": {
     "structured-control": { "level": "core", "note": "if, cond, case, when/unless and do; loops are usually named-let recursion." },
     "block-scope": { "level": "core", "note": "Lexical scope everywhere: let, let*, letrec and internal defines." },
@@ -118,6 +119,7 @@
     },
     "signature": {
       "title": "First-class continuations (call/cc)",
+      "concepts": ["continuations"],
       "dialect": "R7RS-small",
       "code": "(import (scheme base) (scheme write))\n\n;; call/cc captures \"the rest of the computation\" as a procedure.\n;; Escape: jump out of a for-each as soon as we find a match.\n(define (find-first pred xs)\n  (call/cc                          ; = call-with-current-continuation\n    (lambda (return)\n      (for-each (lambda (x) (when (pred x) (return x))) xs)\n      #f)))\n\n(display (find-first even? '(1 3 5 6 7 8)))\n(newline)\n\n;; Re-entry: jump *back* into a continuation to build a loop from scratch.\n(define (count-to n)\n  (let ((i 0) (again #f))\n    (call/cc (lambda (k) (set! again k)))  ; mark this point\n    (set! i (+ i 1))\n    (display i)\n    (when (< i n) (display \" \") (again #f)) ; resume at the mark\n    (newline)))\n\n(count-to 5)\n",
       "expected_output": "6\n1 2 3 4 5\n",

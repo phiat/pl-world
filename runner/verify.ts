@@ -9,7 +9,7 @@ import { localImages, normalizeOutput, Sandbox, withTag } from "./sandbox.ts";
 
 const args = parseArgs(Deno.args, { string: ["task", "concurrency"], boolean: ["write", "verbose"] });
 const ids = args._.map(String);
-const { languages } = await loadWorld();
+const { languages } = await loadWorld({ ids });
 const sandbox = new Sandbox(languages, args.concurrency ? { concurrency: Number(args.concurrency) } : {});
 const have = await localImages();
 

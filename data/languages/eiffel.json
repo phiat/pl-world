@@ -99,7 +99,8 @@
     "csharp",
     "java",
     "ruby",
-    "scala"
+    "scala",
+    "racket"
   ],
   "traits": {
     "structured-control": {
@@ -272,6 +273,7 @@
     },
     "signature": {
       "title": "Design by Contract",
+      "concepts": ["design-by-contract"],
       "dialect": "ECMA-367 Eiffel (Gobo Eiffel gec)",
       "code": "class ACCOUNT\ncreate make\nfeature\n\tbalance: INTEGER\n\n\twithdraw (amount: INTEGER)\n\t\trequire\n\t\t\tcovered: amount <= balance                -- the caller's obligation\n\t\tdo\n\t\t\tbalance := balance - amount\n\t\tensure\n\t\t\tdeducted: balance = old balance - amount  -- the supplier's guarantee\n\t\tend\n\n\tmake\n\t\tlocal\n\t\t\tretried: BOOLEAN\n\t\tdo\n\t\t\tif not retried then\n\t\t\t\tbalance := 100\n\t\t\t\twithdraw (30)\n\t\t\t\tprint (\"balance: \" + balance.out + \"%N\")\n\t\t\t\twithdraw (500)                          -- breaks the precondition\n\t\t\tend\n\t\trescue\n\t\t\tif attached (create {EXCEPTIONS}).tag_name as tag then\n\t\t\t\tprint (\"rejected: \" + tag + \" violated%N\")\n\t\t\tend\n\t\t\tretried := True\n\t\t\tretry\n\t\tend\n\ninvariant\n\tnever_negative: balance >= 0\nend\n",
       "expected_output": "balance: 70\nrejected: covered violated\n",

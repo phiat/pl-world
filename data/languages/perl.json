@@ -34,15 +34,15 @@
   "latest_version": "5.44 (2026)",
   "file_extensions": [".pl", ".pm", ".t", ".pod"],
   "color": "#0298c3",
-  "primary_parent": "c",
+  "primary_parent": "awk",
   "influenced_by": [
     { "id": "c", "kind": "influence", "weight": "major", "note": "Expression syntax, operators, braces and printf-style formatting; Perl aimed to replace mixtures of C, sh and awk." },
     { "id": "lisp", "kind": "influence", "weight": "minor" },
     { "id": "basic", "kind": "influence", "weight": "minor" },
-    { "id": "cpp", "kind": "influence", "weight": "minor" }
+    { "id": "cpp", "kind": "influence", "weight": "minor" },
+    { "id": "awk", "kind": "influence", "weight": "major", "note": "Perl 1.0 was pitched at problems that 'would ordinarily use sed or awk or sh': associative arrays, the -n input loop and <> 'somewhat like sed -n or awk', the .. line-range operator, and the a2p awk-to-Perl translator it shipped with." }
   ],
   "influenced_by_external": [
-    { "name": "AWK", "year": 1977, "note": "Associative arrays and pattern-action text processing." },
     { "name": "sed", "year": 1974, "note": "s/// substitution and the regex-driven line-editing model." },
     { "name": "Unix shell (sh)", "year": 1979, "note": "$-prefixed variables, string interpolation, here-documents and backticks." }
   ],
@@ -123,6 +123,7 @@
     },
     "signature": {
       "title": "Text munging with built-in regexes",
+      "concepts": ["regex-builtin"],
       "dialect": "Perl 5",
       "code": "use strict;\nuse warnings;\n\n# Perl's home turf: read lines, match regexes, rewrite text, tally in a hash.\nmy %count;\nwhile (<DATA>) {\n    next unless /^(\\S+) \\s+ (ERROR|WARN|INFO) \\s+ (.*)/x;\n    my ($date, $level, $msg) = ($1, $2, $3);\n    $count{$level}++;\n    next unless $level eq 'ERROR';\n    $msg =~ s{/dev/(\\w+)}{[$1]}g;    # rewrite device paths in place\n    print \"$date $msg\\n\";\n}\nprint join(', ', map { \"$_=$count{$_}\" } sort keys %count), \"\\n\";\n\n__DATA__\n2024-03-01 ERROR disk full on /dev/sda1\n2024-03-01 INFO  backup started\n2024-03-02 ERROR timeout contacting db01\n2024-03-02 WARN  load average 7.2\n2024-03-03 ERROR disk full on /dev/sdb2\n",
       "expected_output": "2024-03-01 disk full on [sda1]\n2024-03-02 timeout contacting db01\n2024-03-03 disk full on [sdb2]\nERROR=3, INFO=1, WARN=1\n",
@@ -159,6 +160,7 @@
     "https://perldoc.perl.org/perl5360delta",
     "https://perldoc.perl.org/perl5400delta",
     "https://en.wikipedia.org/wiki/CPAN",
-    "https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions"
+    "https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions",
+    "https://github.com/Perl/perl5/blob/perl-1.0/perl.man.1"
   ]
 }

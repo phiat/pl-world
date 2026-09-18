@@ -20,11 +20,13 @@ export function DnaStrip(
                   (t.note ? ` — ${t.note}` : "")
                 : "absent";
               return (
-                <span
+                <a
                   key={c.id}
+                  href={`/concept/${c.id}`}
                   class={`cell ${t?.level ?? ""}`}
                   style={`--cc:${color}`}
                   title={`${c.name}: ${detail}`}
+                  aria-label={`${c.name}: ${detail}`}
                 />
               );
             })}

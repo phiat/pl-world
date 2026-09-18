@@ -57,7 +57,7 @@
   ],
   "color": "#5A8164",
   "primary_parent": null,
-  "influenced_by": [],
+  "influenced_by": [{"id": "j", "kind": "influence", "weight": "minor", "note": "Dyalog APL 14.0 (2014) adopted J's function trains, rank operator, tally and key, largely through Roger Hui's work at Dyalog."}],
   "influenced_by_external": [
     {
       "name": "Mathematical notation",
@@ -66,7 +66,8 @@
   ],
   "influenced": [
     "cpp",
-    "python"
+    "python",
+    "j"
   ],
   "traits": {
     "array-programming": {
@@ -228,6 +229,7 @@
     },
     "signature": {
       "title": "Whole-array thinking: primes and the Game of Life",
+      "concepts": ["array-programming"],
       "dialect": "Dyalog APL 20.0 (dfns)",
       "code": "⍝ Primes to 30: build the whole divisibility table with an outer product,\n⍝ count divisors down each column, keep numbers with exactly two.\n⎕←(2=+⌿0=n∘.|n)/n←⍳30\n⍝ Conway's Game of Life as a single expression (after John Scholes)\nlife←{⊃1 ⍵∨.∧3 4=+/,¯1 0 1∘.⊖¯1 0 1∘.⌽⊂⍵}\nglider←5 5⍴0 1 0 0 0 0 0 1 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0\n⎕←life⍣4⊢glider              ⍝ four generations later: moved one cell down-right\n",
       "expected_output": "2 3 5 7 11 13 17 19 23 29\n0 0 0 0 0\n0 0 1 0 0\n0 0 0 1 0\n0 1 1 1 0\n0 0 0 0 0\n",

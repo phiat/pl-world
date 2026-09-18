@@ -1,8 +1,10 @@
 import { define } from "../utils.ts";
 import DeskBar from "../islands/DeskBar.tsx";
 import CodeWindow from "../islands/CodeWindow.tsx";
+import { PageHead } from "../components/PageHead.tsx";
 import { byId, languages, orderedConcepts, tasks } from "../lib/world.ts";
-import { CATEGORY, famColor } from "../lib/meta.ts";
+import { CATEGORY, famColor, REPO_URL } from "../lib/meta.ts";
+import { RUNNER_URL } from "../lib/runner.ts";
 import { windowProps } from "../lib/windows.ts";
 
 const DEFAULT_LANGS = ["fortran", "c", "erlang", "haskell", "rust"];
@@ -26,6 +28,11 @@ export default define.page(function Compare({ url }) {
 
   return (
     <section class="wrap">
+      <PageHead
+        title={`Rosetta Desk: ${t.name} in ${ls.map((l) => l.name).join(", ")}`}
+        description={`The same program in ${ls.length} languages side by side, each runnable on its real toolchain. ${t.prompt}`}
+        url={url}
+      />
       <DeskBar task={task} langs={langs} tasks={tasks.map((x) => ({ id: x.id, name: x.name }))} options={options} />
       <p class="note">{t.prompt} Shows: {t.shows}</p>
       <div id="desk" class="desk skins">
@@ -64,8 +71,19 @@ export default define.page(function Compare({ url }) {
         )}
       </div>
       <p class="note" style="padding-block: 12px 32px">
-        Runs go to the local sandbox runner: a fresh, network-less container per run. Edit any window and press Run
-        (Ctrl/⌘+Enter while editing). Start the runner with <code>deno task runner</code>.
+        {RUNNER_URL
+          ? (
+            <>
+              Runs go to the sandbox runner: a fresh, network-less container per run. Edit any window and press Run
+              (Ctrl/⌘+Enter while editing). Start the runner with <code>deno task runner</code>.
+            </>
+          )
+          : (
+            <>
+              Run shows each snippet's recorded output, verified on its real toolchain. To run edited code,{" "}
+              <a href={REPO_URL}>clone the repo</a> and start the local sandbox with <code>deno task dev</code>.
+            </>
+          )}
       </p>
     </section>
   );
