@@ -68,7 +68,7 @@ export default define.page<typeof handler>(function LanguagePage({ data: { lang:
           {l.snippets[task]?.notes && <p class="note" style="margin:6px 0 0">{l.snippets[task].notes}</p>}
           <div class="pl-actions">
             <a class="btn primary" href={`/compare?add=${l.id}&t=${task}`}>Open in Rosetta Desk</a>
-            <a class="btn" href={`/?gene=`}>Back to the River</a>
+            <a class="btn" href={`/tree?of=${l.id}`}>Pedigree</a>
           </div>
         </div>
         <div class="pl-sec">

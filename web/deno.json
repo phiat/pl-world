@@ -2,8 +2,8 @@
   "nodeModulesDir": "manual",
   "tasks": {
     "check": "deno fmt --check . && deno lint . && deno check",
-    "dev": "deno run -A ../scripts/build-db.ts && vite",
-    "build": "deno run -A ../scripts/build-db.ts && vite build",
+    "dev": "deno task --cwd .. build:db && deno task --cwd .. build:layout && vite",
+    "build": "deno task --cwd .. build:db && deno task --cwd .. build:layout && vite build",
     "start": "deno serve -A --host 127.0.0.1 --port 8000 _fresh/server.js",
     "update": "deno run -A -r jsr:@fresh/update ."
   },

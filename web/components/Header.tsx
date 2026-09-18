@@ -1,6 +1,6 @@
 import FindLanguage from "../islands/FindLanguage.tsx";
 
-const VIEWS = [["/", "River"], ["/compare", "Rosetta Desk"], ["/genome", "Genome"]] as const;
+const VIEWS = [["/", "River"], ["/tree", "Genealogy"], ["/compare", "Rosetta Desk"], ["/genome", "Genome"]] as const;
 
 export function Header(
   { path, stats, languages }: {

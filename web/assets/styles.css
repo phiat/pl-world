@@ -1350,3 +1350,246 @@ a {
 .skins .win[data-era="mac"] .win-bar .yr {
   opacity: 1;
 }
+
+/* ── genealogy ───────────────────────────────────────── */
+.genealogy .lede {
+  max-width: 88ch;
+  margin: 0 0 12px;
+}
+.gchart-scroll {
+  overflow-x: auto;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+/* The influence web is a little wider than the page: scale it to fit, down to a readable minimum. */
+.gchart.web {
+  width: 100%;
+  min-width: 1100px;
+  height: auto;
+}
+.gchart {
+  display: block;
+}
+.gchart .decade {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+.gchart .decade-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--ink-3);
+}
+.gchart .edge {
+  fill: none;
+  stroke: var(--ink-3);
+  stroke-width: 1.3;
+  opacity: .7;
+  transition: opacity .2s, stroke .2s;
+  pointer-events: none;
+}
+.gchart .edge.minor {
+  opacity: .28;
+}
+.gchart .edge.k-influence {
+  stroke-dasharray: 5 3;
+}
+.gchart .edge.k-successor {
+  stroke-width: 2.2;
+}
+.gchart .edge.k-superset {
+  stroke-width: 3.2;
+}
+.gchart .edge.k-dialect {
+  stroke-width: 1.8;
+}
+.gchart .edge.k-platform {
+  stroke-dasharray: 1 3;
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+.gchart.web .edge {
+  opacity: .45;
+}
+.gchart.web .edge.minor {
+  opacity: .16;
+}
+.gchart .node {
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.gchart .node .dot {
+  fill: var(--fc);
+  stroke: var(--paper);
+  stroke-width: 2;
+}
+.gchart .node.historical .dot {
+  fill: var(--paper);
+  stroke: var(--fc);
+  stroke-width: 2.4;
+}
+.gchart .node text {
+  font-size: 13px;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.gchart.web .node text {
+  font-size: 12.5px;
+  stroke: none;
+}
+.gchart .node .box {
+  fill: color-mix(in srgb, var(--fc) 12%, var(--paper));
+  stroke: color-mix(in srgb, var(--fc) 55%, var(--paper));
+  stroke-width: 1.2;
+}
+.gchart .node:focus {
+  outline: none;
+}
+.gchart .node:focus-visible .dot,
+.gchart .node:focus-visible .box {
+  stroke: var(--anc);
+  stroke-width: 3;
+}
+.gchart.tracing .node,
+.gchart.tracing .edge {
+  opacity: .12;
+}
+.gchart.tracing .node.focus,
+.gchart.tracing .node.anc,
+.gchart.tracing .node.desc {
+  opacity: 1;
+}
+.gchart.tracing .edge.anc,
+.gchart.tracing .edge.desc {
+  opacity: .95;
+  stroke-dasharray: none;
+}
+.gchart.tracing .edge.anc {
+  stroke: var(--anc);
+}
+.gchart.tracing .edge.desc {
+  stroke: var(--desc);
+}
+.gchart.tracing .node.anc text {
+  fill: var(--anc);
+}
+.gchart.tracing .node.desc text {
+  fill: var(--desc);
+}
+.gchart.tracing .node.focus text {
+  font-weight: 700;
+}
+.pedigree {
+  position: relative;
+}
+.pedigree > svg {
+  position: absolute;
+  inset: 0;
+}
+.pedigree .edge {
+  opacity: .6;
+}
+.pcard {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  padding: 0 10px 0 12px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--fc);
+  border-radius: 5px;
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1.2;
+  overflow: hidden;
+  box-shadow: 0 1px 0 var(--rule);
+}
+.pcard:hover {
+  border-color: var(--ink-3);
+  border-left-color: var(--fc);
+}
+.pcard b {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pcard small {
+  font-size: 11.5px;
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pcard.anc small {
+  color: var(--anc);
+}
+.pcard.desc small {
+  color: var(--desc);
+}
+.pcard.minor {
+  opacity: .8;
+  border-style: dashed;
+  border-left-style: solid;
+}
+.pcard.historical b {
+  font-style: italic;
+}
+.pcard.focus {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  border-left-color: var(--fc);
+}
+.pcard.focus small {
+  color: var(--paper);
+  opacity: .8;
+}
+.relations {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 32px;
+  padding-top: 20px;
+}
+.relations ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.relations li {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 4px 10px;
+  align-items: baseline;
+  font-size: 13.5px;
+}
+.relations li.minor {
+  color: var(--ink-2);
+}
+.relations .kind {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+.relations .why {
+  text-wrap: pretty;
+}
+@media (max-width: 760px) {
+  .relations {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .relations li {
+    grid-template-columns: auto 1fr;
+  }
+  .relations .why {
+    grid-column: 1 / -1;
+  }
+}

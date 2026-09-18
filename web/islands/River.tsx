@@ -337,6 +337,7 @@ export default function River({ nodes, edges, concepts, initialGene = "" }: Prop
             <div class="pl-actions">
               <a class="btn primary" href={`/lang/${pin.id}`}>Open page</a>
               <a class="btn" href={`/compare?add=${pin.id}`}>Add to Rosetta Desk</a>
+              <a class="btn" href={`/tree?of=${pin.id}`}>Pedigree</a>
             </div>
           </aside>
         )}
