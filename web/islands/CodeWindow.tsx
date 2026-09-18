@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { type Era, normalizeOutput } from "../lib/meta.ts";
+import type { EditorHandle } from "../lib/editor.ts";
 
 export type CodeWindowProps = {
   lang: string;
@@ -43,15 +44,22 @@ type Run =
 const RULER = "         1         2         3         4         5         6         7\n" +
   "1...5.7....0....5....0....5....0....5....0....5....0....5....0....5....0..";
 
+const MATCHES = " · ✓ matches expected output", DIFFERS = " · ✗ differs from expected output";
+
 const secs = (ms: number | null) => (ms === null ? "" : ms < 1000 ? `${ms} ms` : `${(ms / 1000).toFixed(1)} s`);
 
 export default function CodeWindow(p: CodeWindowProps) {
   const [editing, setEditing] = useState(false);
   const [code, setCode] = useState(p.code);
   const [run, setRun] = useState<Run>({ state: "idle" });
+  const [editorReady, setEditorReady] = useState(false);
   const abort = useRef<AbortController | null>(null);
+  const host = useRef<HTMLDivElement>(null);
+  const editor = useRef<EditorHandle | null>(null);
   const codeRef = useRef(code);
   codeRef.current = code;
+  const edited = code !== p.code;
+  const open = editing || edited;
 
   async function start() {
     abort.current?.abort();
@@ -105,16 +113,65 @@ export default function CodeWindow(p: CodeWindowProps) {
     }
   }
 
+  const startRef = useRef(start);
+  startRef.current = start;
+
   useEffect(() => {
-    const onRunAll = () => start();
+    const onRunAll = () => startRef.current();
     addEventListener("plw:run-all", onRunAll);
     return () => {
       removeEventListener("plw:run-all", onRunAll);
       abort.current?.abort();
+      editor.current?.destroy();
     };
   }, []);
 
-  const edited = code !== p.code;
+  // CodeMirror is mounted while the window is being edited or holds edited code (read-only after Done),
+  // and dropped on Reset. The editor module is fetched the first time any window needs it.
+  useEffect(() => {
+    if (!open) {
+      editor.current?.destroy();
+      editor.current = null;
+      setEditorReady(false);
+      return;
+    }
+    if (editor.current) {
+      editor.current.setReadOnly(!editing);
+      if (editing) editor.current.focus();
+      return;
+    }
+    let live = true;
+    import("../lib/editor.ts")
+      .then(({ createEditor }) =>
+        createEditor(host.current!, {
+          doc: codeRef.current,
+          lang: p.lang,
+          label: `${p.name} source`,
+          readOnly: !editing,
+          onChange: setCode,
+          onRun: () => startRef.current(),
+        })
+      )
+      .then((h) => {
+        if (!live) return h.destroy();
+        editor.current = h;
+        setEditorReady(true); // focus follows in the effect below, once the host is visible
+      })
+      .catch((e) => {
+        console.error(e);
+        if (!live) return;
+        setEditing(false);
+        setRun({ state: "error", message: "The editor failed to load." });
+      });
+    return () => {
+      live = false;
+    };
+  }, [open, editing]);
+
+  useEffect(() => {
+    if (editorReady && editing) editor.current?.focus();
+  }, [editorReady]);
+
   return (
     <article class="win" data-era={p.era}>
       <div class="win-bar">
@@ -151,34 +208,12 @@ export default function CodeWindow(p: CodeWindowProps) {
       <div class="win-body">
         {p.ruler && <div class="win-ruler">{RULER}</div>}
         {p.title && <div class="win-ruler" style="opacity:.85;font-weight:600">{p.title}</div>}
-        {editing || edited
-          ? (
-            <textarea
-              class="win-edit"
-              spellcheck={false}
-              aria-label={`${p.name} source`}
-              value={code}
-              readOnly={!editing}
-              onInput={(e) => setCode(e.currentTarget.value)}
-              onKeyDown={(e) => {
-                if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
-                  e.preventDefault();
-                  start();
-                }
-                if (e.key === "Tab" && !e.shiftKey) {
-                  e.preventDefault();
-                  const t = e.currentTarget, s = t.selectionStart;
-                  setCode(code.slice(0, s) + "    " + code.slice(t.selectionEnd));
-                  requestAnimationFrame(() => t.setSelectionRange(s + 4, s + 4));
-                }
-              }}
-            />
-          )
-          : (
-            // p.html comes from lib/highlight.ts on the server, which escapes the (repo-owned) source.
-            // deno-lint-ignore react-no-danger
-            <pre class="win-code" dangerouslySetInnerHTML={{ __html: p.html }} />
-          )}
+        {open && <div ref={host} class="win-code win-cm" hidden={!editorReady} />}
+        {!(open && editorReady) && (
+          // p.html comes from lib/highlight.ts on the server, which escapes the (repo-owned) source.
+          // deno-lint-ignore react-no-danger
+          <pre class="win-code" dangerouslySetInnerHTML={{ __html: p.html }} />
+        )}
       </div>
       {run.state !== "idle" && <Output run={run} expected={edited ? null : p.expected} />}
       <div class="win-foot">
@@ -228,9 +263,7 @@ function Output({ run, expected }: { run: Run; expected: string | null }) {
         {r.compile_ms !== null && r.compile_ms > 50 ? ` · compile ${secs(r.compile_ms)}` : ""}
         {r.run_ms !== null ? ` · run ${secs(r.run_ms)}` : ""} · total {secs(r.total_ms)}
         {r.truncated ? " · output truncated" : ""}
-        {expected !== null && (matches
-          ? <span class="ok">{" · ✓ matches expected output"}</span>
-          : <span class="bad">{" · ✗ differs from expected output"}</span>)}
+        {expected !== null && (matches ? <span class="ok">{MATCHES}</span> : <span class="bad">{DIFFERS}</span>)}
       </div>
     </div>
   );

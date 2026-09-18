@@ -24,7 +24,7 @@ runner is down.
 | --- | --- |
 | `/` | **River**: languages on a time × family chart with lineage links. Hover to trace ancestry, scrub or play the years, pick a concept (`?gene=closures`) to watch it spread. |
 | `/lang/:id` | **Language page**: trait DNA, runnable snippets for each task, history, innovations, parents/children, closest languages by traits, milestones. |
-| `/compare?l=c,lisp,apl&t=shapes` | **Rosetta Desk**: up to six period-skinned code windows, editable and runnable, plus a trait diff. |
+| `/compare?l=c,lisp,apl&t=shapes` | **Rosetta Desk**: up to six period-skinned code windows, editable (CodeMirror, Ctrl/⌘+Enter to run) and runnable, plus a trait diff. |
 | `/genome?sort=sim&to=rust` | **Genome**: a 50 × 55 language × concept matrix and convergent-evolution pairs. |
 
 ## Tasks

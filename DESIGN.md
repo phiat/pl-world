@@ -216,7 +216,7 @@ docker run --rm --network none --read-only --tmpfs /tmp:size=64m,exec \
 | Framework | Fresh 2 (Vite plugin, Preact islands, SSR routes) |
 | Graph layout | elkjs (layered DAG), d3-hierarchy (tree/radial), d3-zoom for pan/zoom |
 | Rendering | SVG for up to ~200 nodes (accessible and stylable); canvas only if needed |
-| Code editor | CodeMirror 6 + `@codemirror/legacy-modes` (Fortran, COBOL, Pascal, Smalltalk, Scheme, CL, Clojure, Erlang, Haskell, ML, APL, Forth, …) |
+| Code editor | CodeMirror 6 + `@codemirror/legacy-modes`: 48 of 50 languages get a mode (all but BCPL and CLU, which stay plain). Close relatives stand in where CodeMirror has none: ALGOL family → Pascal, Ada → VHDL, Prolog → Erlang, Elixir → Ruby, Zig → Rust. PHP uses `@codemirror/lang-php`. |
 | Charts | Observable Plot (adoption curves, trait space) |
 | Search | SQLite FTS5 via `node:sqlite` on the server |
 | Fonts | a serif for history prose, a mono for code, APL-capable mono (APL385/BQN386) for APL windows |
@@ -230,8 +230,10 @@ docker run --rm --network none --read-only --tmpfs /tmp:size=64m,exec \
    (`deno task prototype`).
 2. **Skeleton app** ✅ Fresh 2 scaffold, world loader, language pages, River island, Genome
    matrix (SSR SVG), 404 page.
-3. **Rosetta Desk** ✅ period-skinned windows, a textarea editor (Tab, Ctrl/⌘+Enter), language
-   switcher, Run all and a trait diff. Still to do: CodeMirror 6 in place of the textarea.
+3. **Rosetta Desk** ✅ period-skinned windows, a CodeMirror 6 editor (`web/lib/editor.ts`), a
+   language switcher, Run all and a trait diff. The editor loads only on the first Edit. Its
+   tokens reuse the `hljs-*` classes, so period skins style it with no extra CSS. The editor
+   supplies Tab/Shift-Tab with the snippet's own indent step, and Ctrl/⌘+Enter runs.
 4. **Runner** ✅ local runner with SSE streaming. `deno task verify` passes 300/300 snippets on
    real toolchains. Still to do: run the verify harness in CI.
 5. **Genealogy + Genome:** Genome ✅. Still to do: Genealogy (elk layout, pedigree view) and
