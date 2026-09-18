@@ -1,0 +1,298 @@
+{
+  "id": "smalltalk",
+  "name": "Smalltalk",
+  "aliases": [
+    "Smalltalk-80",
+    "Smalltalk-72",
+    "Smalltalk-76",
+    "ANSI Smalltalk"
+  ],
+  "year": 1972,
+  "year_note": "Smalltalk-72 ran at Xerox PARC from late 1972 (Dan Ingalls's first interpreter dates from October 1972). Smalltalk-76 adopted Simula-style classes with inheritance. Smalltalk-80, the first version released outside PARC (to four companies in 1981, then publicly via the August 1981 Byte issue and the 1983 books), is what 'Smalltalk' usually means today.",
+  "designers": [
+    "Alan Kay",
+    "Dan Ingalls",
+    "Adele Goldberg"
+  ],
+  "organization": "Xerox PARC (Learning Research Group)",
+  "country": "United States",
+  "tagline": "Everything is an object and all computation is message sending, inside a live, reflective image you program from within.",
+  "summary": "Smalltalk is a dynamically typed, purely object-oriented language developed at Xerox PARC in the 1970s, originally for teaching. Every value, from integers to classes and code blocks, is an object, and even conditionals and loops are messages. It shipped with a live, image-based environment of browsers, inspectors and debuggers written in Smalltalk itself, a model that shaped object-oriented programming, IDEs and GUIs.",
+  "history": "Smalltalk grew out of Alan Kay's Dynabook vision in the Learning Research Group at Xerox PARC. In September 1972 Kay bet that a language based on message passing could be defined in 'a page of code'; Dan Ingalls then implemented Smalltalk-72, first in about 700 lines of BASIC on a Data General Nova and from 1973 on the Xerox Alto. Adele Goldberg wrote most of the documentation. Smalltalk-76 traded some of the early flexibility for performance by adopting a Simula-like class inheritance model, and introduced the now-familiar browser-based development environment.\n\nSmalltalk-80 added metaclasses so that classes themselves are ordinary objects. It was shared with Apple, DEC, Hewlett-Packard and Tektronix in 1981, featured in a celebrated August 1981 issue of Byte, and specified, virtual machine included, in Goldberg and Robson's 1983 'Blue Book'. Commercial dialects from ParcPlace (VisualWorks), Digitalk and IBM (VisualAge) followed, and ANSI standardized the language in 1998.\n\nThe open-source Squeak (1996), derived from Apple Smalltalk-80, and its 2008 fork Pharo keep the language alive alongside GNU Smalltalk and commercial systems. Smalltalk's influence runs through Objective-C, Ruby, Python, Java and Self, and through ideas such as Model-View-Controller and live, reflective programming environments.",
+  "innovations": [
+    "A pure object model: numbers, booleans, classes and blocks are all objects, and all computation is message sending",
+    "Keyword messages (at:put:) and blocks, with control structures such as ifTrue: and whileTrue: implemented as ordinary methods",
+    "A live, image-based programming environment with class browsers, inspectors and debuggers written in the language itself",
+    "Metaclasses and pervasive reflection (thisContext, doesNotUnderstand:, become:)",
+    "A portable bytecode virtual machine specified together with a platform-independent image",
+    "Model-View-Controller, created by Trygve Reenskaug for Smalltalk-79 at PARC"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "reflective"
+  ],
+  "family": "smalltalk",
+  "syntax_family": "smalltalk",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Any object that understands the messages sent to it will do; an unknown message triggers doesNotUnderstand: at run time."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "image-based",
+    "bytecode-vm",
+    "jit"
+  ],
+  "status": "maintained",
+  "latest_version": "ANSI Smalltalk (INCITS 319-1998)",
+  "file_extensions": [
+    ".st"
+  ],
+  "color": "#596706",
+  "primary_parent": "simula",
+  "influenced_by": [
+    {
+      "id": "simula",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Classes, instances and (from Smalltalk-76) Simula-style inheritance."
+    },
+    {
+      "id": "lisp",
+      "kind": "influence",
+      "weight": "major",
+      "note": "A small, self-describing core; the environment is written in the language itself."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Logo",
+      "year": 1967,
+      "note": "Seymour Papert's educational language; Smalltalk began as a language for children."
+    },
+    {
+      "name": "Sketchpad",
+      "year": 1963,
+      "note": "Ivan Sutherland's object-like graphical system."
+    },
+    {
+      "name": "Euler",
+      "year": 1965
+    },
+    {
+      "name": "Planner",
+      "year": 1969
+    },
+    {
+      "name": "Burroughs B5000",
+      "year": 1961,
+      "note": "A machine architecture designed around a high-level language."
+    }
+  ],
+  "influenced": [
+    "objective-c",
+    "self",
+    "ruby",
+    "python",
+    "java",
+    "cpp",
+    "erlang",
+    "scala",
+    "go",
+    "swift",
+    "php",
+    "common-lisp",
+    "ada",
+    "cobol"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "Conditionals and loops are messages to Booleans, numbers and blocks rather than syntax."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "since": 1998,
+      "version": "ANSI Smalltalk",
+      "note": "Smalltalk-80 had only error: and doesNotUnderstand:; resumable exception classes (on:do:, ensure:, retry, resume:) came from commercial dialects and were standardized by ANSI."
+    },
+    "continuations": {
+      "level": "library",
+      "note": "Not in the language, but thisContext reifies stack frames, letting libraries such as the Seaside web framework build first-class continuations."
+    },
+    "classes": {
+      "level": "core",
+      "note": "Classes are themselves objects, instances of metaclasses (Smalltalk-80)."
+    },
+    "inheritance": {
+      "level": "core",
+      "since": 1976,
+      "version": "Smalltalk-76",
+      "note": "Single inheritance."
+    },
+    "everything-is-an-object": {
+      "level": "core"
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "note": "Traits were invented for Squeak (Schärli, Ducasse, Nierstrasz and Black, ECOOP 2003) and are built into Pharo; not part of Smalltalk-80 or ANSI."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Instance variables are private to an object's own methods; clients can only send messages."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "Smalltalk-80 has one global namespace with class categories; dialects add packages or namespaces (Monticello, GNU Smalltalk and VisualWorks namespaces)."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Binary selectors such as + and < are ordinary messages any class can implement."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Blocks: [:x | x * x]."
+    },
+    "closures": {
+      "level": "core",
+      "note": "Blocks capture their lexical environment. Smalltalk-80 blocks shared their home method's frame and could not be re-entered; modern dialects compile full closures."
+    },
+    "garbage-collection": {
+      "level": "core"
+    },
+    "reflection": {
+      "level": "core",
+      "note": "Classes, methods and even stack frames (thisContext) are objects that can be inspected and changed at run time."
+    },
+    "hot-code-reload": {
+      "level": "core",
+      "note": "Methods are recompiled into the running image; the whole environment is live."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1972,
+      "event": "Smalltalk-72: Kay's 'page of code' bet and Ingalls's first interpreter"
+    },
+    {
+      "year": 1976,
+      "event": "Smalltalk-76 adopts class inheritance and a browser-based environment"
+    },
+    {
+      "year": 1980,
+      "event": "Smalltalk-80 completed, with metaclasses"
+    },
+    {
+      "year": 1981,
+      "event": "August Byte issue devoted to Smalltalk-80; system shared with Apple, DEC, HP and Tektronix"
+    },
+    {
+      "year": 1983,
+      "event": "Smalltalk-80 Version 2 and Goldberg & Robson's 'Blue Book' published"
+    },
+    {
+      "year": 1996,
+      "event": "Squeak, an open-source Smalltalk derived from Apple Smalltalk-80, released"
+    },
+    {
+      "year": 1998,
+      "event": "ANSI Smalltalk standard ratified"
+    },
+    {
+      "year": 2008,
+      "event": "Pharo forked from Squeak"
+    }
+  ],
+  "trivia": [
+    "Dan Ingalls wrote the first Smalltalk-72 interpreter in about 700 lines of BASIC.",
+    "Smalltalk took second place for 'most loved programming language' in the 2017 Stack Overflow Developer Survey.",
+    "In 2001 Vassili Bykov implemented Hobbes, a virtual machine running the original Smalltalk-80 inside VisualWorks."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Smalltalk-80 (run with GNU Smalltalk 3.2)",
+      "code": "Transcript show: 'Hello, World!'; cr.\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "The semicolon is a cascade: cr is sent to the same receiver (Transcript) as show:.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "GNU Smalltalk 3.2 (Smalltalk-80 with GNU bracket syntax)",
+      "code": "\"Add a recursive method to the built-in Integer class.\"\nInteger extend [\n    fact [\n        self <= 1 ifTrue: [^1].\n        ^self * (self - 1) fact\n    ]\n]\n\nTranscript showCr: 10 fact printString.\n",
+      "expected_output": "3628800\n",
+      "notes": "Integer extend [ ... ] is GNU syntax for adding a method to an existing class; in Smalltalk-80 you would add it in the class browser. Integers overflow into LargePositiveInteger automatically, and 10 factorial is built in.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Smalltalk-80 (run with GNU Smalltalk 3.2)",
+      "code": "1 to: 15 do: [:i |\n    Transcript showCr:\n        ((i \\\\ 15 = 0)\n            ifTrue: ['FizzBuzz']\n            ifFalse: [(i \\\\ 3 = 0)\n                ifTrue: ['Fizz']\n                ifFalse: [(i \\\\ 5 = 0)\n                    ifTrue: ['Buzz']\n                    ifFalse: [i printString]]])]\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "to:do: is a message to 1 and ifTrue:ifFalse: a message to a Boolean, each taking blocks. \\\\ is the modulo selector.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Smalltalk-80 (run with GNU Smalltalk 3.2)",
+      "code": "| squares |\nsquares := ((1 to: 10) select: [:x | x even]) collect: [:x | x * x].\nsquares\n    do: [:x | Transcript show: x printString]\n    separatedBy: [Transcript show: ' '].\nTranscript cr.\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "(1 to: 10) is an Interval collection; select: and collect: take blocks and answer new collections, and do:separatedBy: prints the separators.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "GNU Smalltalk 3.2 (Smalltalk-80 with GNU bracket syntax)",
+      "code": "\"The image already has a graphics Rectangle, so work in our own namespace.\"\nSmalltalk addSubspace: #Shapes.\nNamespace current: Shapes.\n\nObject subclass: Shape [\n    describe [ ^self class name, ': ', self area printString ]\n]\n\nShape subclass: Rectangle [\n    | width height |\n    Rectangle class >> width: w height: h [ ^self new setWidth: w height: h ]\n    setWidth: w height: h [ width := w. height := h ]\n    area [ ^width * height ]\n]\n\nShape subclass: Triangle [\n    | base height |\n    Triangle class >> base: b height: h [ ^self new setBase: b height: h ]\n    setBase: b height: h [ base := b. height := h ]\n    area [ ^base * height // 2 ]\n]\n\n{Rectangle width: 3 height: 4. Triangle base: 10 height: 3}\n    do: [:shape | Transcript showCr: shape describe].\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Smalltalk-80 created classes by sending subclass:instanceVariableNames:classVariableNames:poolDictionaries:category: to the superclass (usually from the browser) and exchanged code as bang-separated fileOut chunks; GNU Smalltalk's bracket syntax is a file-friendly equivalent. The image already contains a graphics Rectangle class, so the example works in its own namespace (a GNU extension); brace arrays {...} are also a later addition.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Everything is a message",
+      "dialect": "GNU Smalltalk 3.2 (Smalltalk-80 with GNU bracket syntax)",
+      "code": "\"Control flow is just messages sent to objects - so you can add your own.\"\nBoolean extend [\n    unless: aBlock [ ^self ifFalse: aBlock ]\n]\n\nObject subclass: Echo [\n    doesNotUnderstand: aMessage [ ^'echo: ', aMessage selector ]\n]\n\nTranscript\n    showCr: (3 + 4) printString;\n    showCr: (3 perform: #between:and: with: 1 with: 5) printString;\n    showCr: 3 class name, ' ', true class name;\n    showCr: ((2 > 3) unless: ['2 > 3 is false']);\n    showCr: (Echo new frobnicate: 42).\n",
+      "expected_output": "7\ntrue\nSmallInteger True\n2 > 3 is false\necho: frobnicate:\n",
+      "notes": "3 + 4 sends the message + to the object 3, and perform: sends a message chosen at run time. Classes are objects too. ifTrue:ifFalse: is an ordinary method of True and False, so a new control structure (unless:) is just a new method on Boolean. An object that does not understand a message is sent doesNotUnderstand: with the message reified as an object, which Echo overrides.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "GNU Smalltalk",
+        "version": "3.2.5",
+        "docker_image": "plw-smalltalk",
+        "install": "FROM ubuntu:22.04; apt-get install -y gnu-smalltalk",
+        "run": "gst {file}",
+        "notes": "gnu-smalltalk was dropped from Debian after bullseye; Ubuntu 22.04 still packages 3.2.5. Garbage-collection messages go to stderr (suppress with -g).",
+        "dockerfile": "sandbox/smalltalk/Dockerfile"
+      }
+    ],
+    "browser": {
+      "name": "SqueakJS",
+      "url": "https://squeak.js.org",
+      "notes": "A Squeak virtual machine in JavaScript that runs full Squeak images in the browser; not a headless runner for .st files."
+    },
+    "notes": "Pharo and Squeak are the main open-source Smalltalks today but are image-based and GUI-oriented; GNU Smalltalk is the easiest to drive from files."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Smalltalk"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Smalltalk",
+    "https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller",
+    "https://en.wikipedia.org/wiki/Traits_(computer_science)",
+    "https://en.wikipedia.org/wiki/Squeak",
+    "https://en.wikipedia.org/wiki/Pharo",
+    "https://www.gnu.org/software/smalltalk/",
+    "https://pharo.org"
+  ]
+}

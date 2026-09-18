@@ -1,0 +1,177 @@
+{
+  "id": "clojure",
+  "name": "Clojure",
+  "aliases": ["ClojureScript", "ClojureCLR"],
+  "year": 2007,
+  "year_note": "Rich Hickey began work in 2005; the first public release was in October 2007 and version 1.0 followed in May 2009.",
+  "designers": ["Rich Hickey"],
+  "country": "United States",
+  "tagline": "A modern Lisp for the JVM, built on immutable persistent data and explicitly managed state for concurrency.",
+  "summary": "Clojure is a dynamically typed Lisp dialect created by Rich Hickey that runs on the Java Virtual Machine, with sister implementations for JavaScript (ClojureScript) and .NET (ClojureCLR). It makes immutable, persistent collections the default, isolates change in reference types (atoms, agents, and refs coordinated by software transactional memory), and calls host libraries directly. Literal vectors, maps and sets extend the classic S-expression syntax, while macros and REPL-driven development carry on the Lisp tradition.",
+  "history": "Before Clojure, Rich Hickey built dotLisp, a Lisp for .NET, and several bridges between Common Lisp and Java (jfli, FOIL and Lisplets). He started Clojure in 2005 and worked on it for about two and a half years, largely without outside funding, before announcing it publicly in October 2007. His goal was a modern Lisp for functional programming, symbiotic with the established Java platform and designed for concurrency. Version 1.0 appeared in May 2009.\n\nLater releases added protocols and records (1.2, 2010), reducers (1.5, 2013), transducers and reader conditionals (1.7, 2015), and clojure.spec with official command-line tools (1.9, 2017). ClojureScript (2011) brought the language to JavaScript engines, and the core.async library (2013) added Go-style channels based on CSP. Hickey's company Cognitect stewarded the language until 2020, when the Brazilian fintech Nubank, one of the largest Clojure users, acquired Cognitect; development continues with the 1.12 series (2024 onward), which deepened Java interop.",
+  "innovations": [
+    "Persistent immutable collections (hash array mapped tries after Phil Bagwell) as the default data structures of a Lisp",
+    "An explicit model of identity versus state: atoms, agents, and refs with multiversion software transactional memory",
+    "S-expression syntax extended with literal vectors, maps and sets, and the EDN data format derived from it",
+    "A hosted language design: direct interop with JVM, JavaScript and .NET libraries instead of a runtime of its own",
+    "Transducers: composable transformations independent of the source and destination of the data",
+    "Multimethods that dispatch on an arbitrary function of their arguments"
+  ],
+  "paradigms": ["functional", "concurrent", "metaprogramming", "data-oriented"],
+  "family": "lisp",
+  "syntax_family": "s-expression",
+  "block_style": "s-expression",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Data is mostly generic maps and sequences, and protocols and multimethods dispatch at run time. Type hints avoid JVM reflection but do not add static checking; clojure.spec validates data shapes at run time."
+  },
+  "memory": "tracing-gc",
+  "execution": ["bytecode-vm", "jit", "transpiled"],
+  "status": "active",
+  "latest_version": "1.12.6",
+  "file_extensions": [".clj", ".cljs", ".cljc", ".edn"],
+  "color": "#db5855",
+  "primary_parent": "lisp",
+  "influenced_by": [
+    { "id": "lisp", "kind": "dialect", "weight": "major", "note": "A Lisp dialect: S-expressions, macros, code as data, REPL." },
+    { "id": "java", "kind": "platform", "weight": "major", "note": "Compiles to JVM bytecode and calls Java classes directly." },
+    { "id": "common-lisp", "kind": "influence", "weight": "minor", "note": "Hickey's earlier Lisp work was in Common Lisp; defmacro-style macros." },
+    { "id": "scheme", "kind": "influence", "weight": "minor", "note": "A single namespace for functions and values (Lisp-1)." },
+    { "id": "haskell", "kind": "influence", "weight": "minor", "note": "Immutability, laziness and software transactional memory." },
+    { "id": "erlang", "kind": "influence", "weight": "minor" },
+    { "id": "ml", "kind": "influence", "weight": "minor" },
+    { "id": "prolog", "kind": "influence", "weight": "minor" },
+    { "id": "csharp", "kind": "influence", "weight": "minor", "note": "The 'C' in the name; Hickey's dotLisp targeted .NET." },
+    { "id": "cpp", "kind": "influence", "weight": "minor" },
+    { "id": "ruby", "kind": "influence", "weight": "minor" },
+    { "id": "go", "kind": "influence", "weight": "minor", "note": "core.async (2013) adopted Go's goroutine-and-channel model as go blocks and channels." }
+  ],
+  "influenced_by_external": [
+    { "name": "Ideal Hash Trees (Phil Bagwell)", "year": 2001, "note": "Hash array mapped tries underlie Clojure's persistent maps and vectors." },
+    { "name": "Communicating Sequential Processes (Tony Hoare)", "year": 1978, "note": "The model behind core.async." },
+    { "name": "Racket", "note": "Listed among Clojure's influences." },
+    { "name": "Wolfram Language", "note": "Listed among Clojure's influences." }
+  ],
+  "influenced": ["elixir"],
+  "traits": {
+    "structured-control": { "level": "core", "note": "if, when, cond, case and loop/recur." },
+    "block-scope": { "level": "core", "note": "Lexically scoped let bindings with destructuring." },
+    "recursion": { "level": "core", "note": "Direct recursion consumes JVM stack; loop/recur and trampoline give constant-space alternatives." },
+    "tail-calls": { "level": "supported", "note": "Only explicit: recur for self tail calls and trampoline for mutual recursion; the JVM does not eliminate general tail calls." },
+    "exceptions": { "level": "core", "note": "try/catch/finally and throw over JVM exceptions; ex-info attaches data maps." },
+    "pattern-matching": { "level": "library", "note": "core.match (a contrib library); built-in destructuring binds by shape but does not dispatch." },
+    "immutability": { "level": "core", "note": "All core collections are persistent and immutable; mutation happens only through reference types or explicit transients." },
+    "first-class-functions": { "level": "core", "note": "fn, the #(...) shorthand, and a large library of higher-order functions." },
+    "closures": { "level": "core" },
+    "list-comprehensions": { "level": "core", "note": "The for macro, with :when, :while and :let clauses." },
+    "lazy-evaluation": { "level": "supported", "note": "Lazy sequences (map, filter, range, iterate); function evaluation itself is strict." },
+    "garbage-collection": { "level": "core", "note": "Provided by the host runtime (JVM, JavaScript engine or CLR)." },
+    "classes": { "level": "supported", "since": 2010, "version": "Clojure 1.2", "note": "defrecord and deftype generate JVM classes with fields but no implementation inheritance." },
+    "inheritance": { "level": "supported", "note": "Only for Java interop (proxy, gen-class) and ad hoc keyword hierarchies (derive) used by multimethods." },
+    "interfaces": { "level": "core", "since": 2010, "version": "Clojure 1.2", "note": "defprotocol; protocols can be extended to existing types, and Java interfaces can be implemented." },
+    "multiple-dispatch": { "level": "core", "note": "defmulti dispatches on any function of all the arguments." },
+    "modules": { "level": "core", "note": "Namespaces with require and alias; code is compiled on load, with optional ahead-of-time compilation." },
+    "macros": { "level": "core", "note": "defmacro with syntax-quote, which namespace-qualifies symbols and offers auto-gensyms (x#) to avoid accidental capture." },
+    "homoiconicity": { "level": "core", "note": "Code is made of Clojure data: lists, vectors, maps, symbols and keywords." },
+    "reflection": { "level": "supported", "note": "Namespace and var introspection, metadata, and JVM reflection (clojure.reflect)." },
+    "compile-time-execution": { "level": "supported", "note": "Macros run arbitrary Clojure at compile time." },
+    "hot-code-reload": { "level": "core", "note": "Functions are called through vars, so redefinitions from a connected REPL take effect in the running program." },
+    "stm": { "level": "core", "note": "refs updated inside dosync transactions, using multiversion concurrency control with automatic retry." },
+    "csp-channels": { "level": "library", "since": 2013, "version": "core.async", "note": "Channels and go blocks, compiled into state machines that park instead of blocking threads." },
+    "regex-builtin": { "level": "core", "note": "#\"...\" regex literals compile to java.util.regex.Pattern; re-find, re-seq and re-matches in clojure.core." }
+  },
+  "milestones": [
+    { "year": 2005, "event": "Rich Hickey begins work on Clojure" },
+    { "year": 2007, "event": "First public release (October)" },
+    { "year": 2009, "event": "Clojure 1.0 (May)" },
+    { "year": 2010, "event": "Clojure 1.2: protocols, records and types" },
+    { "year": 2011, "event": "ClojureScript announced" },
+    { "year": 2013, "event": "core.async brings CSP channels; Clojure 1.5 adds reducers" },
+    { "year": 2015, "event": "Clojure 1.7: transducers and reader conditionals" },
+    { "year": 2017, "event": "Clojure 1.9: clojure.spec and the clj command-line tools" },
+    { "year": 2020, "event": "Nubank acquires Cognitect, the company stewarding Clojure" },
+    { "year": 2024, "event": "Clojure 1.12 released with improved Java interop" }
+  ],
+  "trivia": [
+    "Hickey describes the name as a pun on 'closure' that contains C, L and J for C#, Lisp and Java."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Clojure 1.12",
+      "code": "(println \"Hello, World!\")\n",
+      "expected_output": "Hello, World!\n",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Clojure 1.12",
+      "code": "(defn factorial [n]\n  (if (zero? n)\n    1\n    (* n (factorial (dec n)))))\n\n(println (factorial 10))\n",
+      "expected_output": "3628800\n",
+      "notes": "Plain recursion uses the JVM stack because Clojure has no general tail-call elimination; idiomatic alternatives are loop/recur or (reduce * (range 1 11)). Long arithmetic throws on overflow rather than wrapping; *' promotes to BigInt.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Clojure 1.12",
+      "code": "(doseq [i (range 1 16)]\n  (println (cond\n             (zero? (mod i 15)) \"FizzBuzz\"\n             (zero? (mod i 3))  \"Fizz\"\n             (zero? (mod i 5))  \"Buzz\"\n             :else              i)))\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "doseq iterates for side effects; range is lazy and half-open, so (range 1 16) is 1..15.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Clojure 1.12",
+      "code": ";; ->> threads each result in as the last argument of the next form\n(->> (range 1 11)\n     (filter even?)\n     (map #(* % %))\n     (apply println))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "filter and map return lazy sequences; (apply println xs) prints the elements separated by spaces. (for [x (range 1 11) :when (even? x)] (* x x)) is the list-comprehension form.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Clojure 1.12",
+      "code": ";; Shapes are plain maps; a multimethod dispatches on any function of\n;; its arguments -- here, the :shape key.\n(defmulti area :shape)\n\n(defmethod area :rectangle [{:keys [width height]}] (* width height))\n(defmethod area :triangle  [{:keys [base height]}]  (/ (* base height) 2))\n\n(doseq [s [{:shape :rectangle :name \"Rectangle\" :width 3 :height 4}\n           {:shape :triangle  :name \"Triangle\"  :base 10 :height 3}]]\n  (println (str (:name s) \": \" (area s))))\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Shapes are plain maps, and the multimethod dispatches on the value of (:shape s). defprotocol with defrecord is the faster, type-based alternative. (/ 30 2) returns the integer 15; Clojure keeps exact ratios such as 7/2 when division is inexact.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Immutable values, managed change",
+      "dialect": "Clojure 1.12",
+      "code": ";; Values never change: \"updating\" returns a new version that shares\n;; structure with the old one.\n(def v1 {:lang \"Clojure\" :hosts [\"JVM\"]})\n(def v2 (update v1 :hosts conj \"JS\"))\n(prn v1)\n(prn v2)\n\n;; Identities that do change are explicit references. Here: STM refs,\n;; updated by 10 threads in coordinated, retrying transactions.\n(def checking (ref 1000))\n(def savings  (ref 0))\n(let [workers (doall (for [_ (range 10)]\n                       (future (dotimes [_ 100]\n                                 (dosync (alter checking dec)\n                                         (alter savings inc))))))]\n  (run! deref workers))\n(println @checking @savings (+ @checking @savings))\n(shutdown-agents)\n",
+      "expected_output": "{:lang \"Clojure\", :hosts [\"JVM\"]}\n{:lang \"Clojure\", :hosts [\"JVM\" \"JS\"]}\n0 1000 1000\n",
+      "notes": "update returns a new map: v1 is untouched and v2 shares structure with it. The STM half runs 1,000 transfers on 10 threads; each dosync transaction retries on conflict, so the total is always conserved and the output is deterministic. shutdown-agents lets the JVM exit promptly after using futures.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "Clojure CLI (JVM)",
+        "version": "1.12.6",
+        "docker_image": "clojure:temurin-21-tools-deps",
+        "run": "clojure -M {file}",
+        "notes": "Official image; the Clojure jar is preinstalled, so it runs with --network none. JVM start-up takes a second or two."
+      },
+      {
+        "name": "Babashka",
+        "version": "1.13.223",
+        "docker_image": "babashka/babashka:latest",
+        "run": "bb {file}",
+        "notes": "Native (GraalVM) Clojure interpreter built on SCI; starts in milliseconds and ran all six snippets identically, including refs and futures."
+      }
+    ],
+    "browser": { "name": "Scittle", "url": "https://babashka.org/scittle/", "notes": "SCI-based ClojureScript interpreter that runs in the browser without a build step; ClojureScript has no refs/STM or futures, so the signature snippet will not run unchanged." },
+    "notes": "Also verified with the Clojure CLI installed on the host (Clojure 1.12.6 on OpenJDK 27)."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Clojure",
+    "homepage": "https://clojure.org/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Clojure",
+    "https://clojure.org/about/rationale",
+    "https://clojure.org/reference/refs",
+    "https://clojure.org/news/2013/06/28/clojure-clore-async-channels",
+    "https://clojure.org/news/2024/09/05/clojure-1-12-0"
+  ]
+}

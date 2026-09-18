@@ -1,0 +1,7 @@
+#!/bin/sh
+# lisp15 FILE -- run a file of LISP 1.5 S-expressions on aap/l15 as a batch job.
+# l15 silently evaluates ./lib.l at start-up, so the program is appended to a copy of it;
+# stdout is cleaned of l15's NUL pname padding and the REPL's closing '*' prompt.
+d=$(mktemp -d)
+cat /opt/l15/lib.l "$1" > "$d/lib.l"
+cd "$d" && /opt/l15/lisp < /dev/null | tr -d '\000' | sed '$d'

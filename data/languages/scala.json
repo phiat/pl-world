@@ -1,0 +1,390 @@
+{
+  "id": "scala",
+  "name": "Scala",
+  "aliases": [
+    "Scala 2",
+    "Scala 3",
+    "Dotty"
+  ],
+  "year": 2004,
+  "year_note": "Designed at EPFL from 2001 with an internal release in 2003; the first public release on the Java platform came on 20 January 2004. Scala 2.0 (2006) was a redesign with a compiler written in Scala, and Scala 3 (2021) is based on the Dotty compiler.",
+  "designers": [
+    "Martin Odersky"
+  ],
+  "organization": "EPFL (Programming Methods Laboratory)",
+  "country": "Switzerland",
+  "tagline": "A 'scalable language' that fuses object-oriented and functional programming with an expressive static type system on the JVM.",
+  "summary": "Scala is a statically typed language that unifies object-oriented and functional programming: every value is an object, functions are values, and classes are composed from traits. It combines local type inference, case classes and pattern matching, higher-kinded generics and implicit (contextual) parameters used for type classes. It runs on the JVM with full Java interoperability, and also compiles to JavaScript (Scala.js) and native code (Scala Native).",
+  "history": "Martin Odersky began designing Scala at EPFL in Lausanne in 2001, after working with Philip Wadler on Pizza and Generic Java (GJ), whose compiler became Sun's javac from Java 1.3. An earlier EPFL language, Funnel, had explored combining functional programming with join-calculus concurrency but proved impractical, so Scala aimed to be practical, Java-compatible and more expressive than Java. It was released publicly on the JVM in January 2004; a .NET back end appeared the same year but was later abandoned. Scala 2.0 (2006) reworked the language and switched to a compiler written in Scala.\n\nScala gained industrial use when Twitter moved much of its back end from Ruby to Scala in 2009, and Odersky co-founded Typesafe (later Lightbend) in 2011. Apache Spark and Apache Kafka, both written in Scala, made it a mainstay of big-data engineering. From 2012 Odersky's group developed Dotty, a new compiler founded on the DOT calculus, which became Scala 3 in May 2021 with enums, given/using contextual abstractions, extension methods, union and intersection types, opaque types, a new macro system and optional indentation-based syntax. Scala 3.3 (2023) and 3.9 (2026) are long-term-support lines.",
+  "innovations": [
+    "Unified object-oriented and functional programming in a statically typed, mainstream-platform language",
+    "Trait mixin composition with linearization, including stackable modifications",
+    "Case classes and extractor-based pattern matching, bringing ADT-style programming to the JVM",
+    "Implicit parameters (later given/using) as a general mechanism for type classes and contextual abstraction",
+    "Higher-kinded types and abstract type members in an industrial language, enabling libraries such as Cats, ZIO and Spark",
+    "DOT (dependent object types) as a formal foundation for Scala 3"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "object-oriented",
+    "functional",
+    "generic"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Local (not Hindley–Milner) inference: method parameters need annotations. Mostly nominal subtyping, plus structural refinement types; Scala 3 adds union, intersection, match and opaque types."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "bytecode-vm",
+    "jit",
+    "transpiled",
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "3.9.0 (September 2026, LTS)",
+  "file_extensions": [
+    ".scala",
+    ".sc"
+  ],
+  "color": "#c22d40",
+  "primary_parent": "java",
+  "influenced_by": [
+    {
+      "id": "java",
+      "kind": "platform",
+      "weight": "major",
+      "note": "Compiles to JVM bytecode with seamless Java interop; class and method syntax familiar to Java programmers. Odersky had written Java's generics compiler (GJ)."
+    },
+    {
+      "id": "ml",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Standard ML's functional core: type inference, algebraic data types and pattern matching."
+    },
+    {
+      "id": "haskell",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Type classes (encoded with implicits/givens), higher-kinded types, and for-comprehensions in the style of monad comprehensions."
+    },
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "A uniform object model: every value is an object and operators are ordinary methods."
+    },
+    {
+      "id": "ocaml",
+      "kind": "influence",
+      "weight": "minor"
+    },
+    {
+      "id": "erlang",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "The actor model of the original scala.actors library and later Akka."
+    },
+    {
+      "id": "eiffel",
+      "kind": "influence",
+      "weight": "minor"
+    },
+    {
+      "id": "scheme",
+      "kind": "influence",
+      "weight": "minor"
+    },
+    {
+      "id": "common-lisp",
+      "kind": "influence",
+      "weight": "minor"
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Pizza / Generic Java (GJ)",
+      "year": 1996,
+      "note": "Odersky and Wadler's earlier extensions of Java with generics, higher-order functions and pattern matching."
+    },
+    {
+      "name": "Funnel",
+      "note": "Odersky's EPFL research language combining functional programming with the join calculus."
+    },
+    {
+      "name": "Oz",
+      "year": 1991
+    }
+  ],
+  "influenced": [
+    "kotlin",
+    "fsharp",
+    "csharp"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if, while, for and match are expressions; there is no break keyword (scala.util.boundary provides one)."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "try/catch with pattern-matching handlers; Try and Either are common in functional style."
+    },
+    "generators": {
+      "level": "library",
+      "note": "Iterator and LazyList provide lazy sequences; for/yield builds collections rather than suspending."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "match on case classes, enums, tuples, types and user-defined extractors (unapply)."
+    },
+    "tail-calls": {
+      "level": "supported",
+      "note": "Self-recursive tail calls compile to loops and @tailrec checks this; the JVM has no general tail-call elimination."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Local inference for vals, return types and lambda parameters."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Declaration-site variance, higher-kinded types and type lambdas."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "Sealed traits with case classes; Scala 3 enums (2021) give direct syntax."
+    },
+    "type-classes": {
+      "level": "core",
+      "note": "Implicit parameters, since Scala 3 given instances and using clauses, resolved by the type checker."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "Option[A] is idiomatic, but null exists for Java interop; Scala 3 offers opt-in explicit nulls (T | Null)."
+    },
+    "structural-typing": {
+      "level": "supported",
+      "note": "Refinement types such as { def close(): Unit } (via reflection or Selectable)."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Traits serve as interfaces."
+    },
+    "classes": {
+      "level": "core"
+    },
+    "inheritance": {
+      "level": "core"
+    },
+    "everything-is-an-object": {
+      "level": "supported",
+      "note": "Every value, including numbers and functions, is an object and operators are method calls; control structures are built in, not messages."
+    },
+    "traits-mixins": {
+      "level": "core",
+      "note": "Traits with concrete members and state, composed with 'with' and linearized."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Private members, abstract type members, and Scala 3 opaque type aliases."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Packages and singleton objects serve as modules; Scala 3 allows top-level definitions."
+    },
+    "design-by-contract": {
+      "level": "library",
+      "note": "require, assert and ensuring in Predef give runtime pre- and postconditions."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Symbolic method names and infix method calls."
+    },
+    "first-class-functions": {
+      "level": "core"
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "core",
+      "note": "val and immutable collections are the defaults; var and mutable collections must be chosen explicitly."
+    },
+    "list-comprehensions": {
+      "level": "core",
+      "note": "for ... yield comprehensions over any type with map/flatMap/withFilter."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "lazy val, by-name parameters, LazyList and collection views."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "The JVM's collectors; Scala Native has its own GC."
+    },
+    "actors": {
+      "level": "library",
+      "note": "scala.actors was part of the standard library until deprecated in favour of Akka (now also forked as Apache Pekko)."
+    },
+    "async-await": {
+      "level": "library",
+      "note": "Futures composed with for-comprehensions; the scala-async library adds async/await blocks."
+    },
+    "macros": {
+      "level": "supported",
+      "note": "Scala 3 inline methods with quotes and splices over typed ASTs; Scala 2 had experimental def macros."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Java reflection, ClassTag/TypeTest, and TASTy inspection in Scala 3."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "since": 2021,
+      "version": "Scala 3.0",
+      "note": "inline definitions and scala.compiletime operations evaluate during compilation."
+    },
+    "significant-whitespace": {
+      "level": "supported",
+      "since": 2021,
+      "version": "Scala 3.0",
+      "note": "Optional braces: indentation-based blocks are recommended in Scala 3, but braces remain valid."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2001,
+      "event": "Design begins at EPFL under Martin Odersky"
+    },
+    {
+      "year": 2004,
+      "event": "First public release on the Java platform (January); a .NET back end follows in June"
+    },
+    {
+      "year": 2006,
+      "event": "Scala 2.0, with a compiler written in Scala"
+    },
+    {
+      "year": 2009,
+      "event": "Twitter moves large parts of its back end from Ruby to Scala"
+    },
+    {
+      "year": 2011,
+      "event": "Typesafe (later Lightbend) founded; ERC grant for Scala research"
+    },
+    {
+      "year": 2013,
+      "event": "Scala 2.10: string interpolation, implicit classes, value classes, futures"
+    },
+    {
+      "year": 2015,
+      "event": "Scala.js declared stable (compiles Scala to JavaScript)"
+    },
+    {
+      "year": 2019,
+      "event": "Scala 2.13 with a redesigned collections library"
+    },
+    {
+      "year": 2021,
+      "event": "Scala 3.0 released (14 May), based on the Dotty compiler"
+    },
+    {
+      "year": 2023,
+      "event": "Scala 3.3, the first long-term-support release of Scala 3"
+    },
+    {
+      "year": 2026,
+      "event": "Scala 3.9, the next LTS line"
+    }
+  ],
+  "trivia": [
+    "The name is a portmanteau of 'scalable' and 'language': it is meant to grow with its users, from scripts to large systems.",
+    "Odersky said the switch to optional indentation-based syntax turned out to be the most productive change introduced in Scala 3."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Scala 3.9",
+      "code": "@main def hello(): Unit =\n  println(\"Hello, World!\")\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "A Scala 3 @main method with optional braces. Scala 2 wrote object Hello { def main(args: Array[String]): Unit = println(\"Hello, World!\") } or used extends App.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Scala 3.9",
+      "code": "def factorial(n: BigInt): BigInt =\n  if n <= 1 then 1 else n * factorial(n - 1)\n\n@main def run(): Unit =\n  println(factorial(10))\n",
+      "expected_output": "3628800\n",
+      "notes": "BigInt avoids overflow; if ... then ... else is Scala 3 syntax (Scala 2: if (n <= 1) 1 else ...). Top-level definitions are new in Scala 3.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Scala 3.9",
+      "code": "@main def fizzBuzz(): Unit =\n  for i <- 1 to 15 do\n    val word = (i % 3, i % 5) match\n      case (0, 0) => \"FizzBuzz\"\n      case (0, _) => \"Fizz\"\n      case (_, 0) => \"Buzz\"\n      case _      => i.toString\n    println(word)\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "match is an expression, here on a tuple of remainders; for ... do is Scala 3's brace-less loop.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Scala 3.9",
+      "code": "@main def mapFilter(): Unit =\n  val squares = (1 to 10).filter(_ % 2 == 0).map(x => x * x)\n  println(squares.mkString(\" \"))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "_ % 2 == 0 is placeholder syntax for a lambda. The for-comprehension for x <- 1 to 10 if x % 2 == 0 yield x * x is equivalent.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Scala 3.9",
+      "code": "// A Scala 3 enum is an algebraic data type; `match` destructures its cases.\nenum Shape:\n  case Rectangle(width: Int, height: Int)\n  case Triangle(base: Int, height: Int)\n\n  def area: Int = this match\n    case Rectangle(w, h) => w * h\n    case Triangle(b, h)  => b * h / 2\n\n@main def shapes(): Unit =\n  for shape <- List(Shape.Rectangle(3, 4), Shape.Triangle(10, 3)) do\n    println(s\"${shape.productPrefix}: ${shape.area}\")\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "A Scala 3 enum defines the ADT and productPrefix gives each case's name. In Scala 2 the idiom is a sealed trait Shape with case class subclasses.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Type classes with givens",
+      "dialect": "Scala 3.9",
+      "code": "// A type class: behaviour attached to types from the outside.\ntrait Show[A]:\n  extension (a: A) def show: String\n\ncase class Point(x: Int, y: Int)\n\n// Instances are `given`s; the compiler finds them by type.\ngiven Show[Int]:\n  extension (n: Int) def show = n.toString\n\ngiven Show[Point]:\n  extension (p: Point) def show = s\"Point(${p.x.show}, ${p.y.show})\"\n\n// A conditional instance: Show[List[A]] exists whenever Show[A] does.\ngiven [A: Show] => Show[List[A]]:\n  extension (xs: List[A]) def show = xs.map(_.show).mkString(\"[\", \", \", \"]\")\n\ndef describe[A: Show](label: String, value: A): String = s\"$label = ${value.show}\"\n\n@main def demo(): Unit =\n  println(describe(\"ints\", List(1, 2, 3)))\n  println(describe(\"points\", List(Point(1, 2), Point(3, 4))))\n  println(describe(\"nested\", List(List(1), List(2, 3))))\n",
+      "expected_output": "ints = [1, 2, 3]\npoints = [Point(1, 2), Point(3, 4)]\nnested = [[1], [2, 3]]\n",
+      "notes": "The compiler builds Show[List[List[Int]]] from the instances in scope. Uses the given syntax introduced in Scala 3.6; Scala 3.0–3.5 wrote given Show[Int] with ..., and Scala 2 encoded the pattern with implicit objects, implicit defs and implicit classes.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Scala CLI",
+        "version": "1.17.1 (Scala 3.9.0, JVM 17)",
+        "docker_image": "virtuslab/scala-cli:latest",
+        "run": "scala-cli run --server=false {file}",
+        "notes": "The image caches the default Scala 3.9.0 compiler, so it runs offline; other Scala versions need network access. The file must end in .scala. Large image (about 3 GB)."
+      }
+    ],
+    "browser": null,
+    "notes": "Scastie (scastie.scala-lang.org) is an online playground, but compiles on a server. Scala.js can target the browser, but its compiler does not run there."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+    "homepage": "https://www.scala-lang.org/",
+    "spec": "https://scala-lang.org/files/archive/spec/3.4/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Scala_(programming_language)",
+    "https://www.artima.com/articles/the-origins-of-scala",
+    "https://www.scala-lang.org/blog/2021/05/14/scala3-is-here.html",
+    "https://github.com/scala/scala3/releases",
+    "https://fsharp.org/history/hopl-final/hopl-fsharp.pdf"
+  ]
+}

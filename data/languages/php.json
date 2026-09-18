@@ -1,0 +1,159 @@
+{
+  "id": "php",
+  "name": "PHP",
+  "aliases": ["PHP: Hypertext Preprocessor", "Personal Home Page Tools", "PHP/FI"],
+  "year": 1995,
+  "year_note": "Rasmus Lerdorf wrote the Personal Home Page Tools in 1994 and released their source on 8 June 1995; the 'Forms Interpreter' followed that September and the combined name PHP/FI dates from 1996. PHP 3 (1998), a rewrite by Andi Gutmans and Zeev Suraski, is the direct ancestor of today's language.",
+  "designers": ["Rasmus Lerdorf"],
+  "tagline": "The server-side language that grew out of HTML templates to run much of the Web, from PHP/FI to typed, JIT-compiled PHP 8.",
+  "summary": "PHP is a dynamically typed scripting language designed for generating web pages on the server: code is embedded between `<?php ?>` tags in HTML and each request runs in a fresh, shared-nothing environment. Starting as a set of personal CGI tools, it became the easiest way to put a database-backed site online and still powers platforms such as WordPress and MediaWiki. Modern PHP (7 and 8) adds optional runtime-checked type declarations, a Java-like class model with traits, enums, `match` expressions, readonly properties and a JIT compiler.",
+  "history": "Rasmus Lerdorf wrote a set of CGI binaries in C in 1994 to track visits to his online résumé and released them as the 'Personal Home Page Tools' in June 1995; that September he added a Forms Interpreter, and the combined PHP/FI (version 2.0 final in November 1997) let users embed simple scripts in HTML. In 1997 Andi Gutmans and Zeev Suraski of Tel Aviv began rewriting the parser, and PHP 3 (June 1998) — with the recursive name 'PHP: Hypertext Preprocessor' and an extension API — became the version that took off. Their Zend Engine powered PHP 4 (2000), and PHP 5 (2004) introduced a new object model with visibility, interfaces and exceptions.\n\nAn ambitious Unicode-based PHP 6 was abandoned, and PHP 7 (2015) instead delivered the 'phpng' engine rewrite, which roughly doubled throughput on WordPress-based benchmarks, along with scalar and return type declarations. PHP 8.0 (2020) added a JIT compiler, union types, named arguments, attributes and the `match` expression; 8.1 (2021) brought enums, readonly properties and fibers; later releases added readonly classes (8.2), property hooks (8.4) and the pipe operator `|>` (8.5, 2025). The PHP Foundation, founded in 2021, funds core development.",
+  "innovations": [
+    "Code embedded directly in HTML pages and processed per request on the server, making dynamic web pages accessible to non-specialists",
+    "A shared-nothing execution model: every HTTP request starts from a clean state, which made cheap shared hosting and horizontal scaling simple",
+    "One ordered hash map ('array') serving as list, dictionary, set and record",
+    "Optional type declarations enforced at run time in a dynamic language (PHP 7), with a per-file strict_types switch between coercion and strict checking",
+    "A comprehensive built-in web toolkit — request superglobals, sessions, database drivers — in the standard distribution"
+  ],
+  "paradigms": ["multi-paradigm", "imperative", "procedural", "object-oriented", "functional", "reflective", "scripting"],
+  "family": "scripting",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "mixed",
+    "notes": "Parameter, return and property types (7.0+) are checked at run time, coercing scalars unless `declare(strict_types=1)`; class types are nominal, untyped code is duck-typed. Static analysers (PHPStan, Psalm) add ahead-of-time checking and docblock generics."
+  },
+  "memory": "reference-counting",
+  "execution": ["bytecode-vm", "jit"],
+  "status": "active",
+  "latest_version": "8.5",
+  "file_extensions": [".php", ".phtml", ".phar"],
+  "color": "#4F5D95",
+  "primary_parent": "perl",
+  "influenced_by": [
+    { "id": "perl", "kind": "influence", "weight": "major", "note": "$-prefixed variables, associative arrays, string interpolation and Perl-compatible regular expressions (preg_*); PHP took over Perl's CGI niche." },
+    { "id": "c", "kind": "influence", "weight": "major", "note": "Brace syntax, operators, and many function names and signatures taken from the C library (printf, strlen, strcmp...); the engine is written in C." },
+    { "id": "java", "kind": "influence", "weight": "major", "note": "The PHP 5 object model: interfaces, abstract and final classes, visibility modifiers and exceptions." },
+    { "id": "cpp", "kind": "influence", "weight": "minor" },
+    { "id": "csharp", "kind": "influence", "weight": "minor" },
+    { "id": "javascript", "kind": "influence", "weight": "minor" },
+    { "id": "kotlin", "kind": "influence", "weight": "minor" },
+    { "id": "rust", "kind": "influence", "weight": "minor" },
+    { "id": "swift", "kind": "influence", "weight": "minor" }
+  ],
+  "influenced_by_external": [
+    { "name": "Tcl", "year": 1988 }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": { "level": "core", "note": "Also alternative colon syntax (`foreach (...): ... endforeach;`) for templates." },
+    "recursion": { "level": "core" },
+    "exceptions": { "level": "core", "since": 2004, "version": "PHP 5", "note": "try/catch/finally (finally since 5.5); errors are also exceptions (Error/Throwable) since 7.0." },
+    "coroutines": { "level": "supported", "since": 2021, "version": "PHP 8.1", "note": "Fibers are full stackful coroutines, used by async libraries such as Amp and ReactPHP; generators can also receive values via send() (5.5)." },
+    "generators": { "level": "core", "since": 2013, "version": "PHP 5.5", "note": "`yield`, and `yield from` since 7.0." },
+    "gradual-typing": { "level": "core", "since": 2015, "version": "PHP 7.0", "note": "Class type hints since 5.0; scalar and return types in 7.0, typed properties in 7.4, union types in 8.0. Checked at run time rather than compile time." },
+    "interfaces": { "level": "core", "since": 2004, "version": "PHP 5" },
+    "classes": { "level": "core", "since": 1998, "version": "PHP 3", "note": "Basic classes since PHP 3; the PHP 5 object model (2004) added visibility, abstract/final classes and objects passed by handle. Enums (8.1) and readonly classes (8.2) extend it." },
+    "inheritance": { "level": "core", "note": "Single inheritance plus interfaces and traits." },
+    "traits-mixins": { "level": "core", "since": 2012, "version": "PHP 5.4", "note": "`trait` with `use`, including conflict resolution via insteadof/as." },
+    "abstract-data-types": { "level": "core", "since": 2004, "version": "PHP 5", "note": "private/protected members; readonly properties (8.1) and asymmetric visibility (8.4)." },
+    "modules": { "level": "supported", "since": 2009, "version": "PHP 5.3", "note": "Namespaces plus include/require; in practice Composer's PSR-4 autoloading acts as the module system." },
+    "first-class-functions": { "level": "core", "since": 2009, "version": "PHP 5.3", "note": "Anonymous functions (5.3), arrow functions `fn` (7.4) and first-class callable syntax `strlen(...)` (8.1); earlier code passed function names as strings." },
+    "closures": { "level": "core", "since": 2009, "version": "PHP 5.3", "note": "Captured variables are listed explicitly with `use (...)`; `fn` arrow functions capture by value automatically." },
+    "garbage-collection": { "level": "core", "since": 2009, "version": "PHP 5.3", "note": "A cycle collector supplements reference counting." },
+    "reference-counting": { "level": "core", "note": "Values are reference counted, with copy-on-write for arrays and strings." },
+    "reflection": { "level": "core", "since": 2004, "version": "PHP 5", "note": "The Reflection API, plus attributes (8.0) readable through it." },
+    "regex-builtin": { "level": "library", "note": "Bundled PCRE functions (preg_match, preg_replace); patterns are ordinary strings with delimiters." }
+  },
+  "milestones": [
+    { "year": 1995, "event": "Rasmus Lerdorf releases the Personal Home Page Tools (8 June)" },
+    { "year": 1997, "event": "PHP/FI 2.0 released; Gutmans and Suraski begin rewriting the parser" },
+    { "year": 1998, "event": "PHP 3.0: 'PHP: Hypertext Preprocessor' and an extensible core" },
+    { "year": 2000, "event": "PHP 4.0 on the Zend Engine" },
+    { "year": 2004, "event": "PHP 5.0: new object model with interfaces, visibility and exceptions" },
+    { "year": 2009, "event": "PHP 5.3: namespaces and closures" },
+    { "year": 2012, "event": "PHP 5.4: traits" },
+    { "year": 2015, "event": "PHP 7.0: phpng engine, scalar and return type declarations" },
+    { "year": 2020, "event": "PHP 8.0: JIT, union types, named arguments, attributes, match" },
+    { "year": 2021, "event": "PHP 8.1: enums, readonly properties, fibers; PHP Foundation founded" },
+    { "year": 2024, "event": "PHP 8.4: property hooks and asymmetric visibility" },
+    { "year": 2025, "event": "PHP 8.5: pipe operator |> and clone-with" }
+  ],
+  "trivia": [
+    "'PHP' originally stood for 'Personal Home Page'; since PHP 3 it officially means the recursive acronym 'PHP: Hypertext Preprocessor'.",
+    "Lerdorf's first tools were CGI binaries written in C to log visits to his online résumé."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "PHP 8",
+      "code": "<?php\necho \"Hello, World!\\n\";\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Text outside `<?php` tags is copied to the output verbatim, so a file containing only `Hello, World!` would also work. The closing `?>` is conventionally omitted in pure-PHP files.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "PHP 7+ (scalar type declarations)",
+      "code": "<?php\ndeclare(strict_types=1);\n\nfunction factorial(int $n): int\n{\n    return $n <= 1 ? 1 : $n * factorial($n - 1);\n}\n\necho factorial(10), \"\\n\";\n",
+      "expected_output": "3628800\n",
+      "notes": "With `strict_types=1`, calling factorial(\"10\") throws a TypeError instead of coercing the string. Integers overflow to float beyond PHP_INT_MAX.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "PHP 8.0+ (match expression)",
+      "code": "<?php\nfor ($i = 1; $i <= 15; $i++) {\n    echo match (true) {\n        $i % 15 === 0 => 'FizzBuzz',\n        $i % 3 === 0  => 'Fizz',\n        $i % 5 === 0  => 'Buzz',\n        default       => $i,\n    }, \"\\n\";\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`match (true)` returns the first arm whose condition is identical (===) to true. Unlike switch, match is an expression, compares strictly, never falls through and throws if no arm matches.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "PHP 7.4+ (arrow functions)",
+      "code": "<?php\n$evens   = array_filter(range(1, 10), fn(int $x) => $x % 2 === 0);\n$squares = array_map(fn(int $x) => $x * $x, $evens);\necho implode(' ', $squares), \"\\n\";\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Note the historical argument-order mismatch: array_filter(array, callback) but array_map(callback, array). array_filter keeps the original keys (1, 3, 5...), which implode ignores.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "PHP 8.2+ (readonly classes)",
+      "code": "<?php\ndeclare(strict_types=1);\n\ninterface Shape\n{\n    public function area(): int;\n}\n\nfinal readonly class Rectangle implements Shape\n{\n    public function __construct(public int $width, public int $height) {}\n\n    public function area(): int { return $this->width * $this->height; }\n}\n\nfinal readonly class Triangle implements Shape\n{\n    public function __construct(public int $base, public int $height) {}\n\n    public function area(): int { return intdiv($this->base * $this->height, 2); }\n}\n\nforeach ([new Rectangle(3, 4), new Triangle(10, 3)] as $shape) {\n    printf(\"%s: %d\\n\", $shape::class, $shape->area());\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Constructor property promotion (8.0) declares and assigns the properties in the constructor signature, and a readonly class (8.2) makes every property write-once. `$shape::class` yields the object's class name.",
+      "verified": true
+    },
+    "signature": {
+      "title": "HTML with holes: PHP as a template language",
+      "dialect": "PHP 8.1+ (enums)",
+      "code": "<?php\nenum Status: string\n{\n    case Active = 'active';\n    case Banned = 'banned';\n\n    public function label(): string\n    {\n        return match ($this) {\n            Status::Active => 'Active',\n            Status::Banned => 'Banned',\n        };\n    }\n}\n\n$users = ['ada' => Status::Active, 'bob & co' => Status::Banned];\n?>\n<ul>\n<?php foreach ($users as $name => $status): ?>\n  <li class=\"<?= $status->value ?>\"><?= htmlspecialchars($name) ?>: <?= $status->label() ?></li>\n<?php endforeach; ?>\n</ul>\n",
+      "expected_output": "<ul>\n  <li class=\"active\">ada: Active</li>\n  <li class=\"banned\">bob &amp; co: Banned</li>\n</ul>\n",
+      "notes": "Everything outside `<?php ?>` is emitted as-is and `<?= $x ?>` echoes a value — PHP's original job as a hypertext preprocessor. A newline directly after `?>` is swallowed, so the loop tags leave no blank lines. The backed enum and exhaustive `match` are PHP 8.1/8.0 features; htmlspecialchars escapes user data.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "PHP CLI (Zend Engine)",
+        "version": "8.5",
+        "docker_image": "php:cli",
+        "run": "php {file}",
+        "notes": "Official image; pin php:8.5-cli for reproducibility."
+      }
+    ],
+    "browser": { "name": "php-wasm", "url": "https://github.com/seanmorris/php-wasm", "notes": "PHP 8.x compiled to WebAssembly for browsers and Node; WordPress Playground runs a similar build." },
+    "notes": "All snippets verified with the official php:cli image (PHP 8.5.10)."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/PHP",
+    "homepage": "https://www.php.net/",
+    "spec": "https://github.com/php/php-langspec"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/PHP",
+    "https://www.php.net/manual/en/history.php.php",
+    "https://www.php.net/releases/8.5/en.php",
+    "https://www.php.net/releases/8.1/en.php"
+  ]
+}

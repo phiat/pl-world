@@ -1,0 +1,310 @@
+{
+  "id": "elixir",
+  "name": "Elixir",
+  "aliases": [],
+  "year": 2012,
+  "year_note": "José Valim's first commit was on 9 January 2011 and early prototypes were released that year; the language was rebuilt from late 2011, v0.5.0 (25 May 2012) committed to the current syntax, and 1.0 followed on 18 September 2014.",
+  "designers": [
+    "José Valim"
+  ],
+  "organization": "Plataformatec",
+  "country": "Brazil",
+  "tagline": "Ruby-flavoured syntax, Lisp-style macros and pipelines on top of Erlang's fault-tolerant BEAM virtual machine.",
+  "summary": "Elixir is a dynamic, functional language that compiles to bytecode for the Erlang virtual machine (BEAM) and interoperates directly with Erlang libraries and OTP. It keeps Erlang's processes, message passing, supervision and hot code loading, and adds a Ruby-inspired syntax, the |> pipe operator, protocols for polymorphism, and hygienic macros that operate on the language's own AST. Since version 1.17 its compiler has been growing a set-theoretic gradual type system.",
+  "history": "José Valim, a Ruby on Rails core team member working at the Brazilian consultancy Plataformatec, started Elixir in January 2011 as a research project to bring more extensibility and productivity to the Erlang VM. A first prototype tried to depart substantially from Erlang and wrapped Erlang modules; in late 2011 Valim restarted from a design that stays fully compatible with Erlang, and v0.5.0 in May 2012 committed to a stable syntax. Elixir 1.0 shipped in September 2014.\n\nThe Phoenix web framework (1.0 in August 2015) and its later LiveView library became Elixir's best-known applications, alongside the Nerves embedded toolkit and, from 2021, the Nx numerical-computing ecosystem. After Nubank acquired Plataformatec in January 2020, Valim continued the language's development at his new company Dashbit. A multi-year effort to add a sound gradual type system based on set-theoretic types reached the compiler in 1.17 (2024), and Elixir 1.20 (2026) infers types for all constructs, describing itself as a gradually typed language.",
+  "innovations": [
+    "Made the pipe operator |> a mainstream idiom, threading a value through the first argument of each call",
+    "Hygienic, AST-based macros in a language with conventional (non-Lisp) syntax",
+    "Protocols for data-type polymorphism on the BEAM",
+    "Integrated tooling out of the box: Mix build tool, ExUnit tests with doctests, a formatter and the Hex package manager",
+    "A sound gradual type system based on set-theoretic types, added to an existing dynamic language by inference (2024–2026)"
+  ],
+  "paradigms": [
+    "functional",
+    "concurrent",
+    "actor",
+    "metaprogramming"
+  ],
+  "family": "logic",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "gradual",
+    "strength": "strong",
+    "inference": "global",
+    "equivalence": "structural",
+    "notes": "Dynamically typed until 1.16. Since 1.17 (2024) the compiler type-checks with set-theoretic types, and 1.20 (2026) infers types for all constructs with dynamic() as the gradual type, reporting only errors that are certain to fail at runtime. User-written type signatures are not yet part of the language; the older @spec typespecs are checked only by Dialyzer."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "bytecode-vm",
+    "jit"
+  ],
+  "status": "active",
+  "latest_version": "1.20 (June 2026; 1.20.4 in August 2026)",
+  "file_extensions": [
+    ".ex",
+    ".exs"
+  ],
+  "color": "#6e4a7e",
+  "primary_parent": "erlang",
+  "influenced_by": [
+    {
+      "id": "erlang",
+      "kind": "platform",
+      "weight": "major",
+      "note": "Compiles to BEAM bytecode and inherits Erlang's processes, OTP, pattern matching and hot code loading; Erlang modules are called directly."
+    },
+    {
+      "id": "ruby",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Syntax (do...end blocks, optional parentheses, sigils) and a focus on developer productivity; Valim came from the Ruby on Rails core team."
+    },
+    {
+      "id": "clojure",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; Elixir protocols resemble Clojure's, and both are Lisp-style macro languages built on another language's VM."
+    },
+    {
+      "id": "fsharp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Valim: 'Almost sure we got [the pipe operator] from F#'."
+    }
+  ],
+  "influenced_by_external": [],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "supported",
+      "note": "if/unless/cond/case/with are expressions; there are no while loops, iteration is recursion, Enum functions or for comprehensions."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Variables bound inside do-blocks such as if/case do not leak out."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "raise/rescue and throw/catch exist, but {:ok, value}/{:error, reason} tuples and supervised crashes are the norm."
+    },
+    "generators": {
+      "level": "library",
+      "note": "Lazy Stream functions (Stream.iterate, Stream.unfold, Stream.resource); no yield keyword."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "= is a match operator; multi-clause functions, case, with and receive destructure tuples, lists, maps, structs and binaries."
+    },
+    "tail-calls": {
+      "level": "core",
+      "note": "Provided by the BEAM."
+    },
+    "type-inference": {
+      "level": "supported",
+      "since": 2024,
+      "version": "Elixir 1.17",
+      "note": "Inferred from patterns and guards (1.17), function calls (1.18) and all constructs (1.20), without annotations."
+    },
+    "gradual-typing": {
+      "level": "supported",
+      "since": 2026,
+      "version": "Elixir 1.20",
+      "note": "The dynamic() type makes checking gradual; annotation syntax is still being designed."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Protocols (defprotocol/defimpl) dispatch on the data type; behaviours declare module callbacks as in Erlang."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "Structs behind a module API, with @opaque typespecs; the representation is not enforced at runtime."
+    },
+    "modules": {
+      "level": "core"
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "fn ... end and the & capture shorthand (&(&1 * &1), &IO.puts/1)."
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "core",
+      "note": "All data is immutable; variables can be rebound, but values never change in place."
+    },
+    "list-comprehensions": {
+      "level": "core",
+      "note": "for x <- xs, filter, do: ... with :into and :reduce options."
+    },
+    "lazy-evaluation": {
+      "level": "library",
+      "note": "Stream builds lazy, possibly infinite enumerables; the language itself is strict."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "BEAM per-process garbage collection."
+    },
+    "actors": {
+      "level": "core",
+      "note": "spawn/send/receive plus GenServer, Agent, Task and Supervisor from OTP."
+    },
+    "async-await": {
+      "level": "library",
+      "note": "Task.async/Task.await spawn a process and wait for its reply; a library pattern over processes, not a compiler transformation."
+    },
+    "macros": {
+      "level": "core",
+      "note": "defmacro receives and returns quoted AST; much of the language (if, unless, def, |>) is built from macros."
+    },
+    "hygienic-macros": {
+      "level": "core",
+      "note": "Variables in quote blocks are hygienic by default; var! opts out."
+    },
+    "homoiconicity": {
+      "level": "supported",
+      "note": "Code quotes to plain data (three-element tuples, lists, atoms), though source syntax is not written in that form."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "__info__/1, Code and Module functions, apply/3 with runtime module names."
+    },
+    "compile-time-execution": {
+      "level": "core",
+      "note": "Module bodies, attributes and macros run ordinary Elixir code during compilation."
+    },
+    "hot-code-reload": {
+      "level": "core",
+      "note": "Inherited from the BEAM; used for IEx recompile and Phoenix code reloading, and for release upgrades."
+    },
+    "declarative-queries": {
+      "level": "library",
+      "note": "Ecto's query DSL, macros that compile to SQL."
+    },
+    "regex-builtin": {
+      "level": "supported",
+      "note": "~r/.../ sigil literals, compiled at build time, backed by Erlang's re (PCRE)."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2011,
+      "event": "José Valim's first commit (9 January) at Plataformatec"
+    },
+    {
+      "year": 2012,
+      "event": "v0.5.0: rebuilt, Erlang-compatible design with a stable syntax"
+    },
+    {
+      "year": 2014,
+      "event": "Elixir 1.0 released (18 September)"
+    },
+    {
+      "year": 2015,
+      "event": "Phoenix web framework 1.0"
+    },
+    {
+      "year": 2020,
+      "event": "Nubank acquires Plataformatec; development continues at Valim's company Dashbit"
+    },
+    {
+      "year": 2021,
+      "event": "Numerical Elixir (Nx) announced for machine learning and GPU computing"
+    },
+    {
+      "year": 2024,
+      "event": "Elixir 1.17 starts type-checking with set-theoretic types"
+    },
+    {
+      "year": 2026,
+      "event": "Elixir 1.20: type inference of all constructs; a gradually typed language"
+    }
+  ],
+  "trivia": [
+    "In its earliest versions the pipe operator was written />, according to Valim."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Elixir 1.20 (.exs script)",
+      "code": "IO.puts(\"Hello, World!\")\n",
+      "expected_output": "Hello, World!\n",
+      "notes": ".exs files are evaluated as scripts; .ex files are compiled into modules by Mix.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Elixir 1.20 (.exs script)",
+      "code": "defmodule Math do\n  # Multi-clause function: the first clause that matches wins.\n  def factorial(0), do: 1\n  def factorial(n) when n > 0, do: n * factorial(n - 1)\nend\n\nIO.puts(Math.factorial(10))\n",
+      "expected_output": "3628800\n",
+      "notes": "Clauses are chosen by pattern and guard; integers are arbitrary-precision.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Elixir 1.20 (.exs script)",
+      "code": "defmodule FizzBuzz do\n  def say(n), do: say(n, rem(n, 3), rem(n, 5))\n\n  defp say(_, 0, 0), do: \"FizzBuzz\"\n  defp say(_, 0, _), do: \"Fizz\"\n  defp say(_, _, 0), do: \"Buzz\"\n  defp say(n, _, _), do: Integer.to_string(n)\nend\n\nEnum.each(1..15, &IO.puts(FizzBuzz.say(&1)))\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Private multi-clause function matching on the two remainders; &IO.puts(FizzBuzz.say(&1)) is capture shorthand for an anonymous function.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Elixir 1.20 (.exs script)",
+      "code": "1..10\n|> Enum.filter(&(rem(&1, 2) == 0))\n|> Enum.map(&(&1 * &1))\n|> Enum.join(\" \")\n|> IO.puts()\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "|> passes each result as the first argument of the next call. A comprehension, for x <- 1..10, rem(x, 2) == 0, do: x * x, is equivalent.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Elixir 1.20 (.exs script)",
+      "code": "defmodule Rectangle, do: defstruct([:width, :height])\ndefmodule Triangle, do: defstruct([:base, :height])\n\n# A protocol is polymorphism over data: any struct can implement it.\ndefprotocol Shape do\n  def area(shape)\nend\n\ndefimpl Shape, for: Rectangle do\n  def area(%Rectangle{width: w, height: h}), do: w * h\nend\n\ndefimpl Shape, for: Triangle do\n  def area(%Triangle{base: b, height: h}), do: div(b * h, 2)\nend\n\ndefmodule Main do\n  def run do\n    IO.puts(\"Rectangle: #{Shape.area(%Rectangle{width: 3, height: 4})}\")\n    IO.puts(\"Triangle: #{Shape.area(%Triangle{base: 10, height: 3})}\")\n  end\nend\n\nMain.run()\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Structs are maps tagged with their module; protocols dispatch on that tag. The calls sit inside a module because a script cannot build a struct in the same top-level context that defines it.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Pipelines, pattern matching and processes",
+      "dialect": "Elixir 1.20 (.exs script)",
+      "code": "parent = self()\n\n# Spawn a lightweight BEAM process that transforms text through a pipeline...\nspawn(fn ->\n  counts =\n    \"the quick brown fox jumps over the lazy dog the end\"\n    |> String.split()\n    |> Enum.frequencies()\n\n  send(parent, {:counts, counts})\nend)\n\n# ...and pattern-match on the reply: a tagged tuple holding a map with a \"the\" key.\nreceive do\n  {:counts, %{\"the\" => n} = counts} ->\n    IO.puts(\"\\\"the\\\" appears #{n} times among #{map_size(counts)} distinct words\")\nafter\n  1_000 -> IO.puts(\"no reply\")\nend\n",
+      "expected_output": "\"the\" appears 3 times among 9 distinct words\n",
+      "notes": "A spawned BEAM process builds word counts with a pipeline and sends them back; the receive pattern checks the tag and pulls a key out of the map in one step.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Elixir",
+        "version": "1.20.4 (Erlang/OTP 29)",
+        "docker_image": "elixir:1.20",
+        "run": "elixir {file}",
+        "notes": "Use a .exs extension for scripts."
+      }
+    ],
+    "browser": {
+      "name": "Popcorn (Software Mansion)",
+      "url": "https://popcorn.swmansion.com/",
+      "notes": "Experimental: runs Elixir in the browser on AtomVM (0.3) or OTP's BEAM (0.4 prerelease) compiled to WebAssembly; not tested with these snippets."
+    },
+    "notes": "The official elixir image runs .exs scripts with no network access. Popcorn is the most credible in-browser option but is young."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Elixir_(programming_language)",
+    "homepage": "https://elixir-lang.org/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Elixir_(programming_language)",
+    "https://elixir-lang.org/blog/2012/05/25/elixir-v0-5-0-released/",
+    "https://elixir-lang.org/blog/2014/09/18/elixir-v1-0-0-released/",
+    "https://elixir-lang.org/blog/",
+    "https://elixir-lang.org/blog/2026/06/03/elixir-v1-20-0-released/",
+    "https://forum.elixirforum.com/t/which-language-first-introduced-the-pipe-operator/16791/8",
+    "https://www.phoenixframework.org/blog/phoenix-10-the-framework-for-the-modern-web-just-landed",
+    "https://blog.plataformatec.com.br/2020/01/important-information-about-our-elixir-and-ruby-open-source-projects/",
+    "https://rubyonrails.org/community",
+    "https://github.com/software-mansion/popcorn/"
+  ]
+}

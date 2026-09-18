@@ -1,0 +1,184 @@
+{
+  "id": "python",
+  "name": "Python",
+  "aliases": ["CPython", "Python 3", "Py"],
+  "year": 1991,
+  "year_note": "Guido van Rossum began implementing Python at CWI in December 1989; version 0.9.0 was posted to the alt.sources newsgroup on 20 February 1991. Python 1.0 followed in January 1994 and the backward-incompatible Python 3.0 in December 2008.",
+  "designers": ["Guido van Rossum"],
+  "organization": "CWI (Centrum Wiskunde & Informatica)",
+  "country": "Netherlands",
+  "tagline": "Readable, batteries-included and structured by indentation: a scripting language that grew into a general-purpose mainstay.",
+  "summary": "Python is a dynamically and strongly typed, multi-paradigm language designed for readability, with blocks delimited by indentation rather than braces. It grew out of the ABC teaching language at CWI and combines a small core with a large 'batteries included' standard library and easy extension in C. Generators, list comprehensions and optional type hints made it influential well beyond scripting, and its C-extension ecosystem (NumPy, SciPy, PyTorch) made it a leading language for data science and machine learning.",
+  "history": "Guido van Rossum started Python over the 1989 Christmas holidays while working on the Amoeba distributed operating system at CWI in Amsterdam, wanting a language that bridged the gap between C and the shell. He took indentation-based grouping and high-level data types from ABC, the teaching language he had helped implement, and exception syntax and semantics from Modula-3; the name comes from Monty Python's Flying Circus. Version 0.9.0 was posted to Usenet in February 1991, and Python 1.0 (January 1994) added lambda, map, filter and reduce at the urging of Lisp and Scheme users.\n\nPython 2.0 (October 2000) brought list comprehensions, borrowed from Haskell, and a cycle-detecting garbage collector; 2.2 (2001) unified types and classes and added generators and nested scopes. Python 3.0 (December 2008) made strings Unicode and removed long-standing warts at the cost of backward compatibility, beginning a transition that ended with the final Python 2.7 release in 2020.\n\nVan Rossum served as 'benevolent dictator for life' until stepping down in 2018; since 2019 an elected five-member Steering Council governs the language through Python Enhancement Proposals (PEPs). Recent releases added async/await (3.5), type hints (3.5), structural pattern matching (3.10), an experimental JIT and a free-threaded build without the global interpreter lock (3.13), and template strings (3.14).",
+  "innovations": [
+    "Brought significant indentation (from ABC) into a mainstream general-purpose language",
+    "A 'batteries included' standard library combined with simple C extension, making it a glue language for scientific and systems code",
+    "Popularised generators, list comprehensions and the iterator protocol in mainstream imperative programming",
+    "Optional type hints checked by external tools (PEP 484), a widely copied model of gradual typing for a dynamic language",
+    "The PEP process: language changes proposed, debated and recorded as public design documents",
+    "Readability as an explicit design value, codified in 'The Zen of Python' (PEP 20)"
+  ],
+  "paradigms": ["multi-paradigm", "object-oriented", "imperative", "procedural", "functional", "structured", "reflective", "scripting"],
+  "family": "scripting",
+  "syntax_family": "offside",
+  "block_style": "indentation",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Type annotations (PEP 484, 3.5) are ignored by the interpreter and checked by external tools such as mypy and Pyright, which do infer types and treat typing.Protocol structurally."
+  },
+  "memory": "reference-counting",
+  "execution": ["bytecode-vm", "jit"],
+  "status": "active",
+  "latest_version": "3.14",
+  "file_extensions": [".py", ".pyi", ".pyw"],
+  "color": "#3572A5",
+  "primary_parent": "c",
+  "influenced_by": [
+    { "id": "c", "kind": "influence", "weight": "major", "note": "Operators, expression syntax and %-formatting; Python was meant to bridge 'the gap between C and the shell', and CPython exposes a C extension API." },
+    { "id": "haskell", "kind": "influence", "weight": "minor", "note": "List comprehensions (Python 2.0)." },
+    { "id": "lisp", "kind": "influence", "weight": "minor", "note": "lambda, map, filter and reduce (Python 1.0), requested by Lisp and Scheme users." },
+    { "id": "perl", "kind": "influence", "weight": "minor", "note": "The Perl-style regular expressions of the re module." },
+    { "id": "algol68", "kind": "influence", "weight": "minor" },
+    { "id": "clu", "kind": "influence", "weight": "minor", "note": "PEP 255 cites CLU iterators (via Sather) alongside Icon when introducing generators." },
+    { "id": "cpp", "kind": "influence", "weight": "minor" },
+    { "id": "ml", "kind": "influence", "weight": "minor" },
+    { "id": "ada", "kind": "influence", "weight": "minor" },
+    { "id": "apl", "kind": "influence", "weight": "minor" }
+  ],
+  "influenced_by_external": [
+    { "name": "ABC", "year": 1987, "note": "Van Rossum worked on ABC at CWI; Python took its indentation-based grouping, very-high-level data types and interactive use." },
+    { "name": "Modula-3", "year": 1988, "note": "Origin of Python's exception syntax and semantics, per van Rossum." },
+    { "name": "Icon", "year": 1977, "note": "Generators (PEP 255)." },
+    { "name": "Dylan", "year": 1992, "note": "The C3 method resolution order adopted in Python 2.3." }
+  ],
+  "influenced": ["ruby", "javascript", "go", "fsharp", "julia", "swift"],
+  "traits": {
+    "structured-control": { "level": "core", "note": "Loops also take an `else` clause; there is no goto." },
+    "block-scope": { "level": "supported", "note": "Scopes are per function, class and comprehension, not per block; nested functions are lexically scoped (LEGB rule)." },
+    "recursion": { "level": "core", "note": "No tail-call elimination; recursion depth is capped (1000 by default)." },
+    "exceptions": { "level": "core", "note": "try/except/else/finally; exception groups and except* since 3.11." },
+    "coroutines": { "level": "core", "since": 2006, "version": "Python 2.5", "note": "Generator-based coroutines via send() (PEP 342); native `async def` coroutines since 3.5 (2015)." },
+    "generators": { "level": "core", "since": 2001, "version": "Python 2.2", "note": "`yield` (PEP 255), generator expressions (2.4) and `yield from` (3.3)." },
+    "pattern-matching": { "level": "supported", "since": 2021, "version": "Python 3.10", "note": "`match`/`case` with class, sequence and mapping patterns (PEP 634)." },
+    "generics": { "level": "supported", "since": 2015, "version": "Python 3.5", "note": "Only in type hints for static checkers (List[int], TypeVar); PEP 695 added `class Box[T]` syntax in 3.12." },
+    "gradual-typing": { "level": "core", "since": 2015, "version": "Python 3.5", "note": "Annotation syntax since 3.0 (PEP 3107); PEP 484 type hints are checked by external tools (mypy, Pyright), not at run time." },
+    "structural-typing": { "level": "supported", "since": 2019, "version": "Python 3.8", "note": "typing.Protocol (PEP 544) formalises duck typing for static checkers." },
+    "interfaces": { "level": "supported", "since": 2008, "version": "Python 2.6 / 3.0", "note": "Abstract base classes (abc module, PEP 3119) and, for static checking, Protocols." },
+    "classes": { "level": "core", "note": "Classes are themselves objects (instances of `type`); dataclasses since 3.7." },
+    "inheritance": { "level": "core", "note": "Multiple inheritance with C3 method resolution order (since 2.3)." },
+    "everything-is-an-object": { "level": "supported", "note": "Every value, including ints, functions, classes and modules, is an object, but control flow uses statements rather than message sends." },
+    "traits-mixins": { "level": "supported", "note": "Mixin classes through multiple inheritance, e.g. socketserver.ThreadingMixIn." },
+    "abstract-data-types": { "level": "supported", "note": "Encapsulation is by convention (`_name`) and name mangling (`__name`); properties hide representation, but nothing is truly private." },
+    "modules": { "level": "core", "note": "Every file is a module; packages, `import` and `from ... import` with per-module namespaces." },
+    "operator-overloading": { "level": "core", "note": "Special 'dunder' methods such as __add__, __eq__ and __getitem__." },
+    "first-class-functions": { "level": "core", "note": "`lambda` is limited to a single expression; nested `def` is the general form." },
+    "closures": { "level": "core", "since": 2001, "version": "Python 2.2", "note": "Nested scopes (PEP 227); `nonlocal` (3.0) allows rebinding captured variables." },
+    "list-comprehensions": { "level": "core", "since": 2000, "version": "Python 2.0", "note": "List, set and dict comprehensions and lazy generator expressions." },
+    "lazy-evaluation": { "level": "supported", "note": "Evaluation is strict, but generators, generator expressions and itertools provide lazy, potentially infinite streams." },
+    "garbage-collection": { "level": "core", "since": 2000, "version": "Python 2.0", "note": "A generational cycle collector complements reference counting; PyPy uses a tracing GC." },
+    "reference-counting": { "level": "core", "note": "CPython frees most objects deterministically when their count reaches zero." },
+    "async-await": { "level": "core", "since": 2015, "version": "Python 3.5", "note": "`async def`/`await` (PEP 492) on top of the asyncio event loop." },
+    "reflection": { "level": "core", "note": "getattr/setattr, the inspect module, metaclasses and decorators." },
+    "array-programming": { "level": "library", "note": "NumPy arrays and their vectorised operations are the foundation of the scientific stack." },
+    "significant-whitespace": { "level": "core", "note": "Indentation after a colon delimits blocks, inherited from ABC." },
+    "regex-builtin": { "level": "library", "note": "The `re` module with Perl-style patterns; no regex literals, though raw strings (r'...') ease writing them." }
+  },
+  "milestones": [
+    { "year": 1989, "event": "Van Rossum starts implementing Python at CWI over the Christmas holidays" },
+    { "year": 1991, "event": "Version 0.9.0 posted to alt.sources" },
+    { "year": 1994, "event": "Python 1.0: lambda, map, filter and reduce" },
+    { "year": 2000, "event": "Python 2.0: list comprehensions and cycle-detecting garbage collection" },
+    { "year": 2001, "event": "Python Software Foundation founded; Python 2.2 unifies types and classes and adds generators" },
+    { "year": 2008, "event": "Python 3.0 released, breaking backward compatibility" },
+    { "year": 2015, "event": "Python 3.5: async/await and type hints (PEP 484)" },
+    { "year": 2018, "event": "Van Rossum steps down as 'benevolent dictator for life'" },
+    { "year": 2020, "event": "Python 2 reaches end of life (final release 2.7.18)" },
+    { "year": 2021, "event": "Python 3.10: structural pattern matching" },
+    { "year": 2024, "event": "Python 3.13: experimental free-threaded (no-GIL) build and JIT compiler" },
+    { "year": 2025, "event": "Python 3.14: template strings and officially supported free threading" }
+  ],
+  "trivia": [
+    "The name comes from the BBC comedy series 'Monty Python's Flying Circus', whose scripts van Rossum was reading at the time, not from the snake.",
+    "Python was first created as a scripting language for system administration on the Amoeba distributed operating system."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Python 3",
+      "code": "print(\"Hello, World!\")\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "In Python 2, print was a statement: `print \"Hello, World!\"`.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Python 3",
+      "code": "def factorial(n: int) -> int:\n    return 1 if n <= 1 else n * factorial(n - 1)\n\n\nprint(factorial(10))\n",
+      "expected_output": "3628800\n",
+      "notes": "Integers have arbitrary precision, so factorial(100) works too. The annotations are optional hints, ignored at run time.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Python 3",
+      "code": "for i in range(1, 16):\n    if i % 15 == 0:\n        print(\"FizzBuzz\")\n    elif i % 3 == 0:\n        print(\"Fizz\")\n    elif i % 5 == 0:\n        print(\"Buzz\")\n    else:\n        print(i)\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Indentation, not braces or end keywords, delimits each block; range(1, 16) excludes its upper bound.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Python 3",
+      "code": "squares = [x * x for x in range(1, 11) if x % 2 == 0]\nprint(*squares)\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "A list comprehension replaces map/filter (which exist but are considered less idiomatic with lambdas); `print(*squares)` unpacks the list into arguments that print separates with spaces.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Python 3.7+ (dataclasses)",
+      "code": "from dataclasses import dataclass\n\n\n@dataclass\nclass Rectangle:\n    width: int\n    height: int\n\n    def area(self) -> int:\n        return self.width * self.height\n\n\n@dataclass\nclass Triangle:\n    base: int\n    height: int\n\n    def area(self) -> int:\n        return self.base * self.height // 2\n\n\nfor shape in (Rectangle(3, 4), Triangle(10, 3)):\n    print(f\"{type(shape).__name__}: {shape.area()}\")\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "@dataclass generates __init__, __repr__ and __eq__ from the annotated fields. Duck typing means the loop needs only an area() method, not a shared base class; a typing.Protocol could describe it for static checkers.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Generators and comprehensions",
+      "dialect": "Python 3",
+      "code": "from itertools import count, islice\n\n\ndef primes():\n    \"\"\"An infinite generator: each value is computed only when asked for.\"\"\"\n    found = []\n    for n in count(2):\n        if all(n % p for p in found if p * p <= n):\n            found.append(n)\n            yield n\n\n\nfirst = list(islice(primes(), 10))\nprint(first)\n\n# Comprehensions for lists, dicts and sets read like set-builder notation.\nprint({p: p ** 2 for p in first if p % 4 == 1})\nprint([(a, b) for a, b in zip(first, first[1:]) if b - a == 2])\nprint(sum(p for p in first if p > 10))\n",
+      "expected_output": "[2, 3, 5, 7, 11, 13, 17, 19, 23, 29]\n{5: 25, 13: 169, 17: 289, 29: 841}\n[(3, 5), (5, 7), (11, 13), (17, 19)]\n112\n",
+      "notes": "`yield` makes primes() a lazy generator, so its infinite loop is safe; itertools.islice takes the first ten. Comprehensions build a dict and a list, and the argument to sum() is a generator expression.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "CPython",
+        "version": "3.14",
+        "docker_image": "python:3.14-slim",
+        "run": "python {file}"
+      },
+      {
+        "name": "CPython (system)",
+        "run": "python3 {file}",
+        "notes": "Preinstalled on most Linux distributions and macOS."
+      }
+    ],
+    "browser": { "name": "Pyodide", "url": "https://pyodide.org/", "notes": "CPython compiled to WebAssembly, with NumPy and much of the scientific stack available as packages." },
+    "notes": "Pyodide is a mature in-browser option; the container covers everything else."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+    "homepage": "https://www.python.org/",
+    "spec": "https://docs.python.org/3/reference/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Python_(programming_language)",
+    "https://docs.python.org/3/faq/general.html",
+    "https://python-history.blogspot.com/2009/01/personal-history-part-1-cwi.html",
+    "https://python-history.blogspot.com/2009/04/origins-of-pythons-functional-features.html",
+    "https://docs.python.org/3/whatsnew/2.0.html",
+    "https://peps.python.org/pep-0255/",
+    "https://docs.python.org/3/howto/mro.html"
+  ]
+}

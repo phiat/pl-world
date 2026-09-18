@@ -1,0 +1,375 @@
+{
+  "id": "haskell",
+  "name": "Haskell",
+  "aliases": [
+    "Haskell 98",
+    "Haskell 2010",
+    "GHC Haskell"
+  ],
+  "year": 1990,
+  "year_note": "Design began at FPCA in September 1987; the Haskell 1.0 Report was published on 1 April 1990. Haskell 98 (1999, revised 2002) and Haskell 2010 are the stable reports; since 2021 GHC also defines 'language editions' such as GHC2021.",
+  "designers": [
+    "Lennart Augustsson",
+    "Dave Barton",
+    "Brian Boutel",
+    "Warren Burton",
+    "Joseph Fasel",
+    "Kevin Hammond",
+    "Ralf Hinze",
+    "Paul Hudak",
+    "John Hughes",
+    "Thomas Johnsson",
+    "Mark Jones",
+    "Simon Peyton Jones",
+    "John Launchbury",
+    "Erik Meijer",
+    "John Peterson",
+    "Alastair Reid",
+    "Colin Runciman",
+    "Philip Wadler"
+  ],
+  "organization": "Haskell Committee",
+  "tagline": "A lazy, purely functional language with type classes and monadic I/O, designed by committee as an open standard.",
+  "summary": "Haskell is a statically typed, purely functional language with non-strict (lazy) semantics, designed by an international committee to consolidate the many lazy functional languages of the 1980s into one open standard. Its type classes — overloading resolved by type inference — and its use of monads to keep effects out of pure code became its most influential ideas. Today it is implemented mainly by the Glasgow Haskell Compiler (GHC) and serves both as a research vehicle and as an industrial language.",
+  "history": "By the mid-1980s researchers had built a 'tower of Babel' of lazy functional languages — Miranda, Lazy ML, Orwell, Alfl, Id, Clean and others. At the FPCA conference in Portland in September 1987, a meeting convened by Paul Hudak and Simon Peyton Jones resolved to design a common, freely available language. David Turner declined to let Miranda serve as the starting point, so the committee designed a new language, named after the logician Haskell B. Curry; the Haskell 1.0 Report, edited by Hudak and Philip Wadler, appeared on 1 April 1990. Type classes, proposed by Wadler in February 1988 to handle overloaded arithmetic and equality, became its most distinctive feature.\n\nHaskell 1.3 (1996) replaced stream-based I/O with monadic I/O and do-notation and generalised type classes to constructor classes. Haskell 98 (1999) froze a stable core, revised in 2002, and Haskell 2010 added a foreign function interface and hierarchical module names. Meanwhile GHC, first released in 1991–92, became the de facto implementation and the proving ground for extensions such as software transactional memory (2005), GADTs and type families; since 2021 it groups stable extensions into language editions such as GHC2021.",
+  "innovations": [
+    "Type classes: principled overloading resolved by type inference (Wadler and Blott)",
+    "Monadic I/O and do-notation, letting a lazy, pure language perform effects",
+    "Purity by default, with effects visible in types (IO, ST, STM)",
+    "Constructor classes such as Functor and Monad, abstracting over type constructors",
+    "Composable software transactional memory (GHC, 2005)",
+    "A widely shared lazy-language standard, with GHC as a platform for type-system research"
+  ],
+  "paradigms": [
+    "functional",
+    "declarative"
+  ],
+  "family": "ml",
+  "syntax_family": "ml",
+  "block_style": "indentation",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "global",
+    "equivalence": "nominal",
+    "notes": "Hindley–Milner extended with type classes; GHC extensions (GADTs, type families, higher-rank types) sometimes require annotations."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "native-compiled",
+    "interpreted"
+  ],
+  "status": "active",
+  "latest_version": "Haskell 2010 (language report); GHC 9.14",
+  "file_extensions": [
+    ".hs",
+    ".lhs"
+  ],
+  "color": "#5e5086",
+  "primary_parent": "miranda",
+  "influenced_by": [
+    {
+      "id": "miranda",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Equational definitions with guards and where clauses, algebraic types, list comprehensions, the layout rule and many Prelude names."
+    },
+    {
+      "id": "ml",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Hindley–Milner type inference and algebraic data types (also via Standard ML); SML's equality type variables prefigured type classes."
+    },
+    {
+      "id": "lisp",
+      "kind": "influence",
+      "weight": "minor"
+    },
+    {
+      "id": "scheme",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "The title of the Haskell Report was modelled on the Scheme reports."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "SASL",
+      "year": 1976,
+      "note": "Turner's lazy, purely functional language."
+    },
+    {
+      "name": "KRC",
+      "year": 1981,
+      "note": "Lazy lists and ZF expressions (list comprehensions)."
+    },
+    {
+      "name": "Hope",
+      "year": 1980,
+      "note": "Algebraic data types and pattern matching."
+    },
+    {
+      "name": "Lazy ML",
+      "year": 1984,
+      "note": "Augustsson and Johnsson's compiled lazy ML and its G-machine."
+    },
+    {
+      "name": "Orwell",
+      "note": "Wadler's lazy language, influenced by KRC and Miranda."
+    },
+    {
+      "name": "Gofer",
+      "year": 1991,
+      "note": "Mark Jones's interpreter, which pioneered constructor classes."
+    },
+    {
+      "name": "ISWIM",
+      "year": 1966,
+      "note": "Landin's off-side rule and where clauses."
+    }
+  ],
+  "influenced": [
+    "python",
+    "rust",
+    "scala",
+    "swift",
+    "fsharp",
+    "clojure",
+    "csharp",
+    "java",
+    "cpp"
+  ],
+  "traits": {
+    "type-classes": {
+      "level": "core",
+      "note": "Proposed by Wadler in 1988; generalised to constructor classes in Haskell 1.3 (1996)."
+    },
+    "lazy-evaluation": {
+      "level": "core",
+      "note": "Non-strict semantics throughout; seq, bang patterns and strict fields opt into strictness."
+    },
+    "purity": {
+      "level": "core",
+      "note": "Pure from the start; monadic I/O (Haskell 1.3, 1996) replaced stream- and continuation-based I/O, putting effects in types."
+    },
+    "type-inference": {
+      "level": "core"
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "generics": {
+      "level": "core",
+      "note": "Parametric polymorphism, plus higher-kinded types."
+    },
+    "algebraic-data-types": {
+      "level": "core"
+    },
+    "pattern-matching": {
+      "level": "core"
+    },
+    "option-types": {
+      "level": "core",
+      "note": "Maybe a (Nothing | Just x); there is no null."
+    },
+    "immutability": {
+      "level": "core",
+      "note": "All values are immutable; mutable references live in IO, ST or STM."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Curried functions, sections and point-free composition."
+    },
+    "closures": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "tail-calls": {
+      "level": "core",
+      "note": "GHC compiles tail calls to jumps, though laziness can still build up unevaluated thunks."
+    },
+    "list-comprehensions": {
+      "level": "core",
+      "note": "Borrowed from Miranda; GHC extensions add monad and parallel comprehensions."
+    },
+    "significant-whitespace": {
+      "level": "core",
+      "note": "The layout rule; explicit braces and semicolons remain available."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "let and where bindings."
+    },
+    "structured-control": {
+      "level": "supported",
+      "note": "if, case and guards are expressions; there are no loop statements (recursion, folds or monadic combinators instead)."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Hierarchical module names standardised in Haskell 2010."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "By exporting a type without its constructors (Haskell dropped Miranda's abstype)."
+    },
+    "interfaces": {
+      "level": "supported",
+      "note": "Type classes fill this role."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Through type classes (e.g. a Num instance gives + and *); new operators can also be defined."
+    },
+    "exceptions": {
+      "level": "library",
+      "note": "Control.Exception for IO and asynchronous exceptions; pure code usually signals failure with Maybe or Either."
+    },
+    "continuations": {
+      "level": "library",
+      "note": "The Cont monad and callCC (transformers/mtl)."
+    },
+    "stm": {
+      "level": "library",
+      "since": 2005,
+      "version": "GHC 6.4",
+      "note": "The stm package (Harris, Marlow, Peyton Jones, Herlihy); transactions are typed so they cannot perform I/O."
+    },
+    "csp-channels": {
+      "level": "library",
+      "note": "MVar and Chan in Control.Concurrent over GHC's lightweight threads."
+    },
+    "effect-handlers": {
+      "level": "library",
+      "note": "Effect-system libraries such as polysemy, fused-effects and effectful."
+    },
+    "macros": {
+      "level": "supported",
+      "note": "Template Haskell (GHC extension) quotes and splices Haskell syntax trees."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "note": "Template Haskell splices run at compile time; type families compute on types."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Limited: Typeable and Data.Data provide runtime type representations."
+    },
+    "garbage-collection": {
+      "level": "core"
+    }
+  },
+  "milestones": [
+    {
+      "year": 1987,
+      "event": "FPCA meeting in Portland decides to design a common lazy functional language"
+    },
+    {
+      "year": 1988,
+      "event": "Wadler proposes type classes; committee meetings at Yale and Glasgow"
+    },
+    {
+      "year": 1990,
+      "event": "Haskell 1.0 Report published (1 April)"
+    },
+    {
+      "year": 1992,
+      "event": "First full GHC release (0.10); Haskell 1.2 Report appears in SIGPLAN Notices"
+    },
+    {
+      "year": 1996,
+      "event": "Haskell 1.3: monadic I/O, do-notation and constructor classes"
+    },
+    {
+      "year": 1999,
+      "event": "Haskell 98 Report defines a stable standard"
+    },
+    {
+      "year": 2005,
+      "event": "Software transactional memory ships in GHC"
+    },
+    {
+      "year": 2010,
+      "event": "Haskell 2010 Report (FFI, hierarchical modules)"
+    },
+    {
+      "year": 2021,
+      "event": "GHC 9.2 introduces the GHC2021 language edition"
+    }
+  ],
+  "trivia": [
+    "The committee's first choice of name was 'Curry'; it switched to 'Haskell' the next day to escape the puns. Curry's widow Virginia later told Paul Hudak: 'You know, Haskell actually never liked the name Haskell.'",
+    "Type classes arose when Wadler misunderstood an idea Joe Fasel described to him after a committee meeting.",
+    "The Haskell 1.0 Report is dated 1 April 1990, and GHC's first beta release came out on 1 April 1991 — 'the date was no accident'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Haskell 2010 (GHC 9.14)",
+      "code": "main :: IO ()\nmain = putStrLn \"Hello, World!\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "main is an IO action — a value describing an effect, which the runtime performs.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Haskell 2010 (GHC 9.14)",
+      "code": "factorial :: Integer -> Integer\nfactorial 0 = 1\nfactorial n = n * factorial (n - 1)\n\nmain :: IO ()\nmain = print (factorial 10)\n",
+      "expected_output": "3628800\n",
+      "notes": "Integer is arbitrary precision; Int is the machine-sized type.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Haskell 2010 (GHC 9.14)",
+      "code": "fizzbuzz :: Int -> String\nfizzbuzz n\n  | n `mod` 15 == 0 = \"FizzBuzz\"\n  | n `mod` 3 == 0  = \"Fizz\"\n  | n `mod` 5 == 0  = \"Buzz\"\n  | otherwise       = show n\n\nmain :: IO ()\nmain = mapM_ (putStrLn . fizzbuzz) [1 .. 15]\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Guards (|) sit to the left of '=', a change from Miranda's trailing ', if' guards.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Haskell 2010 (GHC 9.14)",
+      "code": "-- Point-free: a pipeline built by composing functions with (.)\nsquaresOfEvens :: [Int] -> [Int]\nsquaresOfEvens = map (^ 2) . filter even\n\nmain :: IO ()\nmain = putStrLn (unwords (map show (squaresOfEvens [1 .. 10])))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Point-free composition with (.). The equivalent list comprehension, inherited from Miranda, is [x * x | x <- [1 .. 10], even x].",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Haskell 2010 (GHC 9.14)",
+      "code": "-- An algebraic data type with two constructors.\ndata Shape\n  = Rectangle Int Int -- width, height\n  | Triangle Int Int  -- base, height\n\n-- Functions are defined by pattern matching on the constructors.\narea :: Shape -> Int\narea (Rectangle w h) = w * h\narea (Triangle b h)  = b * h `div` 2\n\nname :: Shape -> String\nname (Rectangle _ _) = \"Rectangle\"\nname (Triangle _ _)  = \"Triangle\"\n\nmain :: IO ()\nmain = mapM_ (\\s -> putStrLn (name s ++ \": \" ++ show (area s)))\n             [Rectangle 3 4, Triangle 10 3]\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "A closed sum type with pattern matching. For an open set of shapes, one would instead define a type class Shape with an instance per data type.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Type classes and laziness",
+      "dialect": "Haskell 2010 (GHC 9.14)",
+      "code": "import Data.List (intercalate)\n\n-- A type class is an interface; types opt in with instances.\nclass Pretty a where\n  pretty :: a -> String\n\ninstance Pretty Bool where\n  pretty b = if b then \"yes\" else \"no\"\n\ninstance Pretty Integer where\n  pretty n = '#' : show n\n\n-- Instances compose: lists and pairs of Pretty things are Pretty.\ninstance Pretty a => Pretty [a] where\n  pretty xs = \"[\" ++ intercalate \", \" (map pretty xs) ++ \"]\"\n\ninstance (Pretty a, Pretty b) => Pretty (a, b) where\n  pretty (x, y) = \"<\" ++ pretty x ++ \" \" ++ pretty y ++ \">\"\n\n-- Laziness: an infinite list defined in terms of itself.\nfibs :: [Integer]\nfibs = 0 : 1 : zipWith (+) fibs (drop 1 fibs)\n\nmain :: IO ()\nmain = do\n  putStrLn (pretty (take 10 fibs))\n  putStrLn (pretty (zip [True, False, True] fibs))\n",
+      "expected_output": "[#0, #1, #1, #2, #3, #5, #8, #13, #21, #34]\n[<yes #0>, <no #1>, <yes #1>]\n",
+      "notes": "pretty is resolved by type at compile time; the instance for [(Bool, Integer)] is assembled from the list, pair, Bool and Integer instances. fibs is infinite, but take and zip force only the elements they need.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "GHC (runghc)",
+        "version": "9.14.1",
+        "docker_image": "haskell:9",
+        "run": "runghc {file}",
+        "notes": "Interprets the module via GHC's bytecode interpreter; the image is large (~4 GB)."
+      }
+    ],
+    "browser": null,
+    "notes": "No mature in-browser Haskell interpreter is listed; the official Haskell Playground (play.haskell.org) compiles and runs code on a server."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Haskell",
+    "homepage": "https://www.haskell.org/",
+    "spec": "https://www.haskell.org/onlinereport/haskell2010/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Haskell",
+    "https://www.microsoft.com/en-us/research/publication/a-history-of-haskell-being-lazy-with-class/",
+    "https://www.haskell.org/onlinereport/haskell2010/"
+  ]
+}

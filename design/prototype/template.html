@@ -1,0 +1,874 @@
+<title>PL World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=Courier+Prime:wght@400;700&family=VT323&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/fortran.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/lisp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/basic.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/delphi.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/smalltalk.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/prolog.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/scheme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/ada.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/erlang.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/ocaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/scala.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/fsharp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/clojure.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/elixir.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/julia.min.js"></script>
+<style>
+:root {
+  --ground: #e8ede7;
+  --paper: #f6f8f3;
+  --band: #dce8da;
+  --ink: #17212b;
+  --ink-2: #485562;
+  --ink-3: #7a8691;
+  --rule: #c7d1c8;
+  --anc: #b45309;
+  --desc: #1d5fd1;
+  --hl-kw: #9f1239; --hl-str: #166534; --hl-com: #7a8691; --hl-num: #b45309;
+  --hl-fn: #1d4ed8; --hl-type: #0f766e; --hl-meta: #6b21a8;
+  --shadow: 0 1px 0 rgba(20,30,40,.05), 0 10px 28px -14px rgba(20,30,40,.35);
+  --sans: "IBM Plex Sans Condensed", "Arial Narrow", "Roboto Condensed", system-ui, sans-serif;
+  --serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0c1217; --paper: #131b22; --band: #10181e; --ink: #e2e6de; --ink-2: #9ba7b1;
+    --ink-3: #697580; --rule: #25313b; --anc: #f0a33a; --desc: #6ea8ff;
+    --hl-kw: #f472b6; --hl-str: #86efac; --hl-com: #6b7985; --hl-num: #fbbf24;
+    --hl-fn: #93c5fd; --hl-type: #5eead4; --hl-meta: #c4b5fd;
+    --shadow: 0 1px 0 rgba(0,0,0,.3), 0 12px 30px -12px rgba(0,0,0,.7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0c1217; --paper: #131b22; --band: #10181e; --ink: #e2e6de; --ink-2: #9ba7b1;
+  --ink-3: #697580; --rule: #25313b; --anc: #f0a33a; --desc: #6ea8ff;
+  --hl-kw: #f472b6; --hl-str: #86efac; --hl-com: #6b7985; --hl-num: #fbbf24;
+  --hl-fn: #93c5fd; --hl-type: #5eead4; --hl-meta: #c4b5fd;
+  --shadow: 0 1px 0 rgba(0,0,0,.3), 0 12px 30px -12px rgba(0,0,0,.7);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { background: var(--ground); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.45; }
+button, select, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--anc); outline-offset: 2px; }
+.wrap { padding-inline: clamp(16px, 3vw, 36px); }
+
+/* ── top bar ─────────────────────────────────────────── */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--ground);
+  border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; padding-block: 10px; }
+.brand { display: flex; align-items: baseline; gap: 10px; }
+.brand b { font-weight: 700; font-size: 22px; letter-spacing: -.01em; }
+.brand b span { font-family: var(--mono); font-weight: 600; font-size: 15px; border: 1.5px solid currentColor; padding: 0 5px; margin-right: 6px; position: relative; top: -2px; }
+.brand small { color: var(--ink-3); font-size: 13px; font-variant-numeric: tabular-nums; }
+nav { display: flex; gap: 2px; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 3px; }
+nav button { border: 0; background: none; padding: 5px 14px; border-radius: 4px; cursor: pointer; font-weight: 500; color: var(--ink-2); }
+nav button[aria-current="page"] { background: var(--ink); color: var(--paper); }
+.find { margin-left: auto; position: relative; }
+.find input { width: min(240px, 60vw); padding: 6px 10px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); }
+
+/* ── shared bits ─────────────────────────────────────── */
+.eyebrow { text-transform: uppercase; letter-spacing: .09em; font-size: 11.5px; font-weight: 600; color: var(--ink-3); }
+.chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); background: var(--paper); border-radius: 999px;
+  padding: 1px 10px 1px 8px; font-size: 13px; cursor: pointer; white-space: nowrap; }
+.chip i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: none; }
+.chip small { color: var(--ink-3); font-size: 11.5px; }
+.chip:hover { border-color: var(--ink-3); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn { border: 1px solid var(--rule); background: var(--paper); border-radius: 6px; padding: 5px 12px; cursor: pointer; font-weight: 500; }
+.btn:hover { border-color: var(--ink-3); }
+.btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ctl { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); font-size: 13.5px; }
+.ctl select { padding: 4px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); max-width: 60vw; }
+.note { color: var(--ink-3); font-size: 13px; }
+
+/* ── river ───────────────────────────────────────────── */
+.intro { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; padding-block: 22px 12px; }
+.intro h1 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(24px, 3.2vw, 36px); line-height: 1.15; text-wrap: balance; max-width: 30ch; }
+.intro h1 em { font-style: italic; color: var(--ink-2); }
+.intro p { margin: 6px 0 0; color: var(--ink-2); max-width: 62ch; }
+.yearbox { text-align: right; }
+.yearbox strong { display: block; font-family: var(--mono); font-weight: 600; font-size: clamp(38px, 5vw, 56px); line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -.03em; }
+.yearbox span { color: var(--ink-3); font-size: 13px; font-variant-numeric: tabular-nums; }
+.river-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.river-controls input[type=range] { flex: 1 1 260px; accent-color: var(--anc); }
+.gene-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 24px; padding: 12px 16px; margin-bottom: 10px;
+  background: var(--paper); border: 1px solid var(--rule); border-left: 4px solid var(--gc, var(--anc)); border-radius: 6px; }
+.gene-card h3 { margin: 0; font-size: 18px; }
+.gene-card p { margin: 0; color: var(--ink-2); max-width: 75ch; }
+.gene-card .count { grid-row: span 3; text-align: right; font-family: var(--mono); font-size: 28px; font-variant-numeric: tabular-nums; }
+.gene-card .count small { display: block; font-family: var(--sans); font-size: 12px; color: var(--ink-3); }
+.river-scroll { overflow-x: auto; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; }
+#river { display: block; }
+#river .lane-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; fill: var(--ink-3); }
+#river .decade { stroke: var(--rule); stroke-width: 1; }
+#river .decade-label { font-family: var(--mono); font-size: 11px; fill: var(--ink-3); }
+#river .sprocket { fill: var(--ground); stroke: var(--rule); }
+#river .edge { fill: none; stroke: var(--ink-3); stroke-width: 1.2; opacity: .5; transition: opacity .2s, stroke .2s; }
+#river .edge.minor { opacity: .22; stroke-dasharray: 2 3; }
+#river .edge.k-influence { stroke-dasharray: 5 3; }
+#river .edge.k-successor { stroke-width: 2.2; }
+#river .edge.k-superset { stroke-width: 3.2; }
+#river .edge.k-dialect { stroke-width: 1.8; }
+#river .edge.k-platform { stroke-dasharray: 1 3; stroke-linecap: round; stroke-width: 2; }
+#river .edge.retro { stroke: var(--hl-meta); stroke-dasharray: 3 3; stroke-width: 1.4; opacity: .7; }
+#river .node { cursor: pointer; transition: opacity .2s; }
+#river .node circle.dot { stroke: var(--paper); stroke-width: 2; }
+#river .node.historical circle.dot { fill: var(--paper) !important; stroke: var(--fc); stroke-width: 2.4; }
+#river .node text { font-size: 13px; fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; }
+#river .node .since { font-family: var(--mono); font-size: 10.5px; fill: var(--ink-3); }
+#river .node .ring { fill: none; stroke: var(--gc); stroke-width: 2; }
+#river .node:focus { outline: none; }
+#river .node:focus-visible circle.dot { stroke: var(--anc); stroke-width: 3; }
+#river.tracing .node, #river.tracing .edge { opacity: .12; }
+#river.tracing .node.focus, #river.tracing .node.anc, #river.tracing .node.desc { opacity: 1; }
+#river.tracing .edge.anc { opacity: .95; stroke: var(--anc); stroke-dasharray: none; }
+#river.tracing .edge.desc { opacity: .95; stroke: var(--desc); stroke-dasharray: none; }
+#river.tracing .node.anc text { fill: var(--anc); }
+#river.tracing .node.desc text { fill: var(--desc); }
+#river.tracing .node.focus text { font-weight: 700; }
+#river .future { opacity: 0 !important; pointer-events: none; }
+#river.gene .node.g-none { opacity: .18; }
+#river.gene .node.g-core circle.dot { fill: var(--gc) !important; }
+#river.gene .node.g-supported circle.dot { fill: var(--gc) !important; fill-opacity: .45; }
+#river.gene .node.g-library circle.dot { fill: var(--paper) !important; stroke: var(--gc); stroke-width: 2.4; stroke-dasharray: 2 2; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; padding-block: 10px 28px; color: var(--ink-2); font-size: 12.5px; align-items: center; }
+.legend svg { vertical-align: middle; }
+
+/* ── placard (language drawer) ───────────────────────── */
+.placard { position: fixed; z-index: 40; top: 0; right: 0; bottom: 0; width: min(520px, 100vw); background: var(--paper);
+  border-left: 1px solid var(--rule); box-shadow: var(--shadow); overflow-y: auto; overscroll-behavior: contain;
+  padding: calc(18px + env(safe-area-inset-top, 0px)) 22px calc(28px + env(safe-area-inset-bottom, 0px)); }
+.placard .close { position: sticky; top: 0; float: right; border: 1px solid var(--rule); background: var(--paper); border-radius: 6px; width: 32px; height: 32px; cursor: pointer; font-size: 18px; line-height: 1; }
+.pl-head { border-top: 6px solid var(--lc); padding-top: 12px; }
+.pl-head h2 { margin: 4px 0 2px; font-size: 34px; line-height: 1.05; letter-spacing: -.01em; }
+.pl-head .who { color: var(--ink-2); }
+.pl-head .tag { font-family: var(--serif); font-style: italic; font-size: 17px; margin: 10px 0 0; color: var(--ink); text-wrap: pretty; }
+.status { font-size: 11.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--rule); border-radius: 4px; padding: 1px 6px; color: var(--ink-2); margin-left: 6px; vertical-align: 4px; }
+.pl-sec { margin-top: 22px; }
+.pl-sec h4 { margin: 0 0 8px; }
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: 3px 14px; font-size: 13.5px; margin: 0; }
+.facts dt { color: var(--ink-3); }
+.facts dd { margin: 0; }
+.prose { font-family: var(--serif); font-size: 15.5px; line-height: 1.6; color: var(--ink); }
+.prose p { margin: 0 0 .8em; max-width: 65ch; }
+.innov { margin: 0; padding-left: 18px; font-size: 14px; }
+.innov li { margin-bottom: 4px; }
+.miles { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--rule); font-size: 13.5px; }
+.miles li { display: grid; grid-template-columns: 44px 1fr; gap: 8px; padding: 2px 0 4px 10px; position: relative; }
+.miles li::before { content: ""; position: absolute; left: -5px; top: 9px; width: 8px; height: 8px; border-radius: 50%; background: var(--lc); }
+.miles b { font-family: var(--mono); font-weight: 600; font-variant-numeric: tabular-nums; }
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+.tabs button { border: 1px solid var(--rule); background: none; border-radius: 4px; padding: 2px 9px; cursor: pointer; font-size: 13px; color: var(--ink-2); }
+.tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.code { margin: 0; font-family: var(--mono); font-size: 12.8px; line-height: 1.5; background: var(--ground); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; overflow-x: auto; white-space: pre; tab-size: 4; }
+.sim-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; font-size: 13.5px; padding: 3px 0; border-bottom: 1px dashed var(--rule); }
+.sim-row small { color: var(--ink-3); }
+.pl-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+/* DNA strip */
+.dna { display: flex; gap: 5px; flex-wrap: wrap; align-items: flex-end; }
+.dna .grp { display: flex; flex-direction: column; gap: 3px; }
+.dna .cells { display: flex; gap: 2px; }
+.dna .cell { width: 7px; height: 22px; border-radius: 1.5px; background: var(--rule); opacity: .55; }
+.dna .cell.core { background: var(--cc); opacity: 1; }
+.dna .cell.supported { background: linear-gradient(to top, var(--cc) 50%, transparent 50%); outline: 1px solid var(--cc); outline-offset: -1px; opacity: 1; }
+.dna .cell.library { background: transparent; outline: 1.5px dashed var(--cc); outline-offset: -1.5px; opacity: 1; }
+.dna .lab { font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.dna.small .cell { width: 4px; height: 12px; }
+.dna.small .lab { display: none; }
+
+/* ── desk ────────────────────────────────────────────── */
+.desk-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding-block: 18px 12px; }
+.desk-bar h2 { margin: 0 8px 0 0; font-family: var(--serif); font-weight: 400; font-size: 26px; }
+.desk-bar .spacer { flex: 1; }
+.desk { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 18px; align-items: start; }
+.win { --win-bg: var(--paper); --win-ink: var(--ink); --bar-bg: var(--ground); --bar-ink: var(--ink); --win-border: var(--rule);
+  background: var(--win-bg); color: var(--win-ink); border: 1px solid var(--win-border); border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.win-bar { display: flex; align-items: center; gap: 8px; padding: 6px 8px; background: var(--bar-bg); color: var(--bar-ink); border-bottom: 1px solid var(--win-border); }
+.win-bar select { flex: 1; min-width: 0; border: 0; background: transparent; font-weight: 600; cursor: pointer; padding: 2px; color: inherit; }
+.win-bar select option { color: #111; background: #fff; }
+.win-bar .yr { font-family: var(--mono); font-size: 12px; opacity: .75; font-variant-numeric: tabular-nums; }
+.win-bar button { border: 1px solid currentColor; background: transparent; color: inherit; border-radius: 4px; padding: 1px 8px; cursor: pointer; font-size: 12.5px; opacity: .9; }
+.win-bar .x { border: 0; font-size: 16px; padding: 0 4px; }
+.win-body { position: relative; }
+.win-code { margin: 0; padding: 12px 14px; font-family: var(--mono); font-size: 12.6px; line-height: 1.5; overflow: auto; max-height: 360px; white-space: pre; tab-size: 4; }
+.win-ruler { font-family: inherit; font-size: 10.5px; padding: 4px 14px 0; opacity: .55; white-space: pre; overflow: hidden; }
+.win-out { border-top: 1px dashed var(--win-border); padding: 8px 14px 10px; font-family: var(--mono); font-size: 12.4px; }
+.win-out .cmd { opacity: .6; white-space: pre-wrap; word-break: break-all; }
+.win-out pre { margin: 4px 0 0; white-space: pre-wrap; }
+.win-out .meta { margin-top: 6px; font-family: var(--sans); font-size: 12px; opacity: .7; }
+.win-foot { padding: 5px 14px 7px; font-size: 12px; opacity: .7; border-top: 1px solid var(--win-border); }
+.hljs-keyword, .hljs-literal, .hljs-built_in { color: var(--hl-kw); }
+.hljs-string, .hljs-regexp, .hljs-char { color: var(--hl-str); }
+.hljs-comment, .hljs-quote { color: var(--hl-com); font-style: italic; }
+.hljs-number { color: var(--hl-num); }
+.hljs-title, .hljs-section { color: var(--hl-fn); }
+.hljs-type, .hljs-class .hljs-title, .hljs-title.class_ { color: var(--hl-type); }
+.hljs-meta, .hljs-symbol, .hljs-attr { color: var(--hl-meta); }
+
+/* period skins */
+.skins .win[data-era="paper"] { --win-bg: #efe3c2; --win-ink: #2b2417; --bar-bg: #e2d1a1; --bar-ink: #2b2417; --win-border: #b9a577;
+  border-radius: 0; clip-path: polygon(16px 0, 100% 0, 100% 100%, 0 100%, 0 16px); font-family: "Courier Prime", "Courier New", monospace; }
+.skins .win[data-era="paper"] .win-bar { padding-left: 22px; }
+.skins .win[data-era="paper"] .win-code, .skins .win[data-era="paper"] .win-out { font-family: "Courier Prime", "Courier New", monospace; font-size: 13.4px; }
+.skins .win[data-era="paper"] .win-code * { color: #2b2417 !important; font-style: normal !important; }
+.skins .win[data-era="paper"] .win-code .hljs-keyword { font-weight: 700; }
+.skins .win[data-era="paper"] .win-code .hljs-comment { opacity: .6; }
+.skins .win[data-era="crt"] { --win-bg: #06120a; --win-ink: #74f79a; --bar-bg: #0b1e12; --bar-ink: #74f79a; --win-border: #1f4d2c; border-radius: 12px; }
+.skins .win[data-era="crt"] .win-code, .skins .win[data-era="crt"] .win-out { font-family: "VT323", var(--mono); font-size: 19px; line-height: 1.12; text-shadow: 0 0 6px rgba(116,247,154,.55); }
+.skins .win[data-era="crt"] .win-code * { color: #74f79a !important; font-style: normal !important; }
+.skins .win[data-era="crt"] .win-code .hljs-keyword { color: #c8ffd6 !important; }
+.skins .win[data-era="crt"] .win-code .hljs-comment { opacity: .6; }
+.skins .win[data-era="crt"] .win-body::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,.28) 0 1px, transparent 1px 3px); }
+.skins .win[data-era="mac"] { --win-bg: #ffffff; --win-ink: #000; --bar-bg: #fff; --bar-ink: #000; --win-border: #000; border-radius: 0; box-shadow: 3px 3px 0 #000; }
+.skins .win[data-era="mac"] .win-bar { background: repeating-linear-gradient(to bottom, #000 0 1px, #fff 1px 3px); background-clip: content-box; padding: 5px 8px; }
+.skins .win[data-era="mac"] .win-bar > * { background: #fff; padding-inline: 6px; }
+.skins .win[data-era="mac"] .win-bar .x { border: 1.5px solid #000; width: 14px; height: 14px; padding: 0; font-size: 0; border-radius: 0; flex: none; }
+.skins .win[data-era="mac"] .win-code * { color: #000 !important; font-style: normal !important; }
+.skins .win[data-era="mac"] .win-code .hljs-keyword { font-weight: 700; }
+.skins .win[data-era="mac"] .win-code .hljs-comment { font-style: italic !important; }
+.skins .win[data-era="dos"] { --win-bg: #0000a8; --win-ink: #ffff55; --bar-bg: linear-gradient(90deg, #000080, #1084d0); --bar-ink: #fff; --win-border: #c0c0c0;
+  border-radius: 0; border: 3px solid #c0c0c0; box-shadow: inset -1px -1px 0 #404040, 2px 2px 0 #404040; }
+.skins .win[data-era="dos"] .win-bar button { background: #c0c0c0; color: #000; border: 1px solid; border-color: #fff #404040 #404040 #fff; border-radius: 0; }
+.skins .win[data-era="dos"] .win-bar select { color: #fff; }
+.skins .win[data-era="dos"] .win-code * { color: #ffff55 !important; font-style: normal !important; }
+.skins .win[data-era="dos"] .win-code .hljs-keyword, .skins .win[data-era="dos"] .win-code .hljs-built_in { color: #ffffff !important; }
+.skins .win[data-era="dos"] .win-code .hljs-comment { color: #a8a8a8 !important; }
+.skins .win[data-era="dos"] .win-code .hljs-string { color: #55ffff !important; }
+.skins .win[data-era="dos"] .win-foot { background: #00a8a8; color: #000; opacity: 1; }
+
+.diff { margin-top: 22px; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; display: grid; gap: 12px; }
+.diff-row { display: grid; grid-template-columns: 150px 1fr; gap: 12px; align-items: start; }
+.diff-row .who { font-weight: 600; display: flex; gap: 6px; align-items: center; }
+.diff-row .who i { width: 9px; height: 9px; border-radius: 50%; }
+.pill { display: inline-block; font-size: 12px; border-radius: 4px; padding: 1px 7px; margin: 0 4px 4px 0; border: 1px solid var(--pc, var(--rule)); color: var(--ink); background: color-mix(in srgb, var(--pc, var(--rule)) 14%, transparent); }
+
+/* ── genome ──────────────────────────────────────────── */
+.genome-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 22px; align-items: start; padding-bottom: 32px; }
+.matrix-wrap { overflow: auto; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; max-height: 78vh; }
+#matrix text { fill: var(--ink-2); font-size: 11.5px; }
+#matrix .rowlab { cursor: pointer; fill: var(--ink); font-size: 12.5px; }
+#matrix .rowlab:hover { text-decoration: underline; }
+#matrix .collab { cursor: pointer; }
+#matrix .collab:hover { fill: var(--ink); text-decoration: underline; }
+#matrix .catlab { font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: 10px; }
+#matrix rect.c { stroke: none; }
+#matrix rect.c.none { fill: var(--rule); opacity: .35; }
+#matrix .rowbg { fill: transparent; }
+#matrix g.row:hover .rowbg { fill: var(--band); }
+.side h3 { margin: 0 0 4px; font-size: 17px; }
+.side p { margin: 0 0 12px; color: var(--ink-2); font-size: 13.5px; }
+.conv { list-style: none; margin: 0 0 22px; padding: 0; display: grid; gap: 8px; }
+.conv li { background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; font-size: 13.5px; cursor: pointer; }
+.conv li:hover { border-color: var(--ink-3); }
+.conv li b { font-family: var(--mono); float: right; font-variant-numeric: tabular-nums; }
+.conv li small { display: block; color: var(--ink-3); }
+
+.tip { position: fixed; z-index: 60; pointer-events: none; max-width: 300px; background: var(--ink); color: var(--paper); font-size: 12.5px; padding: 6px 9px; border-radius: 5px; box-shadow: var(--shadow); }
+.tip b { font-weight: 600; }
+
+@media (max-width: 860px) {
+  .genome-grid { grid-template-columns: 1fr; }
+  .diff-row { grid-template-columns: 1fr; }
+  .find { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header class="top wrap">
+  <div class="brand"><b><span>PL</span>World</b><small id="stats"></small></div>
+  <nav aria-label="Views">
+    <button data-view="river" aria-current="page">River</button>
+    <button data-view="desk">Rosetta Desk</button>
+    <button data-view="genome">Genome</button>
+  </nav>
+  <div class="find"><input id="find" list="langlist" placeholder="Find a language…" aria-label="Find a language"><datalist id="langlist"></datalist></div>
+</header>
+
+<main>
+  <section id="view-river" class="wrap">
+    <div class="intro">
+      <div>
+        <h1>Seventy years of programming languages, <em>and the ideas they passed on.</em></h1>
+        <p>Hover a language to trace its ancestors (amber) and descendants (blue). Drag the year to rewind history, or pick a concept to watch it spread through the family.</p>
+      </div>
+      <div class="yearbox" aria-live="polite"><strong id="yearNow">2026</strong><span id="yearCount"></span></div>
+    </div>
+    <div class="river-controls">
+      <button class="btn" id="play">▶ Play history</button>
+      <input type="range" id="scrub" min="1955" max="2026" value="2026" aria-label="Year">
+      <label class="ctl">Concept <select id="gene"><option value="">None</option></select></label>
+      <label class="ctl"><input type="checkbox" id="minor"> Minor influences</label>
+      <label class="ctl" title="A newer language feeding ideas back into a later version of an older one (Kotlin → PHP 8)"><input type="checkbox" id="retro"> Cross-pollination</label>
+    </div>
+    <div id="geneCard" class="gene-card" hidden></div>
+    <div class="river-scroll"><svg id="river" role="img" aria-label="Timeline of programming languages by family, with lineage links"></svg></div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <section id="view-desk" class="wrap" hidden>
+    <div class="desk-bar">
+      <h2>Rosetta Desk</h2>
+      <label class="ctl">Task <select id="task"></select></label>
+      <label class="ctl">Add <select id="addLang"><option value="">Language…</option></select></label>
+      <label class="ctl"><input type="checkbox" id="skins" checked> Period skins</label>
+      <span class="spacer"></span>
+      <button class="btn primary" id="runAll">▶ Run all</button>
+    </div>
+    <p class="note" id="taskNote"></p>
+    <div id="desk" class="desk skins"></div>
+    <div id="diff" class="diff"></div>
+    <p class="note" style="padding-block: 12px 32px">Prototype: Run replays each snippet's recorded output. Code is checked against real toolchains where one was available (marked verified). The sandbox runner is wired up in the real app.</p>
+  </section>
+
+  <section id="view-genome" class="wrap" hidden>
+    <div class="desk-bar">
+      <h2>Genome</h2>
+      <label class="ctl">Order by <select id="gsort">
+        <option value="year">Year</option><option value="family">Family</option><option value="sim">Similarity to…</option><option value="count">Trait count</option>
+      </select></label>
+      <label class="ctl" id="gsimWrap" hidden><select id="gsimTo"></select></label>
+    </div>
+    <div class="genome-grid">
+      <div class="matrix-wrap"><svg id="matrix" role="img" aria-label="Matrix of languages by concepts"></svg></div>
+      <aside class="side">
+        <h3>Convergent evolution</h3>
+        <p>Pairs whose traits are the most alike (rare traits count more) even though they are three or more lineage steps apart: they arrived at similar designs independently.</p>
+        <ol class="conv" id="conv"></ol>
+        <h3>Reading the matrix</h3>
+        <p>Solid = core to the language · half = supported · dashed = library. Click a language for its placard, or a concept to watch it spread on the River.</p>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<aside id="placard" class="placard" hidden aria-label="Language details"></aside>
+<div id="tip" class="tip" hidden></div>
+
+<script id="world" type="application/json">__WORLD__</script>
+<script>
+(() => {
+const W = JSON.parse(document.getElementById("world").textContent);
+const L = W.languages.slice().sort((a, b) => a.year - b.year || a.name.localeCompare(b.name));
+const byId = Object.fromEntries(L.map((l) => [l.id, l]));
+const CONCEPTS = W.concepts;
+const cById = Object.fromEntries(CONCEPTS.map((c) => [c.id, c]));
+const EDGES = W.edges.filter((e) => byId[e.parent] && byId[e.child]);
+
+const FAMILY = [
+  ["fortran", "Fortran", "#6f63d0"], ["cobol", "COBOL", "#9b7653"], ["basic", "BASIC", "#c9533f"],
+  ["algol", "ALGOL", "#2f9585"], ["c", "C & BCPL", "#6d7c92"], ["smalltalk", "Smalltalk", "#c28a22"],
+  ["lisp", "Lisp", "#3a9d5d"], ["ml", "ML", "#cf4f6c"], ["logic", "Logic", "#9a4e93"],
+  ["array", "Array", "#3e8fc2"], ["stack", "Stack", "#8a6a3d"], ["query", "Query", "#d27b1f"],
+  ["scripting", "Scripting", "#2f9fb8"],
+];
+const FAM = Object.fromEntries(FAMILY.map(([id, label, color]) => [id, { label, color }]));
+const famColor = (l) => FAM[l.family]?.color ?? "#888";
+const CATS = [
+  ["control", "Control", "#2c8c7f"], ["types", "Types", "#3b6fd1"], ["abstraction", "Abstraction", "#c27a17"],
+  ["functional", "Functional", "#7c4fc6"], ["memory", "Memory", "#b9442f"], ["concurrency", "Concurrency", "#c23f8e"],
+  ["metaprogramming", "Meta", "#4f8f2c"], ["paradigm", "Paradigm", "#8b6a2a"], ["syntax", "Syntax", "#5d6d7e"],
+];
+const CAT = Object.fromEntries(CATS.map(([id, label, color]) => [id, { label, color }]));
+const ORDERED = CATS.flatMap(([cat]) => CONCEPTS.filter((c) => c.category === cat));
+const LEVEL_W = { core: 1, supported: 0.6, library: 0.35 };
+const HLJS = { fortran: "fortran", lisp: "lisp", basic: "basic", b: "c", pascal: "delphi", modula2: "delphi", c: "c",
+  smalltalk: "smalltalk", self: "smalltalk", prolog: "prolog", ml: "sml", sql: "sql", scheme: "scheme", ada: "ada",
+  "objective-c": "objectivec", "common-lisp": "lisp", cpp: "cpp", miranda: "haskell", erlang: "erlang", perl: "perl",
+  haskell: "haskell", python: "python", lua: "lua", r: "r", java: "java", javascript: "javascript", ruby: "ruby", php: "php",
+  ocaml: "ocaml", csharp: "csharp", scala: "scala", fsharp: "fsharp", clojure: "clojure", go: "go", rust: "rust",
+  kotlin: "kotlin", elixir: "elixir", julia: "julia", typescript: "typescript", swift: "swift" };
+
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]);
+const $ = (s, el = document) => el.querySelector(s);
+const hl = (code, id) => {
+  const lang = HLJS[id];
+  try { if (window.hljs && lang && hljs.getLanguage(lang)) return hljs.highlight(code, { language: lang, ignoreIllegals: true }).value; } catch {}
+  return esc(code);
+};
+const era = (y) => (y < 1970 ? "paper" : y < 1980 ? "crt" : y < 1990 ? "mac" : y < 2000 ? "dos" : "modern");
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// similarity + lineage distance. Concepts are weighted by rarity (IDF), so sharing type classes says
+// more about kinship than sharing recursion does.
+const IDF = Object.fromEntries(CONCEPTS.map((c) => {
+  const df = L.filter((l) => l.traits[c.id]).length;
+  return [c.id, Math.log((L.length + 1) / (df + 1)) + 0.15];
+}));
+const sim = (a, b) => {
+  let mn = 0, mx = 0;
+  for (const c of CONCEPTS) {
+    const x = LEVEL_W[a.traits[c.id]?.level] || 0, y = LEVEL_W[b.traits[c.id]?.level] || 0;
+    mn += Math.min(x, y) * IDF[c.id]; mx += Math.max(x, y) * IDF[c.id];
+  }
+  return mx ? mn / mx : 0;
+};
+const adj = Object.fromEntries(L.map((l) => [l.id, new Set()]));
+for (const e of EDGES) { adj[e.parent].add(e.child); adj[e.child].add(e.parent); }
+const distCache = {};
+const distFrom = (id) => {
+  if (distCache[id]) return distCache[id];
+  const d = { [id]: 0 }, q = [id];
+  while (q.length) { const u = q.shift(); for (const v of adj[u]) if (!(v in d)) { d[v] = d[u] + 1; q.push(v); } }
+  return (distCache[id] = d);
+};
+const parentsOf = (id) => EDGES.filter((e) => e.child === id && !e.retro);
+const childrenOf = (id) => EDGES.filter((e) => e.parent === id && !e.retro);
+const laterInfluences = (id) => EDGES.filter((e) => e.child === id && e.retro);
+
+// header + shared lists
+const snippetCount = L.reduce((n, l) => n + Object.keys(l.snippets).length, 0);
+const verifiedCount = L.reduce((n, l) => n + Object.values(l.snippets).filter((s) => s.verified).length, 0);
+$("#stats").textContent = `${L.length} languages · ${CONCEPTS.length} concepts · ${snippetCount} snippets (${verifiedCount} verified)`;
+$("#langlist").innerHTML = L.map((l) => `<option value="${esc(l.name)}">${l.year}</option>`).join("");
+$("#find").addEventListener("change", (e) => {
+  const v = e.target.value.trim().toLowerCase();
+  const l = L.find((x) => x.name.toLowerCase() === v || x.aliases.some((a) => a.toLowerCase() === v)) || L.find((x) => x.name.toLowerCase().startsWith(v));
+  if (l) { openPlacard(l.id); e.target.value = ""; }
+});
+const langOptions = (sel) => L.map((l) => `<option value="${l.id}" ${l.id === sel ? "selected" : ""}>${esc(l.name)} · ${l.year}</option>`).join("");
+
+// views
+const views = ["river", "desk", "genome"];
+function show(view) {
+  for (const v of views) $(`#view-${v}`).hidden = v !== view;
+  document.querySelectorAll("nav button").forEach((b) => { if (b.dataset.view === view) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
+  try { history.replaceState(null, "", "#" + view); } catch {}
+  if (view === "genome" && !$("#matrix").childElementCount) renderGenome();
+}
+document.querySelectorAll("nav button").forEach((b) => b.addEventListener("click", () => show(b.dataset.view)));
+
+// tooltip
+const tip = $("#tip");
+const showTip = (html, ev) => { tip.innerHTML = html; tip.hidden = false; moveTip(ev); };
+const moveTip = (ev) => {
+  const r = tip.getBoundingClientRect();
+  tip.style.left = Math.min(innerWidth - r.width - 8, ev.clientX + 14) + "px";
+  tip.style.top = Math.min(innerHeight - r.height - 8, ev.clientY + 14) + "px";
+};
+const hideTip = () => (tip.hidden = true);
+
+// DNA strip
+function dna(l, small = false) {
+  return `<div class="dna${small ? " small" : ""}">` + CATS.map(([cat, label, color]) => {
+    const cs = CONCEPTS.filter((c) => c.category === cat);
+    return `<div class="grp"><div class="cells">` + cs.map((c) => {
+      const t = l.traits[c.id];
+      const title = `${c.name}: ${t ? t.level + (t.version ? " · " + t.version : t.since ? " · since " + t.since : "") + (t.note ? " — " + t.note : "") : "absent"}`;
+      return `<span class="cell ${t ? t.level : ""}" style="--cc:${color}" title="${esc(title)}"></span>`;
+    }).join("") + `</div><span class="lab">${label}</span></div>`;
+  }).join("") + `</div>`;
+}
+
+/* ───────────────────────── River ───────────────────────── */
+const YMIN = 1955, YMAX = 2026, PX = 17, X0 = 132, TOP = 40, ROW = 25, LPAD = 9;
+const xOf = (y) => X0 + (y - YMIN) * PX;
+const pos = {};
+let riverT = YMAX, riverGene = "", focusId = null, pinnedId = null;
+function layoutRiver() {
+  const lanes = FAMILY.filter(([f]) => L.some((l) => l.family === f)).map(([f]) => ({ f, langs: L.filter((l) => l.family === f) }));
+  let y = TOP, maxX = xOf(YMAX);
+  for (const lane of lanes) {
+    const rows = [];
+    for (const l of lane.langs) {
+      const nx = xOf(l.year), w = 16 + l.name.length * 7.4;
+      let r = rows.findIndex((end) => end + 6 < nx);
+      if (r < 0) { r = rows.length; rows.push(0); }
+      rows[r] = nx + w;
+      pos[l.id] = { x: nx, r };
+      maxX = Math.max(maxX, nx + w);
+    }
+    lane.y = y; lane.h = Math.max(1, rows.length) * ROW + LPAD * 2;
+    for (const l of lane.langs) pos[l.id].y = y + LPAD + pos[l.id].r * ROW + ROW / 2;
+    y += lane.h;
+  }
+  return { lanes, width: maxX + 30, height: y + 34 };
+}
+function renderRiver() {
+  const { lanes, width, height } = layoutRiver();
+  const svg = $("#river");
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.setAttribute("width", width); svg.setAttribute("height", height);
+  let s = "";
+  lanes.forEach((lane, i) => {
+    if (i % 2 === 0) s += `<rect x="0" y="${lane.y}" width="${width}" height="${lane.h}" fill="var(--band)"/>`;
+    s += `<text class="lane-label" x="24" y="${lane.y + LPAD + ROW / 2 + 4}">${esc(FAM[lane.f].label)}</text>`;
+  });
+  for (let yy = TOP + 8; yy < height - 20; yy += 18) s += `<circle class="sprocket" cx="10" cy="${yy}" r="3.2"/>`;
+  for (let d = 1960; d <= 2020; d += 10) {
+    s += `<line class="decade" x1="${xOf(d)}" x2="${xOf(d)}" y1="${TOP - 8}" y2="${height - 26}"/>`;
+    s += `<text class="decade-label" x="${xOf(d)}" y="${TOP - 14}" text-anchor="middle">${d}</text>`;
+    s += `<text class="decade-label" x="${xOf(d)}" y="${height - 10}" text-anchor="middle">${d}</text>`;
+  }
+  s += `<g id="edges">` + EDGES.map((e, i) => {
+    const p = pos[e.parent], c = pos[e.child];
+    if (e.retro) {
+      // newer → older: loop over the top so it reads as feedback, not ancestry
+      const lift = 40 + Math.abs(p.x - c.x) * 0.12;
+      return `<path class="edge retro" data-i="${i}" d="M${p.x},${p.y} C${p.x},${p.y - lift} ${c.x},${c.y - lift} ${c.x},${c.y}"/>`;
+    }
+    const dx = Math.max(36, Math.abs(c.x - p.x) / 2);
+    return `<path class="edge k-${e.kind} ${e.weight}" data-i="${i}" d="M${p.x},${p.y} C${p.x + dx},${p.y} ${c.x - dx},${c.y} ${c.x},${c.y}"/>`;
+  }).join("") + `</g>`;
+  s += `<g id="nodes">` + L.map((l) => {
+    const p = pos[l.id];
+    return `<g class="node ${l.status === "historical" ? "historical" : ""}" data-id="${l.id}" tabindex="0" role="button" aria-label="${esc(l.name)}, ${l.year}" transform="translate(${p.x},${p.y})" style="--fc:${famColor(l)}">` +
+      `<circle class="ring" r="10" hidden/><circle class="dot" r="6" fill="${famColor(l)}"/>` +
+      `<text x="11" y="4.5">${esc(l.name)}</text><text class="since" x="11" y="17"></text></g>`;
+  }).join("") + `</g>`;
+  svg.innerHTML = s;
+  svg.querySelectorAll(".node").forEach((n) => {
+    const id = n.dataset.id;
+    n.addEventListener("mouseenter", (ev) => { trace(id); showTip(nodeTip(id), ev); });
+    n.addEventListener("mousemove", moveTip);
+    n.addEventListener("mouseleave", () => { trace(pinnedId); hideTip(); });
+    n.addEventListener("focus", () => trace(id));
+    n.addEventListener("blur", () => trace(pinnedId));
+    n.addEventListener("click", () => { pinnedId = id; trace(id); openPlacard(id); });
+    n.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pinnedId = id; trace(id); openPlacard(id); } });
+  });
+  applyEdgeFilter(); applyTime(); applyGene();
+}
+function nodeTip(id) {
+  const l = byId[id];
+  const g = riverGene && l.traits[riverGene];
+  return `<b>${esc(l.name)}</b> · ${l.year}<br>${esc(l.tagline)}` +
+    (riverGene ? `<br><i>${esc(cById[riverGene].name)}: ${g ? esc(g.level + (g.version ? " (" + g.version + ")" : "")) : "absent"}</i>` : "");
+}
+const edgeVisible = (e) => (e.retro ? $("#retro").checked : e.weight === "major" || $("#minor").checked);
+function applyEdgeFilter() {
+  document.querySelectorAll("#river .edge").forEach((p) => { p.style.display = edgeVisible(EDGES[p.dataset.i]) ? "" : "none"; });
+  trace(pinnedId);
+}
+function trace(id) {
+  const svg = $("#river");
+  focusId = id;
+  svg.classList.toggle("tracing", !!id);
+  svg.querySelectorAll(".node").forEach((n) => n.classList.remove("anc", "desc", "focus"));
+  svg.querySelectorAll(".edge").forEach((p) => p.classList.remove("anc", "desc"));
+  if (!id) return;
+  const vis = EDGES.filter((e) => !e.retro && edgeVisible(e) && byId[e.parent].year <= riverT && byId[e.child].year <= riverT);
+  const walk = (start, next) => { const seen = new Set(), q = [start]; while (q.length) { const u = q.pop(); for (const v of next(u)) if (!seen.has(v)) { seen.add(v); q.push(v); } } return seen; };
+  const anc = walk(id, (u) => vis.filter((e) => e.child === u).map((e) => e.parent));
+  const desc = walk(id, (u) => vis.filter((e) => e.parent === u).map((e) => e.child));
+  svg.querySelector(`.node[data-id="${id}"]`)?.classList.add("focus");
+  anc.forEach((a) => svg.querySelector(`.node[data-id="${a}"]`)?.classList.add("anc"));
+  desc.forEach((d) => svg.querySelector(`.node[data-id="${d}"]`)?.classList.add("desc"));
+  svg.querySelectorAll(".edge").forEach((p) => {
+    const e = EDGES[p.dataset.i];
+    if ((e.child === id || anc.has(e.child)) && anc.has(e.parent)) p.classList.add("anc");
+    else if ((e.parent === id || desc.has(e.parent)) && desc.has(e.child)) p.classList.add("desc");
+  });
+}
+function applyTime() {
+  $("#yearNow").textContent = riverT;
+  const alive = L.filter((l) => l.year <= riverT).length;
+  $("#yearCount").textContent = `${alive} of ${L.length} languages exist`;
+  document.querySelectorAll("#river .node").forEach((n) => n.classList.toggle("future", byId[n.dataset.id].year > riverT));
+  document.querySelectorAll("#river .edge").forEach((p) => {
+    const e = EDGES[p.dataset.i];
+    p.classList.toggle("future", byId[e.parent].year > riverT || byId[e.child].year > riverT);
+  });
+  if (riverGene) applyGene();
+}
+function traitAt(l, cid, t) {
+  const tr = l.traits[cid];
+  if (!tr) return null;
+  return (tr.since ?? l.year) <= t ? tr : null;
+}
+function applyGene() {
+  const svg = $("#river"), card = $("#geneCard");
+  svg.classList.toggle("gene", !!riverGene);
+  svg.querySelectorAll(".node").forEach((n) => {
+    n.classList.remove("g-core", "g-supported", "g-library", "g-none");
+    n.querySelector(".since").textContent = "";
+    n.querySelector(".ring").setAttribute("hidden", "");
+  });
+  if (!riverGene) { card.hidden = true; return; }
+  const c = cById[riverGene], color = CAT[c.category].color;
+  svg.style.setProperty("--gc", color);
+  let carriers = 0;
+  svg.querySelectorAll(".node").forEach((n) => {
+    const l = byId[n.dataset.id], tr = traitAt(l, riverGene, riverT);
+    n.classList.add(tr ? "g-" + tr.level : "g-none");
+    if (tr && l.year <= riverT) carriers++;
+    if (tr?.since) n.querySelector(".since").textContent = tr.version ? `${tr.version}, ${tr.since}` : `since ${tr.since}`;
+    if (c.origin.lang === l.id) { n.querySelector(".ring").removeAttribute("hidden"); n.querySelector(".since").textContent = `origin ${c.origin.year}`; }
+  });
+  const origin = c.origin.lang ? `<span class="chip" data-open="${c.origin.lang}"><i style="background:${famColor(byId[c.origin.lang] || {})}"></i>${esc(byId[c.origin.lang]?.name ?? c.origin.lang)} <small>${c.origin.year}</small></span>`
+    : `<span class="chip" style="cursor:default">${esc(c.origin.external)} <small>${c.origin.year}</small></span>`;
+  card.style.setProperty("--gc", color);
+  card.innerHTML = `<div><span class="eyebrow" style="color:${color}">${CAT[c.category].label}</span><h3>${esc(c.name)}</h3></div>
+    <div class="count">${carriers}<small>carriers in ${riverT}</small></div>
+    <p>${esc(c.summary)}${c.origin.note ? ` <span class="note">${esc(c.origin.note)}</span>` : ""}</p>
+    <div class="chips"><span class="eyebrow" style="align-self:center">Origin</span>${origin}<span class="eyebrow" style="align-self:center;margin-left:8px">Popularized by</span>${c.popularized_by.filter((p) => byId[p]).map((p) => `<span class="chip" data-open="${p}"><i style="background:${famColor(byId[p])}"></i>${esc(byId[p].name)}</span>`).join("")}</div>`;
+  card.hidden = false;
+}
+$("#geneCard").addEventListener("click", (e) => { const id = e.target.closest("[data-open]")?.dataset.open; if (id && byId[id]) openPlacard(id); });
+$("#gene").innerHTML += CATS.map(([cat, label]) => `<optgroup label="${label}">` + CONCEPTS.filter((c) => c.category === cat).map((c) => `<option value="${c.id}">${esc(c.name)}</option>`).join("") + `</optgroup>`).join("");
+$("#gene").addEventListener("change", (e) => { riverGene = e.target.value; applyGene(); });
+$("#scrub").addEventListener("input", (e) => { riverT = +e.target.value; applyTime(); trace(pinnedId); });
+$("#minor").addEventListener("change", applyEdgeFilter);
+$("#retro").addEventListener("change", applyEdgeFilter);
+let playing = null;
+$("#play").addEventListener("click", () => {
+  if (playing) { cancelAnimationFrame(playing); playing = null; $("#play").textContent = "▶ Play history"; return; }
+  if (reduceMotion) { riverT = YMAX; $("#scrub").value = riverT; applyTime(); return; }
+  const start = performance.now(), dur = 9000;
+  $("#play").textContent = "❚❚ Pause";
+  const step = (now) => {
+    const k = Math.min(1, (now - start) / dur);
+    riverT = Math.round(YMIN + (YMAX - YMIN) * k); $("#scrub").value = riverT; applyTime();
+    if (k < 1) playing = requestAnimationFrame(step); else { playing = null; $("#play").textContent = "▶ Play history"; }
+  };
+  playing = requestAnimationFrame(step);
+});
+$("#legend").innerHTML =
+  FAMILY.filter(([f]) => L.some((l) => l.family === f)).map(([, label, color]) => `<span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="${color}"/></svg> ${label}</span>`).join("") +
+  `<span><svg width="12" height="12"><circle cx="6" cy="6" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/></svg> historical</span>` +
+  `<span><svg width="34" height="8"><line x1="0" x2="34" y1="4" y2="4" stroke="currentColor" stroke-width="2.2"/></svg> successor</span>` +
+  `<span><svg width="34" height="8"><line x1="0" x2="34" y1="4" y2="4" stroke="currentColor" stroke-width="3.2"/></svg> superset</span>` +
+  `<span><svg width="34" height="8"><line x1="0" x2="34" y1="4" y2="4" stroke="currentColor" stroke-width="1.8"/></svg> dialect</span>` +
+  `<span><svg width="34" height="8"><line x1="0" x2="34" y1="4" y2="4" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 3"/></svg> influence</span>` +
+  `<span><svg width="34" height="8"><line x1="1" x2="34" y1="4" y2="4" stroke="currentColor" stroke-width="2" stroke-dasharray="1 3" stroke-linecap="round"/></svg> platform</span>` +
+  `<span><svg width="34" height="8"><line x1="0" x2="34" y1="4" y2="4" stroke="var(--hl-meta)" stroke-width="1.4" stroke-dasharray="3 3"/></svg> cross-pollination</span>`;
+
+/* ───────────────────────── Placard ───────────────────────── */
+const placard = $("#placard");
+let placardTask = "hello";
+function openPlacard(id) {
+  const l = byId[id];
+  const langChip = (lid, extra = "") => `<span class="chip" data-open="${lid}"><i style="background:${famColor(byId[lid])}"></i>${esc(byId[lid].name)}${extra}</span>`;
+  const parents = parentsOf(id).sort((a, b) => (a.weight > b.weight ? 1 : -1));
+  const kids = childrenOf(id).sort((a, b) => byId[a.child].year - byId[b.child].year);
+  const d = distFrom(id);
+  const closest = L.filter((o) => o.id !== id).map((o) => ({ o, s: sim(l, o), d: d[o.id] })).sort((a, b) => b.s - a.s).slice(0, 5);
+  const tasks = W.tasks.filter((t) => l.snippets[t.id]);
+  if (!l.snippets[placardTask]) placardTask = tasks[0]?.id;
+  const t0 = l.runtime.toolchains[0];
+  placard.style.setProperty("--lc", famColor(l));
+  placard.innerHTML = `
+    <button class="close" aria-label="Close">×</button>
+    <div class="pl-head">
+      <span class="eyebrow">${esc(FAM[l.family]?.label)} family · ${l.year}</span>
+      <h2>${esc(l.name)}<span class="status">${esc(l.status)}</span></h2>
+      <div class="who">${esc(l.designers.join(", "))}${l.organization ? " · " + esc(l.organization) : ""}</div>
+      <p class="tag">${esc(l.tagline)}</p>
+    </div>
+    <div class="pl-sec"><h4 class="eyebrow">Trait DNA</h4>${dna(l)}</div>
+    <div class="pl-sec"><dl class="facts">
+      <dt>Paradigms</dt><dd>${esc(l.paradigms.join(", "))}</dd>
+      <dt>Typing</dt><dd>${esc([l.typing.discipline, l.typing.strength, l.typing.inference !== "none" ? l.typing.inference + " inference" : ""].filter(Boolean).join(", "))}</dd>
+      <dt>Memory</dt><dd>${esc(l.memory)}</dd>
+      <dt>Runs as</dt><dd>${esc(l.execution.join(", "))}</dd>
+      <dt>Syntax</dt><dd>${esc(l.syntax_family)} · ${esc(l.block_style)}</dd>
+      ${l.latest_version ? `<dt>Latest</dt><dd>${esc(l.latest_version)}</dd>` : ""}
+    </dl></div>
+    <div class="pl-sec"><h4 class="eyebrow">Parents</h4><div class="chips">${parents.map((e) => langChip(e.parent, ` <small>${e.kind}</small>`)).join("") || '<span class="note">A root of the tree</span>'}</div>
+      ${l.influenced_by_external.length ? `<p class="note" style="margin:8px 0 0">Also: ${l.influenced_by_external.map((x) => esc(x.name) + (x.year ? " (" + x.year + ")" : "")).join(", ")}</p>` : ""}</div>
+    ${laterInfluences(id).length ? `<div class="pl-sec"><h4 class="eyebrow">Later borrowed from</h4><div class="chips">${laterInfluences(id).map((e) => langChip(e.parent, ` <small>${byId[e.parent].year}</small>`)).join("")}</div></div>` : ""}
+    <div class="pl-sec"><h4 class="eyebrow">Children</h4><div class="chips">${kids.map((e) => langChip(e.child, ` <small>${byId[e.child].year}</small>`)).join("") || '<span class="note">None among these 50</span>'}</div></div>
+    <div class="pl-sec"><h4 class="eyebrow">Code</h4>
+      <div class="tabs" role="tablist">${tasks.map((t) => `<button role="tab" data-task="${t.id}" aria-selected="${t.id === placardTask}">${t.id === "signature" ? "★ " : ""}${esc(t.name)}</button>`).join("")}</div>
+      <div id="plCode"></div>
+      <div class="pl-actions"><button class="btn primary" data-desk="${id}">Open in Rosetta Desk</button><button class="btn" data-trace="${id}">Trace on River</button></div>
+    </div>
+    <div class="pl-sec"><h4 class="eyebrow">Innovations</h4><ul class="innov">${l.innovations.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>
+    <div class="pl-sec"><h4 class="eyebrow">History</h4><div class="prose">${l.history.split(/\n\n+/).map((p) => `<p>${esc(p)}</p>`).join("")}</div></div>
+    <div class="pl-sec"><h4 class="eyebrow">Milestones</h4><ul class="miles">${l.milestones.map((m) => `<li><b>${m.year}</b><span>${esc(m.event)}</span></li>`).join("")}</ul></div>
+    <div class="pl-sec"><h4 class="eyebrow">Closest by traits</h4>${closest.map(({ o, s, d }) => `<div class="sim-row"><span>${langChip(o.id)}</span><small>${Math.round(s * 100)}% · ${d === undefined ? "unrelated" : d <= 2 ? `relative (${d} step${d > 1 ? "s" : ""})` : `convergent (${d} steps)`}</small></div>`).join("")}</div>
+    ${l.trivia?.length ? `<div class="pl-sec"><h4 class="eyebrow">Trivia</h4><ul class="innov">${l.trivia.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
+    <div class="pl-sec"><h4 class="eyebrow">Runs on</h4><p class="note" style="margin:0">${t0 ? esc(t0.name + (t0.version ? " " + t0.version : "")) + (t0.docker_image ? " · <code>" + esc(t0.docker_image) + "</code>" : "") : "No toolchain yet"} · strategy: ${esc(l.runtime.strategy)}${l.runtime.browser ? " · in-browser: " + esc(l.runtime.browser.name) : ""}</p></div>
+    <div class="pl-sec"><h4 class="eyebrow">Sources</h4><p class="note" style="margin:0;word-break:break-all">${l.sources.map((u) => esc(u)).join("<br>")}</p></div>`;
+  renderPlacardCode(l);
+  placard.hidden = false;
+  placard.scrollTop = 0;
+  placard.querySelector(".close").focus({ preventScroll: true });
+}
+function renderPlacardCode(l) {
+  const s = l.snippets[placardTask];
+  $("#plCode").innerHTML = s ? `${s.title ? `<p style="margin:0 0 6px;font-weight:600">${esc(s.title)}</p>` : ""}<pre class="code">${hl(s.code, l.id)}</pre>
+    <p class="note" style="margin:6px 0 0">${esc(s.dialect)} · ${s.verified ? "✓ verified output" : "not yet verified"}${s.notes ? " · " + esc(s.notes) : ""}</p>` : "";
+}
+placard.addEventListener("click", (e) => {
+  const open = e.target.closest("[data-open]")?.dataset.open;
+  if (open) return openPlacard(open);
+  const tab = e.target.closest("[data-task]");
+  if (tab) {
+    placardTask = tab.dataset.task;
+    placard.querySelectorAll(".tabs button").forEach((b) => b.setAttribute("aria-selected", b === tab));
+    return renderPlacardCode(byId[placard.querySelector("[data-desk]").dataset.desk]);
+  }
+  const desk = e.target.closest("[data-desk]")?.dataset.desk;
+  if (desk) { if (!deskLangs.includes(desk)) deskLangs.push(desk); if (deskLangs.length > 6) deskLangs.shift(); deskTask = placardTask; placard.hidden = true; renderDesk(); show("desk"); return; }
+  const tr = e.target.closest("[data-trace]")?.dataset.trace;
+  if (tr) { placard.hidden = true; show("river"); pinnedId = tr; trace(tr); document.querySelector(`#river .node[data-id="${tr}"]`)?.scrollIntoView({ block: "center", inline: "center", behavior: reduceMotion ? "auto" : "smooth" }); return; }
+  if (e.target.closest(".close")) { placard.hidden = true; }
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !placard.hidden) placard.hidden = true; });
+document.addEventListener("click", (e) => {
+  if (!placard.hidden && !placard.contains(e.target) && !e.target.closest("#river .node, [data-open], .conv li, #matrix .rowlab, .find")) placard.hidden = true;
+});
+
+/* ───────────────────────── Rosetta Desk ───────────────────────── */
+let deskLangs = ["fortran", "c", "erlang", "haskell", "rust"].filter((id) => byId[id]);
+if (deskLangs.length < 3) deskLangs = L.slice(0, 4).map((l) => l.id);
+let deskTask = "factorial";
+$("#task").innerHTML = W.tasks.map((t) => `<option value="${t.id}">${esc(t.name)}</option>`).join("");
+$("#addLang").innerHTML += langOptions();
+$("#task").addEventListener("change", (e) => { deskTask = e.target.value; renderDesk(); });
+$("#addLang").addEventListener("change", (e) => { const id = e.target.value; if (id && !deskLangs.includes(id)) { deskLangs.push(id); if (deskLangs.length > 6) deskLangs.shift(); renderDesk(); } e.target.value = ""; });
+$("#skins").addEventListener("change", (e) => $("#desk").classList.toggle("skins", e.target.checked));
+$("#runAll").addEventListener("click", () => document.querySelectorAll(".win").forEach((w, i) => setTimeout(() => runWin(w), i * 120)));
+const RULER = "         1         2         3         4         5         6         7\n1...5.7....0....5....0....5....0....5....0....5....0....5....0....5....0..";
+function renderDesk() {
+  $("#task").value = deskTask;
+  const task = W.tasks.find((t) => t.id === deskTask);
+  $("#taskNote").textContent = `${task.prompt} Shows: ${task.shows}`;
+  $("#desk").innerHTML = deskLangs.map((id) => {
+    const l = byId[id], s = l.snippets[deskTask], e = era(l.year);
+    return `<article class="win" data-era="${e}" data-id="${id}">
+      <div class="win-bar"><button class="x" aria-label="Close ${esc(l.name)} window">×</button>
+        <select aria-label="Language">${langOptions(id)}</select><span class="yr">${l.year}</span>
+        <button class="run">▶ Run</button></div>
+      <div class="win-body">
+        ${e === "paper" && /fortran|cobol/.test(id) ? `<div class="win-ruler">${esc(RULER)}</div>` : ""}
+        ${s?.title ? `<div class="win-ruler" style="opacity:.85;font-weight:600">${esc(s.title)}</div>` : ""}
+        <pre class="win-code">${s ? hl(s.code, id) : "(no snippet)"}</pre>
+      </div>
+      <div class="win-out" hidden></div>
+      <div class="win-foot">${esc(s?.dialect ?? "")}${s ? (s.verified ? " · ✓ verified" : " · unverified") : ""}</div>
+    </article>`;
+  }).join("");
+  document.querySelectorAll(".win").forEach((w) => {
+    w.querySelector(".x").addEventListener("click", () => { deskLangs = deskLangs.filter((x) => x !== w.dataset.id); renderDesk(); });
+    w.querySelector("select").addEventListener("change", (e) => { deskLangs = deskLangs.map((x) => (x === w.dataset.id ? e.target.value : x)); renderDesk(); });
+    w.querySelector(".run").addEventListener("click", () => runWin(w));
+  });
+  renderDiff();
+}
+function runWin(w) {
+  const l = byId[w.dataset.id], s = l.snippets[deskTask], out = w.querySelector(".win-out");
+  if (!s) return;
+  const t = l.runtime.toolchains[0];
+  const ext = (l.file_extensions[0] || ".txt");
+  const sub = (x) => x.replaceAll("{file}", "main" + ext).replaceAll("{out}", "./main");
+  const cmd = t ? "$ " + [t.compile, t.run].filter(Boolean).map(sub).join(" && ") : "$ (no toolchain recorded)";
+  out.hidden = false;
+  out.innerHTML = `<div class="cmd">${esc(cmd)}</div><pre>…</pre>`;
+  const ms = 250 + Math.round(Math.random() * 500);
+  setTimeout(() => {
+    out.innerHTML = `<div class="cmd">${esc(cmd)}</div><pre>${esc(s.expected_output)}</pre><div class="meta">${s.verified ? "✓ matches expected output" : "expected output (not yet verified)"} · recorded, not live</div>`;
+  }, reduceMotion ? 0 : ms);
+}
+function renderDiff() {
+  const ls = deskLangs.map((id) => byId[id]);
+  if (ls.length < 2) { $("#diff").innerHTML = `<p class="note" style="margin:0">Add another language to compare traits.</p>`; return; }
+  const has = (l, c) => !!l.traits[c.id];
+  const pill = (c) => `<span class="pill" style="--pc:${CAT[c.category].color}" title="${esc(c.summary)}">${esc(c.name)}</span>`;
+  const shared = ORDERED.filter((c) => ls.every((l) => has(l, c)));
+  let h = `<div class="diff-row"><div class="who">Shared by all</div><div>${shared.map(pill).join("") || '<span class="note">Nothing in common, which is the point.</span>'}</div></div>`;
+  for (const l of ls) {
+    const only = ORDERED.filter((c) => has(l, c) && ls.every((o) => o === l || !has(o, c)));
+    h += `<div class="diff-row"><div class="who"><i style="background:${famColor(l)}"></i>Only ${esc(l.name)}</div><div>${only.map(pill).join("") || '<span class="note">—</span>'}</div></div>`;
+  }
+  $("#diff").innerHTML = `<span class="eyebrow">Trait diff</span>` + h;
+}
+
+/* ───────────────────────── Genome ───────────────────────── */
+function renderGenome() {
+  const mode = $("#gsort").value, ref = byId[$("#gsimTo").value] || L[0];
+  $("#gsimWrap").hidden = mode !== "sim";
+  const famIdx = Object.fromEntries(FAMILY.map(([f], i) => [f, i]));
+  const rows = L.slice().sort(
+    mode === "family" ? (a, b) => famIdx[a.family] - famIdx[b.family] || a.year - b.year
+    : mode === "sim" ? (a, b) => sim(ref, b) - sim(ref, a)
+    : mode === "count" ? (a, b) => Object.keys(b.traits).length - Object.keys(a.traits).length
+    : (a, b) => a.year - b.year);
+  const CELL = 14, GAP = 2, CATGAP = 8, LABW = 150, HEAD = 168;
+  const colX = [];
+  let x = LABW, prev = null;
+  for (const c of ORDERED) { if (prev && prev !== c.category) x += CATGAP; colX.push(x); x += CELL + GAP; prev = c.category; }
+  const width = x + 16, height = HEAD + rows.length * (CELL + GAP) + 12;
+  let s = "";
+  // category labels
+  for (const [cat, label, color] of CATS) {
+    const idx = ORDERED.findIndex((c) => c.category === cat);
+    if (idx < 0) continue;
+    s += `<rect x="${colX[idx]}" y="${HEAD - 8}" width="${ORDERED.filter((c) => c.category === cat).length * (CELL + GAP) - GAP}" height="3" fill="${color}"/>`;
+  }
+  ORDERED.forEach((c, i) => {
+    s += `<text class="collab" data-c="${c.id}" transform="translate(${colX[i] + CELL / 2 + 4},${HEAD - 14}) rotate(-62)">${esc(c.name)}</text>`;
+  });
+  rows.forEach((l, r) => {
+    const y = HEAD + r * (CELL + GAP);
+    s += `<g class="row"><rect class="rowbg" x="0" y="${y - 1}" width="${width}" height="${CELL + 2}"/>`;
+    s += `<circle cx="10" cy="${y + CELL / 2}" r="4" fill="${famColor(l)}"/>`;
+    s += `<text class="rowlab" data-id="${l.id}" x="20" y="${y + CELL - 3}">${esc(l.name)}</text>`;
+    s += `<text x="${LABW - 8}" y="${y + CELL - 3}" text-anchor="end" style="font-family:var(--mono);font-size:10.5px">${mode === "sim" ? Math.round(sim(ref, l) * 100) + "%" : l.year}</text>`;
+    ORDERED.forEach((c, i) => {
+      const t = l.traits[c.id], col = CAT[c.category].color;
+      const attrs = `class="c ${t ? t.level : "none"}" data-l="${l.id}" data-c="${c.id}" x="${colX[i]}" y="${y}" width="${CELL}" height="${CELL}" rx="2"`;
+      s += !t ? `<rect ${attrs}/>`
+        : t.level === "core" ? `<rect ${attrs} fill="${col}"/>`
+        : t.level === "supported" ? `<rect ${attrs} fill="${col}" fill-opacity=".42"/>`
+        : `<rect ${attrs} fill="none" stroke="${col}" stroke-width="1.5" stroke-dasharray="2 2"/>`;
+    });
+    s += `</g>`;
+  });
+  const svg = $("#matrix");
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`); svg.setAttribute("width", width); svg.setAttribute("height", height);
+  svg.innerHTML = s;
+}
+$("#matrix").addEventListener("mousemove", (e) => {
+  const r = e.target.closest("rect.c");
+  if (!r) return hideTip();
+  const l = byId[r.dataset.l], c = cById[r.dataset.c], t = l.traits[c.id];
+  showTip(`<b>${esc(l.name)}</b> · ${esc(c.name)}<br>${t ? esc(t.level + (t.version ? " · " + t.version : t.since ? " · since " + t.since : "")) + (t.note ? "<br>" + esc(t.note) : "") : "absent"}`, e);
+});
+$("#matrix").addEventListener("mouseleave", hideTip);
+$("#matrix").addEventListener("click", (e) => {
+  const row = e.target.closest(".rowlab"); if (row) return openPlacard(row.dataset.id);
+  const col = e.target.closest(".collab");
+  if (col) { riverGene = col.dataset.c; $("#gene").value = riverGene; show("river"); applyGene(); window.scrollTo({ top: 0 }); }
+});
+$("#gsort").addEventListener("change", renderGenome);
+$("#gsimTo").innerHTML = langOptions("rust");
+$("#gsimTo").addEventListener("change", renderGenome);
+(() => {
+  const pairs = [];
+  for (let i = 0; i < L.length; i++) for (let j = i + 1; j < L.length; j++) {
+    const a = L[i], b = L[j], d = distFrom(a.id)[b.id];
+    const rich = (l) => Object.keys(l.traits).length >= 14;
+    if ((d === undefined || d >= 3) && rich(a) && rich(b)) pairs.push({ a, b, s: sim(a, b), d });
+  }
+  pairs.sort((x, y) => y.s - x.s);
+  $("#conv").innerHTML = pairs.slice(0, 7).map(({ a, b, s, d }) =>
+    `<li data-a="${a.id}" data-b="${b.id}"><b>${Math.round(s * 100)}%</b>${esc(a.name)} ⟷ ${esc(b.name)}<small>${d === undefined ? "no lineage path" : d + " lineage steps apart"} · ${a.year} / ${b.year}</small></li>`).join("");
+  $("#conv").addEventListener("click", (e) => {
+    const li = e.target.closest("li"); if (!li) return;
+    deskLangs = [li.dataset.a, li.dataset.b]; deskTask = "shapes"; renderDesk(); show("desk");
+  });
+})();
+
+// boot
+renderRiver();
+renderDesk();
+const initial = (location.hash || "#river").slice(1);
+show(views.includes(initial) ? initial : "river");
+})();
+</script>

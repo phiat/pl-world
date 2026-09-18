@@ -1,0 +1,289 @@
+{
+  "id": "fortran",
+  "name": "Fortran",
+  "aliases": [
+    "FORTRAN",
+    "FORTRAN 77",
+    "Fortran 90",
+    "Modern Fortran"
+  ],
+  "year": 1957,
+  "year_note": "Specified in a November 1954 IBM report and an October 1956 Programmer's Reference Manual; the first compiler was delivered for the IBM 704 in April 1957.",
+  "designers": [
+    "John Backus"
+  ],
+  "organization": "IBM",
+  "country": "United States",
+  "tagline": "The first widely used high-level language: formula translation for scientists, still a workhorse of high-performance numerics.",
+  "summary": "Fortran (FORmula TRANslation) was the first high-level programming language to achieve broad practical use, created at IBM so that scientists and engineers could write arithmetic formulas instead of machine code. Its optimizing compiler showed that compiled code could run nearly as fast as hand-written assembly, which made high-level languages credible. Continuously revised — structured in FORTRAN 77, modular and array-oriented in Fortran 90, object-oriented in Fortran 2003, parallel with coarrays in Fortran 2008 — it remains a mainstay of scientific and high-performance computing.",
+  "history": "In late 1953 John Backus proposed to IBM a system that would translate mathematical formulas into IBM 704 machine code. His small team — including Lois Haibt, Harlan Herrick, Roy Nutt, David Sayre and others — needed three years instead of the planned six months, and delivered the compiler in April 1957. FORTRAN I offered arithmetic expressions, the DO loop, the three-way arithmetic IF, arrays and FORMAT-directed I/O but no user-defined subroutines; its real achievement was an optimizer whose output rivalled hand-coded programs.\n\nFORTRAN II (1958) added separately compiled SUBROUTINE and FUNCTION subprograms and COMMON storage, and FORTRAN IV (1962) added the LOGICAL type and the logical IF. Standardized by ANSI as FORTRAN 66, the language gained block IF/ELSE and a CHARACTER type in FORTRAN 77, the version in which a vast body of numerical libraries was written.\n\nFortran 90 was a major modernization: free-form source, modules, whole-array operations, derived types, dynamic allocation, pointers and RECURSIVE procedures, with the name officially written 'Fortran' from then on. Later standards added PURE and ELEMENTAL procedures (95), object orientation and C interoperability (2003), coarrays and DO CONCURRENT (2008), further parallel features (2018) and conditional expressions (2023).",
+  "innovations": [
+    "The first high-level language in broad practical use, and the first optimizing compiler (IBM 704, 1957)",
+    "Algebraic formula notation with operator precedence, including ** for exponentiation",
+    "The counted DO loop and FORMAT-directed input/output",
+    "Separately compiled subroutines and functions sharing COMMON storage (FORTRAN II, 1958)",
+    "Whole-array expressions, array sections and elemental intrinsics in a mainstream standard (Fortran 90)",
+    "Coarrays: parallel programming as part of the language standard (Fortran 2008)"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured",
+    "array",
+    "object-oriented",
+    "generic"
+  ],
+  "family": "fortran",
+  "syntax_family": "fortran",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "Undeclared names are typed implicitly by first letter (I–N INTEGER, otherwise REAL) unless IMPLICIT NONE (Fortran 90) is given. Older code could pun types through EQUIVALENCE and COMMON, and FORTRAN 77 did not check procedure arguments; module procedures have checked explicit interfaces."
+  },
+  "memory": "mixed",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "Fortran 2023 (ISO/IEC 1539-1:2023)",
+  "file_extensions": [
+    ".f90",
+    ".f",
+    ".for",
+    ".f95",
+    ".f03",
+    ".f08"
+  ],
+  "color": "#4d41b1",
+  "primary_parent": null,
+  "influenced_by": [],
+  "influenced_by_external": [
+    {
+      "name": "Speedcoding",
+      "year": 1953,
+      "note": "Backus's earlier interpretive system for the IBM 701, which offered floating-point arithmetic."
+    }
+  ],
+  "influenced": [
+    "algol60",
+    "basic",
+    "c"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "since": 1978,
+      "version": "FORTRAN 77",
+      "note": "Block IF/ELSE IF/END IF in FORTRAN 77; END DO, DO WHILE and SELECT CASE in Fortran 90. FORTRAN I's control flow was GO TO, the arithmetic IF and DO."
+    },
+    "block-scope": {
+      "level": "supported",
+      "since": 2010,
+      "version": "Fortran 2008",
+      "note": "The BLOCK construct; otherwise names are scoped to the whole program unit."
+    },
+    "recursion": {
+      "level": "core",
+      "since": 1991,
+      "version": "Fortran 90",
+      "note": "Needed the RECURSIVE keyword until Fortran 2018 made procedures recursive by default; FORTRAN 77 and earlier forbade recursion, allowing fully static storage."
+    },
+    "static-typing": {
+      "level": "core",
+      "note": "FORTRAN I distinguished INTEGER and REAL quantities, typed implicitly by the first letter of the name."
+    },
+    "generics": {
+      "level": "supported",
+      "since": 1991,
+      "version": "Fortran 90",
+      "note": "Generic interfaces overload one name across argument types; Fortran 2003 added unlimited polymorphic CLASS(*) and derived types parameterized by kind and length. Template-style generics are being designed for the next standard."
+    },
+    "classes": {
+      "level": "supported",
+      "since": 2004,
+      "version": "Fortran 2003",
+      "note": "Derived types with type-bound procedures and polymorphic CLASS variables."
+    },
+    "inheritance": {
+      "level": "supported",
+      "since": 2004,
+      "version": "Fortran 2003",
+      "note": "Single inheritance via TYPE, EXTENDS(parent); abstract types with DEFERRED bindings."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "since": 1991,
+      "version": "Fortran 90",
+      "note": "Modules with PRIVATE components hide a derived type's representation."
+    },
+    "modules": {
+      "level": "core",
+      "since": 1991,
+      "version": "Fortran 90",
+      "note": "Separately compiled subprograms date from FORTRAN II (1958); MODULE/USE with checked interfaces from Fortran 90, submodules from Fortran 2008."
+    },
+    "operator-overloading": {
+      "level": "supported",
+      "since": 1991,
+      "version": "Fortran 90",
+      "note": "INTERFACE OPERATOR overloads intrinsic operators and defines new ones written .name."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "since": 1958,
+      "version": "FORTRAN II",
+      "note": "Procedures can be passed as arguments (EXTERNAL) and, since Fortran 2003, held in procedure pointers; no lambdas or closures."
+    },
+    "purity": {
+      "level": "supported",
+      "since": 1997,
+      "version": "Fortran 95",
+      "note": "PURE and ELEMENTAL procedures are compiler-checked to have no side effects; purity is opt-in and not tracked in types."
+    },
+    "pointers": {
+      "level": "supported",
+      "since": 1991,
+      "version": "Fortran 90",
+      "note": "POINTER variables with ALLOCATE/DEALLOCATE but no pointer arithmetic; ALLOCATABLE arrays, freed automatically, are the preferred form of dynamic memory."
+    },
+    "array-programming": {
+      "level": "core",
+      "since": 1991,
+      "version": "Fortran 90",
+      "note": "Whole-array arithmetic, sections such as a(1:n:2), WHERE masks, and intrinsics like SUM, MATMUL and PACK."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1954,
+      "event": "Preliminary report 'Specifications for the IBM Mathematical FORmula TRANslating System'"
+    },
+    {
+      "year": 1957,
+      "event": "First FORTRAN compiler delivered for the IBM 704"
+    },
+    {
+      "year": 1958,
+      "event": "FORTRAN II adds SUBROUTINE, FUNCTION and COMMON"
+    },
+    {
+      "year": 1962,
+      "event": "FORTRAN IV adds the LOGICAL type and logical IF"
+    },
+    {
+      "year": 1966,
+      "event": "FORTRAN 66 standardized by ANSI (X3.9-1966)"
+    },
+    {
+      "year": 1978,
+      "event": "FORTRAN 77: block IF and the CHARACTER type"
+    },
+    {
+      "year": 1991,
+      "event": "Fortran 90: free-form source, modules, array syntax, derived types, recursion"
+    },
+    {
+      "year": 1997,
+      "event": "Fortran 95: PURE and ELEMENTAL procedures, FORALL"
+    },
+    {
+      "year": 2004,
+      "event": "Fortran 2003: object orientation and C interoperability"
+    },
+    {
+      "year": 2010,
+      "event": "Fortran 2008: coarrays, DO CONCURRENT, submodules"
+    },
+    {
+      "year": 2018,
+      "event": "Fortran 2018: more parallel features; arithmetic IF deleted"
+    },
+    {
+      "year": 2023,
+      "event": "Fortran 2023: conditional expressions and enumeration types"
+    }
+  ],
+  "trivia": [
+    "John Backus received the 1977 ACM Turing Award 'for profound, influential, and lasting contributions to the design of practical high-level programming systems, notably through his work on FORTRAN'.",
+    "IBM's Product Test group used the original FORTRAN compiler, one of the most complex programs of its time, to acceptance-test newly built computers.",
+    "FORTRAN 77 was the last standard to spell the name in capitals; Fortran 90 officially adopted 'Fortran'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "FORTRAN 77 (fixed form)",
+      "code": "      PROGRAM HELLO\n      WRITE (*, 10)\n   10 FORMAT ('Hello, World!')\n      END\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Columns 1–5 hold statement labels and statements start in column 7, a layout inherited from punched cards. Before FORTRAN 77 there was no CHARACTER type: text was written as a Hollerith field such as 13HHello, World!, the first character of each printed line was consumed as carriage control, and the IBM 704's character set had no lower-case letters. FORTRAN I used PRINT 10 with a FORMAT label rather than WRITE (*, 10).",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Fortran 95 (free form)",
+      "code": "program main\n  implicit none\n  print '(i0)', factorial(10)\ncontains\n  recursive function factorial(n) result(f)\n    integer, intent(in) :: n\n    integer :: f\n    if (n <= 1) then\n      f = 1\n    else\n      f = n * factorial(n - 1)\n    end if\n  end function factorial\nend program main\n",
+      "expected_output": "3628800\n",
+      "notes": "Recursion needs the RECURSIVE keyword, introduced in Fortran 90 (Fortran 2018 finally made it the default). FORTRAN 77 and earlier forbade recursion — locals and return addresses could be statically allocated — so period code used a loop: F = 1, then DO 10 I = 2, N / 10 F = F * I. The RESULT clause names the return variable; the I0 edit descriptor (minimal width) is from Fortran 95.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "FORTRAN 77 (fixed form) with the Fortran 95 I0 descriptor",
+      "code": "      PROGRAM FIZZ\n      INTEGER I\n      DO 10 I = 1, 15\n         IF (MOD(I, 15) .EQ. 0) THEN\n            PRINT '(A)', 'FizzBuzz'\n         ELSE IF (MOD(I, 3) .EQ. 0) THEN\n            PRINT '(A)', 'Fizz'\n         ELSE IF (MOD(I, 5) .EQ. 0) THEN\n            PRINT '(A)', 'Buzz'\n         ELSE\n            PRINT '(I0)', I\n         END IF\n   10 CONTINUE\n      END\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Block IF/ELSE IF arrived in FORTRAN 77; FORTRAN I had only the three-way arithmetic IF (IF (expr) n1, n2, n3) and GO TO, and FORTRAN IV added the one-line logical IF. The labelled DO 10 ... 10 CONTINUE loop is the classic form. Strict FORTRAN 77 has no I0, so numbers would be printed in a fixed width such as I2, with leading blanks.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Fortran 2008 (free form)",
+      "code": "program evens\n  implicit none\n  integer :: i\n  integer :: xs(10) = [(i, i = 1, 10)]\n\n  ! Whole-array operations: PACK filters by a mask, ** squares elementwise.\n  print '(*(i0, :, \" \"))', pack(xs, mod(xs, 2) == 0)**2\nend program evens\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Fortran has no lambdas; its idiom is whole-array expressions (Fortran 90). The logical mask mod(xs, 2) == 0 selects elements through PACK, and **2 squares every element at once. The [...] array constructor is Fortran 2003 syntax (earlier (/ ... /)), the unlimited format repeat *(...) is Fortran 2008, and the : descriptor stops output after the last item so no separator trails.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Fortran 95 (free form)",
+      "code": "module shapes\n  implicit none\n  type :: rectangle\n    integer :: width, height\n  end type rectangle\n\n  type :: triangle\n    integer :: base, height\n  end type triangle\n\n  ! A generic name: the compiler picks the specific procedure by argument type.\n  interface area\n    module procedure rectangle_area, triangle_area\n  end interface area\n\ncontains\n  integer function rectangle_area(r)\n    type(rectangle), intent(in) :: r\n    rectangle_area = r%width * r%height\n  end function rectangle_area\n\n  integer function triangle_area(t)\n    type(triangle), intent(in) :: t\n    triangle_area = t%base * t%height / 2\n  end function triangle_area\nend module shapes\n\nprogram main\n  use shapes\n  implicit none\n  print '(a, i0)', 'Rectangle: ', area(rectangle(3, 4))\n  print '(a, i0)', 'Triangle: ', area(triangle(10, 3))\nend program main\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Derived types and a generic interface (both Fortran 90) resolve area() at compile time by argument type. Run-time polymorphism arrived in Fortran 2003: TYPE, EXTENDS(shape) with a DEFERRED type-bound area procedure and CLASS(shape) dummy arguments. FORTRAN 77 had no user-defined types at all, so shapes would be parallel arrays plus a kind code.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Formula translation: implicit types, DO and FORMAT",
+      "dialect": "FORTRAN 77 (fixed form)",
+      "code": "C     FORMULA TRANSLATION: IMPLICIT TYPES, DO LOOPS AND FORMAT.\nC     NAMES STARTING I-N ARE INTEGER, ALL OTHERS REAL -- NO\nC     DECLARATIONS NEEDED.\n      PROGRAM TABLE\n      WRITE (*, 10)\n      DO 20 N = 1, 5\n         X = N\n         ROOT = SQRT(X)\n         CUBE = X**3\n         WRITE (*, 30) N, ROOT, CUBE\n   20 CONTINUE\n   10 FORMAT (' N', '    SQRT(N)', '     N**3')\n   30 FORMAT (I2, F11.6, F9.1)\n      END\n",
+      "expected_output": " N    SQRT(N)     N**3\n 1   1.000000      1.0\n 2   1.414214      8.0\n 3   1.732051     27.0\n 4   2.000000     64.0\n 5   2.236068    125.0\n",
+      "notes": "No declarations: by the implicit-typing rule N is INTEGER while X, ROOT and CUBE are REAL. Edit descriptors in the FORMAT statements (I2, F11.6, F9.1) fix the column layout, much as in 1957 — though FORTRAN I wrote text as nH Hollerith fields rather than quoted strings, used PRINT instead of WRITE (*, ...), and named library functions with a trailing F (SQRTF).",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "GNU Fortran (gfortran)",
+        "version": "14",
+        "docker_image": "gcc:14",
+        "compile": "gfortran -O2 -o {out} {file}",
+        "run": "{out}",
+        "notes": "gfortran treats .f/.for files as fixed form and .f90 and later as free form, so name the source after the snippet's dialect (or pass -ffixed-form / -ffree-form)."
+      }
+    ],
+    "browser": {
+      "name": "LFortran (WebAssembly)",
+      "url": "https://dev.lfortran.org/",
+      "notes": "Alpha-quality compiler; modern free-form Fortran works best and legacy fixed-form features may be missing."
+    },
+    "notes": "All six snippets were verified with gfortran 14.4 in the gcc:14 image."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Fortran",
+    "homepage": "https://fortran-lang.org/",
+    "spec": "https://wg5-fortran.org/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Fortran",
+    "https://www.ibm.com/history/fortran",
+    "https://en.wikipedia.org/wiki/John_Backus",
+    "https://wg5-fortran.org/"
+  ]
+}

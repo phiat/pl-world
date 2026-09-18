@@ -1,0 +1,267 @@
+{
+  "id": "miranda",
+  "name": "Miranda",
+  "aliases": [
+    "mira"
+  ],
+  "year": 1985,
+  "year_note": "An alpha version was released within the University of Kent on 1 May 1985 and a beta went to 88 sites in October 1985, the year Turner presented the language at FPCA; release one followed in April 1987 and release two in October 1989. It became free software in 2006 and open source in November 2019, with a BSD-licensed 64-bit C11 revision (2.066) in January 2020.",
+  "designers": [
+    "David Turner"
+  ],
+  "organization": "Research Software Ltd",
+  "country": "United Kingdom",
+  "tagline": "David Turner's lazy, purely functional language — the polished commercial system that Haskell was modelled on.",
+  "summary": "Miranda is a lazy, purely functional programming language designed by David Turner as the successor to his SASL and KRC. A program (a 'script') is an unordered set of equations using pattern matching, guards, algebraic types and list comprehensions, laid out with the off-side rule and checked by Hindley–Milner polymorphic type inference. Sold as a supported product from 1985, it was the most mature lazy language of the 1980s and the direct model for Haskell.",
+  "history": "Turner had pioneered lazy functional programming with SASL (designed in 1972, lazy from 1976) and KRC (1981), implementing them by compiling to SK combinators and reducing graphs. Miranda kept that implementation technique and the equational, layout-sensitive style, and added the strong polymorphic typing and type inference that ML had proved out, together with algebraic and abstract data types. It was sold by Research Software Ltd, the company Turner founded in 1983, and by the early 1990s was installed at about 250 universities and 50 companies in 20 countries.\n\nWhen researchers met at FPCA in 1987 to design a common lazy language, their first step was to ask Turner whether Miranda could be its starting point; he declined, wanting a single, controlled language, and the committee designed Haskell instead, borrowing Miranda's equations with guards and where clauses, list comprehensions, layout rule and many Prelude names. Free Haskell implementations gradually displaced the commercial Miranda. Turner released the source as open software in 2019–2020; after his death in October 2023 maintenance continued on Codeberg, where release 2.068 appeared in August 2026.",
+  "innovations": [
+    "Combined lazy evaluation, polymorphic type inference and algebraic data types in one commercially supported language",
+    "List comprehensions ('ZF expressions'), including diagonalising // comprehensions over infinite generators",
+    "Scripts as unordered sets of equations with right-hand guards and pattern matching",
+    "The off-side (layout) rule in a typed functional language, later adopted by Haskell",
+    "Abstract data types declared with abstype … with and a type signature for each operation"
+  ],
+  "paradigms": [
+    "functional",
+    "declarative"
+  ],
+  "family": "ml",
+  "syntax_family": "ml",
+  "block_style": "indentation",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "global",
+    "equivalence": "nominal",
+    "notes": "Hindley–Milner inference; type variables are written *, **, … A single numeric type num covers integers (unbounded since release two, 1989) and floats, and equality is polymorphic (even over functions, failing at run time)."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "interpreted"
+  ],
+  "status": "historical",
+  "latest_version": "2.068 (31 August 2026)",
+  "file_extensions": [
+    ".m"
+  ],
+  "color": "#8b3a62",
+  "primary_parent": "ml",
+  "influenced_by": [
+    {
+      "id": "ml",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Strong polymorphic typing with Hindley–Milner type inference, which SASL and KRC lacked."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "SASL",
+      "year": 1972,
+      "note": "Turner's St Andrews Static Language; lazy from 1976 and implemented by SK-combinator reduction."
+    },
+    {
+      "name": "KRC",
+      "year": 1981,
+      "note": "Kent Recursive Calculator: equations with guards and pattern matching, and ZF expressions over lazy lists."
+    },
+    {
+      "name": "Hope",
+      "year": 1980,
+      "note": "Algebraic data types defined by constructors."
+    },
+    {
+      "name": "ISWIM",
+      "year": 1966,
+      "note": "Landin's off-side rule, and SASL's sugared lambda-calculus core."
+    }
+  ],
+  "influenced": [
+    "haskell"
+  ],
+  "traits": {
+    "lazy-evaluation": {
+      "level": "core",
+      "note": "Non-strict throughout; infinite lists are ordinary values. Strictness annotations (!) on constructor fields and seq are available."
+    },
+    "list-comprehensions": {
+      "level": "core",
+      "note": "'ZF expressions' (after Zermelo–Fraenkel set theory), inherited from KRC; // gives diagonalising comprehensions."
+    },
+    "purity": {
+      "level": "core",
+      "note": "No side effects at all; a program's output is a lazily produced list of system messages ([sys_message]) such as Stdout and Tofile."
+    },
+    "pattern-matching": {
+      "level": "core"
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "Declared with ::=, e.g. tree * ::= Leaf | Node (tree *) * (tree *)."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "abstype … with, giving signatures for the exported operations."
+    },
+    "type-inference": {
+      "level": "core"
+    },
+    "generics": {
+      "level": "core",
+      "note": "Polymorphic types with type variables *, **, ***."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "core"
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Curried functions, partial application and operator sections."
+    },
+    "closures": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Nested where clauses."
+    },
+    "significant-whitespace": {
+      "level": "core",
+      "note": "The off-side rule delimits definitions and where blocks."
+    },
+    "modules": {
+      "level": "supported",
+      "since": 1987,
+      "version": "release one",
+      "note": "The %include/%export library mechanism with separate compilation to .x files; parameterised scripts via %free arrived in release two (1989)."
+    },
+    "garbage-collection": {
+      "level": "core"
+    }
+  },
+  "milestones": [
+    {
+      "year": 1972,
+      "event": "Turner designs SASL at St Andrews (lazy from 1976)"
+    },
+    {
+      "year": 1981,
+      "event": "KRC (Kent Recursive Calculator) introduces ZF expressions over lazy lists"
+    },
+    {
+      "year": 1985,
+      "event": "Alpha release at Kent (May) and beta to 88 sites (October); Miranda presented at FPCA"
+    },
+    {
+      "year": 1987,
+      "event": "Release one adds literate scripts and the %include/%export library mechanism"
+    },
+    {
+      "year": 1987,
+      "event": "Haskell's organisers ask to build on Miranda; Turner declines"
+    },
+    {
+      "year": 1989,
+      "event": "Release two adds unbounded integers, %free and a faster SK-reduction machine"
+    },
+    {
+      "year": 2006,
+      "event": "Miranda revised and released as free (but not open-source) software"
+    },
+    {
+      "year": 2019,
+      "event": "Source made open (version 2.057, followed by the BSD-licensed 64-bit 2.066 in January 2020)"
+    },
+    {
+      "year": 2023,
+      "event": "David Turner dies on 19 October"
+    },
+    {
+      "year": 2026,
+      "event": "Release 2.068 from the Codeberg maintenance repository"
+    }
+  ],
+  "trivia": [
+    "The name comes from the Latin verb miror ('to be admired'); the logo is John William Waterhouse's painting of Miranda from The Tempest.",
+    "Turner footnoted 'Miranda is a trademark of Research Software Ltd' in his papers; some early Haskell talks replied with the footnote 'Haskell is not a trademark'.",
+    "Because num is a single type, (mod 8 3.4) type-checks in Miranda — one of the problems that type classes were invented to solve in Haskell."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Miranda (mira 2.068)",
+      "code": "main = \"Hello, World!\\n\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "A script is just a set of definitions; mira -exec evaluates main and prints it (a string is output as is). Releases before 2.057 used the flag -exp; interactive sessions simply evaluate main at the Miranda prompt.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Miranda (mira 2.068)",
+      "code": "factorial :: num -> num\nfactorial 0 = 1\nfactorial n = n * factorial (n - 1)\n\nmain = show (factorial 10) ++ \"\\n\"\n",
+      "expected_output": "3628800\n",
+      "notes": "num is Miranda's single number type (unbounded integers, converted to floating point when needed). The type declaration is optional; mira infers it.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Miranda (mira 2.068)",
+      "code": "|| Guards go on the right, after a comma.\nfizzbuzz n = \"FizzBuzz\", if n mod 15 = 0\n           = \"Fizz\",     if n mod 3 = 0\n           = \"Buzz\",     if n mod 5 = 0\n           = show n,     otherwise\n\nmain = lay (map fizzbuzz [1..15])\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Guards go on the right after a comma — '= e, if cond' — where Haskell later put them on the left ('| cond = e'). The 'if' has been required since 1988; the original 1985 syntax was just '= \"Fizz\", n mod 3 = 0'. lay joins a list of strings, each followed by a newline.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Miranda (mira 2.068)",
+      "code": "|| A ZF expression (list comprehension): generator; filter\nsquares = [x * x | x <- [1..10]; x mod 2 = 0]\n\nmain = foldr1 join (map show squares) ++ \"\\n\"\n       where\n       join a b = a ++ \" \" ++ b\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "ZF-expression qualifiers are separated by ';'. The standard environment has no unwords, so foldr1 joins the strings; map and filter are also available.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Miranda (mira 2.068)",
+      "code": "|| An algebraic type: two constructors, each with two fields.\nshape ::= Rectangle num num | Triangle num num\n\narea :: shape -> num\narea (Rectangle w h) = w * h\narea (Triangle b h)  = (b * h) div 2\n\nname :: shape -> [char]\nname (Rectangle w h) = \"Rectangle\"\nname (Triangle b h)  = \"Triangle\"\n\nmain = lay [name s ++ \": \" ++ show (area s) | s <- [Rectangle 3 4, Triangle 10 3]]\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "::= declares an algebraic type; type names are lower case (num, bool, [char]) while constructors are capitalised.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Lazy infinite lists",
+      "dialect": "Miranda (mira 2.068)",
+      "code": "|| Lazy evaluation: infinite lists are ordinary values, and only\n|| the part that is demanded ever gets computed.\n\nprimes = sieve [2..]\nsieve (p:x) = p : sieve [n | n <- x; n mod p ~= 0]\n\n|| Pythagorean triples: a ZF expression over an unbounded generator.\ntriples = [(a, b, c) | c <- [1..]; b <- [1..c]; a <- [1..b]; a*a + b*b = c*c]\n\nmain = lay [show (take 10 primes), show (take 4 triples)]\n",
+      "expected_output": "[2,3,5,7,11,13,17,19,23,29]\n[(3,4,5),(6,8,10),(5,12,13),(9,12,15)]\n",
+      "notes": "The sieve is the one in Miranda's own example library (miralib/ex/primes.m). The generator c <- [1..] is unbounded, but only the four triples that take demands are ever computed.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Miranda (mira)",
+        "version": "2.068",
+        "docker_image": "plw-miranda",
+        "install": "Build from https://codeberg.org/DATurner/miranda/archive/miranda-2.068.tar.gz with make && make install (gcc:14 build stage, debian:trixie-slim runtime with /usr/local/bin/mira and /usr/local/lib/miralib)",
+        "run": "mira -exec {file}",
+        "notes": "The file name must end in .m and its directory must be writable: mira caches compiled combinator code in a .x file beside the script.",
+        "dockerfile": "sandbox/miranda/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "No in-browser implementation is known; the C interpreter builds cleanly on modern Linux."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Miranda_(programming_language)",
+    "homepage": "https://www.cs.kent.ac.uk/people/staff/dat/miranda/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Miranda_(programming_language)",
+    "https://en.wikipedia.org/wiki/David_Turner_(computer_scientist)",
+    "https://www.microsoft.com/en-us/research/publication/a-history-of-haskell-being-lazy-with-class/",
+    "https://www.cs.kent.ac.uk/people/staff/dat/miranda/downloads/",
+    "https://codeberg.org/DATurner/miranda",
+    "https://codeberg.org/DATurner/miranda/src/branch/main/miralib/manual/32"
+  ]
+}

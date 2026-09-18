@@ -1,0 +1,294 @@
+{
+  "id": "erlang",
+  "name": "Erlang",
+  "aliases": [
+    "Erlang/OTP"
+  ],
+  "year": 1986,
+  "year_note": "Design began at the Ericsson Computer Science Laboratory in 1986 as a Prolog-based prototype; used internally from 1988, the first book appeared in 1993, and it was released as open source on 2 December 1998.",
+  "designers": [
+    "Joe Armstrong",
+    "Robert Virding",
+    "Mike Williams"
+  ],
+  "organization": "Ericsson Computer Science Laboratory",
+  "country": "Sweden",
+  "tagline": "Ericsson's language for fault-tolerant telecom systems: millions of isolated processes that share nothing and are allowed to crash.",
+  "summary": "Erlang is a dynamically typed functional language built for concurrent, distributed systems that must run continuously. Programs are made of lightweight processes that share no memory and communicate only by asynchronous messages; failures are handled by linking processes so that supervisors restart what crashes. It runs on the BEAM virtual machine together with OTP, a library of behaviours (servers, state machines, supervisors) and tools that ship with the language.",
+  "history": "Erlang began in 1986 at the Ericsson Computer Science Laboratory in Stockholm, where Joe Armstrong added concurrent processes to a Prolog meta-interpreter while exploring how to program telephone exchanges. Robert Virding joined the implementation work, and at the end of 1987 Mike Williams found the first users, a group at Ericsson Business Communications prototyping PABX software. The name, probably coined by Bjarne Däcker, deliberately left open whether it meant 'Ericsson Language' or honoured the mathematician Agner Krarup Erlang. Its requirements came from Ericsson's AXE switches and their language PLEX: the ability to change code without stopping the system, and isolation so that one faulty call could not corrupt others.\n\nThe Prolog interpreter was far too slow for products, so around 1990 Armstrong designed the JAM abstract machine and Williams wrote its emulator in C, about 70 times faster. Bogumil Hausman's BEAM compiler followed from 1993, the year the first Erlang book was published. After the AXE-N project collapsed in 1995, Ericsson built the AXD301 ATM switch in Erlang, with more than a million lines of code and a reported nine-nines availability, and formed the OTP unit around the language. In 1998 Ericsson Radio Systems banned Erlang for new products; the team responded by releasing it as open source that December. Multicore (SMP) support arrived in 2006, and Erlang later found wide use in messaging, finance and web infrastructure, and as the host platform for Elixir.",
+  "innovations": [
+    "Share-nothing lightweight processes with asynchronous mailboxes as the unit of concurrency, distribution and failure",
+    "Process links, monitors and supervision trees: the 'let it crash' approach to fault tolerance",
+    "Hot code loading as a language-level requirement, with two versions of a module able to run at once",
+    "OTP behaviours (gen_server, supervisor, gen_statem) that separate generic concurrency plumbing from application code",
+    "The bit syntax for pattern matching over binary protocol data",
+    "Location-transparent message passing between nodes (Distributed Erlang)"
+  ],
+  "paradigms": [
+    "functional",
+    "concurrent",
+    "actor"
+  ],
+  "family": "logic",
+  "syntax_family": "prolog",
+  "block_style": "clauses",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "No implicit conversions between types. Optional -spec/-type annotations are checked by the separate Dialyzer tool (success typing), not by the compiler."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "bytecode-vm",
+    "jit"
+  ],
+  "status": "active",
+  "latest_version": "Erlang/OTP 29.1 (September 2026)",
+  "file_extensions": [
+    ".erl",
+    ".hrl",
+    ".beam",
+    ".escript"
+  ],
+  "color": "#B83998",
+  "primary_parent": "prolog",
+  "influenced_by": [
+    {
+      "id": "prolog",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Began as concurrency added to a Prolog meta-interpreter; the first implementations were written in Prolog, and the syntax (atoms, capitalised variables, clauses ending in '.') comes from it."
+    },
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Armstrong first modelled telephony in Smalltalk before switching to Prolog."
+    },
+    {
+      "id": "lisp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; a compact Lisp machine design was among the abstract machines studied for the JAM."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "PLEX (Ericsson AXE)",
+      "year": 1974,
+      "note": "Ericsson's switch language; the source of the requirements for changing code on the fly and isolating faults."
+    },
+    {
+      "name": "Parlog / Strand",
+      "note": "Concurrent logic languages studied by the team; a 1988 experiment compiled Erlang to Strand."
+    }
+  ],
+  "influenced": [
+    "elixir",
+    "scala",
+    "fsharp",
+    "clojure",
+    "rust",
+    "go"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "supported",
+      "note": "case, if and receive are expressions; there are no loop statements, iteration is recursion or list functions."
+    },
+    "block-scope": {
+      "level": "supported",
+      "note": "Variables are scoped to a function clause; funs and comprehensions open new scopes, but case/if/receive branches do not."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "throw/error/exit with try...catch...after (since R10B, 2004) and the older catch; idiomatic code lets processes crash and relies on supervisors."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "In function heads, case, receive and the = match operator; single assignment, with guards."
+    },
+    "tail-calls": {
+      "level": "core",
+      "note": "Server processes loop forever by tail-calling themselves."
+    },
+    "gradual-typing": {
+      "level": "supported",
+      "note": "Optional -spec and -type annotations checked by Dialyzer's success typing; not enforced by the compiler."
+    },
+    "interfaces": {
+      "level": "supported",
+      "note": "Behaviours: -callback declarations that a module implementing -behaviour(...) must export."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "Modules export only operations, and -opaque types are checked by Dialyzer; the representation is not enforced at runtime."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Flat modules with explicit -export lists, compiled separately to .beam files."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Funs were added during the 1990s ('Erlang extensions since 4.4')."
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "core",
+      "note": "Single-assignment variables and immutable terms; mutable state lives in processes or ETS tables."
+    },
+    "list-comprehensions": {
+      "level": "core",
+      "note": "[X*X || X <- Xs, X rem 2 =:= 0]; binary and map comprehensions too."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Per-process generational heaps collected independently, so there is no global stop-the-world pause."
+    },
+    "actors": {
+      "level": "core",
+      "note": "spawn, ! (send) and receive with selective matching of the mailbox."
+    },
+    "macros": {
+      "level": "supported",
+      "note": "Token-level -define preprocessor macros; parse transforms can rewrite the AST at compile time."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "module_info/0, apply/3 with runtime module and function names, and process introspection."
+    },
+    "hot-code-reload": {
+      "level": "core",
+      "note": "The code server keeps an old and current version of each module; OTP release handling upgrades running systems."
+    },
+    "declarative-queries": {
+      "level": "library",
+      "note": "QLC (query list comprehensions) over ETS, DETS and Mnesia tables."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1986,
+      "event": "Joe Armstrong adds processes to a Prolog meta-interpreter at Ericsson's Computer Science Laboratory"
+    },
+    {
+      "year": 1988,
+      "event": "First users at Ericsson Business Communications prototype PABX software in Prolog-based Erlang"
+    },
+    {
+      "year": 1990,
+      "event": "JAM abstract machine with an emulator in C, about 70 times faster than the Prolog version"
+    },
+    {
+      "year": 1993,
+      "event": "'Concurrent Programming in Erlang' published; BEAM (Turbo Erlang) compiler begins; Distributed Erlang"
+    },
+    {
+      "year": 1996,
+      "event": "OTP (Open Telecom Platform) created for the AXD301 project"
+    },
+    {
+      "year": 1998,
+      "event": "AXD301 switch announced; Erlang banned for new products at Ericsson Radio Systems; open-sourced on 2 December"
+    },
+    {
+      "year": 2006,
+      "event": "Symmetric multiprocessing (SMP) support lets one VM use all cores"
+    },
+    {
+      "year": 2014,
+      "event": "OTP 17 adds maps"
+    },
+    {
+      "year": 2021,
+      "event": "OTP 24 adds the BeamAsm JIT compiler"
+    },
+    {
+      "year": 2026,
+      "event": "Erlang/OTP 29 released"
+    }
+  ],
+  "trivia": [
+    "Armstrong wrote that the team deliberately encouraged the ambiguity between 'Ericsson Language' and the Danish mathematician Agner Krarup Erlang.",
+    "When the C emulator for the JAM ran 70 times faster than the Prolog version, the first users reported that they actually needed 280 times.",
+    "The Erlang ban inside Ericsson Radio Systems in 1998 indirectly led to the open-source release later that year."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Erlang/OTP 29 (escript)",
+      "code": "-module(hello).\n-export([main/1]).\n\nmain(_Args) ->\n    io:format(\"Hello, World!~n\").\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "escript calls main/1 with the command-line arguments. In a normal build the module is compiled with erlc to hello.beam and called from the shell or a release.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Erlang/OTP 29 (escript)",
+      "code": "-module(factorial).\n-export([main/1]).\n\n%% One clause per case; the guard keeps negative numbers out.\nfact(0) -> 1;\nfact(N) when N > 0 -> N * fact(N - 1).\n\nmain(_Args) ->\n    io:format(\"~p~n\", [fact(10)]).\n",
+      "expected_output": "3628800\n",
+      "notes": "Clauses are tried in order; integers are arbitrary-precision, so fact(100) works unchanged.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Erlang/OTP 29 (escript)",
+      "code": "-module(fizzbuzz).\n-export([main/1]).\n\nfizzbuzz(N) when N rem 15 =:= 0 -> \"FizzBuzz\";\nfizzbuzz(N) when N rem 3 =:= 0 -> \"Fizz\";\nfizzbuzz(N) when N rem 5 =:= 0 -> \"Buzz\";\nfizzbuzz(N) -> integer_to_list(N).\n\nmain(_Args) ->\n    lists:foreach(fun(N) -> io:format(\"~s~n\", [fizzbuzz(N)]) end,\n                  lists:seq(1, 15)).\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Guards (when ...) choose among clauses; =:= is exact equality and rem is the remainder operator.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Erlang/OTP 29 (escript)",
+      "code": "-module(squares).\n-export([main/1]).\n\nmain(_Args) ->\n    Squares = [X * X || X <- lists:seq(1, 10), X rem 2 =:= 0],\n    io:format(\"~s~n\", [lists:join(\" \", [integer_to_list(S) || S <- Squares])]).\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "A list comprehension is the idiom; lists:filter/2 and lists:map/2 with funs are the higher-order equivalent.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Erlang/OTP 29 (escript)",
+      "code": "-module(shapes).\n-export([main/1]).\n\n%% Shapes are tagged tuples; area/1 dispatches by pattern matching on the tag.\narea({rectangle, Width, Height}) -> Width * Height;\narea({triangle, Base, Height}) -> Base * Height div 2.\n\nmain(_Args) ->\n    io:format(\"Rectangle: ~p~n\", [area({rectangle, 3, 4})]),\n    io:format(\"Triangle: ~p~n\", [area({triangle, 10, 3})]).\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Tagged tuples are Erlang's conventional sum type; records (-record) add field names but are tuples underneath. div is integer division.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Processes, messages and 'let it crash'",
+      "dialect": "Erlang/OTP 29 (escript)",
+      "code": "-module(signature).\n-export([main/1]).\n\n%% A process shares nothing; it only receives messages from its mailbox.\nworker() ->\n    receive\n        {From, {square, N}} -> From ! {self(), N * N}, worker();\n        {_From, crash}      -> exit(boom)\n    end.\n\nmain(_Args) ->\n    process_flag(trap_exit, true),         % turn linked crashes into messages\n    Pid = spawn_link(fun worker/0),\n    Pid ! {self(), {square, 7}},\n    receive {Pid, Result} -> io:format(\"7 squared is ~p~n\", [Result]) end,\n    Pid ! {self(), crash},\n    receive {'EXIT', Pid, Reason} -> io:format(\"worker died: ~p~n\", [Reason]) end.\n",
+      "expected_output": "7 squared is 49\nworker died: boom\n",
+      "notes": "spawn_link starts a linked process, ! sends a message, and receive selectively matches the mailbox. Trapping exits turns the worker's crash into an {'EXIT', Pid, Reason} message, the mechanism OTP supervisors are built on.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Erlang/OTP (escript)",
+        "version": "29",
+        "docker_image": "erlang:29",
+        "run": "escript {file}",
+        "notes": "escript compiles and runs a source file that defines main/1; the -module name need not match the file name."
+      }
+    ],
+    "browser": null,
+    "notes": "Host alternative: erlc {file} then erl -noshell -s <module> main -s init stop (the file name must match the -module name). No credible in-browser Erlang compiler exists; AtomVM can run precompiled BEAM files in WebAssembly but does not compile source."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Erlang_(programming_language)",
+    "homepage": "https://www.erlang.org/",
+    "spec": "https://www.erlang.org/doc/system/reference_manual.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Erlang_(programming_language)",
+    "https://dl.acm.org/doi/10.1145/1238844.1238850",
+    "https://www.labouseur.com/courses/erlang/history-of-erlang-armstrong.pdf",
+    "https://erlang.org/documentation/doc-4.9.1/doc/extensions/part.html",
+    "https://github.com/erlang/otp/releases"
+  ]
+}

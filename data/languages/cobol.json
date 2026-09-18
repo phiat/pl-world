@@ -1,0 +1,276 @@
+{
+  "id": "cobol",
+  "name": "COBOL",
+  "aliases": [
+    "COmmon Business-Oriented Language",
+    "COBOL-60",
+    "COBOL-85",
+    "COBOL 2002"
+  ],
+  "year": 1960,
+  "year_note": "Designed from June to December 1959 by CODASYL's Short-Range Committee; the specification was approved in January 1960 and printed by the U.S. Government Printing Office as COBOL-60 in April 1960, and the first COBOL program ran on an RCA 501 in August 1960.",
+  "designers": [
+    "Howard Bromberg",
+    "Norman Discount",
+    "Vernon Reeves",
+    "Jean E. Sammet",
+    "William Selden",
+    "Gertrude Tierney"
+  ],
+  "organization": "CODASYL (Conference on Data Systems Languages)",
+  "country": "United States",
+  "tagline": "The English-like business language built by committee, still running much of the world's banking, insurance and government record-keeping.",
+  "summary": "COBOL (COmmon Business-Oriented Language) was designed in 1959 by a U.S. committee of computer manufacturers, users and government to give business data processing a single machine-independent language. Programs are split into four divisions and read like English prose (ADD TAX TO TOTAL), while data is described as hierarchical records whose PICTURE clauses fix each field's decimal layout. Decades of mission-critical code keep it in production, and the standard has since gained structured, object-oriented and recursive features.",
+  "history": "In April 1959 Mary K. Hawes convened a meeting at the University of Pennsylvania to propose a common business language, and on 28–29 May 1959 a meeting at the Pentagon chaired by Charles Phillips set up CODASYL. Its Short-Range Committee — with Jean Sammet among its leading members — produced the specification by December. It drew above all on Grace Hopper's FLOW-MATIC (Hopper later said 'COBOL 60 is 95% FLOW-MATIC'), taking long English-like names and the separation of data description from instructions, and selectively on IBM's COMTRAN, which contributed the PICTURE clause. In December 1960 essentially the same program ran on RCA and Remington Rand UNIVAC computers.\n\nANSI standardized the language in 1968, 1974 and 1985. COBOL-85 answered criticism of its weak support for structured programming with scope terminators (END-IF, END-PERFORM), the EVALUATE statement and nested programs, and a 1989 amendment added intrinsic functions. COBOL 2002 added object orientation, recursion, user-defined functions, pointers, free-form source and Unicode, and the ISO standard was revised again in 2014 and 2023.\n\nGartner estimated in 1997 that some 200 billion lines of COBOL were in use; the language drew attention again during Y2K remediation and in 2020, when U.S. state unemployment systems written in COBOL struggled with pandemic demand. The open-source GnuCOBOL compiler translates it to C.",
+  "innovations": [
+    "Machine-independent business data processing, demonstrated when one program ran on RCA and UNIVAC computers in December 1960",
+    "Hierarchical record descriptions with level numbers, kept in a DATA DIVISION separate from the procedure code",
+    "PICTURE clauses that declare a field's exact decimal size, sign and edited display format",
+    "Built-in fixed-point decimal arithmetic with explicit ROUNDED and ON SIZE ERROR handling",
+    "English-like, self-documenting statement syntax aimed at readers who were not programmers"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "object-oriented"
+  ],
+  "family": "cobol",
+  "syntax_family": "english-like",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "Every data item is declared with a PICTURE or USAGE (PIC 9(5)V99 is seven decimal digits with an implied point); MOVE and arithmetic convert silently between numeric, edited and alphanumeric forms, and group items are treated as plain character strings."
+  },
+  "memory": "static",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "maintained",
+  "latest_version": "COBOL 2023 (ISO/IEC 1989:2023)",
+  "file_extensions": [
+    ".cbl",
+    ".cob",
+    ".cpy"
+  ],
+  "color": "#1f4e79",
+  "primary_parent": null,
+  "influenced_by": [
+    {
+      "id": "cpp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Object-oriented features added in COBOL 2002."
+    },
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Object-oriented features added in COBOL 2002."
+    },
+    {
+      "id": "eiffel",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Object-oriented features added in COBOL 2002."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "FLOW-MATIC",
+      "note": "Grace Hopper's English-like UNIVAC language, the dominant model for COBOL-60."
+    },
+    {
+      "name": "COMTRAN",
+      "note": "IBM's Commercial Translator (Bob Bemer); source of the PICTURE clause and formulas."
+    },
+    {
+      "name": "FACT",
+      "note": "Honeywell's business language, studied by the committee but not adopted."
+    },
+    {
+      "name": "AIMACO",
+      "note": "The U.S. Air Force's FLOW-MATIC derivative."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "since": 1985,
+      "version": "COBOL-85",
+      "note": "Inline PERFORM ... END-PERFORM, EVALUATE and END-IF scope terminators; earlier code relied on sentence-ending periods, out-of-line PERFORM of paragraphs and GO TO."
+    },
+    "recursion": {
+      "level": "supported",
+      "since": 2002,
+      "version": "COBOL 2002",
+      "note": "RECURSIVE programs and user-defined functions, with LOCAL-STORAGE giving each activation fresh data."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "Condition clauses (ON SIZE ERROR, AT END, INVALID KEY) and USE declaratives; COBOL 2002 added standard exception conditions and the RAISE statement."
+    },
+    "static-typing": {
+      "level": "core",
+      "note": "All data is declared in the DATA DIVISION with PICTURE/USAGE clauses; conversions between items are implicit."
+    },
+    "classes": {
+      "level": "supported",
+      "since": 2002,
+      "version": "COBOL 2002",
+      "note": "CLASS-ID with methods and object references; offered by some commercial compilers but not by GnuCOBOL."
+    },
+    "inheritance": {
+      "level": "supported",
+      "since": 2002,
+      "version": "COBOL 2002",
+      "note": "Classes inherit through the INHERITS clause."
+    },
+    "interfaces": {
+      "level": "supported",
+      "since": 2002,
+      "version": "COBOL 2002",
+      "note": "INTERFACE-ID declares method signatures that classes implement."
+    },
+    "generics": {
+      "level": "supported",
+      "since": 2002,
+      "version": "COBOL 2002",
+      "note": "Parameterized classes, rarely implemented."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "Separately compiled programs invoked with CALL, and COPY books that share record layouts between programs; no namespaces."
+    },
+    "pointers": {
+      "level": "supported",
+      "since": 2002,
+      "version": "COBOL 2002",
+      "note": "USAGE POINTER, ADDRESS OF, and ALLOCATE/FREE statements (earlier available as vendor extensions)."
+    },
+    "declarative-queries": {
+      "level": "library",
+      "note": "Embedded SQL (EXEC SQL ... END-EXEC) through vendor precompilers is the usual way COBOL programs query databases; it is not part of the COBOL standard."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1959,
+      "event": "Pentagon meeting (28–29 May) creates CODASYL; the Short-Range Committee drafts the language"
+    },
+    {
+      "year": 1960,
+      "event": "COBOL-60 published; in December the same program runs on RCA and UNIVAC computers"
+    },
+    {
+      "year": 1961,
+      "event": "COBOL-61 replaces COBOL-60"
+    },
+    {
+      "year": 1968,
+      "event": "First ANSI standard (USA Standard COBOL X3.23)"
+    },
+    {
+      "year": 1974,
+      "event": "ANSI COBOL-74"
+    },
+    {
+      "year": 1985,
+      "event": "COBOL-85: scope terminators, EVALUATE, inline PERFORM, nested programs"
+    },
+    {
+      "year": 1989,
+      "event": "Amendment adds intrinsic functions"
+    },
+    {
+      "year": 2002,
+      "event": "COBOL 2002: object orientation, recursion, user-defined functions, free-form source, Unicode"
+    },
+    {
+      "year": 2014,
+      "event": "COBOL 2014: dynamic-capacity tables and method overloading; several features made optional"
+    },
+    {
+      "year": 2023,
+      "event": "COBOL 2023: asynchronous messaging, COMMIT/ROLLBACK, XOR"
+    }
+  ],
+  "trivia": [
+    "Frustrated by the committee's slow progress, RCA's Howard Bromberg bought a $15 tombstone engraved 'COBOL' and sent it to Charles Phillips in 1959.",
+    "Grace Hopper said in 1980 that 'COBOL 60 is 95% FLOW-MATIC', yet Jean Sammet stressed that Hopper 'was not the mother, creator, or developer of Cobol'.",
+    "No one on the committee admitted to coining the name; Bob Bemer later claimed he suggested it."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "COBOL-85 (fixed format)",
+      "code": "      * A COBOL program is organised into four divisions.\n       IDENTIFICATION DIVISION.\n       PROGRAM-ID. HELLO.\n       ENVIRONMENT DIVISION.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       01 GREETING        PIC X(13) VALUE \"Hello, World!\".\n       PROCEDURE DIVISION.\n       MAIN-PARAGRAPH.\n           DISPLAY GREETING.\n           STOP RUN.\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "All four divisions appear even though the ENVIRONMENT DIVISION (for machine and file settings) is empty. The fixed reference format comes from punched-card coding sheets: columns 1–6 are the sequence area, column 7 the indicator (* marks a comment), headers start in Area A (column 8) and statements in Area B (column 12). Period code was written entirely in upper case; free-format source arrived only in COBOL 2002.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "COBOL 2002 (fixed format)",
+      "code": "       IDENTIFICATION DIVISION.\n       FUNCTION-ID. FACT.\n       DATA DIVISION.\n       LOCAL-STORAGE SECTION.\n       01 N-MINUS-1       PIC 9(4).\n       LINKAGE SECTION.\n       01 N               PIC 9(4).\n       01 RESULT          PIC 9(18).\n       PROCEDURE DIVISION USING N RETURNING RESULT.\n           IF N <= 1\n               MOVE 1 TO RESULT\n           ELSE\n               SUBTRACT 1 FROM N GIVING N-MINUS-1\n               COMPUTE RESULT = N * FUNCTION FACT(N-MINUS-1)\n           END-IF\n           GOBACK.\n       END FUNCTION FACT.\n\n       IDENTIFICATION DIVISION.\n       PROGRAM-ID. MAIN.\n       ENVIRONMENT DIVISION.\n       CONFIGURATION SECTION.\n       REPOSITORY.\n           FUNCTION FACT.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       01 N               PIC 9(4)      VALUE 10.\n       01 ANSWER          PIC Z(17)9.\n       PROCEDURE DIVISION.\n           MOVE FUNCTION FACT(N) TO ANSWER\n           DISPLAY FUNCTION TRIM(ANSWER)\n           STOP RUN.\n       END PROGRAM MAIN.\n",
+      "expected_output": "3628800\n",
+      "notes": "User-defined functions (FUNCTION-ID) and recursion only arrived in COBOL 2002; LOCAL-STORAGE gives each activation its own N-MINUS-1, while earlier standards did not let a program call itself, so factorial was a PERFORM VARYING loop. Arguments are passed by reference, so the caller passes a data item whose PICTURE matches the LINKAGE SECTION rather than the literal 10. The edited picture Z(17)9 blanks leading zeros, and FUNCTION TRIM strips the blanks.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "COBOL 2002 (fixed format)",
+      "code": "       IDENTIFICATION DIVISION.\n       PROGRAM-ID. FIZZBUZZ.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       01 I               PIC 99.\n       01 QUOTIENT        PIC 99.\n       01 REM-3           PIC 9.\n       01 REM-5           PIC 9.\n       01 I-OUT           PIC Z9.\n       PROCEDURE DIVISION.\n           PERFORM VARYING I FROM 1 BY 1 UNTIL I > 15\n               DIVIDE I BY 3 GIVING QUOTIENT REMAINDER REM-3\n               DIVIDE I BY 5 GIVING QUOTIENT REMAINDER REM-5\n               EVALUATE REM-3 ALSO REM-5\n                   WHEN 0 ALSO 0     DISPLAY \"FizzBuzz\"\n                   WHEN 0 ALSO ANY   DISPLAY \"Fizz\"\n                   WHEN ANY ALSO 0   DISPLAY \"Buzz\"\n                   WHEN OTHER\n                       MOVE I TO I-OUT\n                       DISPLAY FUNCTION TRIM(I-OUT)\n               END-EVALUATE\n           END-PERFORM\n           STOP RUN.\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "EVALUATE ... ALSO (COBOL-85) is a decision table: each WHEN tests both remainders at once, and ANY matches anything. DIVIDE ... GIVING ... REMAINDER is the traditional way to get a modulus (FUNCTION MOD came with the 1989 intrinsic-function amendment). PIC Z9 suppresses the leading zero as a blank, which FUNCTION TRIM (COBOL 2002) removes.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "COBOL 2002 (fixed format)",
+      "code": "       IDENTIFICATION DIVISION.\n       PROGRAM-ID. EVENSQ.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       01 NUMBER-TABLE.\n          05 NUM          PIC 99 OCCURS 10 TIMES.\n       01 I               PIC 99.\n       01 SQUARE-OUT      PIC ZZ9.\n       01 LINE-OUT        PIC X(40) VALUE SPACES.\n       01 PTR             PIC 99 VALUE 1.\n       PROCEDURE DIVISION.\n           PERFORM VARYING I FROM 1 BY 1 UNTIL I > 10\n               MOVE I TO NUM(I)\n           END-PERFORM\n           PERFORM VARYING I FROM 1 BY 1 UNTIL I > 10\n               IF FUNCTION MOD(NUM(I), 2) = 0\n                   COMPUTE SQUARE-OUT = NUM(I) ** 2\n                   STRING FUNCTION TRIM(SQUARE-OUT) \" \"\n                       DELIMITED BY SIZE\n                       INTO LINE-OUT WITH POINTER PTR\n               END-IF\n           END-PERFORM\n           DISPLAY FUNCTION TRIM(LINE-OUT)\n           STOP RUN.\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "COBOL has no lambdas or collection library: the idiom is a table declared with OCCURS and walked with PERFORM VARYING. STRING ... WITH POINTER appends each edited value to an output record, the way report lines are assembled; FUNCTION TRIM drops the padding.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "COBOL 2002 (fixed format)",
+      "code": "       IDENTIFICATION DIVISION.\n       PROGRAM-ID. SHAPES.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       01 SHAPE.\n          05 SHAPE-KIND       PIC X.\n             88 IS-RECTANGLE  VALUE \"R\".\n             88 IS-TRIANGLE   VALUE \"T\".\n          05 RECT-DIMS.\n             10 RECT-WIDTH    PIC 99.\n             10 RECT-HEIGHT   PIC 99.\n          05 TRI-DIMS REDEFINES RECT-DIMS.\n             10 TRI-BASE      PIC 99.\n             10 TRI-HEIGHT    PIC 99.\n       01 AREA-OUT            PIC ZZZ9.\n       PROCEDURE DIVISION.\n           SET IS-RECTANGLE TO TRUE\n           MOVE 3 TO RECT-WIDTH\n           MOVE 4 TO RECT-HEIGHT\n           PERFORM SHOW-AREA\n           SET IS-TRIANGLE TO TRUE\n           MOVE 10 TO TRI-BASE\n           MOVE 3 TO TRI-HEIGHT\n           PERFORM SHOW-AREA\n           STOP RUN.\n\n       SHOW-AREA.\n           EVALUATE TRUE\n               WHEN IS-RECTANGLE\n                   COMPUTE AREA-OUT = RECT-WIDTH * RECT-HEIGHT\n                   DISPLAY \"Rectangle: \" FUNCTION TRIM(AREA-OUT)\n               WHEN IS-TRIANGLE\n                   COMPUTE AREA-OUT = TRI-BASE * TRI-HEIGHT / 2\n                   DISPLAY \"Triangle: \" FUNCTION TRIM(AREA-OUT)\n           END-EVALUATE.\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "COBOL models data as records: level numbers nest fields, REDEFINES overlays the triangle's fields on the rectangle's storage (a variant record), and 88-level condition names turn the kind code into readable tests (SET IS-TRIANGLE TO TRUE, WHEN IS-TRIANGLE). COBOL 2002 added classes, but GnuCOBOL does not implement them and record-based code remains the norm.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Decimal records and PICTURE clauses",
+      "dialect": "COBOL-85 (fixed format)",
+      "code": "       IDENTIFICATION DIVISION.\n       PROGRAM-ID. INVOICE.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       01 PRICE           PIC 9(5)V99   VALUE 1234.50.\n       01 QUANTITY        PIC 9(3)      VALUE 3.\n       01 TAX-RATE        PIC V999      VALUE .075.\n       01 SUBTOTAL        PIC 9(7)V99.\n       01 TAX             PIC 9(7)V99.\n       01 TOTAL           PIC 9(7)V99.\n       01 MONEY-OUT       PIC $$,$$$,$$9.99.\n       PROCEDURE DIVISION.\n           MULTIPLY PRICE BY QUANTITY GIVING SUBTOTAL\n           COMPUTE TAX ROUNDED = SUBTOTAL * TAX-RATE\n           ADD SUBTOTAL TAX GIVING TOTAL\n           MOVE SUBTOTAL TO MONEY-OUT\n           DISPLAY \"Subtotal: \" MONEY-OUT\n           MOVE TAX TO MONEY-OUT\n           DISPLAY \"Tax:      \" MONEY-OUT\n           MOVE TOTAL TO MONEY-OUT\n           DISPLAY \"Total:    \" MONEY-OUT\n           STOP RUN.\n",
+      "expected_output": "Subtotal:     $3,703.50\nTax:            $277.76\nTotal:        $3,981.26\n",
+      "notes": "PIC 9(5)V99 stores exact decimal digits with an implied decimal point, so the 7.5% tax is computed without binary floating-point error, and ROUNDED rounds to the receiving field's two places. The edited picture $$,$$$,$$9.99 floats the dollar sign, inserts commas and suppresses leading zeros: formatting is declared with the data, not in the output statement.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "GnuCOBOL",
+        "version": "3.1.2",
+        "docker_image": "plw-cobol",
+        "install": "FROM debian:bookworm-slim; apt-get install -y --no-install-recommends gnucobol3",
+        "compile": "cobc -x -o {out} {file}",
+        "run": "{out}",
+        "notes": "Fixed reference format by default (use -free for free format). Debian trixie's GnuCOBOL 3.2 package prints a libxml2 version warning on stderr at run time, so the bookworm 3.1.2 package is used.",
+        "dockerfile": "sandbox/cobol/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "GnuCOBOL translates COBOL to C and compiles it with gcc. All six snippets were verified with GnuCOBOL 3.1.2."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/COBOL"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/COBOL",
+    "https://www.historyofinformation.com/detail.php?id=778",
+    "https://gnucobol.sourceforge.io/"
+  ]
+}

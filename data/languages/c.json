@@ -1,0 +1,143 @@
+{
+  "id": "c",
+  "name": "C",
+  "aliases": ["K&R C", "ANSI C", "ISO C"],
+  "year": 1972,
+  "year_note": "Developed 1969–1973 at Bell Labs alongside Unix; first widely described in K&R (1978).",
+  "designers": ["Dennis Ritchie"],
+  "organization": "Bell Labs",
+  "country": "United States",
+  "tagline": "A portable, close-to-the-metal systems language that became the lingua franca of computing.",
+  "summary": "C is a small, statically typed, imperative language designed to write the Unix operating system. It exposes memory through pointers while abstracting over machine instructions, which made both Unix and C itself portable across hardware. Its syntax — braces, semicolons, for loops, ++ — became the template for most mainstream languages that followed.",
+  "history": "Dennis Ritchie created C at Bell Labs between 1969 and 1973 as an evolution of Ken Thompson's B, adding a type system (char, int, structs, pointers) that B's word-oriented design lacked on the byte-addressed PDP-11. In 1973 the Unix kernel was rewritten in C, one of the first operating system kernels written in a high-level language.\n\nThe 1978 book 'The C Programming Language' by Brian Kernighan and Ritchie served as the de facto standard ('K&R C') until ANSI standardized the language in 1989 (C89/C90). Later ISO revisions added // comments, inline and variable-length arrays (C99), threads and atomics (C11), and bool/nullptr/constexpr-style features (C23).",
+  "innovations": [
+    "Made a high-level language the standard way to write operating systems (Unix kernel, 1973)",
+    "A typed pointer model with pointer arithmetic, bridging assembly and high-level code",
+    "The brace-and-semicolon syntax adopted by C++, Java, C#, JavaScript, Go and many others",
+    "The C preprocessor and header-file model of separate compilation",
+    "The C ABI, still the common interface for calling between languages"
+  ],
+  "paradigms": ["imperative", "procedural", "structured"],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "Implicit conversions and unchecked casts make it weakly typed; C23 added `auto` for simple inference."
+  },
+  "memory": "manual",
+  "execution": ["native-compiled"],
+  "status": "active",
+  "latest_version": "C23 (ISO/IEC 9899:2024)",
+  "file_extensions": [".c", ".h"],
+  "color": "#555555",
+  "primary_parent": "b",
+  "influenced_by": [
+    { "id": "b", "kind": "successor", "weight": "major", "note": "C began as 'NB' (new B), adding types to B." },
+    { "id": "bcpl", "kind": "influence", "weight": "major", "note": "B's parent; source of much of the terse syntax." },
+    { "id": "algol68", "kind": "influence", "weight": "minor", "note": "Ritchie credited ALGOL 68 for the type composition model (structs/unions)." },
+    { "id": "fortran", "kind": "influence", "weight": "minor" }
+  ],
+  "influenced_by_external": [
+    { "name": "Assembly (PDP-11)", "year": 1970, "note": "Operators like ++ map naturally onto PDP-11 addressing modes (though they predate it in B)." },
+    { "name": "PL/I", "year": 1964, "note": "Via Multics; the -> operator and some syntax." }
+  ],
+  "influenced": ["cpp", "objective-c", "java", "javascript", "csharp", "perl", "php", "python", "go", "rust", "zig", "swift", "lua", "julia"],
+  "traits": {
+    "structured-control": { "level": "core" },
+    "block-scope": { "level": "core" },
+    "recursion": { "level": "core" },
+    "static-typing": { "level": "core" },
+    "type-inference": { "level": "supported", "since": 2024, "version": "C23", "note": "`auto` for object declarations." },
+    "generics": { "level": "supported", "since": 2011, "version": "C11", "note": "Only `_Generic` type-dispatch selection and void* / macros; no parametric types." },
+    "pointers": { "level": "core", "note": "Pointer arithmetic, malloc/free." },
+    "first-class-functions": { "level": "supported", "note": "Function pointers can be passed and stored, but there are no closures or lambdas." },
+    "modules": { "level": "supported", "note": "Only via separate compilation units, header files and `static` linkage." },
+    "coroutines": { "level": "library", "note": "setjmp/longjmp or ucontext; not part of the language." },
+    "compile-time-execution": { "level": "supported", "since": 2024, "version": "C23", "note": "The preprocessor, and C23 `constexpr` objects." }
+  },
+  "milestones": [
+    { "year": 1969, "event": "Development of B-successor begins at Bell Labs" },
+    { "year": 1973, "event": "Unix kernel rewritten in C" },
+    { "year": 1978, "event": "'The C Programming Language' (K&R) published" },
+    { "year": 1989, "event": "ANSI X3.159-1989 standard (C89)" },
+    { "year": 1999, "event": "C99: // comments, inline, VLAs, stdint.h" },
+    { "year": 2011, "event": "C11: threads, atomics, _Generic" },
+    { "year": 2024, "event": "C23 published: bool/true/false keywords, nullptr, constexpr, typeof" }
+  ],
+  "trivia": [
+    "The name follows B; Ritchie considered whether its successor should be 'D' or 'P' (following BCPL).",
+    "Kernighan and Ritchie's book popularized 'hello, world' as the first example program."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "C99",
+      "code": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello, World!\\n\");\n    return 0;\n}\n",
+      "expected_output": "Hello, World!\n",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "C99",
+      "code": "#include <stdio.h>\n\nunsigned long factorial(unsigned int n) {\n    return n <= 1 ? 1 : n * factorial(n - 1);\n}\n\nint main(void) {\n    printf(\"%lu\\n\", factorial(10));\n    return 0;\n}\n",
+      "expected_output": "3628800\n",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "C99",
+      "code": "#include <stdio.h>\n\nint main(void) {\n    for (int i = 1; i <= 15; i++) {\n        if (i % 15 == 0)      puts(\"FizzBuzz\");\n        else if (i % 3 == 0)  puts(\"Fizz\");\n        else if (i % 5 == 0)  puts(\"Buzz\");\n        else                  printf(\"%d\\n\", i);\n    }\n    return 0;\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "C99",
+      "code": "#include <stdio.h>\n\n/* No closures: pass function pointers instead. */\ntypedef int (*pred)(int);\ntypedef int (*fn)(int);\n\nstatic int is_even(int x) { return x % 2 == 0; }\nstatic int square(int x)  { return x * x; }\n\nstatic int filter_map(const int *in, int n, pred p, fn f, int *out) {\n    int k = 0;\n    for (int i = 0; i < n; i++)\n        if (p(in[i])) out[k++] = f(in[i]);\n    return k;\n}\n\nint main(void) {\n    int xs[10], ys[10];\n    for (int i = 0; i < 10; i++) xs[i] = i + 1;\n    int k = filter_map(xs, 10, is_even, square, ys);\n    for (int i = 0; i < k; i++) printf(i ? \" %d\" : \"%d\", ys[i]);\n    putchar('\\n');\n    return 0;\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "C99",
+      "code": "#include <stdio.h>\n\n/* A tagged union: C's hand-rolled sum type. */\ntypedef enum { RECTANGLE, TRIANGLE } Kind;\n\ntypedef struct {\n    Kind kind;\n    union {\n        struct { int width, height; } rect;\n        struct { int base, height; } tri;\n    };\n} Shape;\n\nint area(const Shape *s) {\n    switch (s->kind) {\n    case RECTANGLE: return s->rect.width * s->rect.height;\n    case TRIANGLE:  return s->tri.base * s->tri.height / 2;\n    }\n    return 0;\n}\n\nint main(void) {\n    Shape r = { .kind = RECTANGLE, .rect = { 3, 4 } };\n    Shape t = { .kind = TRIANGLE,  .tri  = { 10, 3 } };\n    printf(\"Rectangle: %d\\n\", area(&r));\n    printf(\"Triangle: %d\\n\", area(&t));\n    return 0;\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Anonymous unions inside structs are standard since C11; GCC and Clang accept them in C99 mode as an extension.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Pointers all the way down",
+      "dialect": "C99",
+      "code": "#include <stdio.h>\n\n/* Classic K&R string copy: the pointer idiom C is famous for. */\nvoid copy(char *dst, const char *src) {\n    while ((*dst++ = *src++))\n        ;\n}\n\nint main(void) {\n    char buf[32];\n    copy(buf, \"pointers!\");\n    for (char *p = buf; *p; p++)\n        printf(\"%c@%td \", *p, p - buf);\n    putchar('\\n');\n    return 0;\n}\n",
+      "expected_output": "p@0 o@1 i@2 n@3 t@4 e@5 r@6 s@7 !@8 \n",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "GCC",
+        "version": "14",
+        "docker_image": "gcc:14",
+        "compile": "gcc -std=c99 -O2 -o {out} {file}",
+        "run": "{out}"
+      },
+      {
+        "name": "TinyCC",
+        "install": "apt-get install -y tcc",
+        "run": "tcc -run {file}",
+        "notes": "Very fast compile; good for quick sandbox runs."
+      }
+    ],
+    "browser": { "name": "Clang compiled to WebAssembly (wasm-clang)", "url": "https://github.com/binji/wasm-clang", "notes": "In-browser compile+run is feasible but heavy (~30MB)." },
+    "notes": "Container is the reliable option; tcc gives sub-50ms compile times."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/C_(programming_language)",
+    "spec": "https://www.open-std.org/jtc1/sc22/wg14/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/C_(programming_language)",
+    "https://www.bell-labs.com/usr/dmr/www/chist.html"
+  ]
+}

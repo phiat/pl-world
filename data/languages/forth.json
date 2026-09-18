@@ -1,0 +1,235 @@
+{
+  "id": "forth",
+  "name": "Forth",
+  "aliases": [
+    "FORTH",
+    "ANS Forth",
+    "Forth-2012"
+  ],
+  "year": 1970,
+  "year_note": "Charles Moore's personal interpretive system grew from the late 1950s and was first called FORTH in 1968 at Mohasco Industries; other programmers first used it at the National Radio Astronomy Observatory around 1970–71, where Moore built the first complete stand-alone implementation (1971).",
+  "designers": [
+    "Charles H. Moore"
+  ],
+  "organization": "National Radio Astronomy Observatory (NRAO); later FORTH, Inc.",
+  "country": "United States",
+  "tagline": "A tiny, extensible stack language whose programs are words passing values on a shared data stack — compiler and interpreter included.",
+  "summary": "Forth is a stack-based, concatenative language and interactive environment created by Charles H. Moore. Programs are built by defining new words from existing ones, passing arguments implicitly on a data stack in postfix (reverse Polish) order, and the same mechanism extends the compiler itself: IMMEDIATE words add control structures and CREATE…DOES> builds new defining words. Complete, self-hosting systems fit in a few kilobytes, which made Forth popular on early microcomputers and keeps it in use in embedded systems, boot firmware and spacecraft.",
+  "history": "Charles Moore refined a personal interpreter through the 1960s while programming at the Smithsonian Astrophysical Observatory, Stanford and elsewhere. In 1968 at Mohasco Industries it first appeared as FORTH — 'fourth', for fourth-generation software, trimmed to five letters because the IBM 1130 system he used allowed only five-character names. At the National Radio Astronomy Observatory Moore produced the first complete stand-alone Forth in 1971 to control the 11-meter radio telescope at Kitt Peak, Arizona, and Elizabeth Rather became one of its first other users.\n\nIn 1973 Moore, Rather and Edward Conklin founded FORTH, Inc., which ported the system to minicomputers and, from 1976, to 8-bit microprocessors as microFORTH. The Forth Interest Group, formed in 1978, distributed the free FIG-Forth for most home computers; Forth shipped in the ROM of the Jupiter Ace and was used to write games such as Electronic Arts' Starflight. Common practice was codified in FORTH-79 and FORTH-83 and then in ANS Forth (1994); Forth-2012 is the current standard.\n\nForth's small footprint and interactivity made it a favourite for bringing up new hardware and for embedded control. Sun's OpenBoot, standardised as Open Firmware (IEEE 1275), put a Forth system in the boot ROMs of Sun, Apple and IBM machines, and Forth running on radiation-hardened RTX2010 processors controlled the Philae comet lander. Moore went on to design Forth processors (Novix NC4000, ShBoom, GreenArrays chips) and ever-smaller dialects such as colorForth, while Gforth, SwiftForth and VFX Forth remain maintained implementations.",
+  "innovations": [
+    "Popularised the stack-based, concatenative style: words compose by sharing an implicit data stack",
+    "An extensible compiler: IMMEDIATE words and CREATE…DOES> let programs define new control structures and defining words",
+    "Indirect threaded code, used by Moore about five years before Dewar's 1975 paper described the technique",
+    "A complete interactive development system (interpreter, compiler, editor) small enough for 8-bit microcomputers",
+    "Stack-effect comments such as ( n -- n*n ) as a lightweight signature convention",
+    "Inspired dedicated stack-machine processors (Novix NC4000, Harris RTX2000 family, GreenArrays) and later concatenative languages such as Joy and Factor"
+  ],
+  "paradigms": [
+    "concatenative",
+    "procedural",
+    "imperative",
+    "reflective"
+  ],
+  "family": "stack",
+  "syntax_family": "concatenative",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "untyped",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "Stack cells are untyped machine words; each word decides how to interpret them (@ as an address, F+ on the separate float stack, TYPE as a string), and stack-effect comments document intent."
+  },
+  "memory": "manual",
+  "memory_note": "Code and data are laid down in a linear dictionary (HERE, ALLOT, comma); the optional Memory-Allocation word set adds ALLOCATE/FREE. There is no garbage collection.",
+  "execution": [
+    "interpreted",
+    "native-compiled"
+  ],
+  "status": "maintained",
+  "latest_version": "Forth-2012",
+  "file_extensions": [
+    ".fs",
+    ".fth",
+    ".4th",
+    ".f"
+  ],
+  "color": "#341708",
+  "primary_parent": null,
+  "influenced_by": [],
+  "influenced_by_external": [],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "IF … ELSE … THEN, BEGIN … UNTIL / WHILE … REPEAT and DO … LOOP are ordinary (immediate) words; there is no GOTO."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "A word cannot call itself by name while it is being defined; RECURSE does it."
+    },
+    "exceptions": {
+      "level": "supported",
+      "since": 1994,
+      "version": "ANS Forth",
+      "note": "CATCH and THROW in the optional Exception word set."
+    },
+    "concatenative": {
+      "level": "core",
+      "note": "The defining example: juxtaposing words composes them on the data stack."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Execution tokens (from ' or ['] ) are ordinary stack values run with EXECUTE; :NONAME defines anonymous words. There are no closures in the standard."
+    },
+    "macros": {
+      "level": "core",
+      "note": "IMMEDIATE words run during compilation and, with POSTPONE, compile arbitrary code — Forth's own control structures are defined this way. They act on the token stream, not on a syntax tree."
+    },
+    "compile-time-execution": {
+      "level": "core",
+      "note": "The text interpreter can switch back to interpreting in the middle of a definition ([ … ] LITERAL), so any word can run at compile time."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "The dictionary is live and searchable (FIND, ' , and WORDS/SEE in most systems); programs can define and redefine words while running."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "note": "Words can be redefined in a running system; earlier compiled references keep the old definition unless they go through a DEFER word (standardised in Forth-2012)."
+    },
+    "pointers": {
+      "level": "core",
+      "note": "Raw memory access with @ and !, dictionary allocation with HERE and ALLOT, heap allocation with ALLOCATE/FREE; addresses are plain numbers."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "Wordlists (vocabularies) and the search order provide namespaces; there is no separate compilation or import/export."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1968,
+      "event": "Moore's system first called FORTH, on an IBM 1130 at Mohasco Industries"
+    },
+    {
+      "year": 1971,
+      "event": "First complete stand-alone Forth controls NRAO's 11-meter telescope at Kitt Peak"
+    },
+    {
+      "year": 1973,
+      "event": "FORTH, Inc. founded by Moore, Elizabeth Rather and Edward Conklin"
+    },
+    {
+      "year": 1976,
+      "event": "microFORTH brings Forth to 8-bit microprocessors"
+    },
+    {
+      "year": 1978,
+      "event": "Forth Interest Group formed; FIG-Forth spreads to home computers"
+    },
+    {
+      "year": 1979,
+      "event": "FORTH-79 standard"
+    },
+    {
+      "year": 1983,
+      "event": "FORTH-83 standard"
+    },
+    {
+      "year": 1994,
+      "event": "ANS Forth (ANSI X3.215-1994); Open Firmware standardised as IEEE 1275"
+    },
+    {
+      "year": 2012,
+      "event": "Forth-2012 standard"
+    },
+    {
+      "year": 2014,
+      "event": "Philae, controlled by Forth on RTX2010 processors, lands on comet 67P"
+    }
+  ],
+  "trivia": [
+    "The name was meant to be FOURTH, but the IBM 1130's five-character limit on names shortened it to FORTH.",
+    "Forth was the first resident software on the new Intel 8086 chip in 1978, and MacFORTH was the first resident development system for the Macintosh 128K.",
+    "Electronic Arts' Starflight (1986) and several other 1980s games were written in Forth."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Forth-2012 (Gforth 0.7.3)",
+      "code": ": hello ( -- )  .\" Hello, World!\" cr ;\nhello\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "`:` starts a definition and `;` ends it; `.\"` compiles a string to print. The last line runs the new word.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Forth-2012 (Gforth 0.7.3)",
+      "code": ": factorial ( n -- n! )\n  dup 1 > if  dup 1- recurse *  else  drop 1  then ;\n\n10 factorial 0 .r cr\n",
+      "expected_output": "3628800\n",
+      "notes": "The comment ( n -- n! ) is a stack-effect signature. RECURSE calls the word being defined, and `0 .r` prints a number without the trailing space that `.` adds.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Forth-2012 (Gforth 0.7.3)",
+      "code": ": fizz? ( n -- flag )  3 mod 0= ;\n: buzz? ( n -- flag )  5 mod 0= ;\n\n: .fizzbuzz ( n -- )\n  dup fizz? over buzz? and if  drop .\" FizzBuzz\" exit  then\n  dup fizz?                if  drop .\" Fizz\"     exit  then\n  dup buzz?                if  drop .\" Buzz\"     exit  then\n  0 .r ;\n\n: fizzbuzz ( -- )  16 1 do  i .fizzbuzz cr  loop ;\nfizzbuzz\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Idiomatic Forth factors a problem into many tiny words. DO … LOOP counts from 1 up to (not including) 16, with I as the index; EXIT returns early from a word.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Forth-2012 (Gforth 0.7.3)",
+      "code": "create nums  1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10 ,\n\n: even?  ( n -- flag )  1 and 0= ;\n: square ( n -- n*n )   dup * ;\n\nvariable first\n: .item ( n -- )  first @ 0= if space then  0 .r  false first ! ;\n\n\\ Apply xt-f to every cell that satisfies xt-p (xts are Forth's function values)\n: filter-map ( addr n xt-p xt-f -- )\n  2swap cells over + swap ?do            ( xt-p xt-f )\n    i @ 2 pick execute if  i @ over execute .item  then\n  1 cells +loop  2drop ;\n\ntrue first !\nnums 10  ' even?  ' square  filter-map cr\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Execution tokens (' even?) are Forth's function values, passed on the stack and run with EXECUTE; the loop walks the array's memory addresses directly, and `2 pick` fetches the predicate from under the mapper.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Forth-2012 (Gforth 0.7.3)",
+      "code": "\\ A shape is a record in memory: [ xt-area | xt-name | a | b ]\n: rect-area ( w h -- n )  * ;\n: tri-area  ( b h -- n )  * 2 / ;\n: .rect ( -- )  .\" Rectangle\" ;\n: .tri  ( -- )  .\" Triangle\" ;\n\n: shape ( a b xt-name xt-area \"name\" -- )  create , , , , ;\n: rectangle ( w h \"name\" -- )  ['] .rect ['] rect-area shape ;\n: triangle  ( b h \"name\" -- )  ['] .tri  ['] tri-area  shape ;\n\n: area   ( shape -- n )  dup 2 cells + 2@  rot @ execute ;\n: .shape ( shape -- )    dup cell+ @ execute  .\" : \"  area 0 .r cr ;\n\n3 4  rectangle r\n10 3 triangle  t\nr .shape\nt .shape\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "There are no classes: `shape` is a defining word that lays out a record [area-xt | name-xt | a | b] in the dictionary, and `rectangle`/`triangle` build on it, so dispatch is EXECUTE on a stored execution token. Object systems (e.g. Gforth's mini-oof) exist as libraries.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Stack words and an extensible compiler",
+      "dialect": "Forth-2012 (Gforth 0.7.3)",
+      "code": "\\ Words take and leave values on an implicit data stack.\n: square ( n -- n^2 )  dup * ;\n: cube   ( n -- n^3 )  dup square * ;\n5 cube . cr                     \\ 125\n1 2 3 .s cr                     \\ peek at the stack: <3> 1 2 3\n+ * . cr                        \\ 1 * (2 + 3)\n\n\\ CREATE ... DOES> makes a new *defining* word: the compiler is extensible.\n: counter ( \"name\" -- )  create 0 ,  does> ( -- n )  1 over +! @ ;\ncounter clicks\nclicks . clicks . clicks . cr   \\ each call bumps its own private cell\n",
+      "expected_output": "125 \n<3> 1 2 3 \n5 \n1 2 3 \n",
+      "notes": "`.` prints and drops the top of the stack followed by a space; `.s` shows the whole stack without changing it. `counter` is a new defining word: CREATE builds each counter's storage and DOES> supplies its run-time behaviour.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "Gforth",
+        "version": "0.7.3",
+        "docker_image": "plw-forth",
+        "install": "FROM debian:bookworm-slim; apt-get install -y --no-install-recommends gforth",
+        "run": "gforth {file} -e bye",
+        "notes": "Gforth is not packaged in Debian trixie, so the image uses bookworm. Snippets were also verified with host gforth 0.7.3.",
+        "dockerfile": "sandbox/forth/Dockerfile"
+      }
+    ],
+    "browser": {
+      "name": "WAForth",
+      "url": "https://github.com/remko/waforth",
+      "notes": "A small dynamic Forth whose interpreter and compiler run in WebAssembly in the browser (snippets not verified against it)."
+    },
+    "notes": "Loading a file with gforth runs it top to bottom; `-e bye` exits afterwards instead of entering the interactive prompt."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Forth_(programming_language)",
+    "homepage": "https://forth-standard.org/",
+    "spec": "https://forth-standard.org/standard/words"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Forth_(programming_language)",
+    "https://en.wikipedia.org/wiki/Charles_H._Moore",
+    "https://www.forth.com/resources/forth-programming-language/",
+    "https://en.wikipedia.org/wiki/Open_Firmware",
+    "https://forth-standard.org/",
+    "https://gforth.org/"
+  ]
+}

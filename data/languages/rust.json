@@ -1,0 +1,446 @@
+{
+  "id": "rust",
+  "name": "Rust",
+  "aliases": [],
+  "year": 2012,
+  "year_note": "Graydon Hoare began Rust as a personal project in 2006; Mozilla sponsored it from 2009, and Hoare first presented it publicly at the Mozilla Annual Summit in July 2010. The year here follows Wikipedia, which dates the language from its first public release, Rust 0.1 (20 January 2012). Rust 1.0, the first stable release, shipped on 15 May 2015.",
+  "designers": [
+    "Graydon Hoare"
+  ],
+  "organization": "Mozilla (Rust Foundation since 2021)",
+  "tagline": "A systems language that rules out memory errors and data races at compile time through ownership and borrowing, without a garbage collector.",
+  "summary": "Rust is a statically typed systems programming language that aims for C++-level performance and control while ruling out memory-safety errors and data races at compile time. Its ownership model — every value has a single owner, and references are borrow-checked for lifetime and aliasing — replaces both manual memory management and garbage collection. It pairs this with ML-style algebraic data types, pattern matching and type inference, Haskell-style traits, and the Cargo build tool and package manager.",
+  "history": "Graydon Hoare started Rust in 2006 as a personal project while working at Mozilla, describing it as \"technology from the past come to save the future from itself\": a synthesis of older ideas from languages such as CLU, Erlang, Newsqueak, Hermes, NIL and Mesa. The first compiler, about 38,000 lines of OCaml, supported features later dropped, such as typestate and an `obj` keyword. Mozilla began sponsoring the project in 2009, hoping for a safer, parallel browser engine (Servo); the ownership system was in place by 2010, and a self-hosting compiler targeting LLVM first compiled itself in April 2011.\n\nBetween the 0.1 release (January 2012) and 1.0 the language changed radically: the garbage collector, typestate, several specialised pointer types and built-in channel syntax were removed as ownership and borrowing took over, and an RFC process (2014) opened design to the community. Rust 1.0 (May 2015) began a six-week release train with a backward-compatibility commitment, later complemented by opt-in editions (2018, 2021, 2024). After Mozilla's 2020 layoffs, AWS, Google, Huawei, Microsoft and Mozilla founded the Rust Foundation in February 2021. Rust code has shipped in Firefox since 2016, Android's platform code has supported it since 2021, and in 2022 Linux 6.1 merged initial support for kernel code written in Rust.",
+  "innovations": [
+    "Ownership, borrowing and lifetimes: compile-time memory safety without a garbage collector (the borrow checker)",
+    "Data-race freedom enforced by the type system through the Send and Sync traits ('fearless concurrency')",
+    "Brought ML-family features — algebraic data types, exhaustive pattern matching, Option/Result instead of null and exceptions — into mainstream systems programming",
+    "Zero-cost abstractions: traits and generics monomorphized like C++ templates, but type-checked at definition",
+    "Cargo and crates.io: build tool, test runner and package registry integrated with the language from 1.0",
+    "Editions: opt-in, per-crate language revisions that allow breaking changes without splitting the ecosystem",
+    "The first language other than C (and assembly) accepted for Linux kernel development (Linux 6.1, 2022)"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "imperative",
+    "functional",
+    "generic",
+    "concurrent",
+    "structured"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Affine types: values move by default and can be used only once unless they implement Copy; lifetimes are part of reference types. Inference is Hindley–Milner-style within function bodies, but function signatures must be fully annotated."
+  },
+  "memory": "ownership",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "1.98.1 (2024 edition)",
+  "file_extensions": [
+    ".rs"
+  ],
+  "color": "#dea584",
+  "primary_parent": "cpp",
+  "influenced_by": [
+    {
+      "id": "cpp",
+      "kind": "influence",
+      "weight": "major",
+      "note": "References, RAII, smart pointers, move semantics, monomorphization and the memory model (Rust Reference); the zero-cost-abstraction goal."
+    },
+    {
+      "id": "ocaml",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Algebraic data types, pattern matching, type inference, semicolon statement separation; the first Rust compiler was written in OCaml."
+    },
+    {
+      "id": "haskell",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Type classes and type families became traits and associated types."
+    },
+    {
+      "id": "ml",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Standard ML is credited alongside OCaml for ADTs, pattern matching and inference."
+    },
+    {
+      "id": "erlang",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Message passing, thread failure and linked thread failure, lightweight concurrency."
+    },
+    {
+      "id": "scheme",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Hygienic macros (macro_rules!)."
+    },
+    {
+      "id": "csharp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Attributes (#[...])."
+    },
+    {
+      "id": "ruby",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Closure and block syntax (|x| ...)."
+    },
+    {
+      "id": "swift",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Optional bindings (`if let` / `while let`), adopted in 2014 — after Rust's first release."
+    },
+    {
+      "id": "clu",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Cited by Hoare among the older languages Rust drew on."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Cyclone",
+      "year": 2002,
+      "note": "Region-based memory management, a precursor of lifetimes."
+    },
+    {
+      "name": "ML Kit",
+      "note": "Region inference for memory management."
+    },
+    {
+      "name": "NIL (Strom et al., IBM)",
+      "note": "Typestate analysis, present in early Rust and removed before 1.0."
+    },
+    {
+      "name": "Hermes",
+      "note": "Typestate, alongside NIL."
+    },
+    {
+      "name": "Newsqueak",
+      "note": "Channels and concurrency in early Rust."
+    },
+    {
+      "name": "Alef",
+      "year": 1992,
+      "note": "Channels and concurrency."
+    },
+    {
+      "name": "Limbo",
+      "year": 1995,
+      "note": "Channels and concurrency."
+    },
+    {
+      "name": "Mesa",
+      "year": 1976,
+      "note": "Cited by Hoare as an influence."
+    },
+    {
+      "name": "BETA",
+      "note": "Cited by Hoare as an influence."
+    },
+    {
+      "name": "Napier88",
+      "year": 1988,
+      "note": "Cited by Hoare as an influence."
+    },
+    {
+      "name": "Sather",
+      "year": 1990,
+      "note": "Cited by Hoare as an influence."
+    },
+    {
+      "name": "Elm",
+      "year": 2012,
+      "note": "Rust's 2016 diagnostics overhaul said its updated --explain messages 'draw heavy inspiration from the Elm approach'."
+    }
+  ],
+  "influenced": [
+    "swift",
+    "zig",
+    "php"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "`if`, `match`, `loop` and blocks are expressions that produce values."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Values are dropped (freed) at the end of their owning scope."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "No guaranteed tail-call elimination (the `become` keyword is still unstable)."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "`panic!` unwinds and can be caught with std::panic::catch_unwind, but recoverable errors use Result and the `?` operator."
+    },
+    "coroutines": {
+      "level": "supported",
+      "since": 2019,
+      "version": "Rust 1.39",
+      "note": "async fns compile to stackless coroutines (state machines); general coroutines remain unstable."
+    },
+    "generators": {
+      "level": "core",
+      "note": "The lazy Iterator trait and its adapters are central; `gen` blocks with `yield` are still unstable (keyword reserved in the 2024 edition)."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "Exhaustive `match`, `if let`, `let … else`, destructuring in `let` and function parameters."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Within function bodies; item signatures are explicit."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Monomorphized, trait-bounded generics; const generics since Rust 1.51 (2021)."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "`enum` variants carry data; structs and tuples are product types."
+    },
+    "type-classes": {
+      "level": "core",
+      "note": "Traits with coherent impls, associated types and blanket implementations."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "Option<T> and Result<T, E>; safe Rust has no null references."
+    },
+    "ownership": {
+      "level": "core",
+      "note": "Moves, shared (&) and exclusive (&mut) borrows, and lifetimes checked by the borrow checker."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Traits serve as interfaces, with static dispatch via generics or dynamic dispatch via `dyn Trait`."
+    },
+    "traits-mixins": {
+      "level": "core",
+      "note": "Traits with default method implementations can be implemented for any type, including types from other crates (within coherence rules)."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Fields and items are private to their module unless marked `pub`."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Crates are the unit of compilation, organised into modules; Cargo manages dependencies."
+    },
+    "operator-overloading": {
+      "level": "supported",
+      "note": "Via std::ops traits (Add, Index, …) for a fixed set of operators; no user-defined operators."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Closures implement the Fn, FnMut and FnOnce traits; plain fn pointers also exist."
+    },
+    "closures": {
+      "level": "core",
+      "note": "Capture by reference or by move (`move ||`)."
+    },
+    "immutability": {
+      "level": "core",
+      "note": "Bindings and borrows are immutable unless declared `mut`."
+    },
+    "lazy-evaluation": {
+      "level": "library",
+      "note": "Evaluation is strict; laziness comes from iterator adapters (including infinite ranges like `1..`) and std::sync::LazyLock."
+    },
+    "reference-counting": {
+      "level": "library",
+      "note": "Rc<T> and Arc<T> in the standard library, opt-in where shared ownership is needed."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "Raw pointers and pointer arithmetic only inside `unsafe`; safe code uses borrow-checked references and Box."
+    },
+    "csp-channels": {
+      "level": "library",
+      "note": "std::sync::mpsc and crates such as crossbeam and tokio; built-in channel syntax was removed before 1.0."
+    },
+    "async-await": {
+      "level": "core",
+      "since": 2019,
+      "version": "Rust 1.39",
+      "note": "Futures are lazy and runtime-agnostic; an executor such as Tokio comes from a library."
+    },
+    "macros": {
+      "level": "core",
+      "note": "Declarative `macro_rules!` and procedural (derive, attribute and function-like) macros."
+    },
+    "hygienic-macros": {
+      "level": "core",
+      "note": "`macro_rules!` uses mixed-site hygiene: local variables and labels are hygienic, items are not; procedural macros are unhygienic by default."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Only minimal runtime type identification (std::any::Any, TypeId, type_name); introspection is normally done at compile time with derive macros."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "since": 2018,
+      "version": "Rust 1.31",
+      "note": "`const fn` evaluation (steadily extended since 1.31) and procedural macros, which are Rust programs run by the compiler."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "The `regex` crate, maintained by the Rust project, is not part of std; there are no regex literals."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2006,
+      "event": "Graydon Hoare begins Rust as a personal project"
+    },
+    {
+      "year": 2009,
+      "event": "Mozilla officially sponsors the project"
+    },
+    {
+      "year": 2010,
+      "event": "First public presentation at the Mozilla Annual Summit (July)"
+    },
+    {
+      "year": 2011,
+      "event": "The self-hosted compiler, written in Rust and targeting LLVM, first builds itself (April)"
+    },
+    {
+      "year": 2012,
+      "event": "Rust 0.1, the first public release (20 January)"
+    },
+    {
+      "year": 2014,
+      "event": "RFC process for language changes adopted"
+    },
+    {
+      "year": 2015,
+      "event": "Rust 1.0, the first stable release (15 May)"
+    },
+    {
+      "year": 2017,
+      "event": "Firefox 57 (Quantum) ships Servo components written in Rust"
+    },
+    {
+      "year": 2018,
+      "event": "Rust 2018 edition (Rust 1.31)"
+    },
+    {
+      "year": 2019,
+      "event": "async/await stabilised (Rust 1.39)"
+    },
+    {
+      "year": 2021,
+      "event": "Rust Foundation formed (8 February); Android Open Source Project adds Rust support"
+    },
+    {
+      "year": 2022,
+      "event": "Linux 6.1 merges initial Rust support"
+    },
+    {
+      "year": 2025,
+      "event": "Rust 2024 edition (Rust 1.85)"
+    }
+  ],
+  "trivia": [
+    "Hoare named the language after the rust fungi, which he described as 'over-engineered for survival'.",
+    "According to MIT Technology Review, Hoare started the project out of frustration with a broken elevator in his apartment building whose software had crashed.",
+    "The Stack Overflow Developer Survey named Rust its 'most loved' (later 'most admired') language every year from 2016 to 2025.",
+    "The logo, created in 2011, is based on a bicycle chainring."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Rust 2024 edition",
+      "code": "fn main() {\n    println!(\"Hello, World!\");\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "`println!` is a macro: the format string is checked at compile time.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Rust 2024 edition",
+      "code": "fn factorial(n: u64) -> u64 {\n    match n {\n        0 | 1 => 1,\n        _ => n * factorial(n - 1),\n    }\n}\n\nfn main() {\n    println!(\"{}\", factorial(10));\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "`match` is an expression; in debug builds arithmetic overflow panics instead of wrapping.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Rust 2024 edition",
+      "code": "fn main() {\n    for i in 1..=15 {\n        match (i % 3, i % 5) {\n            (0, 0) => println!(\"FizzBuzz\"),\n            (0, _) => println!(\"Fizz\"),\n            (_, 0) => println!(\"Buzz\"),\n            _ => println!(\"{i}\"),\n        }\n    }\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Matching on a tuple of remainders replaces the if/else chain; `{i}` captures a variable in the format string (Rust 1.58+).",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Rust 2024 edition",
+      "code": "fn main() {\n    let squares: Vec<String> = (1..=10)\n        .filter(|n| n % 2 == 0)\n        .map(|n| (n * n).to_string())\n        .collect();\n    println!(\"{}\", squares.join(\" \"));\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Iterator adapters are lazy and compile down to a plain loop; `collect` picks its container from the type annotation.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Rust 2024 edition",
+      "code": "enum Shape {\n    Rectangle { width: u32, height: u32 },\n    Triangle { base: u32, height: u32 },\n}\n\nimpl Shape {\n    fn name(&self) -> &'static str {\n        match self {\n            Shape::Rectangle { .. } => \"Rectangle\",\n            Shape::Triangle { .. } => \"Triangle\",\n        }\n    }\n\n    fn area(&self) -> u32 {\n        match self {\n            Shape::Rectangle { width, height } => width * height,\n            Shape::Triangle { base, height } => base * height / 2,\n        }\n    }\n}\n\nfn main() {\n    let shapes = [\n        Shape::Rectangle { width: 3, height: 4 },\n        Shape::Triangle { base: 10, height: 3 },\n    ];\n    for s in &shapes {\n        println!(\"{}: {}\", s.name(), s.area());\n    }\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "An enum with struct-like variants is a sum type; because `match` must be exhaustive, adding a variant is a compile error until every match handles it. A trait with two struct impls is the open-world alternative.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Ownership and borrowing",
+      "dialect": "Rust 2024 edition",
+      "code": "// Ownership: every value has one owner; borrows are checked at compile time.\nfn total_len(words: &[String]) -> usize {\n    words.iter().map(|w| w.len()).sum() // shared borrow: read-only\n}\n\nfn shout(words: &mut Vec<String>) {\n    for w in words.iter_mut() {\n        *w = w.to_uppercase(); // exclusive borrow: may mutate\n    }\n}\n\nfn consume(words: Vec<String>) -> String {\n    words.join(\"-\") // takes ownership; `words` is freed on return\n}\n\nfn main() {\n    let mut words = vec![String::from(\"own\"), String::from(\"borrow\")];\n    println!(\"{}\", total_len(&words));\n    shout(&mut words);\n    let joined = consume(words); // `words` is moved here...\n    // println!(\"{:?}\", words);  // ...so this line would not compile\n    println!(\"{joined}\");\n}\n",
+      "expected_output": "9\nOWN-BORROW\n",
+      "notes": "`&[String]` is a shared (read-only) borrow, `&mut Vec<String>` an exclusive one, and passing `words` by value moves it. Uncommenting the marked line fails with error E0382 ('borrow of moved value'). The vector is freed deterministically when its owner goes out of scope — no garbage collector involved.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "rustc",
+        "version": "1.98.1",
+        "docker_image": "rust:1-slim",
+        "compile": "rustc --edition 2024 -O -o {out} {file}",
+        "run": "{out}",
+        "notes": "Verified with rust:1-slim (rustc 1.98.1) and the same host rustc. Single-file programs need no Cargo project."
+      }
+    ],
+    "browser": null,
+    "notes": "The official Rust Playground (play.rust-lang.org) compiles on a server; no credible fully in-browser rustc exists."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Rust_(programming_language)",
+    "homepage": "https://www.rust-lang.org/",
+    "spec": "https://doc.rust-lang.org/reference/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Rust_(programming_language)",
+    "https://doc.rust-lang.org/reference/influences.html",
+    "http://venge.net/graydon/talks/index.html",
+    "https://tikv.org/blog/rust-compilation-calamity/",
+    "https://www.technologyreview.com/2023/02/14/1067869/rust-worlds-fastest-growing-programming-language/",
+    "https://blog.rust-lang.org/2016/08/10/Shape-of-errors-to-come/",
+    "https://foundation.rust-lang.org/news/2021-02-08-hello-world/",
+    "https://en.wikipedia.org/wiki/PHP"
+  ]
+}

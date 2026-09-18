@@ -1,0 +1,379 @@
+{
+  "id": "swift",
+  "name": "Swift",
+  "aliases": [],
+  "year": 2014,
+  "year_note": "Chris Lattner began the language in secret at Apple in July 2010; it was unveiled at WWDC on 2 June 2014 and reached 1.0 on 9 September 2014. It was open-sourced, with a Linux port, on 3 December 2015.",
+  "designers": [
+    "Chris Lattner",
+    "Doug Gregor",
+    "John McCall",
+    "Ted Kremenek",
+    "Joe Groff"
+  ],
+  "organization": "Apple",
+  "country": "United States",
+  "tagline": "Apple's safe, fast successor to Objective-C, built on value types, protocols, optionals and automatic reference counting.",
+  "summary": "Swift is a compiled, statically typed, multi-paradigm language created by Apple to replace Objective-C on its platforms, and open source since 2015. It emphasises safety — optionals instead of null pointers, definite initialisation, bounds- and overflow-checked arithmetic — while compiling to native code through LLVM and interoperating directly with C and Objective-C (and, since Swift 5.9, C++). Idiomatic Swift favours value types and 'protocol-oriented programming', and Swift 5.5 through 6 built async/await, actors and compile-time data-race checking into the language.",
+  "history": "Chris Lattner, the original author of LLVM, started work on Swift at Apple in July 2010 and implemented much of the basic language in secret; other engineers began contributing in earnest late in 2011, and in July 2013 it became a major focus of Apple's developer tools group. Swift was motivated by the need to replace Objective-C, whose design dated from the early 1980s, and drew ideas \"from Objective-C, Rust, Haskell, Ruby, Python, C#, CLU, and far too many others to list\". Apple unveiled it at WWDC on 2 June 2014 — the conference's own app was the first publicly released app written in Swift — and 1.0 followed in September.\n\nThe language changed quickly and source-incompatibly through Swift 3 (2016). Swift 2 (2015) added a throws/try/catch error model and protocol extensions, the basis of the 'protocol-oriented programming' style, and on 3 December 2015 the compiler, standard library and package manager were open-sourced under the Apache 2.0 licence with a Linux port. Lattner left Apple in January 2017 and Ted Kremenek became project lead. Swift 5 (2019) made the ABI stable on Apple platforms, the same year SwiftUI introduced a declarative UI framework; Swift 5.5 (2021) added async/await and actors, Swift 5.9 (2023) macros, parameter packs and noncopyable types, and Swift 6 (2024) compile-time data-race safety.",
+  "innovations": [
+    "Protocol-oriented programming: protocol extensions with default implementations, retroactive conformance and value types as an alternative to class hierarchies",
+    "Optionals with dedicated syntax (T?, optional chaining, if let / guard let, ??) at the centre of a mainstream application language",
+    "Deterministic automatic reference counting, inherited from Objective-C, as the memory model of a mainstream language with no tracing GC",
+    "Direct interoperability with C and Objective-C (and later C++), letting large codebases migrate file by file",
+    "ABI stability with library evolution, so OS frameworks written in Swift can change without apps being recompiled",
+    "Actor isolation and Sendable checking that turn data races into compile-time errors (Swift 6 language mode)",
+    "Result builders and property wrappers that enable declarative embedded DSLs such as SwiftUI"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "object-oriented",
+    "functional",
+    "imperative",
+    "concurrent",
+    "generic"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Bidirectional, expression-level inference; function signatures are annotated. Protocol conformance is declared (nominal) but can be added retroactively in extensions. Integer overflow traps unless the &+ family of operators is used."
+  },
+  "memory": "reference-counting",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "6.4 (September 2026)",
+  "file_extensions": [
+    ".swift"
+  ],
+  "color": "#F05138",
+  "primary_parent": "objective-c",
+  "influenced_by": [
+    {
+      "id": "objective-c",
+      "kind": "successor",
+      "weight": "major",
+      "note": "Designed as its replacement on Apple platforms: on Darwin it shares the Objective-C runtime and Cocoa APIs; ARC, protocols, extensions (categories) and keyword-labelled arguments carry over."
+    },
+    {
+      "id": "rust",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named by Lattner among Swift's sources of ideas; later ownership features (borrowing/consuming parameters, noncopyable types) follow a similar model."
+    },
+    {
+      "id": "haskell",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named by Lattner; protocols with associated types play the role of type classes."
+    },
+    {
+      "id": "ruby",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named by Lattner among Swift's sources of ideas."
+    },
+    {
+      "id": "python",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named by Lattner among Swift's sources of ideas."
+    },
+    {
+      "id": "csharp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named by Lattner among Swift's sources of ideas."
+    },
+    {
+      "id": "clu",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named by Lattner among Swift's sources of ideas."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "D",
+      "year": 2001,
+      "note": "Listed as an influence in Wikipedia's infobox."
+    }
+  ],
+  "influenced": [
+    "rust",
+    "php"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "`guard` for early exit; `switch` does not fall through and must be exhaustive."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Tail calls are not guaranteed."
+    },
+    "exceptions": {
+      "level": "core",
+      "since": 2015,
+      "version": "Swift 2",
+      "note": "throws/try/do-catch, implemented as ordinary return paths rather than stack unwinding; typed throws since Swift 6."
+    },
+    "coroutines": {
+      "level": "supported",
+      "since": 2021,
+      "version": "Swift 5.5",
+      "note": "async functions are implemented as coroutines that suspend at `await`."
+    },
+    "generators": {
+      "level": "supported",
+      "note": "Sequence/IteratorProtocol drive for-in and `lazy` gives lazy adapters (map/filter on arrays are eager); AsyncSequence since 5.5; no `yield`-based generator functions."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "`switch`/`if case` with enum, tuple, optional and value-binding patterns plus `where` guards."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core"
+    },
+    "generics": {
+      "level": "core",
+      "note": "Constrained generics, opaque `some P` types (5.1) and variadic parameter packs (5.9)."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "Enums with associated values (recursive via `indirect`); structs and tuples as products."
+    },
+    "type-classes": {
+      "level": "core",
+      "note": "Protocols with associated types, conditional and retroactive conformances resolved statically for generics."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "Optional<T> spelled T?, with ?. chaining, ?? defaults and if let / guard let unwrapping."
+    },
+    "ownership": {
+      "level": "supported",
+      "since": 2023,
+      "version": "Swift 5.9",
+      "note": "Opt-in: noncopyable types (~Copyable) and borrowing/consuming parameter modifiers; ordinary values remain copyable and ARC-managed."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Protocols, adopted by classes, structs and enums alike."
+    },
+    "classes": {
+      "level": "core",
+      "note": "Reference-type classes alongside value-type structs and enums."
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Single class inheritance with `override` and `final`; structs and enums cannot inherit, and protocols are preferred."
+    },
+    "traits-mixins": {
+      "level": "core",
+      "since": 2015,
+      "version": "Swift 2",
+      "note": "Protocol extensions supply default implementations to every conforming type."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Access levels open, public, package (Swift 5.9), internal, fileprivate and private."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Each target is a module with no header files; Swift Package Manager since 2015."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Operators can be overloaded and new infix/prefix/postfix operators declared with precedence groups."
+    },
+    "first-class-functions": {
+      "level": "core"
+    },
+    "closures": {
+      "level": "core",
+      "note": "Trailing-closure syntax, $0 shorthand arguments and explicit capture lists."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "`let` versus `var` is chosen explicitly (the compiler suggests `let`); value-type collections use copy-on-write."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "`lazy` stored properties, `.lazy` sequences and @autoclosure parameters."
+    },
+    "reference-counting": {
+      "level": "core",
+      "note": "ARC with strong, weak and unowned references; cycles must be broken by hand."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "UnsafePointer/UnsafeMutablePointer types with manual allocate/deallocate, mainly for C interop."
+    },
+    "actors": {
+      "level": "core",
+      "since": 2021,
+      "version": "Swift 5.5",
+      "note": "`actor` types isolate their mutable state; calls from outside are asynchronous. Swift 6 enforces isolation at compile time."
+    },
+    "async-await": {
+      "level": "core",
+      "since": 2021,
+      "version": "Swift 5.5",
+      "note": "Structured concurrency with async let, task groups and cancellation."
+    },
+    "macros": {
+      "level": "supported",
+      "since": 2023,
+      "version": "Swift 5.9",
+      "note": "Freestanding and attached macros, implemented as compiler plugins that transform SwiftSyntax trees."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Read-only Mirror API; on Apple platforms @objc members are also visible to the Objective-C runtime."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "since": 2023,
+      "version": "Swift 5.9",
+      "note": "Macros are Swift programs run by the compiler to expand code; there is no general constant-evaluation feature."
+    },
+    "regex-builtin": {
+      "level": "supported",
+      "since": 2022,
+      "version": "Swift 5.7",
+      "note": "Typed regex literals (/…/) and the RegexBuilder DSL."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2010,
+      "event": "Chris Lattner begins Swift in secret at Apple (July)"
+    },
+    {
+      "year": 2014,
+      "event": "Unveiled at WWDC (2 June); Swift 1.0 (9 September)"
+    },
+    {
+      "year": 2015,
+      "event": "Swift 2: error handling and protocol extensions; open-sourced with a Linux port (3 December)"
+    },
+    {
+      "year": 2016,
+      "event": "Swift 3: large source-breaking cleanup of syntax and API naming"
+    },
+    {
+      "year": 2017,
+      "event": "Lattner leaves Apple; Ted Kremenek becomes project lead"
+    },
+    {
+      "year": 2019,
+      "event": "Swift 5: ABI stability on Apple platforms; SwiftUI announced"
+    },
+    {
+      "year": 2021,
+      "event": "Swift 5.5: async/await, structured concurrency and actors"
+    },
+    {
+      "year": 2023,
+      "event": "Swift 5.9: macros, parameter packs, noncopyable types, C++ interoperability"
+    },
+    {
+      "year": 2024,
+      "event": "Swift 6: compile-time data-race safety in the Swift 6 language mode"
+    },
+    {
+      "year": 2025,
+      "event": "Android workgroup releases a preview of an official Swift SDK for Android"
+    }
+  ],
+  "trivia": [
+    "Lattner implemented much of the basic language structure in secret before other Apple engineers started contributing in earnest late in 2011.",
+    "The WWDC 2014 app was the first publicly released app written in Swift.",
+    "Swift took first place for 'Most Loved Programming Language' in the 2015 Stack Overflow Developer Survey."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Swift 6",
+      "code": "print(\"Hello, World!\")\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Top-level statements in the main file form the entry point; no main() or semicolons are needed.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Swift 6",
+      "code": "func factorial(_ n: Int) -> Int {\n    n <= 1 ? 1 : n * factorial(n - 1)\n}\n\nprint(factorial(10))\n",
+      "expected_output": "3628800\n",
+      "notes": "`_` removes the argument label at call sites; single-expression functions return implicitly (Swift 5.1+). Int is 64-bit and traps on overflow.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Swift 6",
+      "code": "for i in 1...15 {\n    switch (i % 3, i % 5) {\n    case (0, 0): print(\"FizzBuzz\")\n    case (0, _): print(\"Fizz\")\n    case (_, 0): print(\"Buzz\")\n    default:     print(i)\n    }\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`switch` over a tuple with wildcard patterns; cases must be exhaustive and never fall through.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Swift 6",
+      "code": "let squares = (1...10)\n    .filter { $0 % 2 == 0 }\n    .map { $0 * $0 }\nprint(squares.map(String.init).joined(separator: \" \"))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Trailing closures with the implicit `$0` parameter; `String.init` is passed as a function value.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Swift 6",
+      "code": "protocol Shape {\n    var area: Int { get }\n}\n\nstruct Rectangle: Shape {\n    let width, height: Int\n    var area: Int { width * height }\n}\n\nstruct Triangle: Shape {\n    let base, height: Int\n    var area: Int { base * height / 2 }\n}\n\nlet shapes: [any Shape] = [Rectangle(width: 3, height: 4), Triangle(base: 10, height: 3)]\nfor shape in shapes {\n    print(\"\\(type(of: shape)): \\(shape.area)\")\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Value-type structs adopt a protocol with a computed-property requirement; `any Shape` marks an existential box (Swift 5.6+), and `type(of:)` supplies the type name.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Optionals and enums with associated values",
+      "dialect": "Swift 6",
+      "code": "// Optionals and enums with associated values: absence and alternatives\n// live in the type system, and `switch` must handle every case.\nenum Payment {\n    case cash\n    case card(last4: String)\n    case voucher(code: String, discount: Int?)\n}\n\nfunc describe(_ p: Payment) -> String {\n    switch p {\n    case .cash:\n        return \"cash\"\n    case .card(let last4):\n        return \"card ending \\(last4)\"\n    case .voucher(let code, let discount?):\n        return \"voucher \\(code) (-\\(discount)%)\"\n    case .voucher(let code, nil):\n        return \"voucher \\(code)\"\n    }\n}\n\nlet payments: [Payment] = [.cash, .card(last4: \"4242\"), .voucher(code: \"SWIFT\", discount: 10)]\nfor p in payments { print(describe(p)) }\n\nlet nickname: String? = nil\nprint(\"Hello, \\(nickname ?? \"guest\")!\")   // nil-coalescing unwraps safely\n",
+      "expected_output": "cash\ncard ending 4242\nvoucher SWIFT (-10%)\nHello, guest!\n",
+      "notes": "Enum cases carry data; `switch` must cover every case, and the pattern `let discount?` matches only a non-nil Optional. `String?` makes absence part of the type, and `??` supplies a default.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Swift (swiftc)",
+        "version": "6.3.3",
+        "docker_image": "swift:6.3",
+        "compile": "swiftc -swift-version 6 -O -o {out} {file}",
+        "run": "{out}",
+        "notes": "Official Docker image, verified with Swift 6.3.3 in the Swift 6 language mode. `swift {file}` runs a script directly (JIT) at the cost of slower start-up."
+      }
+    ],
+    "browser": null,
+    "notes": "SwiftWasm can compile Swift to WebAssembly, but the compiler itself does not run in the browser; online playgrounds compile server-side."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+    "homepage": "https://www.swift.org/",
+    "spec": "https://docs.swift.org/swift-book/documentation/the-swift-programming-language/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Swift_(programming_language)",
+    "https://www.nondot.org/sabre/",
+    "https://developer.apple.com/videos/play/wwdc2015/408/",
+    "https://github.com/swiftlang/swift/releases",
+    "https://en.wikipedia.org/wiki/PHP"
+  ]
+}

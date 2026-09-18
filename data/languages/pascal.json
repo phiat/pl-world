@@ -1,0 +1,253 @@
+{
+  "id": "pascal",
+  "name": "Pascal",
+  "aliases": [
+    "Standard Pascal",
+    "ISO 7185 Pascal",
+    "Wirth Pascal"
+  ],
+  "year": 1970,
+  "year_note": "Designed by Wirth in 1968–69 after he left the ALGOL X effort; the first compiler (for the CDC 6000) was running by mid-1970 and the defining report appeared in Acta Informatica in 1971. The Pascal User Manual and Report (Jensen & Wirth, 1974) became the reference that ISO 7185 later clarified.",
+  "designers": [
+    "Niklaus Wirth"
+  ],
+  "organization": "ETH Zurich",
+  "country": "Switzerland",
+  "tagline": "Wirth's small, strongly typed teaching language that carried structured programming from textbooks to microcomputers and industry.",
+  "summary": "Pascal is a small, statically and strongly typed imperative language that Niklaus Wirth designed to teach structured programming and data structuring. Building on ALGOL 60 via ALGOL W, it added user-defined types — records with variant parts, enumerations, subranges, sets and typed pointers — while keeping a syntax that a single-pass compiler could handle. Through UCSD Pascal and Turbo Pascal it became the dominant teaching and microcomputer language of the late 1970s and 1980s, and its Object Pascal descendants (Delphi, Free Pascal) are still in use.",
+  "history": "Niklaus Wirth took part in the IFIP effort to succeed ALGOL 60; his conservative proposal, implemented as ALGOL W, lost out to the far more ambitious ALGOL 68. Wirth then designed Pascal at ETH Zurich as a small, clean language for teaching and for writing system software, naming it after Blaise Pascal. An attempt to write the first compiler in FORTRAN failed; a compiler for the CDC 6000 written in Pascal itself was operational by mid-1970, and the report was published in 1971.\n\nTo spread the language, ETH distributed the Pascal-P porting kit: a compiler that emitted p-code for a simple virtual stack machine, plus an interpreter for it. Kenneth Bowles's UCSD Pascal (1977) grew from Pascal-P2 into the portable UCSD p-System, which ran on the Apple II as Apple Pascal and was one of the three operating systems offered with the original IBM PC. Anders Hejlsberg's Turbo Pascal, sold by Borland from November 1983 for $49.95, combined an editor and a very fast compiler in one program and made Pascal the language of a generation of PC programmers.\n\nPascal was standardized as ISO 7185 in 1983 (revised 1990), and Extended Pascal (ISO/IEC 10206, 1990) added modules and variable-length strings. Critics such as Brian Kernighan ('Why Pascal Is Not My Favorite Programming Language', 1981) objected to array sizes being part of their type and to the lack of separate compilation; commercial dialects fixed these, incompatibly. Apple's Object Pascal (1985), Turbo Pascal 5.5 (1989) and Borland Delphi (1995) added objects, and the open-source Free Pascal compiler still accepts both ISO and Borland/Delphi dialects. Wirth himself moved on to Modula-2 and Oberon.",
+  "innovations": [
+    "Packaged structured programming and data structuring into a small language designed for teaching",
+    "User-defined types checked by the compiler: enumerations, subranges, sets, records with variant parts and typed pointers",
+    "The Pascal-P porting kit and its p-code stack machine, which UCSD Pascal turned into a portable bytecode system",
+    "A declare-before-use design intended for fast single-pass compilation",
+    "Via Turbo Pascal, made the integrated editor-plus-fast-compiler environment standard on personal computers"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured"
+  ],
+  "family": "algol",
+  "syntax_family": "algol",
+  "block_style": "begin-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "ISO 7185 uses name equivalence (Wirth's original report left it unspecified). Array indices and subranges can be range-checked at run time (Free Pascal enables this with {$R+}); variant records with unchecked tags are the main loophole."
+  },
+  "memory": "manual",
+  "execution": [
+    "native-compiled",
+    "bytecode-vm"
+  ],
+  "status": "maintained",
+  "latest_version": "ISO 7185:1990; Extended Pascal ISO/IEC 10206:1990",
+  "file_extensions": [
+    ".pas",
+    ".pp",
+    ".p"
+  ],
+  "color": "#E3F171",
+  "primary_parent": "algol60",
+  "influenced_by": [
+    {
+      "id": "algol60",
+      "kind": "successor",
+      "weight": "major",
+      "note": "Via ALGOL W, Wirth and Hoare's proposed revision of ALGOL 60; Pascal kept ALGOL's block structure and syntax."
+    },
+    {
+      "id": "simula",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Simula 67 is listed among Pascal's influences."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "ALGOL W",
+      "year": 1966,
+      "note": "Wirth and Hoare's ALGOL successor proposal; Pascal's immediate predecessor, adding records with references and the while and case statements."
+    },
+    {
+      "name": "Structured programming (Dijkstra)",
+      "note": "Wirth describes Pascal as an incarnation of Dijkstra's discipline of structured programming."
+    }
+  ],
+  "influenced": [
+    "modula2",
+    "ada",
+    "eiffel",
+    "java",
+    "csharp",
+    "go"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if/case/while/repeat/for; goto survives but needs declared numeric labels."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Procedures and functions nest to any depth with lexical scope; unlike ALGOL, a bare begin…end block cannot declare variables."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "algebraic-data-types": {
+      "level": "supported",
+      "note": "Variant records (a case part inside a record) act as tagged unions, but the tag is not enforced and may be omitted, so they are not type-safe sum types."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Procedures and functions can be passed as parameters (fully typed since ISO 7185) but not stored in variables or returned; Turbo Pascal later added procedural types."
+    },
+    "closures": {
+      "level": "supported",
+      "note": "Downward only: a nested procedure passed as a parameter still sees its enclosing variables, but cannot outlive them."
+    },
+    "pointers": {
+      "level": "core",
+      "note": "Typed pointers (^T) with new/dispose; no pointer arithmetic or address-of in standard Pascal (Borland dialects added both)."
+    },
+    "modules": {
+      "level": "supported",
+      "since": 1990,
+      "version": "Extended Pascal (ISO/IEC 10206)",
+      "note": "An ISO 7185 program is one compilation unit; UCSD and Turbo Pascal 'units' and Extended Pascal modules added separate compilation."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1970,
+      "event": "First Pascal compiler running on the CDC 6000 at ETH Zurich"
+    },
+    {
+      "year": 1971,
+      "event": "'The Programming Language Pascal' published in Acta Informatica"
+    },
+    {
+      "year": 1974,
+      "event": "Pascal User Manual and Report (Jensen & Wirth)"
+    },
+    {
+      "year": 1977,
+      "event": "UCSD Pascal and the portable p-System released"
+    },
+    {
+      "year": 1979,
+      "event": "Apple Pascal (based on UCSD Pascal) for the Apple II"
+    },
+    {
+      "year": 1983,
+      "event": "ISO 7185 / ANSI-IEEE 770X3.97 standards; Borland releases Turbo Pascal"
+    },
+    {
+      "year": 1984,
+      "event": "Wirth receives the Turing Award for his sequence of innovative languages"
+    },
+    {
+      "year": 1985,
+      "event": "Object Pascal defined at Apple by Larry Tesler in consultation with Wirth"
+    },
+    {
+      "year": 1990,
+      "event": "ISO 7185 revised; Extended Pascal (ISO/IEC 10206) adds modules and strings"
+    },
+    {
+      "year": 1995,
+      "event": "Borland Delphi 1.0 brings Object Pascal to Windows RAD development"
+    },
+    {
+      "year": 2000,
+      "event": "Free Pascal 1.0 released"
+    }
+  ],
+  "trivia": [
+    "Wirth named the language after Blaise Pascal, who built one of the first mechanical calculators.",
+    "Donald Knuth wrote TeX in WEB, a literate-programming system built on Pascal.",
+    "James Gosling has cited UCSD Pascal's p-code machine as an influence on the Java virtual machine."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "ISO 7185 Pascal (Free Pascal -Miso)",
+      "code": "program Hello(output);\nbegin\n  writeln('Hello, World!')\nend.\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "The program heading names the files the program uses (output). Free Pascal compiles ISO-style code with -Miso.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "ISO 7185 Pascal (Free Pascal -Miso)",
+      "code": "program Factorial(output);\n\nfunction fact(n: integer): integer;\nbegin\n  if n <= 1 then\n    fact := 1\n  else\n    fact := n * fact(n - 1)\nend;\n\nbegin\n  writeln(fact(10):1)\nend.\n",
+      "expected_output": "3628800\n",
+      "notes": "A function returns its value by assigning to its own name. `:1` requests the minimum field width, because ISO Pascal writes integers right-aligned in a default field width.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "ISO 7185 Pascal (Free Pascal -Miso)",
+      "code": "program FizzBuzz(output);\nvar\n  i: integer;\nbegin\n  for i := 1 to 15 do\n    if i mod 15 = 0 then\n      writeln('FizzBuzz')\n    else if i mod 3 = 0 then\n      writeln('Fizz')\n    else if i mod 5 = 0 then\n      writeln('Buzz')\n    else\n      writeln(i:1)\nend.\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "No semicolon before `else`: Pascal's semicolon separates statements rather than terminating them.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "ISO 7185 Pascal (Free Pascal -Miso)",
+      "code": "program MapFilter(output);\n{ ISO 7185 lets functions be passed as parameters (but has no closures). }\ntype\n  IntArray = array[1..10] of integer;\nvar\n  xs: IntArray;\n  i: integer;\n\nfunction isEven(x: integer): boolean; begin isEven := not odd(x) end;\nfunction square(x: integer): integer; begin square := x * x end;\n\nprocedure filterMap(var a: IntArray; function keep(x: integer): boolean;\n                    function f(x: integer): integer);\nvar i: integer; first: boolean;\nbegin\n  first := true;\n  for i := 1 to 10 do\n    if keep(a[i]) then begin\n      if not first then write(' ');\n      write(f(a[i]):1);\n      first := false\n    end;\n  writeln\nend;\n\nbegin\n  for i := 1 to 10 do xs[i] := i;\n  filterMap(xs, isEven, square)\nend.\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Standard Pascal has no closures or collection library; functional parameters are its only higher-order mechanism. Wirth's original Pascal did not specify the parameter types of procedural parameters; ISO 7185 added full parameter lists.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "ISO 7185 Pascal (Free Pascal -Miso)",
+      "code": "program Shapes(output);\ntype\n  ShapeKind = (Rectangle, Triangle);\n  Shape = record                        { a variant record: Pascal's sum type }\n    case kind: ShapeKind of             { the tag field selects the variant }\n      Rectangle: (width, height: integer);\n      Triangle:  (base, altitude: integer)\n  end;\nvar\n  r, t: Shape;\n\nfunction area(s: Shape): integer;\nbegin\n  case s.kind of\n    Rectangle: area := s.width * s.height;\n    Triangle:  area := s.base * s.altitude div 2\n  end\nend;\n\nprocedure show(s: Shape);\nbegin\n  case s.kind of\n    Rectangle: write('Rectangle: ');\n    Triangle:  write('Triangle: ')\n  end;\n  writeln(area(s):1)\nend;\n\nbegin\n  with r do begin kind := Rectangle; width := 3; height := 4 end;\n  with t do begin kind := Triangle; base := 10; altitude := 3 end;\n  show(r); show(t)\nend.\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "A variant record is Pascal's discriminated union; `with` opens a record's fields as a scope. Field names must be unique across variants (hence `altitude`), and most compilers do not check that an accessed field matches the tag.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Data structuring: enumerations, subranges and sets",
+      "dialect": "ISO 7185 Pascal (Free Pascal -Miso)",
+      "code": "program Week(output);\n{ Wirth's \"data structuring\": enumerations, subranges, sets\n  and arrays indexed by any ordinal type -- all type-checked. }\ntype\n  Day   = (Mon, Tue, Wed, Thu, Fri, Sat, Sun);\n  Hours = 0..24;                         { a subrange type }\nvar\n  d: Day;\n  worked: array[Day] of Hours;           { indexed by an enumeration }\n  weekend, workdays: set of Day;\n  days, total: integer;\nbegin\n  weekend := [Sat, Sun];\n  workdays := [Mon..Sun] - weekend;      { set difference }\n  days := 0; total := 0;\n  for d := Mon to Sun do begin\n    if d in workdays then begin worked[d] := 8; days := days + 1 end\n    else worked[d] := 0;\n    total := total + worked[d]\n  end;\n  if succ(Tue) = Wed then writeln('succ(Tue) = Wed, ord(Sun) = ', ord(Sun):1);\n  writeln('workdays: ', days:1, ', hours: ', total:1)\nend.\n",
+      "expected_output": "succ(Tue) = Wed, ord(Sun) = 6\nworkdays: 5, hours: 40\n",
+      "notes": "Arrays can be indexed by any ordinal type, sets are built-in bitsets with union/difference/membership, and succ, pred and ord work on every enumeration.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Free Pascal",
+        "version": "3.2.2",
+        "docker_image": "plw-pascal",
+        "install": "apt-get install -y fp-compiler",
+        "compile": "fpc -Miso -v0 -l- -o{out} {file}",
+        "run": "{out}",
+        "notes": "plw-pascal is debian:trixie-slim + fp-compiler. -Miso selects ISO 7185 mode; drop it (or use -Mobjfpc / -Mdelphi) for Turbo/Delphi-style code.",
+        "dockerfile": "sandbox/pascal/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "The CDC and Pascal-P compilers are not easily runnable today; Free Pascal's ISO mode is the closest maintained implementation of Standard Pascal."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Pascal_(programming_language)",
+    "spec": "http://www.standardpascal.org/iso7185.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Pascal_(programming_language)",
+    "https://en.wikipedia.org/wiki/UCSD_Pascal",
+    "https://en.wikipedia.org/wiki/Turbo_Pascal",
+    "https://en.wikipedia.org/wiki/Free_Pascal",
+    "https://en.wikipedia.org/wiki/ALGOL_W",
+    "https://en.wikipedia.org/wiki/Niklaus_Wirth",
+    "https://doi.org/10.1007/BF00264291",
+    "https://free.oberon.org/files/Modula2_and_Oberon.pdf"
+  ]
+}

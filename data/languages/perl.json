@@ -1,0 +1,164 @@
+{
+  "id": "perl",
+  "name": "Perl",
+  "aliases": ["Perl 5", "Practical Extraction and Report Language"],
+  "year": 1987,
+  "year_note": "Perl 1.0 was released on 18 December 1987. Perl 5 (October 1994), a near-rewrite that added references, objects, modules and lexical variables, is the language still in use; 'Perl 6' became the separate language Raku.",
+  "designers": ["Larry Wall"],
+  "country": "United States",
+  "tagline": "The Unix text-processing workhorse and glue of the early Web: regexes built into the syntax, and more than one way to do it.",
+  "summary": "Perl is a dynamically typed, interpreted scripting language that fused C, sed, awk and the Unix shell into one general-purpose tool for text processing and system administration. Regular expressions, hashes and string interpolation are part of its syntax, and sigils ($, @, %) plus scalar/list context let dense one-liners do a great deal. It was the leading language for CGI web programming in the mid-1990s, and its regular-expression dialect became a de facto standard that many later languages copied.",
+  "history": "Larry Wall began Perl in 1987 while working as a programmer at Unisys, as a Unix scripting language to make report processing easier than juggling awk, sed and shell scripts; version 1.0 was released on 18 December 1987. Perl 2 (1988) brought an improved regex engine, Perl 3 (1989) handled binary data, and Perl 4 (1991) was released to coincide with the first edition of 'Programming Perl', the 'Camel Book'.\n\nPerl 5 (October 1994) added references, lexical `my` variables, closures, packages as modules and a minimalist object system built on `bless`, and CPAN went online in 1995 as its central module archive. Perl became the standard language for CGI scripts in the mid-1990s and was called the 'duct tape that holds the Internet together'.\n\nIn 2000 Wall announced Perl 6 as a ground-up redesign; it grew into a separate language and was renamed Raku in 2019. Perl 5 kept evolving through yearly releases: 5.10 (2007) added `say`, named captures and the defined-or operator `//`, 5.36 (2022) made subroutine signatures stable, 5.38 (2023) introduced an experimental native `class` syntax, and 5.40 (2024) stabilised `try`/`catch`.",
+  "innovations": [
+    "Regular expressions as first-class syntax (=~, m//, s///, tr///) with interpolation, captures into variables and the implicit $_ topic",
+    "The Perl 5 regex extensions (non-greedy quantifiers, lookaround, /x commented patterns) that PCRE (1997) packaged and Python, Java, JavaScript and PHP adopted",
+    "CPAN (online since 1995): a mirrored, language-wide archive of reusable modules, the counterpart that PyPI, RubyGems and npm later provided for their languages",
+    "Sigils and context: the same expression yields different results in scalar and list context",
+    "Taint mode (-T), which marks data from outside the program as untrusted until it is explicitly checked",
+    "Established the dynamic 'glue language' for Unix system administration and CGI web programming"
+  ],
+  "paradigms": ["multi-paradigm", "imperative", "procedural", "object-oriented", "functional", "reflective", "scripting"],
+  "family": "scripting",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Scalars convert freely between strings and numbers depending on the operator (`.` vs `+`, `eq` vs `==`); sigils mark container kind (scalar, array, hash) rather than type."
+  },
+  "memory": "reference-counting",
+  "execution": ["interpreted"],
+  "status": "maintained",
+  "latest_version": "5.44 (2026)",
+  "file_extensions": [".pl", ".pm", ".t", ".pod"],
+  "color": "#0298c3",
+  "primary_parent": "c",
+  "influenced_by": [
+    { "id": "c", "kind": "influence", "weight": "major", "note": "Expression syntax, operators, braces and printf-style formatting; Perl aimed to replace mixtures of C, sh and awk." },
+    { "id": "lisp", "kind": "influence", "weight": "minor" },
+    { "id": "basic", "kind": "influence", "weight": "minor" },
+    { "id": "cpp", "kind": "influence", "weight": "minor" }
+  ],
+  "influenced_by_external": [
+    { "name": "AWK", "year": 1977, "note": "Associative arrays and pattern-action text processing." },
+    { "name": "sed", "year": 1974, "note": "s/// substitution and the regex-driven line-editing model." },
+    { "name": "Unix shell (sh)", "year": 1979, "note": "$-prefixed variables, string interpolation, here-documents and backticks." }
+  ],
+  "influenced": ["php", "python", "ruby", "javascript", "julia"],
+  "traits": {
+    "structured-control": { "level": "core", "note": "Also statement modifiers (`print if $x`, `... for @list`) and `unless`/`until`." },
+    "block-scope": { "level": "core", "since": 1994, "version": "Perl 5", "note": "Lexical `my` variables; earlier versions had only dynamically scoped `local`." },
+    "recursion": { "level": "core" },
+    "exceptions": { "level": "core", "note": "`die` with `eval {}` blocks (any value, including objects, can be thrown); a native `try`/`catch` arrived experimentally in 5.34 and became stable in 5.40 (2024)." },
+    "tail-calls": { "level": "supported", "note": "No automatic tail-call elimination, but `goto &sub` explicitly replaces the current call frame." },
+    "classes": { "level": "supported", "since": 1994, "version": "Perl 5", "note": "Classes are packages and objects are references `bless`ed into them; Moose/Moo are the common frameworks, and 5.38 added an experimental native `class`/`field`/`method` syntax." },
+    "inheritance": { "level": "supported", "since": 1994, "version": "Perl 5", "note": "Multiple inheritance through the package's @ISA array (`use parent`); C3 method resolution optional since 5.10." },
+    "traits-mixins": { "level": "library", "note": "Roles via Moose, Moo or Role::Tiny on CPAN." },
+    "abstract-data-types": { "level": "supported", "note": "Blessed hashes expose their internals; hiding needs closures, inside-out objects or the private `field`s of the newer class syntax." },
+    "modules": { "level": "core", "since": 1994, "version": "Perl 5", "note": "Packages in .pm files loaded with `use`, with Exporter-controlled imports; CPAN distributes them." },
+    "operator-overloading": { "level": "supported", "since": 1994, "version": "Perl 5", "note": "Via the `use overload` pragma." },
+    "first-class-functions": { "level": "core", "since": 1994, "version": "Perl 5", "note": "Code references and anonymous `sub { ... }`; map, grep and sort take blocks." },
+    "closures": { "level": "core", "since": 1994, "version": "Perl 5" },
+    "reference-counting": { "level": "core", "note": "Deterministic destruction; there is no cycle collector, so circular structures leak unless broken with Scalar::Util::weaken." },
+    "reflection": { "level": "supported", "note": "Symbol tables (stashes) and typeglobs can be inspected and modified at run time; `ref`, `can`, `isa` and string `eval`." },
+    "compile-time-execution": { "level": "supported", "note": "BEGIN blocks and `use` run ordinary Perl code during compilation, e.g. to generate subroutines or constants." },
+    "regex-builtin": { "level": "core", "note": "Match, substitute and transliterate operators with interpolated patterns; Perl's dialect became the model for PCRE." }
+  },
+  "milestones": [
+    { "year": 1987, "event": "Perl 1.0 released by Larry Wall (18 December)" },
+    { "year": 1988, "event": "Perl 2: improved regular-expression engine" },
+    { "year": 1989, "event": "Perl 3: support for binary data" },
+    { "year": 1991, "event": "Perl 4 and the first edition of 'Programming Perl' (the Camel Book)" },
+    { "year": 1994, "event": "Perl 5: references, objects, modules, lexical variables and closures" },
+    { "year": 1995, "event": "CPAN goes online" },
+    { "year": 2000, "event": "Perl 6 announced as a ground-up redesign" },
+    { "year": 2007, "event": "Perl 5.10: say, named captures, defined-or //, given/when" },
+    { "year": 2019, "event": "Perl 6 renamed Raku, leaving 'Perl' to Perl 5" },
+    { "year": 2022, "event": "Perl 5.36: subroutine signatures become stable" },
+    { "year": 2023, "event": "Perl 5.38: experimental native class syntax" },
+    { "year": 2024, "event": "Perl 5.40: try/catch becomes stable" }
+  ],
+  "trivia": [
+    "Wall first called the language 'Pearl', then dropped the 'a' after learning of an existing language named PEARL; 'Practical Extraction and Report Language' is a backronym.",
+    "Its motto 'There's more than one way to do it' is abbreviated TMTOWTDI and pronounced 'Tim Toady'.",
+    "The first edition of 'Programming Perl' (1991) had a camel on the cover, so it is known as the Camel Book."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Perl 5",
+      "code": "print \"Hello, World!\\n\";\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Since 5.10, `use feature 'say'` (or `use v5.10`) enables `say`, which appends the newline itself.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Perl 5.36+",
+      "code": "use v5.36;    # strict, warnings, say and subroutine signatures\n\nsub factorial($n) {\n    return $n <= 1 ? 1 : $n * factorial($n - 1);\n}\n\nsay factorial(10);\n",
+      "expected_output": "3628800\n",
+      "notes": "Signatures became stable in 5.36; older code unpacks the argument list by hand with `my ($n) = @_;`.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Perl 5",
+      "code": "use strict;\nuse warnings;\n\nfor my $i (1 .. 15) {\n    my $word = ($i % 3 ? '' : 'Fizz') . ($i % 5 ? '' : 'Buzz');\n    print $word || $i, \"\\n\";\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`$i % 3` is false (0) for multiples of 3, and `$word || $i` falls back to the number when the string is empty.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Perl 5",
+      "code": "use strict;\nuse warnings;\n\n# Read right to left: range -> grep (filter) -> map; $_ is the implicit topic.\nmy @squares = map { $_ * $_ } grep { $_ % 2 == 0 } 1 .. 10;\nprint \"@squares\\n\";    # arrays interpolate joined by spaces\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "grep and map take a block and a list and alias $_ to each element; an array interpolated in a string is joined with $\" (a space by default).",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Perl 5.14+ (package blocks)",
+      "code": "use strict;\nuse warnings;\n\n# Perl 5 objects: a hash reference 'blessed' into a package (class).\npackage Rectangle {\n    sub new  { my ($class, %args) = @_; return bless {%args}, $class }\n    sub area { my $self = shift; return $self->{width} * $self->{height} }\n}\n\npackage Triangle {\n    sub new  { my ($class, %args) = @_; return bless {%args}, $class }\n    sub area { my $self = shift; return $self->{base} * $self->{height} / 2 }\n}\n\npackage main;\n\nfor my $shape (Rectangle->new(width => 3, height => 4),\n               Triangle->new(base => 10, height => 3)) {\n    printf \"%s: %d\\n\", ref $shape, $shape->area;\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "`ref` returns the class a reference was blessed into, and `->area` looks the method up in that package. Perl 5.38's experimental `class` feature offers declarative `field`s and `method`s instead of bless.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Text munging with built-in regexes",
+      "dialect": "Perl 5",
+      "code": "use strict;\nuse warnings;\n\n# Perl's home turf: read lines, match regexes, rewrite text, tally in a hash.\nmy %count;\nwhile (<DATA>) {\n    next unless /^(\\S+) \\s+ (ERROR|WARN|INFO) \\s+ (.*)/x;\n    my ($date, $level, $msg) = ($1, $2, $3);\n    $count{$level}++;\n    next unless $level eq 'ERROR';\n    $msg =~ s{/dev/(\\w+)}{[$1]}g;    # rewrite device paths in place\n    print \"$date $msg\\n\";\n}\nprint join(', ', map { \"$_=$count{$_}\" } sort keys %count), \"\\n\";\n\n__DATA__\n2024-03-01 ERROR disk full on /dev/sda1\n2024-03-01 INFO  backup started\n2024-03-02 ERROR timeout contacting db01\n2024-03-02 WARN  load average 7.2\n2024-03-03 ERROR disk full on /dev/sdb2\n",
+      "expected_output": "2024-03-01 disk full on [sda1]\n2024-03-02 timeout contacting db01\n2024-03-03 disk full on [sdb2]\nERROR=3, INFO=1, WARN=1\n",
+      "notes": "`while (<DATA>)` reads the lines after __DATA__ into $_, and a bare /.../ matches against $_. Captures land in $1..$3, /x allows whitespace inside the pattern, and s{...}{...}g rewrites every match in place.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "perl",
+        "version": "5.44",
+        "docker_image": "perl:5-slim",
+        "run": "perl {file}"
+      },
+      {
+        "name": "perl (system)",
+        "version": "5.38",
+        "run": "perl {file}",
+        "notes": "Preinstalled on most Linux distributions and macOS; all snippets also ran on 5.38."
+      }
+    ],
+    "browser": { "name": "WebPerl", "url": "https://webperl.zero-g.net/", "notes": "perl 5 compiled to WebAssembly with Emscripten; self-described beta and not actively updated." },
+    "notes": "The official Docker image is the dependable sandbox; the in-browser option is experimental."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Perl",
+    "homepage": "https://www.perl.org/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Perl",
+    "https://perldoc.perl.org/perlhist",
+    "https://perldoc.perl.org/perl5360delta",
+    "https://perldoc.perl.org/perl5400delta",
+    "https://en.wikipedia.org/wiki/CPAN",
+    "https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions"
+  ]
+}

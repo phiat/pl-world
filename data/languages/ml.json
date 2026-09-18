@@ -1,0 +1,314 @@
+{
+  "id": "ml",
+  "name": "ML",
+  "aliases": [
+    "Meta Language",
+    "LCF/ML",
+    "Standard ML",
+    "SML",
+    "SML '97"
+  ],
+  "year": 1973,
+  "year_note": "Design began in 1973 as the metalanguage of the Edinburgh LCF theorem prover; LCF/ML was finalised in the book 'Edinburgh LCF' (1979). Standard ML was proposed in 1983, formally defined in 1990 and revised in 1997 (SML '97).",
+  "designers": [
+    "Robin Milner",
+    "Lockwood Morris",
+    "Malcolm Newey",
+    "Michael Gordon",
+    "Christopher Wadsworth"
+  ],
+  "organization": "University of Edinburgh",
+  "country": "United Kingdom",
+  "tagline": "The metalanguage of a theorem prover that gave programming Hindley–Milner type inference, polymorphism and safe abstract types.",
+  "summary": "ML is a statically typed functional language created by Robin Milner's group at Edinburgh as the 'meta language' for scripting proofs in the LCF theorem prover. It combined first-class functions with a polymorphic type system whose types are inferred automatically, together with exceptions and abstract types that guaranteed theorems could only be produced by valid inference rules. Its descendants — Standard ML, Caml/OCaml and F# — and its type system shaped nearly every typed functional language that followed.",
+  "history": "Milner started the Edinburgh LCF project around 1973 to build a more extensible successor to Stanford LCF, working first with Lockwood Morris and Malcolm Newey and, from 1975, with Michael Gordon and Christopher Wadsworth. ML was designed as its metalanguage: proof tactics were ML functions, 'tacticals' were higher-order functions, failing tactics raised exceptions, and theorems were an abstract type whose only constructors were the inference rules, so static typing made proofs unforgeable. LCF/ML was implemented by translation into Stanford Lisp and documented in the book 'Edinburgh LCF' (1979); Milner's 1978 paper 'A Theory of Type Polymorphism in Programming' gave its type inference algorithm.\n\nDialects soon diverged — Luca Cardelli's VAX ML, and Gérard Huet's version at INRIA, which led to Caml — while Rod Burstall's related language HOPE introduced algebraic datatypes with pattern matching. In 1983 Milner proposed 'Standard ML', uniting LCF/ML with HOPE's datatypes and clausal function definitions, and David MacQueen designed its module system of signatures, structures and functors. 'The Definition of Standard ML' (Milner, Tofte and Harper, 1990; revised 1997) made it one of the few practical languages with a complete formal semantics. Standard ML lives on in SML/NJ, MLton and Poly/ML, and the family continues through OCaml and F#.",
+  "innovations": [
+    "Hindley–Milner type inference: full static typing with no annotations (Milner 1978; Damas and Milner 1982)",
+    "Parametric polymorphism with inferred type variables ('a list, 'a -> 'a)",
+    "Abstract types as a security mechanism: LCF's theorem type could be built only by inference rules",
+    "Typed exception handling, designed so failing proof tactics could be caught and retried",
+    "In Standard ML: algebraic datatypes with exhaustively checked pattern matching",
+    "In Standard ML: a module system of signatures, structures and functors, and a complete formal definition (1990)"
+  ],
+  "paradigms": [
+    "functional",
+    "imperative",
+    "generic"
+  ],
+  "family": "ml",
+  "syntax_family": "ml",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "global",
+    "equivalence": "mixed",
+    "notes": "Hindley–Milner inference with let-polymorphism; SML '97 adds the value restriction for mutable references. Datatypes are generative (nominal); records and tuples are structural."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "native-compiled",
+    "bytecode-vm"
+  ],
+  "status": "maintained",
+  "latest_version": "Standard ML '97 (The Definition of Standard ML, Revised)",
+  "file_extensions": [
+    ".sml",
+    ".sig",
+    ".fun"
+  ],
+  "color": "#dc566d",
+  "primary_parent": "lisp",
+  "influenced_by": [
+    {
+      "id": "lisp",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Stanford LCF was written in Lisp and LCF/ML was implemented by translation into Stanford Lisp; type inference kept much of the fluency of Lisp while adding static types and proper closures."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "ISWIM",
+      "year": 1966,
+      "note": "Landin's applicative language: ML's call-by-value core and let/where-style declarations."
+    },
+    {
+      "name": "POP-2",
+      "note": "Popplestone and Burstall's Edinburgh AI language: records, partial application and an escape mechanism."
+    },
+    {
+      "name": "PAL",
+      "year": 1968,
+      "note": "MIT's implemented extension of ISWIM."
+    },
+    {
+      "name": "GEDANKEN",
+      "year": 1970,
+      "note": "Reynolds's language with references as first-class values."
+    },
+    {
+      "name": "HOPE",
+      "year": 1980,
+      "note": "Burstall's Edinburgh language; source of Standard ML's datatypes, pattern matching and clausal definitions."
+    }
+  ],
+  "influenced": [
+    "miranda",
+    "haskell",
+    "ocaml",
+    "fsharp",
+    "scala",
+    "rust",
+    "erlang",
+    "clojure",
+    "cpp",
+    "kotlin",
+    "csharp",
+    "python"
+  ],
+  "traits": {
+    "type-inference": {
+      "level": "core",
+      "note": "Hindley–Milner (algorithm W, 1978) from the start."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Parametric polymorphism ('a list); Standard ML functors add module-level genericity."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "core",
+      "note": "Bindings and data are immutable; mutation needs explicit ref cells (LCF/ML used letref variables)."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "The 'a option datatype (NONE | SOME v) in the Basis Library; there are no null references. LCF/ML had binary sum types (ty1 + ty2)."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Tactics as functions and tacticals as higher-order functions were the original motivation."
+    },
+    "closures": {
+      "level": "core",
+      "note": "Lexically scoped closures from the start, unlike the dynamically scoped Lisps of the time."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "LCF/ML had failwith and ? failure trapping; Standard ML has typed exceptions with raise/handle."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "LCF/ML's abstype (used for LCF's theorem type); SML '97 adds opaque signature ascription (:>)."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "since": 1983,
+      "version": "Standard ML",
+      "note": "Clausal function definitions over datatype constructors, adopted from HOPE (via NPL); LCF/ML had no datatypes to match on."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "since": 1983,
+      "version": "Standard ML",
+      "note": "datatype declarations adopted from HOPE, with exhaustiveness checking."
+    },
+    "modules": {
+      "level": "core",
+      "since": 1984,
+      "version": "Standard ML",
+      "note": "MacQueen's signatures, structures and functors, proposed in 1984 and fixed in the 1990 Definition."
+    },
+    "interfaces": {
+      "level": "supported",
+      "note": "Signatures specify module interfaces; one structure can match many signatures."
+    },
+    "structural-typing": {
+      "level": "supported",
+      "note": "Record and tuple types, and signature matching, are structural; datatypes are not."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "let … in … end and local … in … end."
+    },
+    "structured-control": {
+      "level": "supported",
+      "note": "if and case expressions and while loops, though recursion is idiomatic."
+    },
+    "tail-calls": {
+      "level": "core",
+      "note": "Not required by the Definition, but guaranteed in practice by the major implementations."
+    },
+    "continuations": {
+      "level": "supported",
+      "note": "callcc in SML/NJ (SMLofNJ.Cont) and MLton (MLton.Cont); not part of the Definition."
+    },
+    "csp-channels": {
+      "level": "library",
+      "note": "Concurrent ML (Reppy, 1991): synchronous channels and first-class events on SML/NJ and MLton."
+    },
+    "garbage-collection": {
+      "level": "core"
+    }
+  },
+  "milestones": [
+    {
+      "year": 1973,
+      "event": "Milner starts the Edinburgh LCF project; ML is designed as its metalanguage"
+    },
+    {
+      "year": 1978,
+      "event": "Milner's 'A Theory of Type Polymorphism in Programming' presents algorithm W"
+    },
+    {
+      "year": 1979,
+      "event": "'Edinburgh LCF' (Gordon, Milner, Wadsworth) documents LCF/ML"
+    },
+    {
+      "year": 1982,
+      "event": "Damas and Milner prove principal types for ML's type system (POPL)"
+    },
+    {
+      "year": 1983,
+      "event": "Milner proposes Standard ML, adding HOPE-style datatypes and pattern matching"
+    },
+    {
+      "year": 1984,
+      "event": "MacQueen's module system and Milner's core-language proposal presented at LFP"
+    },
+    {
+      "year": 1990,
+      "event": "'The Definition of Standard ML' (Milner, Tofte, Harper) published"
+    },
+    {
+      "year": 1997,
+      "event": "Revised Definition (SML '97): value restriction, opaque signatures, new Basis Library"
+    }
+  ],
+  "trivia": [
+    "ML stands for 'Meta Language': the language in which LCF users wrote proof procedures about the object logic.",
+    "A Springer-Verlag form-filling bug credited the 1979 book 'Edinburgh LCF' to 'Arthur J. Milner'.",
+    "HOPE, whose datatypes Standard ML adopted, is not an acronym: it is named after Hope Park Square in Edinburgh, where it was born."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Standard ML '97",
+      "code": "val () = print \"Hello, World!\\n\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Run as a script with Poly/ML. In the original LCF/ML, top-level phrases ended with ';;' and strings were 'tokens'.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Standard ML '97",
+      "code": "fun factorial 0 = 1\n  | factorial n = n * factorial (n - 1)\n\nval () = print (Int.toString (factorial 10) ^ \"\\n\")\n",
+      "expected_output": "3628800\n",
+      "notes": "Clausal definitions by pattern matching arrived with Standard ML (from HOPE); LCF/ML would have written roughly letrec fact n = if n = 0 then 1 else n * fact (n - 1);;",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Standard ML '97",
+      "code": "fun fizzbuzz n =\n  case (n mod 3, n mod 5) of\n      (0, 0) => \"FizzBuzz\"\n    | (0, _) => \"Fizz\"\n    | (_, 0) => \"Buzz\"\n    | _      => Int.toString n\n\nval () =\n  List.app (fn n => print (fizzbuzz n ^ \"\\n\"))\n           (List.tabulate (15, fn i => i + 1))\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "case over a tuple of remainders. LCF/ML had no case expression; it used nested if-then-else (and could iterate with its combined if … loop construct).",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Standard ML '97",
+      "code": "val nums = List.tabulate (10, fn i => i + 1)\n\nval squares =\n  List.map (fn x => x * x) (List.filter (fn x => x mod 2 = 0) nums)\n\nval () = print (String.concatWith \" \" (List.map Int.toString squares) ^ \"\\n\")\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "List.tabulate, List.map, List.filter and String.concatWith come from the SML '97 Basis Library.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Standard ML '97",
+      "code": "(* An algebraic data type: a shape is one of two tagged variants. *)\ndatatype shape =\n    Rectangle of {width : int, height : int}\n  | Triangle of {base : int, height : int}\n\n(* Clausal definitions dispatch on the constructor; the compiler\n   checks the match is exhaustive. *)\nfun area (Rectangle {width, height}) = width * height\n  | area (Triangle {base, height})   = base * height div 2\n\nfun name (Rectangle _) = \"Rectangle\"\n  | name (Triangle _)  = \"Triangle\"\n\nval () =\n  List.app (fn s => print (name s ^ \": \" ^ Int.toString (area s) ^ \"\\n\"))\n           [Rectangle {width = 3, height = 4}, Triangle {base = 10, height = 3}]\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "datatype plus pattern matching came from HOPE into Standard ML, and the record syntax from Cardelli's VAX ML; LCF/ML offered only abstract types and binary sums.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Types without annotations",
+      "dialect": "Standard ML '97",
+      "code": "(* Not one type annotation: Hindley-Milner inference finds the most\n   general type of each definition (shown in the comments). *)\n\n(* compose : ('a -> 'b) * ('c -> 'a) -> 'c -> 'b *)\nfun compose (f, g) x = f (g x)\n\n(* foldr : ('a * 'b -> 'b) -> 'b -> 'a list -> 'b *)\nfun foldr f z []        = z\n  | foldr f z (x :: xs) = f (x, foldr f z xs)\n\n(* length : 'a list -> int -- works on a list of anything *)\nfun length xs = foldr (fn (_, n) => n + 1) 0 xs\n\n(* sum : int list -> int  *)\nfun sum xs = foldr (op +) 0 xs\n\n(* The same polymorphic code, used at several types. *)\nval () = print (Int.toString (length [\"a\", \"b\", \"c\"]) ^ \"\\n\")\nval () = print (Int.toString (length [true, false]) ^ \"\\n\")\nval () = print (compose (Int.toString, sum) [1, 2, 3, 4] ^ \"\\n\")\nval () = print (foldr (op ^) \"\" [\"M\", \"L\"] ^ \"\\n\")\n",
+      "expected_output": "3\n2\n10\nML\n",
+      "notes": "The types in the comments are exactly what Poly/ML's REPL reports for these definitions. foldr and length deliberately shadow the Basis versions to show inference on user code.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "Poly/ML",
+        "version": "5.7.1",
+        "docker_image": "plw-ml",
+        "install": "FROM debian:bookworm-slim; apt-get install -y polyml libpolyml-dev",
+        "run": "poly --script {file}",
+        "notes": "polyml is packaged in Debian bookworm but not trixie. Other SML '97 implementations (MLton, SML/NJ) should also run the snippets but were not tested here.",
+        "dockerfile": "sandbox/ml/Dockerfile"
+      }
+    ],
+    "browser": {
+      "name": "SOSML",
+      "url": "https://sosml.org/",
+      "notes": "An SML '97 interpreter written in TypeScript (Saarland University); covers the core language and basic modules."
+    },
+    "notes": "The original LCF/ML has no maintained implementation, so the snippets use Standard ML '97."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/ML_(programming_language)",
+    "homepage": "https://smlfamily.github.io/",
+    "spec": "https://smlfamily.github.io/sml97-defn.pdf"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/ML_(programming_language)",
+    "https://en.wikipedia.org/wiki/Standard_ML",
+    "https://smlfamily.github.io/history/SML-history.pdf",
+    "https://www.cl.cam.ac.uk/archive/mjcg/papers/HolHistory.pdf"
+  ]
+}

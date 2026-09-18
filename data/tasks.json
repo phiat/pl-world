@@ -1,0 +1,44 @@
+[
+  {
+    "id": "hello",
+    "name": "Hello, World!",
+    "prompt": "Print exactly `Hello, World!` followed by a newline.",
+    "shows": "Program skeleton, entry point, and output.",
+    "expected_output": "Hello, World!\n"
+  },
+  {
+    "id": "factorial",
+    "name": "Factorial",
+    "prompt": "Define a recursive function factorial(n) and print factorial(10). If the language (or the historical dialect shown) has no recursion, use a loop and say so in notes.",
+    "shows": "Function definition, recursion, integer arithmetic.",
+    "expected_output": "3628800\n"
+  },
+  {
+    "id": "fizzbuzz",
+    "name": "FizzBuzz",
+    "prompt": "For i from 1 to 15 print Fizz for multiples of 3, Buzz for multiples of 5, FizzBuzz for both, otherwise the number — one per line.",
+    "shows": "Loops, conditionals, modulo, string output.",
+    "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n"
+  },
+  {
+    "id": "higher-order",
+    "name": "Map & filter",
+    "prompt": "Take the numbers 1..10, keep the even ones, square them, and print the result on one line as `4 16 36 64 100` — using the language's most idiomatic collection style (map/filter, comprehension, array ops, query, loop...).",
+    "shows": "Collections, lambdas / comprehensions / array operations.",
+    "expected_output": "4 16 36 64 100\n"
+  },
+  {
+    "id": "shapes",
+    "name": "Shapes",
+    "prompt": "Model two kinds of shape — Rectangle(width 3, height 4) and Triangle(base 10, height 3) — each with an area operation, using the language's idiomatic data modelling (classes, ADTs + pattern matching, records, structs + interfaces, prototypes, multimethods, tables...). Print `Rectangle: 12` then `Triangle: 15` (integer formatting).",
+    "shows": "Data modelling and polymorphism: OOP vs ADTs vs records.",
+    "expected_output": "Rectangle: 12\nTriangle: 15\n"
+  },
+  {
+    "id": "signature",
+    "name": "Signature idiom",
+    "prompt": "A short program (under ~25 lines) showing off what is most distinctive about this language — its signature idea. Give it a `title` and document its exact expected_output.",
+    "shows": "The idea this language is famous for.",
+    "expected_output": null
+  }
+]

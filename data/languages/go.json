@@ -1,0 +1,340 @@
+{
+  "id": "go",
+  "name": "Go",
+  "aliases": [
+    "Golang"
+  ],
+  "year": 2009,
+  "year_note": "Design began at Google on 21 September 2007; Go was released as an open-source project on 10 November 2009. Go 1.0, which came with a compatibility promise for Go 1 programs, followed on 28 March 2012.",
+  "designers": [
+    "Robert Griesemer",
+    "Rob Pike",
+    "Ken Thompson"
+  ],
+  "organization": "Google",
+  "country": "United States",
+  "tagline": "Google's small, fast-compiling systems language: C-like syntax, garbage collection, and concurrency built on goroutines and channels.",
+  "summary": "Go is a statically typed, garbage-collected language compiled to native code, designed at Google for large networked programs running on multicore machines. It pairs C-like syntax and performance with fast builds, implicitly satisfied interfaces, and built-in CSP-style concurrency through goroutines and channels. Its deliberate minimalism (no inheritance, no exceptions, generics only since 2022) and its opinionated tooling made it a common choice for servers and cloud infrastructure such as Docker and Kubernetes.",
+  "history": "Robert Griesemer, Rob Pike and Ken Thompson began sketching a new language on a whiteboard at Google on 21 September 2007, motivated by slow builds, tangled dependencies and the complexity of C++ in Google's large server codebases. By January 2008 Thompson had a prototype compiler that generated C; Ian Lance Taylor independently started a GCC front end (gccgo) from the draft specification, and Russ Cox joined late that year. Go became a public open-source project on 10 November 2009.\n\nIn the authors' words Go is \"mostly in the C family (basic syntax), with significant input from the Pascal/Modula/Oberon family (declarations, packages), plus some ideas from languages inspired by Tony Hoare's CSP, such as Newsqueak and Limbo (concurrency)\" — Bell Labs languages that Pike had created or worked on. Go 1.0 (March 2012) froze the language under a compatibility promise. The toolchain was rewritten from C into Go for Go 1.5 (2015), modules replaced GOPATH-based dependency management starting with Go 1.11 (2018), and after a decade of debate type parameters (generics) arrived in Go 1.18 in March 2022, followed by range-over-function iterators in Go 1.23 (2024) and generic methods in Go 1.27 (2026).",
+  "innovations": [
+    "Goroutines and channels: CSP-style concurrency built into a mainstream compiled language, with a runtime that multiplexes cheap goroutines onto OS threads",
+    "Interfaces satisfied implicitly by method sets — structural typing checked at compile time in an otherwise nominal type system",
+    "Fast compilation as an explicit design goal, via a dependency-conscious package and import model",
+    "Opinionated built-in tooling: gofmt's single canonical formatting, go test, go vet and a module system shipped with the compiler",
+    "Errors as ordinary values returned alongside results (multiple return values) instead of exceptions",
+    "Statically linked single-binary deployment and simple cross-compilation (GOOS/GOARCH)"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured",
+    "concurrent",
+    "object-oriented"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "mixed",
+    "notes": "Named types are nominal and never implicitly converted, but interface satisfaction is structural: any type with the right methods implements an interface without declaring it. `:=` infers local variable types, and type arguments to generic functions are usually inferred."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "1.27.1",
+  "file_extensions": [
+    ".go"
+  ],
+  "color": "#00ADD8",
+  "primary_parent": "c",
+  "influenced_by": [
+    {
+      "id": "c",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Basic syntax, expressions, pointers (without arithmetic) and the systems-programming niche; Thompson had co-created Unix and C's predecessor B."
+    },
+    {
+      "id": "pascal",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Head of the Wirth language line that Donovan & Kernighan call a major stream of influence (declarations, packages)."
+    },
+    {
+      "id": "modula2",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Inspired Go's package concept (Donovan & Kernighan)."
+    },
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Wikipedia credits Smalltalk protocols as an inspiration for Go's interfaces."
+    },
+    {
+      "id": "apl",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; Go's `iota` constant generator takes its name from APL's index generator ι."
+    },
+    {
+      "id": "bcpl",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; as in BCPL, line ends can terminate statements, so semicolons rarely appear in source."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Oberon",
+      "year": 1987,
+      "note": "Removed the split between module interface and implementation files, as Go does."
+    },
+    {
+      "name": "Oberon-2",
+      "year": 1991,
+      "note": "Syntax for packages, imports and declarations (Donovan & Kernighan)."
+    },
+    {
+      "name": "Object Oberon",
+      "note": "Syntax for method declarations with receivers (Donovan & Kernighan)."
+    },
+    {
+      "name": "Communicating Sequential Processes (Hoare)",
+      "year": 1978,
+      "note": "The formal model behind goroutines, channels and `select`."
+    },
+    {
+      "name": "Newsqueak",
+      "note": "Rob Pike's concurrent language with first-class channels."
+    },
+    {
+      "name": "Alef",
+      "year": 1992,
+      "note": "Plan 9 systems language with channels and threads."
+    },
+    {
+      "name": "Limbo",
+      "year": 1995,
+      "note": "Inferno language Pike worked on: channels, garbage collection, C-like syntax."
+    },
+    {
+      "name": "occam",
+      "year": 1983,
+      "note": "Listed by Wikipedia among Go's CSP-derived influences."
+    }
+  ],
+  "influenced": [
+    "zig"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "`for` is the only loop keyword; `switch` cases do not fall through."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Goroutine stacks grow dynamically; no tail-call elimination."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "`panic`/`recover` exist for truly exceptional cases; ordinary errors are values returned alongside results."
+    },
+    "generators": {
+      "level": "supported",
+      "since": 2024,
+      "version": "Go 1.23",
+      "note": "Range-over-function iterators: a function taking a `yield` callback can drive a for-range loop (package iter)."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Local only: `x := expr`, plus inference of generic type arguments."
+    },
+    "generics": {
+      "level": "supported",
+      "since": 2022,
+      "version": "Go 1.18",
+      "note": "Type parameters constrained by interfaces (type sets). Methods may declare their own type parameters only since Go 1.27 (2026), and interface methods still cannot."
+    },
+    "structural-typing": {
+      "level": "core",
+      "note": "Only for interfaces: a type satisfies an interface by having its methods, with no `implements` declaration."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Small, implicitly satisfied interfaces such as io.Reader and io.Writer are the main abstraction mechanism."
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "note": "Struct embedding promotes the embedded type's methods — composition rather than inheritance."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Encapsulation is per package: identifiers starting with a lower-case letter are unexported."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Packages with explicit imports (unused imports are errors); versioned modules since Go 1.11 (2018)."
+    },
+    "first-class-functions": {
+      "level": "core"
+    },
+    "closures": {
+      "level": "core",
+      "note": "Function literals capture variables by reference; since Go 1.22 each loop iteration gets a fresh variable."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Concurrent, low-pause tri-colour mark-and-sweep collector (concurrent since Go 1.5)."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "Explicit pointers with & and *, but no pointer arithmetic outside package unsafe, and memory is garbage-collected."
+    },
+    "csp-channels": {
+      "level": "core",
+      "note": "`go` statements, typed channels (`chan T`, `<-ch`) and `select` are part of the language."
+    },
+    "reflection": {
+      "level": "library",
+      "note": "Runtime reflection via the standard `reflect` package."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "Standard `regexp` package (RE2 syntax, linear-time matching); no regex literals."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2007,
+      "event": "Griesemer, Pike and Thompson begin designing Go at Google (21 September)"
+    },
+    {
+      "year": 2008,
+      "event": "Thompson's prototype compiler; Ian Lance Taylor starts the gccgo front end"
+    },
+    {
+      "year": 2009,
+      "event": "Released as open source (10 November); TIOBE's language of the year"
+    },
+    {
+      "year": 2012,
+      "event": "Go 1.0 (28 March) with the Go 1 compatibility promise"
+    },
+    {
+      "year": 2015,
+      "event": "Go 1.5: compiler and runtime rewritten in Go; concurrent garbage collector"
+    },
+    {
+      "year": 2018,
+      "event": "Go 1.11 introduces modules"
+    },
+    {
+      "year": 2022,
+      "event": "Go 1.18 adds generics (type parameters)"
+    },
+    {
+      "year": 2024,
+      "event": "Go 1.22 ranges over integers with per-iteration loop variables; Go 1.23 adds range-over-function iterators"
+    },
+    {
+      "year": 2026,
+      "event": "Go 1.27 allows methods to declare their own type parameters (generic methods)"
+    }
+  ],
+  "trivia": [
+    "The gopher mascot was drawn by Renée French, who also designed Glenda, the Plan 9 bunny; it was adapted from a gopher she had drawn for a WFMU T-shirt.",
+    "The language is officially just 'Go'; 'golang' comes from the original website domain, golang.org.",
+    "On launch day Francis McCabe, author of the older Go! language, asked Google to rename it; the issue was closed in 2010 as 'Unfortunate'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Go 1",
+      "code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfmt.Println(\"Hello, World!\")\n}\n",
+      "expected_output": "Hello, World!\n",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Go 1",
+      "code": "package main\n\nimport \"fmt\"\n\nfunc factorial(n uint64) uint64 {\n\tif n <= 1 {\n\t\treturn 1\n\t}\n\treturn n * factorial(n-1)\n}\n\nfunc main() {\n\tfmt.Println(factorial(10))\n}\n",
+      "expected_output": "3628800\n",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Go 1",
+      "code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfor i := 1; i <= 15; i++ {\n\t\tswitch {\n\t\tcase i%15 == 0:\n\t\t\tfmt.Println(\"FizzBuzz\")\n\t\tcase i%3 == 0:\n\t\t\tfmt.Println(\"Fizz\")\n\t\tcase i%5 == 0:\n\t\t\tfmt.Println(\"Buzz\")\n\t\tdefault:\n\t\t\tfmt.Println(i)\n\t\t}\n\t}\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "A tagless `switch` replaces an if/else chain; cases never fall through unless marked `fallthrough`.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Go 1",
+      "code": "package main\n\nimport (\n\t\"fmt\"\n\t\"strconv\"\n\t\"strings\"\n)\n\nfunc main() {\n\tnums := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}\n\tvar squares []string\n\tfor _, n := range nums { // Go favours a plain loop over map/filter chains\n\t\tif n%2 == 0 {\n\t\t\tsquares = append(squares, strconv.Itoa(n*n))\n\t\t}\n\t}\n\tfmt.Println(strings.Join(squares, \" \"))\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "The standard library has no map/filter; a plain loop with `append` remains idiomatic even with generics (1.18) and iterators (1.23).",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Go 1",
+      "code": "package main\n\nimport \"fmt\"\n\n// Any type with these methods satisfies Shape implicitly: no \"implements\".\ntype Shape interface {\n\tName() string\n\tArea() int\n}\n\ntype Rectangle struct{ Width, Height int }\ntype Triangle struct{ Base, Height int }\n\nfunc (r Rectangle) Name() string { return \"Rectangle\" }\nfunc (r Rectangle) Area() int    { return r.Width * r.Height }\n\nfunc (t Triangle) Name() string { return \"Triangle\" }\nfunc (t Triangle) Area() int    { return t.Base * t.Height / 2 }\n\nfunc main() {\n\tshapes := []Shape{Rectangle{3, 4}, Triangle{10, 3}}\n\tfor _, s := range shapes {\n\t\tfmt.Printf(\"%s: %d\\n\", s.Name(), s.Area())\n\t}\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Rectangle and Triangle never mention Shape: interface satisfaction is implicit and checked at compile time. Methods can be declared on any named type, not just structs.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Goroutines and channels: a concurrent prime sieve",
+      "dialect": "Go 1",
+      "code": "package main\n\nimport \"fmt\"\n\n// Concurrent prime sieve: a chain of goroutines linked by channels,\n// one filter goroutine per prime found so far.\nfunc generate(ch chan<- int) {\n\tfor i := 2; ; i++ {\n\t\tch <- i\n\t}\n}\n\nfunc filter(in <-chan int, out chan<- int, prime int) {\n\tfor n := range in {\n\t\tif n%prime != 0 {\n\t\t\tout <- n\n\t\t}\n\t}\n}\n\nfunc main() {\n\tch := make(chan int)\n\tgo generate(ch)\n\tvar primes []int\n\tfor i := 0; i < 10; i++ {\n\t\tprime := <-ch\n\t\tprimes = append(primes, prime)\n\t\tnext := make(chan int)\n\t\tgo filter(ch, next, prime)\n\t\tch = next\n\t}\n\tfmt.Println(primes)\n}\n",
+      "expected_output": "[2 3 5 7 11 13 17 19 23 29]\n",
+      "notes": "Each `go` statement starts a goroutine; unbuffered channels make sender and receiver rendezvous, CSP-style. Every prime found adds a new filter goroutine to the chain. This sieve is one of the example programs offered on the go.dev playground.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "Go (gc)",
+        "version": "1.26",
+        "docker_image": "plw-go",
+        "compile": "go build -o {out} {file}",
+        "run": "{out}",
+        "notes": "Verified with golang:1.26-alpine (go1.26.5) and a host go1.27.1. `go run {file}` also works for one-shot runs. plw-go is golang:1.26-alpine with the build cache pre-warmed for common std packages (fmt, strings, sync, time and so on), so a run skips recompiling them.",
+        "dockerfile": "sandbox/go/Dockerfile"
+      }
+    ],
+    "browser": {
+      "name": "GopherJS Playground",
+      "url": "https://gopherjs.github.io/playground/",
+      "notes": "Compiles Go to JavaScript client-side. GopherJS supports Go up to 1.21 (as of mid-2026), so newer language features fail; all six snippets stay within Go 1.21."
+    },
+    "notes": "The official go.dev playground compiles on Google's servers, not in the browser."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Go_(programming_language)",
+    "homepage": "https://go.dev/",
+    "spec": "https://go.dev/ref/spec"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Go_(programming_language)",
+    "https://go.dev/doc/faq",
+    "https://go.dev/doc/devel/release",
+    "https://go.dev/blog/go1.23",
+    "https://www.gopl.io/",
+    "https://en.wikipedia.org/wiki/Newsqueak",
+    "https://github.com/gopherjs/gopherjs",
+    "https://go.dev/play/"
+  ]
+}

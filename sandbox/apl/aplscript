@@ -1,0 +1,4 @@
+#!/bin/sh
+# aplscript FILE -- run a Dyalog APL script (.apls); Dyalog terminates session
+# output lines with CR, so convert them to LF for ordinary stdout.
+dyalogscript "$1" | tr '\r' '\n'

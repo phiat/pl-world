@@ -1,0 +1,221 @@
+{
+  "id": "algol60",
+  "name": "ALGOL 60",
+  "aliases": [
+    "Algol 60",
+    "ALGOL"
+  ],
+  "year": 1960,
+  "year_note": "Designed at a conference in Paris in January 1960; the 'Report on the Algorithmic Language ALGOL 60', edited by Peter Naur, was published in May 1960 and the Revised Report in 1963. The first compiler ran in August 1960.",
+  "designers": [
+    "John Backus",
+    "Friedrich L. Bauer",
+    "Julien Green",
+    "Charles Katz",
+    "John McCarthy",
+    "Peter Naur",
+    "Alan Perlis",
+    "Heinz Rutishauser",
+    "Klaus Samelson",
+    "Adriaan van Wijngaarden",
+    "Bernard Vauquois",
+    "Joseph Wegstein",
+    "Michael Woodger"
+  ],
+  "country": "International",
+  "tagline": "The committee-designed algorithmic language that introduced BNF, block structure and recursion: ancestor of most imperative languages.",
+  "summary": "ALGOL 60 (ALGOrithmic Language) was designed by an international committee as a machine-independent notation for expressing algorithms. Its Report defined the syntax with what became Backus–Naur Form, and the language introduced nested blocks with lexical scope, recursive procedures, and call-by-value and call-by-name parameters. It saw limited commercial use, partly because it defined no input/output, but it became the standard notation for publishing algorithms and the ancestor of most later imperative languages.",
+  "history": "ALGOL grew out of a joint ACM–GAMM meeting in Zurich in 1958, which produced the International Algebraic Language, later called ALGOL 58. A thirteen-member committee of European and American delegates met in Paris in January 1960 to redesign it, and Peter Naur edited the resulting Report, whose syntax was defined in John Backus's metalinguistic notation as refined by Naur — later named Backus–Naur Form. Recursion was admitted at the last moment, over the objections of some members.\n\nEdsger Dijkstra and Jaap Zonneveld completed the first compiler, for the Electrologica X1, in August 1960, and implementations followed on Burroughs, Elliott (by Tony Hoare) and other machines, especially in Europe. The Revised Report (1963) settled ambiguities, and a Modified Report recommended by IFIP Working Group 2.1 in 1975 added an 'environmental block' of standard procedures, including the input/output procedures inchar, outchar, outstring, outinteger and outreal.\n\nThe absence of standard I/O hindered commercial adoption, but ALGOL became the usual way to publish algorithms in journals and textbooks for decades. Its block structure and syntax passed to Simula, ALGOL 68, Pascal and CPL/BCPL and, through them, to C and most of its descendants.",
+  "innovations": [
+    "Backus–Naur Form: syntax defined by a formal grammar in the language's own report",
+    "Nested block structure with lexically scoped local variables (begin ... end)",
+    "Recursive procedures and the stack-based run-time model they require",
+    "Call-by-value and call-by-name parameter passing, enabling Jensen's device",
+    "Conditional expressions, compound statements, and arrays whose bounds are computed at block entry",
+    "Separate reference, publication and hardware representations of one language"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured"
+  ],
+  "family": "algol",
+  "syntax_family": "algol",
+  "block_style": "begin-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "Only integer, real and Boolean values, plus arrays, procedures, labels, switches and string parameters; there are no records or user-defined types. Integers convert implicitly to real."
+  },
+  "memory": "stack",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "historical",
+  "latest_version": "Modified Report on the Algorithmic Language ALGOL 60 (1975)",
+  "file_extensions": [
+    ".alg",
+    ".a60"
+  ],
+  "color": "#D1E0DB",
+  "primary_parent": "fortran",
+  "influenced_by": [
+    {
+      "id": "fortran",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Indirectly, via ALGOL 58, whose influences included FORTRAN; John Backus served on both ALGOL committees."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "ALGOL 58",
+      "year": 1958,
+      "note": "The International Algebraic Language defined at the 1958 ACM–GAMM Zurich meeting; ALGOL 60 was its redesign."
+    }
+  ],
+  "influenced": [
+    "simula",
+    "algol68",
+    "pascal",
+    "bcpl",
+    "basic",
+    "scheme",
+    "clu",
+    "c",
+    "ada"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if ... then ... else, compound statements and for loops with step/until and while elements; goto and switch remained available."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Every begin ... end block can declare its own variables, including arrays whose bounds are computed on entry."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Admitted late in the design; it required a stack-based implementation."
+    },
+    "static-typing": {
+      "level": "core",
+      "note": "Declared integer, real and Boolean variables; no user-defined types."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Procedures can be passed as parameters but cannot be assigned to variables or returned."
+    },
+    "closures": {
+      "level": "supported",
+      "note": "Downward only: a procedure passed as a parameter keeps access to its defining block (Knuth's 1964 'man or boy' test exercises this), but it cannot outlive that block."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "Call-by-name parameters (the default) are re-evaluated at each use, like unshared thunks; this is the mechanism behind Jensen's device."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1958,
+      "event": "ACM–GAMM Zurich meeting defines ALGOL 58 (the International Algebraic Language)"
+    },
+    {
+      "year": 1960,
+      "event": "Paris conference in January; Report published in May; first compiler (Electrologica X1) in August"
+    },
+    {
+      "year": 1963,
+      "event": "Revised Report on ALGOL 60 published"
+    },
+    {
+      "year": 1964,
+      "event": "Knuth's 'man or boy' test separates compilers that handle recursion and non-local references correctly"
+    },
+    {
+      "year": 1975,
+      "event": "Modified Report, with standard I/O procedures, recommended by IFIP WG 2.1"
+    }
+  ],
+  "trivia": [
+    "Tony Hoare called ALGOL 60 'so far ahead of its time that it was not only an improvement on its predecessors but also on nearly all its successors'.",
+    "Donald Knuth suggested calling the Report's notation 'Backus–Naur Form' to credit Peter Naur's contribution.",
+    "Hardware representations varied: the ALCOR compiler for the IBM 7090 required keywords to be 'stropped' in quotes, as in 'PROCEDURE'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "ALGOL 60 (GNU MARST hardware representation, Modified Report I/O)",
+      "code": "begin\n   outstring(1, \"Hello, World!\\n\")\nend\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "The 1960 and 1963 Reports defined no input/output at all, so every implementation supplied its own procedures. MARST provides the environmental-block procedures of the Modified Report (1975) — outstring, outinteger, outreal, outchar — whose first argument is a channel (1 = standard output); the \\n escape inside the string is a MARST convenience. In the reference language keywords are bold symbols (begin); MARST accepts them as plain lower-case words, while many period compilers required stropping such as 'BEGIN'.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "ALGOL 60 (GNU MARST hardware representation, Modified Report I/O)",
+      "code": "begin\n   integer procedure factorial(n); value n; integer n;\n      factorial := if n <= 1 then 1 else n * factorial(n - 1);\n\n   outinteger(1, factorial(10));\n   outstring(1, \"\\n\")\nend\n",
+      "expected_output": "3628800\n",
+      "notes": "An integer procedure returns its result by assigning to its own name, and if ... then ... else is also an expression. value n makes n call-by-value; without it, n would be passed by name. outinteger follows every number with a terminator (a space in MARST), as the Modified Report specifies, so the line ends with a trailing blank.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "ALGOL 60 (GNU MARST hardware representation, Modified Report I/O)",
+      "code": "begin\n   integer i;\n\n   boolean procedure divisible(n, d); value n, d; integer n, d;\n      divisible := n % d * d = n;\n\n   for i := 1 step 1 until 15 do\n   begin\n      if divisible(i, 15) then outstring(1, \"FizzBuzz\")\n      else if divisible(i, 3) then outstring(1, \"Fizz\")\n      else if divisible(i, 5) then outstring(1, \"Buzz\")\n      else outinteger(1, i);\n      outstring(1, \"\\n\")\n   end\nend\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "There is no modulus operator: % is MARST's hardware representation of ÷ (integer division), so n ÷ d × d = n tests divisibility. else if chains are allowed, but the Report forbids then if without an enclosing begin ... end, which rules out the dangling-else ambiguity. outinteger follows every number with a terminator (a space in MARST), as the Modified Report specifies, so the line ends with a trailing blank.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "ALGOL 60 (GNU MARST hardware representation, Modified Report I/O)",
+      "code": "begin\n   integer array xs[1:10];\n   integer i;\n\n   boolean procedure even(x); value x; integer x;\n      even := x % 2 * 2 = x;\n\n   integer procedure square(x); value x; integer x;\n      square := x * x;\n\n   comment procedures can be passed as parameters (but not stored or returned);\n   procedure filtermap(a, n, keep, f);\n      value n; integer array a; integer n;\n      boolean procedure keep; integer procedure f;\n   begin\n      integer i;\n      for i := 1 step 1 until n do\n         if keep(a[i]) then outinteger(1, f(a[i]))\n   end;\n\n   for i := 1 step 1 until 10 do xs[i] := i;\n   filtermap(xs, 10, even, square);\n   outstring(1, \"\\n\")\nend\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Procedures can be parameters (specified as boolean procedure keep and integer procedure f), so higher-order code is possible, but there are no anonymous procedures and procedures cannot be returned or stored. Each outinteger call appends a space, which doubles as the separator; the line ends with one trailing blank.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "ALGOL 60 (GNU MARST hardware representation, Modified Report I/O)",
+      "code": "begin\n   comment no records in ALGOL 60: a shape is a kind code plus two numbers;\n   integer rectangle, triangle;\n\n   integer procedure area(kind, a, b); value kind, a, b; integer kind, a, b;\n      area := if kind = rectangle then a * b else a * b % 2;\n\n   procedure show(kind, a, b); value kind, a, b; integer kind, a, b;\n   begin\n      if kind = rectangle then outstring(1, \"Rectangle: \")\n      else outstring(1, \"Triangle: \");\n      outinteger(1, area(kind, a, b));\n      outstring(1, \"\\n\")\n   end;\n\n   rectangle := 1;  triangle := 2;\n   show(rectangle, 3, 4);\n   show(triangle, 10, 3)\nend\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "ALGOL 60 has no records, unions or user-defined types — records arrived with ALGOL W, classes with Simula 67 and structs with ALGOL 68 — so a shape is an integer kind code plus two numbers, and a conditional expression selects the formula. outinteger follows every number with a terminator (a space in MARST), as the Modified Report specifies, so the line ends with a trailing blank.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Jensen's device: call by name",
+      "dialect": "ALGOL 60 (GNU MARST hardware representation, Modified Report I/O)",
+      "code": "begin\n   integer k;\n\n   comment Jensen's device: i and term are called by name, so every use\n      of term re-evaluates the caller's expression with the current i;\n   integer procedure sum(i, lo, hi, term);\n      value lo, hi; integer i, lo, hi, term;\n   begin\n      integer s;\n      s := 0;\n      for i := lo step 1 until hi do s := s + term;\n      sum := s\n   end;\n\n   outinteger(1, sum(k, 1, 100, k));\n   outinteger(1, sum(k, 1, 10, k * k));\n   outinteger(1, sum(k, 1, 5, k * k * k));\n   outstring(1, \"\\n\")\nend\n",
+      "expected_output": "5050 385 225 \n",
+      "notes": "Parameters are passed by name unless declared value: sum receives the variable k itself and the unevaluated expressions k, k * k and k * k * k, and every use of term re-evaluates the caller's expression with the current value of i (which is k). Jørn Jensen's trick lets one summation procedure serve any series; later ALGOL-family languages such as Pascal replaced call by name with value and reference parameters. outinteger's terminator leaves a trailing blank.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "GNU MARST",
+        "version": "2.8",
+        "docker_image": "plw-algol60",
+        "install": "FROM debian:trixie-slim; apt-get install -y gcc libc6-dev make wget ca-certificates; build https://ftp.gnu.org/gnu/marst/marst-2.8.tar.gz with ./configure && make && make install && ldconfig",
+        "compile": "marst {file} -o {out}.c && gcc {out}.c -lalgol -lm -o {out}",
+        "run": "{out}",
+        "notes": "MARST translates ALGOL 60 to C and links against its libalgol runtime. Keywords are plain lower-case words; the snippets use * for ×, % for ÷ and <= for ≤.",
+        "dockerfile": "sandbox/algol60/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "All six snippets were verified with MARST 2.8 and gcc; lines ending in a number carry the trailing blank written by outinteger."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/ALGOL_60",
+    "spec": "https://www.masswerk.at/algol60/report.htm"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/ALGOL_60",
+    "https://en.wikipedia.org/wiki/ALGOL_58",
+    "https://en.wikipedia.org/wiki/Man_or_boy_test",
+    "https://www.masswerk.at/algol60/modified_report.htm",
+    "https://www.gnu.org/software/marst/",
+    "https://lists.gnu.org/archive/html/info-gnu/2025-10/msg00000.html"
+  ]
+}

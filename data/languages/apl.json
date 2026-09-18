@@ -1,0 +1,270 @@
+{
+  "id": "apl",
+  "name": "APL",
+  "aliases": [
+    "A Programming Language",
+    "Iverson notation",
+    "APL\\360",
+    "APL2",
+    "Dyalog APL"
+  ],
+  "year": 1966,
+  "year_note": "Iverson developed the notation at Harvard from 1957 and published it in 'A Programming Language' (1962). IBM's first implementation, APL\\360, was completed in November 1966 but used only inside IBM at first; APL\\1130 (1968) was the first publicly available system.",
+  "designers": [
+    "Kenneth E. Iverson"
+  ],
+  "organization": "IBM",
+  "country": "United States",
+  "tagline": "Iverson's executable mathematical notation: whole-array primitives written as single glyphs, evaluated right to left.",
+  "summary": "APL is an array programming language that grew out of a mathematical notation devised by Kenneth E. Iverson. Every value is an array, and primitive functions, each written as a single glyph such as ⍴, ⍳ or ⌽, apply to whole arrays at once, while operators such as reduce (/), each (¨) and outer product (∘.) combine functions into new ones. Expressions are evaluated right to left with no precedence among functions, so short expressions replace explicit loops. APL shaped later array languages (J, K, MATLAB, S, NumPy) and remains in commercial use through implementations such as Dyalog APL.",
+  "history": "Kenneth Iverson began developing his notation at Harvard in 1957 as a way to describe and teach algorithms, and published it in the book 'A Programming Language' (1962). At IBM he, Adin Falkoff and Edward Sussenguth used it in 1964 for a formal description of the System/360 architecture. An implementation followed: APL\\360, written by Larry Breed, Dick Lathwell, Roger Moore and others, was completed in November 1966 and at first used within IBM, and APL\\1130 (1968) became the first publicly available APL system. The special character set was typed on terminals fitted with a dedicated APL typing element for IBM's Selectric typewriter mechanism.\n\nAPL became a popular time-sharing language, and Iverson received the 1979 Turing Award for it. IBM's APL2 (1984) generalized arrays to nested, non-rectangular arrays, a model most later dialects adopted, and ISO standardized the language (ISO 8485:1989, and Extended APL as ISO/IEC 13751:2001). Iverson went on to design J, an ASCII-only successor, and Arthur Whitney's A+ and K carried the ideas into finance.\n\nDyalog APL, the main commercial implementation today, has added lexically scoped anonymous functions (dfns, 1996–97), control structures, namespaces, object orientation (2006), tacit function trains (2014) and array notation (2025), while GNU APL and others offer free implementations.",
+  "innovations": [
+    "Array programming: primitives apply element-wise to whole arrays of any rank, with shape (⍴) and rank as first-class ideas",
+    "Operators, i.e. higher-order functions such as reduce (/), scan (\\), each (¨), outer product (∘.) and inner product (f.g), that derive new functions from existing ones",
+    "A uniform right-to-left evaluation rule with no precedence among functions",
+    "A special character set of single-glyph primitives designed as an executable mathematical notation",
+    "Interactive workspaces, in which functions and data are developed in a live session and saved together",
+    "Nested (non-rectangular) arrays, introduced by APL2 in 1984"
+  ],
+  "paradigms": [
+    "array",
+    "functional",
+    "structured"
+  ],
+  "family": "array",
+  "syntax_family": "apl",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "Values are arrays of numbers or characters (nested since APL2); the interpreter chooses internal representations such as boolean, integer, float or complex automatically."
+  },
+  "memory": "mixed",
+  "execution": [
+    "interpreted",
+    "image-based"
+  ],
+  "status": "maintained",
+  "latest_version": "ISO/IEC 13751:2001; Dyalog APL 20.0 (2025)",
+  "file_extensions": [
+    ".apl",
+    ".dyalog",
+    ".aplf",
+    ".apln",
+    ".apls"
+  ],
+  "color": "#5A8164",
+  "primary_parent": null,
+  "influenced_by": [],
+  "influenced_by_external": [
+    {
+      "name": "Mathematical notation",
+      "note": "APL began as Iverson's notation for describing algorithms, used at Harvard from 1957 and in IBM's 1964 formal description of System/360."
+    }
+  ],
+  "influenced": [
+    "cpp",
+    "python"
+  ],
+  "traits": {
+    "array-programming": {
+      "level": "core",
+      "note": "Scalar functions extend element-wise over arrays; reductions, scans and outer and inner products replace loops."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Operators take functions as operands and derive new functions, and dfns are anonymous lambdas, but functions are not ordinary array values."
+    },
+    "recursion": {
+      "level": "supported",
+      "note": "Defined functions may call themselves; in dfns, ∇ refers to the current function."
+    },
+    "tail-calls": {
+      "level": "supported",
+      "note": "Dyalog optimizes tail calls in dfns."
+    },
+    "structured-control": {
+      "level": "supported",
+      "note": "Classic APL branched with → to line labels; Dyalog adds :If, :While and :For control structures, and dfns use guards (condition : result)."
+    },
+    "block-scope": {
+      "level": "supported",
+      "since": 1997,
+      "version": "Dyalog APL 8.1",
+      "note": "dfns are lexically scoped; traditional functions use dynamic scope."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "⎕SIGNAL and ⎕TRAP; Dyalog adds :Trap blocks and dfn error guards (errnums::expression)."
+    },
+    "classes": {
+      "level": "supported",
+      "since": 2006,
+      "version": "Dyalog APL 11.0",
+      "note": "Dyalog classes and instances (⎕NEW), built on namespaces; not part of ISO APL."
+    },
+    "inheritance": {
+      "level": "supported",
+      "since": 2006,
+      "version": "Dyalog APL 11.0"
+    },
+    "interfaces": {
+      "level": "supported",
+      "since": 2006,
+      "version": "Dyalog APL 11.0"
+    },
+    "modules": {
+      "level": "supported",
+      "note": "Dyalog namespaces (:Namespace, ⎕NS); ISO APL has only workspaces."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Workspace memory is managed automatically; Dyalog discards unreferenced memory, including cycles of references, and compacts the workspace."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "⎕NC, ⎕NL and ⎕CR inspect names and definitions, ⎕FX creates functions from text, and ⍎ executes a string."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "note": "In a live workspace a suspended function can be edited and execution resumed; definitions change without restarting."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1957,
+      "event": "Iverson begins developing his notation at Harvard"
+    },
+    {
+      "year": 1962,
+      "event": "'A Programming Language' published"
+    },
+    {
+      "year": 1964,
+      "event": "Formal description of IBM System/360 written in the notation"
+    },
+    {
+      "year": 1966,
+      "event": "APL\\360 completed at IBM (November)"
+    },
+    {
+      "year": 1968,
+      "event": "APL\\1130, the first publicly available APL system"
+    },
+    {
+      "year": 1979,
+      "event": "Iverson receives the Turing Award"
+    },
+    {
+      "year": 1984,
+      "event": "IBM APL2 introduces nested arrays"
+    },
+    {
+      "year": 1989,
+      "event": "ISO 8485 standard"
+    },
+    {
+      "year": 1997,
+      "event": "Dyalog APL 8.1 releases dfns (John Scholes, presented 1996)"
+    },
+    {
+      "year": 2001,
+      "event": "ISO/IEC 13751 Extended APL standard"
+    },
+    {
+      "year": 2006,
+      "event": "Dyalog APL 11.0 adds classes and object orientation"
+    },
+    {
+      "year": 2014,
+      "event": "Dyalog APL 14.0 adds tacit function trains"
+    },
+    {
+      "year": 2025,
+      "event": "Dyalog APL 20.0 adds array notation"
+    }
+  ],
+  "trivia": [
+    "Before screen terminals were common, APL's glyphs were typed on an IBM Selectric typing element carrying the special characters.",
+    "Before it was implemented, the notation was used in 1964 to write a formal description of the IBM System/360 architecture."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Dyalog APL 20.0 (dfns)",
+      "code": "⎕←'Hello, World!'\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "⎕← ('quad gets') writes a value to the session or standard output. Typing 'Hello, World!' alone in an interactive session would display it, but Dyalog scripts (.apls) print only what is assigned to ⎕.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Dyalog APL 20.0 (dfns)",
+      "code": "factorial←{⍵≤1:1 ⋄ ⍵×∇ ⍵-1}   ⍝ a dfn: ⍵ is the argument, ∇ is self-reference\n⎕←factorial 10\n",
+      "expected_output": "3628800\n",
+      "notes": "A dfn: ⍵ is the right argument, condition:result is a guard, ⋄ separates statements, and ∇ calls the function itself. APL also has a factorial primitive: !10. Dfns date from 1996–97; APL\\360 would define a traditional ∇-function that branches with →.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Dyalog APL 20.0 (dfns)",
+      "code": "⍝ 0=3 5|⍵ gives two bits; read them as a binary number to pick 1 of 4 answers\nfizzbuzz←{((⍕⍵)'Fizz' 'Buzz' 'FizzBuzz')⊃⍨1+2⊥⌽0=3 5|⍵}\n{⎕←⍵}¨fizzbuzz¨⍳15\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "0=3 5|⍵ tests divisibility by 3 and 5 at once; 2⊥⌽ reads the two bits as a binary number 0–3, and adding one picks the number itself, Fizz, Buzz or FizzBuzz from a four-item vector. fizzbuzz¨⍳15 maps over 1..15 with each (¨), and {⎕←⍵}¨ prints one item per line.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Dyalog APL 20.0 (dfns)",
+      "code": "x←⍳10              ⍝ 1 2 3 … 10\n⎕←×⍨(0=2|x)/x      ⍝ compress by a boolean mask, then square (× selfie)\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "No map or filter in sight: 2|x computes every remainder at once, the boolean mask compresses x with /, and ×⍨ ('times selfie') squares every element. Numeric vectors display space-separated.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Dyalog APL 20.0 (dfns)",
+      "code": "⍝ Shapes as a table, not a class hierarchy: one row per shape.\nnames←'Rectangle' 'Triangle'\ndims←2 2⍴3 4 10 3            ⍝ width height / base height\nscale←1 0.5                   ⍝ area = scale × product of the dimensions\narea←scale××/dims             ⍝ both areas in one expression: 12 15\n{⎕←⍵}¨names,¨(⊂': '),¨⍕¨area\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Idiomatic APL models data as parallel arrays rather than objects: ×/dims multiplies across each row, and the scale vector turns those products into areas for all shapes in one step. (Dyalog has had classes since version 11.0 in 2006, but a table is the APL way.) ⍕¨ formats each number and ,¨ joins name, ': ' and value item by item.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Whole-array thinking: primes and the Game of Life",
+      "dialect": "Dyalog APL 20.0 (dfns)",
+      "code": "⍝ Primes to 30: build the whole divisibility table with an outer product,\n⍝ count divisors down each column, keep numbers with exactly two.\n⎕←(2=+⌿0=n∘.|n)/n←⍳30\n⍝ Conway's Game of Life as a single expression (after John Scholes)\nlife←{⊃1 ⍵∨.∧3 4=+/,¯1 0 1∘.⊖¯1 0 1∘.⌽⊂⍵}\nglider←5 5⍴0 1 0 0 0 0 0 1 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0\n⎕←life⍣4⊢glider              ⍝ four generations later: moved one cell down-right\n",
+      "expected_output": "2 3 5 7 11 13 17 19 23 29\n0 0 0 0 0\n0 0 1 0 0\n0 0 0 1 0\n0 1 1 1 0\n0 0 0 0 0\n",
+      "notes": "n∘.|n builds a 30×30 table of remainders, 0= marks divisors and +⌿ counts them down each column; numbers with exactly two divisors are prime. life is John Scholes' well-known Game of Life dfn: it shifts the board in all nine directions (⌽ and ⊖ by ¯1 0 1), sums each 3×3 neighbourhood, and applies the birth and survival rules with the inner product ∨.∧. ⍣4 applies it four times, moving the glider one cell diagonally.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "Dyalog APL",
+        "version": "20.0.53963",
+        "docker_image": "plw-apl",
+        "install": "FROM dyalog/dyalog:latest; ENTRYPOINT []; add /usr/local/bin/aplscript: dyalogscript \"$1\" | tr '\\r' '\\n'",
+        "run": "aplscript {file}",
+        "notes": "The dyalog/dyalog image's entrypoint starts an interactive session, so plw-apl resets it and adds aplscript, which runs dyalogscript and converts the carriage returns Dyalog uses to end session output lines into newlines. Dyalog is free for non-commercial use but is not open source.",
+        "dockerfile": "sandbox/apl/Dockerfile"
+      }
+    ],
+    "browser": {
+      "name": "ngn/apl",
+      "url": "https://abrudz.github.io/ngn-apl/web/",
+      "notes": "APL implemented in JavaScript with dfns and a Dyalog-like dialect; not identical to Dyalog, so some snippets may need changes (not tested here). TryAPL (tryapl.org) runs real Dyalog on a server."
+    },
+    "notes": "GNU APL is a free, ISO/APL2-oriented alternative but was not tested with these snippets."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/APL_(programming_language)",
+    "homepage": "https://www.dyalog.com/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/APL_(programming_language)",
+    "https://en.wikipedia.org/wiki/Direct_function",
+    "https://aplwiki.com/wiki/Dyalog_APL_versions",
+    "https://www.dyalog.com/dyalog/dyalog-versions/200.htm",
+    "https://help.dyalog.com/17.0/Content/UserGuide/Installation%20and%20Configuration/Workspace%20Management.htm",
+    "https://www.dyalog.com/blog/2026/07/working-with-llms-and-dyalog/"
+  ]
+}

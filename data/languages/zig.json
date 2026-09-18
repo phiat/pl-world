@@ -1,0 +1,269 @@
+{
+  "id": "zig",
+  "name": "Zig",
+  "aliases": [],
+  "year": 2016,
+  "year_note": "Andrew Kelley announced Zig on 8 February 2016. The language is still pre-1.0: each 0.x release (most recently 0.16.0, April 2026) can break source compatibility, so code — including the snippets here — targets a specific version.",
+  "designers": [
+    "Andrew Kelley"
+  ],
+  "organization": "Zig Software Foundation (since 2020)",
+  "country": "United States",
+  "tagline": "A small, explicit systems language meant to improve on C: compile-time code execution, no hidden control flow, no hidden allocations.",
+  "summary": "Zig is a general-purpose systems programming language designed as a pragmatic improvement on C. It has no macros, preprocessor, exceptions, operator overloading or hidden memory allocation; instead a single mechanism, `comptime`, runs ordinary Zig code at compile time to provide generics, conditional compilation and reflection. Its toolchain doubles as a C/C++ cross-compiler (`zig cc`), and its standard library passes allocators — and, since 0.16, I/O — as explicit parameters.",
+  "history": "Andrew Kelley announced Zig in February 2016 with the goal of a language 'more pragmatic than C'. He had been building a digital audio workstation and found Go's interoperability with C libraries difficult and its garbage collector a cause of audio delays, C++ prone to memory-corruption bugs that took weeks to fix, and Rust's rules hard to satisfy. The original compiler was written mainly in C++ on top of LLVM. Since 2020 development has been funded by the non-profit Zig Software Foundation through donations and corporate sponsorships.\n\nA self-hosted compiler written in Zig became the default in 0.10 (2022), and the C++ implementation was removed in 0.11 (2023), replaced by a WebAssembly build of the compiler for bootstrapping; language-level async/await, which only the old compiler supported, was not carried over. In November 2025 the project moved from GitHub to Codeberg. Zig 0.16 (April 2026) made I/O an explicit interface (`std.Io`) with futures, cancellation and interchangeable threaded or evented back ends — an answer to the 'function colouring' problem — and deprecated the `@cImport` builtin in favour of C header translation through the build system. Although still pre-1.0, Zig is used in production by projects such as the TigerBeetle database and the Ghostty terminal emulator.",
+  "innovations": [
+    "comptime: ordinary code evaluated by the compiler, unifying generics, conditional compilation and reflection without macros, templates or a preprocessor",
+    "Types as first-class compile-time values: a generic type is just a function that returns a type",
+    "No hidden control flow or hidden allocations: allocators are passed explicitly, and there are no operator overloads, exceptions or destructors",
+    "Error unions with try/catch/errdefer, and error return traces in safe builds",
+    "`zig cc`: a drop-in C/C++ compiler that cross-compiles to dozens of targets out of the box, bundling libc headers",
+    "Build modes that choose between checked safety (Debug, ReleaseSafe) and unchecked speed or size (ReleaseFast, ReleaseSmall)",
+    "I/O as an interface (0.16), letting the same code run on blocking or event-driven I/O without 'coloured' async functions"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured",
+    "generic",
+    "metaprogramming"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "`const x = f();` infers local types. Integers may have any bit width (u3, i47) and conversions must be explicit unless lossless. Generic code is duck-typed at compile time: `anytype` parameters and comptime type arguments are checked per instantiation."
+  },
+  "memory": "manual",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "0.16.0",
+  "file_extensions": [
+    ".zig",
+    ".zon"
+  ],
+  "color": "#ec915c",
+  "primary_parent": "c",
+  "influenced_by": [
+    {
+      "id": "c",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Designed as a better C for the same domain: C ABI, direct C interop, and a toolchain that also compiles C."
+    },
+    {
+      "id": "cpp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; comptime generics fill the role of templates without a separate template language."
+    },
+    {
+      "id": "go",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; Kelley tried Go before starting Zig, and Zig's `defer` resembles Go's (Zig adds `errdefer`)."
+    },
+    {
+      "id": "rust",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; Kelley found Rust's rules too hard to satisfy and chose a simpler route to safety (optionals, error unions, checked build modes)."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "LLVM IR",
+      "year": 2003,
+      "note": "Listed by Wikipedia; Zig's first compiler targeted LLVM, and its arbitrary-width integers mirror LLVM's iN types."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "Labelled blocks and loops; `if`, `switch` and blocks are expressions."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "`defer`/`errdefer` run at scope exit."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "tail-calls": {
+      "level": "supported",
+      "note": "`@call(.always_tail, f, args)` guarantees a tail call where the backend supports it (e.g. LLVM, not yet the self-hosted x86-64 backend)."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "Error unions (`!T`): `try` propagates and `catch` handles errors, but they are ordinary return values, not unwinding exceptions; panics are unrecoverable."
+    },
+    "pattern-matching": {
+      "level": "supported",
+      "note": "`switch` on tagged unions and enums is exhaustive with payload captures (`|r|`), but there is no nested destructuring."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Local only; function signatures are explicit."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Via comptime type parameters: functions take `comptime T: type` and may return new types."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "Tagged unions (`union(enum)`) plus structs."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "`?T` optionals; ordinary pointers cannot be null."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "Declarations are file-private unless `pub`, but struct fields are always public by design."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Every file is a struct-namespace imported with @import; packages are declared in build.zig.zon."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Function pointers and functions passed as comptime values; no closures or lambda syntax."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "Parameters are immutable, and the compiler rejects a `var` that is never mutated, pushing code toward `const`."
+    },
+    "pointers": {
+      "level": "core",
+      "note": "Single-item, many-item and slice pointers; heap memory comes from an explicitly passed Allocator."
+    },
+    "async-await": {
+      "level": "library",
+      "since": 2026,
+      "version": "Zig 0.16",
+      "note": "std.Io's io.async()/io.concurrent() return futures that are awaited or cancelled; the language-level async/await of the old C++ compiler was not carried over."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Compile-time only: @typeInfo, @field, @hasDecl and `inline for` over fields (how std.fmt prints any type)."
+    },
+    "compile-time-execution": {
+      "level": "core",
+      "note": "`comptime` blocks, parameters and expressions run ordinary Zig in the compiler, with a configurable evaluation branch quota."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2016,
+      "event": "Andrew Kelley announces Zig (8 February)"
+    },
+    {
+      "year": 2020,
+      "event": "Zig Software Foundation founded"
+    },
+    {
+      "year": 2022,
+      "event": "0.10: the self-hosted compiler becomes the default"
+    },
+    {
+      "year": 2023,
+      "event": "0.11: C++ implementation removed, WebAssembly-based bootstrap; experimental package manager"
+    },
+    {
+      "year": 2025,
+      "event": "Development moves from GitHub to Codeberg (26 November)"
+    },
+    {
+      "year": 2026,
+      "event": "0.16: I/O as an interface (std.Io), `std.process.Init` main; @cImport deprecated in favour of build-system C translation"
+    }
+  ],
+  "trivia": [
+    "The name was picked by a script that generated random combinations of letters starting with 'z'.",
+    "Zig grew out of Kelley's frustration while writing a digital audio workstation: Go's garbage collector caused audio delays, C++ produced memory-corruption bugs, and Rust's rules were hard to satisfy."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Zig 0.16.0",
+      "code": "const std = @import(\"std\");\n\npub fn main(init: std.process.Init) !void {\n    try std.Io.File.stdout().writeStreamingAll(init.io, \"Hello, World!\\n\");\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Since 0.16 all I/O goes through an explicit `std.Io` instance, which the 'juicy main' receives in `init.io`. Earlier versions wrote via `std.io.getStdOut()`, so Zig snippets are version-specific.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Zig 0.16.0",
+      "code": "const std = @import(\"std\");\n\nfn factorial(n: u64) u64 {\n    return if (n <= 1) 1 else n * factorial(n - 1);\n}\n\npub fn main(init: std.process.Init) !void {\n    var buf: [64]u8 = undefined;\n    var stdout: std.Io.File.Writer = .init(.stdout(), init.io, &buf);\n    const out = &stdout.interface;\n    try out.print(\"{d}\\n\", .{factorial(10)});\n    try out.flush();\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "Output goes through a buffered `std.Io.File.Writer` that must be flushed; the format string is parsed at compile time.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Zig 0.16.0",
+      "code": "const std = @import(\"std\");\n\npub fn main(init: std.process.Init) !void {\n    var buf: [256]u8 = undefined;\n    var stdout: std.Io.File.Writer = .init(.stdout(), init.io, &buf);\n    const out = &stdout.interface;\n    for (1..16) |i| {\n        if (i % 15 == 0) {\n            try out.writeAll(\"FizzBuzz\\n\");\n        } else if (i % 3 == 0) {\n            try out.writeAll(\"Fizz\\n\");\n        } else if (i % 5 == 0) {\n            try out.writeAll(\"Buzz\\n\");\n        } else {\n            try out.print(\"{d}\\n\", .{i});\n        }\n    }\n    try out.flush();\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`for (1..16) |i|` iterates a half-open range of usize values.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Zig 0.16.0",
+      "code": "const std = @import(\"std\");\n\npub fn main(init: std.process.Init) !void {\n    var buf: [64]u8 = undefined;\n    var stdout: std.Io.File.Writer = .init(.stdout(), init.io, &buf);\n    const out = &stdout.interface;\n    // No closures or iterator adaptors: an explicit loop over a range.\n    var first = true;\n    for (1..11) |n| {\n        if (n % 2 != 0) continue;\n        if (!first) try out.writeAll(\" \");\n        try out.print(\"{d}\", .{n * n});\n        first = false;\n    }\n    try out.writeAll(\"\\n\");\n    try out.flush();\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Zig has no closures or iterator adaptors, so an explicit loop is the idiomatic form.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Zig 0.16.0",
+      "code": "const std = @import(\"std\");\n\n// A tagged union: the enum tag is checked by an exhaustive `switch`.\nconst Shape = union(enum) {\n    rectangle: struct { width: u32, height: u32 },\n    triangle: struct { base: u32, height: u32 },\n\n    fn area(self: Shape) u32 {\n        return switch (self) {\n            .rectangle => |r| r.width * r.height,\n            .triangle => |t| t.base * t.height / 2,\n        };\n    }\n};\n\npub fn main(init: std.process.Init) !void {\n    var buf: [64]u8 = undefined;\n    var stdout: std.Io.File.Writer = .init(.stdout(), init.io, &buf);\n    const out = &stdout.interface;\n    const shapes = [_]Shape{\n        .{ .rectangle = .{ .width = 3, .height = 4 } },\n        .{ .triangle = .{ .base = 10, .height = 3 } },\n    };\n    for (shapes) |s| {\n        const name = switch (s) {\n            .rectangle => \"Rectangle\",\n            .triangle => \"Triangle\",\n        };\n        try out.print(\"{s}: {d}\\n\", .{ name, s.area() });\n    }\n    try out.flush();\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "A tagged union (`union(enum)`) with an exhaustive `switch` and payload captures; methods are just functions declared inside the type.",
+      "verified": true
+    },
+    "signature": {
+      "title": "comptime: types as values",
+      "dialect": "Zig 0.16.0",
+      "code": "const std = @import(\"std\");\n\n// Types are comptime values: a generic type is a function that returns one.\nfn Pair(comptime T: type) type {\n    return struct {\n        a: T,\n        b: T,\n        fn max(self: @This()) T {\n            return @max(self.a, self.b);\n        }\n    };\n}\n\nfn fib(n: u64) u64 {\n    return if (n < 2) n else fib(n - 1) + fib(n - 2);\n}\n\npub fn main(init: std.process.Init) !void {\n    var buf: [128]u8 = undefined;\n    var stdout: std.Io.File.Writer = .init(.stdout(), init.io, &buf);\n    const p = Pair(f32){ .a = 2.5, .b = 1.5 };\n    const f = comptime fib(10); // run by the compiler: the binary just holds 55\n    try stdout.interface.print(\"max={d} fib(10)={d}\\n\", .{ p.max(), f });\n    try stdout.interface.flush();\n}\n",
+      "expected_output": "max=2.5 fib(10)=55\n",
+      "notes": "`Pair` runs at compile time and returns a new struct type — the same pattern as std.ArrayList(T) and every other Zig generic. `comptime fib(10)` is evaluated by the compiler; deeper recursion would need `@setEvalBranchQuota`.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Zig (official tarball)",
+        "version": "0.16.0",
+        "docker_image": "plw-zig",
+        "install": "apt-get update && apt-get install -y curl xz-utils && curl -L https://ziglang.org/download/0.16.0/zig-x86_64-linux-0.16.0.tar.xz | tar -xJ -C /opt && ln -s /opt/zig-x86_64-linux-0.16.0/zig /usr/local/bin/zig",
+        "compile": "zig build-exe -O Debug -femit-bin={out} {file}",
+        "run": "{out}",
+        "notes": "No official Docker image; plw-zig is debian:trixie-slim plus the official 0.16.0 tarball, with a pre-warmed cache. Builds in Debug mode (safety checks on, self-hosted x86_64 backend): about 2 s per run against 9 s for ReleaseSafe, which goes through LLVM. The snippets use 0.16-only APIs (std.process.Init, std.Io) and will not compile on 0.15 or earlier.",
+        "dockerfile": "sandbox/zig/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "Pin the exact Zig version: the standard library changes between 0.x releases."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+    "homepage": "https://ziglang.org/",
+    "spec": "https://ziglang.org/documentation/0.16.0/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Zig_(programming_language)",
+    "https://andrewkelley.me/post/intro-to-zig.html",
+    "https://ziglang.org/news/",
+    "https://ziglang.org/download/0.10.0/release-notes.html",
+    "https://ziglang.org/download/0.16.0/release-notes.html"
+  ]
+}

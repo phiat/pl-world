@@ -1,0 +1,174 @@
+{
+  "id": "typescript",
+  "name": "TypeScript",
+  "aliases": ["TS"],
+  "year": 2012,
+  "year_note": "Developed inside Microsoft for about two years before version 0.8 was released publicly on 1 October 2012; 1.0 followed in April 2014.",
+  "designers": ["Anders Hejlsberg", "Luke Hoban"],
+  "organization": "Microsoft",
+  "country": "United States",
+  "tagline": "JavaScript plus a structural, gradual static type system that is checked at compile time and then erased.",
+  "summary": "TypeScript is a syntactic superset of JavaScript that adds optional static types, checked by a compiler and then erased to produce plain JavaScript. Its type system is structural and flow-sensitive, designed to describe the idioms of existing JavaScript rather than replace them, and it grew into one of the most expressive type systems in mainstream use, with unions, generics, and conditional, mapped and template-literal types. It became a standard choice for large JavaScript codebases.",
+  "history": "TypeScript grew out of the difficulty of building large JavaScript applications at Microsoft and among its customers. It was co-originated by Luke Hoban, who had worked on F#, and Anders Hejlsberg, the creator of Turbo Pascal and Delphi and lead architect of C#. After about two years of internal development, version 0.8 was released as open source on 1 October 2012, offering classes, modules and arrow functions from the then-draft ECMAScript 6 compiled down to ES3/ES5.\n\nGenerics arrived in 0.9 (2013) and 1.0 shipped at Microsoft's Build conference in 2014. The type system then became steadily more expressive: union types (1.4), strict null checks and discriminated unions (2.0, 2016), keyof and mapped types (2.1), conditional types (2.8, 2018) and template literal types (4.1, 2020). Standard ECMAScript decorators followed in 5.0 (2023).\n\nIn March 2025 Hejlsberg announced a port of the compiler from TypeScript to Go, aiming at roughly tenfold faster builds. TypeScript 6.0 (March 2026) was the last JavaScript-based release, and TypeScript 7.0, built on the native Go compiler, shipped on 8 July 2026. Runtimes have meanwhile converged on running TypeScript directly: Deno executes .ts files natively and Node.js strips erasable type syntax by default.",
+  "innovations": [
+    "Brought gradual, structural static typing to the JavaScript ecosystem at scale, with types erased at compile time",
+    "Control-flow-based type narrowing (typeof/instanceof checks, discriminated unions, truthiness)",
+    "Declaration files (.d.ts) that give static types to existing untyped JavaScript libraries",
+    "Type-level programming in a mainstream language: conditional, mapped and template-literal types"
+  ],
+  "paradigms": ["multi-paradigm", "object-oriented", "functional", "imperative", "generic"],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "gradual",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "structural",
+    "notes": "Checked at compile time and erased; `any`, casts and some bivariance make the system deliberately unsound, and JavaScript's coercions still apply at run time. Inference is local and flow-sensitive (contextual typing, narrowing), not Hindley–Milner."
+  },
+  "memory": "tracing-gc",
+  "execution": ["transpiled", "jit"],
+  "status": "active",
+  "latest_version": "7.0.2",
+  "file_extensions": [".ts", ".tsx", ".mts", ".cts"],
+  "color": "#3178c6",
+  "primary_parent": "javascript",
+  "influenced_by": [
+    { "id": "javascript", "kind": "superset", "weight": "major", "note": "Any JavaScript program is syntactically valid TypeScript; compilation erases the types to plain JavaScript." },
+    { "id": "csharp", "kind": "influence", "weight": "minor", "note": "Shares its lead designer, Anders Hejlsberg (C#'s lead architect)." },
+    { "id": "fsharp", "kind": "influence", "weight": "minor", "note": "Co-originator Luke Hoban had worked on F#, which shaped early design decisions." },
+    { "id": "java", "kind": "influence", "weight": "minor" }
+  ],
+  "influenced_by_external": [
+    { "name": "ECMAScript 6 drafts", "year": 2012, "note": "Classes, modules and arrow functions were adopted from the in-progress ES6 proposals and then tracked TC39's final design." }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": { "level": "core" },
+    "block-scope": { "level": "core", "note": "let/const, as in modern JavaScript." },
+    "recursion": { "level": "core" },
+    "exceptions": { "level": "core", "note": "JavaScript's throw/try/catch; caught values are typed unknown under --strict." },
+    "coroutines": { "level": "supported", "note": "JavaScript generators and async functions (stackless)." },
+    "generators": { "level": "core", "note": "Typed as Generator<T, TReturn, TNext>." },
+    "pattern-matching": { "level": "supported", "note": "No match expression; switching on a discriminant narrows union types, plus destructuring." },
+    "tail-calls": { "level": "supported", "note": "Inherited from JavaScript: only JavaScriptCore (Safari) implements proper tail calls." },
+    "static-typing": { "level": "core", "note": "Checked by tsc (or deno check) before emit; no run-time checks." },
+    "type-inference": { "level": "core", "note": "Local, flow-sensitive inference with contextual typing; parameters usually need annotations." },
+    "generics": { "level": "core", "since": 2013, "version": "TypeScript 0.9" },
+    "algebraic-data-types": { "level": "core", "since": 2016, "version": "TypeScript 2.0", "note": "Discriminated (tagged) unions of object types, with exhaustiveness checks via never." },
+    "option-types": { "level": "core", "since": 2016, "version": "TypeScript 2.0", "note": "With strictNullChecks, null/undefined are allowed only where the type says so (T | undefined)." },
+    "gradual-typing": { "level": "core", "note": "`any`, optional annotations, .d.ts files for untyped libraries, and checkJs for plain JavaScript." },
+    "structural-typing": { "level": "core", "note": "Compatibility is decided by shape; even classes are compared structurally." },
+    "interfaces": { "level": "core", "note": "Structural: a value satisfies an interface without declaring `implements`." },
+    "classes": { "level": "core", "note": "ES2015 classes plus access modifiers, abstract classes and parameter properties." },
+    "inheritance": { "level": "core" },
+    "prototypes": { "level": "supported", "note": "JavaScript's prototype chain underneath; typed code rarely manipulates prototypes directly." },
+    "traits-mixins": { "level": "supported", "note": "Mixin pattern: functions that take a class and return an extended class expression." },
+    "abstract-data-types": { "level": "supported", "note": "private/protected (compile-time only), #private fields (run time), and module-level encapsulation." },
+    "modules": { "level": "core", "note": "ES modules; the older `namespace` construct is still supported." },
+    "first-class-functions": { "level": "core" },
+    "closures": { "level": "core" },
+    "garbage-collection": { "level": "core" },
+    "actors": { "level": "library", "note": "Web Workers / worker_threads with postMessage (host APIs)." },
+    "async-await": { "level": "core", "since": 2015, "version": "TypeScript 1.7", "note": "Initially for ES2015 targets; downlevel compilation to ES3/ES5 since 2.1." },
+    "reflection": { "level": "supported", "note": "JavaScript's run-time reflection only; static types are erased and cannot be inspected at run time." },
+    "hot-code-reload": { "level": "library", "note": "Hot Module Replacement in bundlers and dev servers (tooling)." },
+    "regex-builtin": { "level": "core", "note": "JavaScript /regex/ literals." }
+  },
+  "milestones": [
+    { "year": 2012, "event": "TypeScript 0.8 released as open source (1 October)" },
+    { "year": 2013, "event": "0.9 adds generics" },
+    { "year": 2014, "event": "1.0 released at Microsoft Build" },
+    { "year": 2016, "event": "2.0: strict null checks, discriminated unions and the never type" },
+    { "year": 2018, "event": "2.8 adds conditional types" },
+    { "year": 2020, "event": "4.1 adds template literal types and key remapping in mapped types" },
+    { "year": 2023, "event": "5.0 supports standard ECMAScript decorators" },
+    { "year": 2025, "event": "Native port of the compiler to Go announced (March)" },
+    { "year": 2026, "event": "6.0, the last JavaScript-based compiler (March); 7.0 ships the native Go compiler (8 July)" }
+  ],
+  "trivia": [
+    "The type system is Turing complete, a property tracked in a TypeScript issue opened in 2017.",
+    "Microsoft reported that the Go-based TypeScript 7 compiled the VS Code codebase in 10.6 s versus 125.7 s for the JavaScript-based compiler."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "TypeScript 6.0 (Deno 2.9)",
+      "code": "const greeting: string = \"Hello, World!\";\nconsole.log(greeting);\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Apart from the optional annotation this is plain JavaScript.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "TypeScript 6.0 (Deno 2.9)",
+      "code": "function factorial(n: number): number {\n  return n <= 1 ? 1 : n * factorial(n - 1);\n}\n\nconsole.log(factorial(10));\n",
+      "expected_output": "3628800\n",
+      "notes": "The return annotation is optional here; it would be inferred.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "TypeScript 6.0 (Deno 2.9)",
+      "code": "function fizzbuzz(i: number): string {\n  if (i % 15 === 0) return \"FizzBuzz\";\n  if (i % 3 === 0) return \"Fizz\";\n  if (i % 5 === 0) return \"Buzz\";\n  return String(i);\n}\n\nfor (let i = 1; i <= 15; i++) {\n  console.log(fizzbuzz(i));\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "String(i) is required: returning the number would violate the declared string return type.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "TypeScript 6.0 (Deno 2.9)",
+      "code": "const numbers: number[] = Array.from({ length: 10 }, (_, i) => i + 1);\n\n// No annotations needed below: `squares` is inferred as number[].\nconst squares = numbers\n  .filter((n) => n % 2 === 0)\n  .map((n) => n * n);\n\nconsole.log(squares.join(\" \"));\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "`squares` is inferred as number[] without any annotation.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "TypeScript 6.0 (Deno 2.9)",
+      "code": "// A discriminated union: the `kind` tag lets the checker narrow each case.\ntype Shape =\n  | { kind: \"Rectangle\"; width: number; height: number }\n  | { kind: \"Triangle\"; base: number; height: number };\n\nfunction area(shape: Shape): number {\n  switch (shape.kind) {\n    case \"Rectangle\":\n      return shape.width * shape.height;\n    case \"Triangle\":\n      return (shape.base * shape.height) / 2;\n    default: {\n      const unreachable: never = shape; // compile error if a case is missing\n      return unreachable;\n    }\n  }\n}\n\nconst shapes: Shape[] = [\n  { kind: \"Rectangle\", width: 3, height: 4 },\n  { kind: \"Triangle\", base: 10, height: 3 },\n];\n\nfor (const s of shapes) console.log(`${s.kind}: ${area(s)}`);\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "A discriminated union with an exhaustive switch: assigning the leftover case to `never` turns a forgotten variant into a compile error. Classes implementing an interface are the OOP alternative.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Structural types, computed at the type level",
+      "dialect": "TypeScript 6.0 (Deno 2.9)",
+      "code": "interface Point { x: number; y: number }\n\n// Structural: anything with numeric x and y is a Point; no `implements` needed.\nconst norm = (p: Point): number => Math.hypot(p.x, p.y);\nconst pixel = { x: 3, y: 4, color: \"red\" };\nconsole.log(norm(pixel));\n\n// Type-level programming: compute a new type from an old one.\ntype Getters<T> = {\n  [K in keyof T & string as `get${Capitalize<K>}`]: () => T[K];\n};\n\nfunction getters<T extends object>(obj: T): Getters<T> {\n  const out: Record<string, () => unknown> = {};\n  for (const [k, v] of Object.entries(obj)) {\n    out[`get${k[0].toUpperCase()}${k.slice(1)}`] = () => v;\n  }\n  return out as Getters<T>;\n}\n\nconst g = getters(pixel); // { getX: () => number; getY: () => number; getColor: () => string }\nconsole.log(g.getColor(), g.getX() * g.getY());\n// g.getZ();  // error TS2339: Property 'getZ' does not exist on type 'Getters<...>'\n",
+      "expected_output": "5\nred 12\n",
+      "notes": "`pixel` has an extra `color` property yet is a Point (excess-property checks apply only to fresh object literals). Getters<T> uses a mapped type with key remapping and template literal types (TypeScript 4.1+). Uncommenting the last line fails type checking with TS2339; the output comes from `deno run` after `deno check` passes.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "Deno",
+        "version": "2.9.6",
+        "docker_image": "denoland/deno:alpine-2.9.6",
+        "compile": "deno check {file}",
+        "run": "deno run {file}",
+        "notes": "deno run strips types without checking; deno check type-checks with Deno's bundled TypeScript (6.0.3). The file needs a .ts extension."
+      },
+      {
+        "name": "Node.js (type stripping)",
+        "version": "24",
+        "docker_image": "node:24-alpine",
+        "run": "node {file}",
+        "notes": "Strips erasable type syntax natively without type-checking; enums and namespaces need --experimental-transform-types."
+      }
+    ],
+    "browser": {
+      "name": "TypeScript Playground",
+      "url": "https://www.typescriptlang.org/play",
+      "notes": "Type-check and emit in the browser, then run the JavaScript in the page's own engine."
+    },
+    "notes": "All six snippets pass deno check and give identical output under Deno 2.9 and Node.js 24."
+  },
+  "links": { "wikipedia": "https://en.wikipedia.org/wiki/TypeScript", "homepage": "https://www.typescriptlang.org/" },
+  "sources": [
+    "https://en.wikipedia.org/wiki/TypeScript",
+    "https://devblogs.microsoft.com/typescript/typescript-native-port/",
+    "https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/",
+    "https://www.typescriptlang.org/docs/handbook/release-notes/overview.html",
+    "https://registry.npmjs.org/typescript",
+    "https://github.com/microsoft/TypeScript/issues/14833"
+  ]
+}

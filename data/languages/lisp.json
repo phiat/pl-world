@@ -1,0 +1,239 @@
+{
+  "id": "lisp",
+  "name": "Lisp",
+  "aliases": [
+    "LISP",
+    "LISP 1",
+    "LISP 1.5"
+  ],
+  "year": 1960,
+  "year_note": "McCarthy began the design at MIT in 1958 and implementation started that fall on the IBM 704; the language was published in Communications of the ACM in April 1960. LISP 1.5, documented in the 1962 LISP 1.5 Programmer's Manual, is the version usually meant by 'the original Lisp' and is what this entry describes.",
+  "designers": [
+    "John McCarthy"
+  ],
+  "organization": "MIT",
+  "country": "United States",
+  "tagline": "McCarthy's language of symbolic expressions, where programs are lists: the root of the whole Lisp family.",
+  "summary": "Lisp (LISt Processor) was created by John McCarthy at MIT as a language for artificial-intelligence research on the IBM 704. Programs and data share one representation, the S-expression, a nested list built from cons cells, and a short universal function, EVAL, defines the language in itself. The original Lisp introduced or popularized recursion over symbolic data, conditional expressions, higher-order functions, dynamic typing and garbage collection. Through its dialects it is the second-oldest high-level language still in common use, after Fortran.",
+  "history": "McCarthy started designing Lisp in 1958, wanting a list-processing language for AI with recursion and conditional expressions, features missing from Newell, Shaw and Simon's IPL and from FLPL, IBM's FORTRAN-based list-processing package. Symbolic differentiation was a guiding example. His April 1960 paper 'Recursive Functions of Symbolic Expressions and Their Computation by Machine, Part I' defined the language through a universal function, eval. Steve Russell noticed that eval could serve as an interpreter, hand-coded it for the IBM 704, and Lisp became a working programming language.\n\nMcCarthy intended programs to be written as 'M-expressions' such as car[cons[A;B]], translated by hand into S-expressions, but programmers adopted the S-expression form directly and M-expressions never became the working syntax. LISP 1.5, described in the 1962 LISP 1.5 Programmer's Manual (McCarthy, Abrahams, Edwards, Hart and Levin), combined the EVALQUOTE interpreter by Russell and Daniel Edwards, Edwards' garbage collector, property lists, the PROG feature for sequential code with GO, FEXPRs, and the FUNARG device for functional arguments. Tim Hart and Mike Levin wrote its compiler in Lisp itself, claimed as the first compiler written in the language it compiled, and in 1963 Hart proposed MACRO definitions.\n\nLISP 1.5 is the ancestor of every later Lisp. After the abandoned LISP 2 project, the family divided into MacLisp and Interlisp, then Scheme (1975), Common Lisp (1984, ANSI 1994) and Clojure (2007). Its ideas (conditional expressions, recursion, garbage collection, code as data) spread well beyond the family.",
+  "innovations": [
+    "Programs as data: code is written as S-expressions, the same nested lists that programs manipulate (homoiconicity)",
+    "A metacircular definition: the universal function EVAL/APPLY, written in Lisp, both specifies the language and became its first interpreter",
+    "Automatic storage reclamation (garbage collection) of unreachable list cells",
+    "Conditional expressions (COND) as a general if-then-else, which McCarthy also proposed for ALGOL",
+    "Recursion and higher-order functions (LAMBDA, LABEL, MAPLIST, functional arguments) as everyday tools for symbolic computation",
+    "Dynamic typing: types belong to values, not variables",
+    "A self-hosting compiler written in Lisp (Hart and Levin, 1962), claimed as the first compiler written in its own language"
+  ],
+  "paradigms": [
+    "functional",
+    "procedural",
+    "reflective",
+    "metaprogramming"
+  ],
+  "family": "lisp",
+  "syntax_family": "s-expression",
+  "block_style": "s-expression",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "Types belong to values (atomic symbols, fixed- and floating-point numbers, lists), not to variables; there were no user-defined types."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "interpreted",
+    "native-compiled"
+  ],
+  "status": "historical",
+  "latest_version": "LISP 1.5 (1962)",
+  "file_extensions": [
+    ".lisp"
+  ],
+  "color": "#3fb68b",
+  "primary_parent": null,
+  "influenced_by": [],
+  "influenced_by_external": [
+    {
+      "name": "IPL (Information Processing Language)",
+      "year": 1956,
+      "note": "Newell, Shaw and Simon's list-processing language, presented at the 1956 Dartmouth summer project; Lisp kept list processing but not IPL's assembly-like form."
+    },
+    {
+      "name": "Lambda calculus (Alonzo Church)",
+      "year": 1941,
+      "note": "McCarthy took the LAMBDA notation from Church's 'The Calculi of Lambda-Conversion'."
+    },
+    {
+      "name": "FLPL (FORTRAN List Processing Language)",
+      "note": "Gelernter and Gerberich's FORTRAN list package at IBM; its lack of recursion and conditional expressions motivated a new language."
+    }
+  ],
+  "influenced": [
+    "scheme",
+    "common-lisp",
+    "clojure",
+    "clu",
+    "elixir",
+    "forth",
+    "haskell",
+    "javascript",
+    "julia",
+    "lua",
+    "ml",
+    "perl",
+    "python",
+    "r",
+    "ruby",
+    "scala",
+    "smalltalk",
+    "swift"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "supported",
+      "note": "COND gives general conditional expressions; iteration is by recursion or by PROG with labels and GO."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Recursive functions of symbolic expressions were the premise of the language."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "Only ERRORSET, which evaluates an expression and returns NIL instead of aborting if an error occurs; no handlers or typed conditions."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "LAMBDA expressions (after Church), LABEL for recursive anonymous functions, and functional arguments passed with FUNCTION to MAPLIST and friends."
+    },
+    "closures": {
+      "level": "supported",
+      "note": "Variables were dynamically scoped, but FUNCTION built a FUNARG object carrying its defining environment (Steve Russell's FUNARG device), an early closure."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Mark-and-sweep reclamation of the free-storage list, described in McCarthy's 1960 paper; the LISP 1.5 collector was written by Daniel Edwards."
+    },
+    "macros": {
+      "level": "supported",
+      "since": 1963,
+      "version": "AI Memo 57",
+      "note": "Timothy Hart's MACRO definitions came after the 1962 manual; before that, FEXPRs (functions receiving unevaluated arguments) served similar purposes."
+    },
+    "homoiconicity": {
+      "level": "core",
+      "note": "Programs are S-expressions; DEFINE takes lists of (name LAMBDA-expression) pairs."
+    },
+    "reflection": {
+      "level": "core",
+      "note": "EVAL and APPLY are ordinary functions, and function definitions live on atoms' property lists (EXPR, SUBR, FEXPR indicators) where programs can read and change them."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "since": 1963,
+      "version": "AI Memo 57",
+      "note": "Macro expansion runs ordinary Lisp code at translation time."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1958,
+      "event": "McCarthy begins designing Lisp at MIT; implementation on the IBM 704 starts in the fall"
+    },
+    {
+      "year": 1960,
+      "event": "LISP 1 Programmer's Manual (March) and McCarthy's paper in Communications of the ACM (April)"
+    },
+    {
+      "year": 1962,
+      "event": "LISP 1.5 Programmer's Manual; Hart and Levin's compiler, written in Lisp"
+    },
+    {
+      "year": 1963,
+      "event": "Timothy Hart proposes MACRO definitions for LISP 1.5 (AI Memo 57)"
+    }
+  ],
+  "trivia": [
+    "CAR and CDR come from IBM 704 assembly macros: 'Contents of the Address part of Register' and 'Contents of the Decrement part of Register'.",
+    "McCarthy meant eval as a theoretical definition; Steve Russell 'compiled the eval in my paper into IBM 704 machine code', as McCarthy put it, creating the first Lisp interpreter.",
+    "McCarthy on LISP 1.5's scoping: 'lexical scoping was wanted, and dynamic scoping was obtained'; the FUNARG device was the repair.",
+    "The LISP 1.5 manual's preface credits an earlier compiler by Robert Brayton, and a LISP 1 Programmer's Manual (March 1, 1960) written by Phyllis A. Fox."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "LISP 1.5 (S-expression form, run by the l15 interpreter)",
+      "code": "(PRINT (QUOTE |Hello, World!|))\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "LISP 1.5 had no strings: output was the print name of an atomic symbol. The IBM 7090 read and printed only the 48-character BCD set (upper-case letters, digits and a few symbols); atoms containing punctuation were written with the manual's $$dsd form, e.g. $$/HELLO, WORLD/. The |...| quoting, which also allows lower case, is an l15 (MACLISP-style) extension.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "LISP 1.5 (S-expression form, run by the l15 interpreter)",
+      "code": "(DEFINE (QUOTE (\n  (FACTORIAL (LAMBDA (N)\n    (COND ((ZEROP N) 1)\n          (T (TIMES N (FACTORIAL (SUB1 N)))))))\n)))\n\n(PRINT (FACTORIAL 10))\n",
+      "expected_output": "3628800\n",
+      "notes": "The canonical recursive definition. In M-expression notation: factorial[n] = [zerop[n] → 1; T → times[n; factorial[sub1[n]]]]. On the 7090 a program was a deck of EVALQUOTE pairs (a function, then its argument list): DEFINE (( (FACTORIAL (LAMBDA (N) ...)) )) followed by FACTORIAL (10), and the supervisor printed each value. The l15 batch runner evaluates plain S-expressions instead, so DEFINE's argument is QUOTEd and the result is PRINTed explicitly.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "LISP 1.5 (S-expression form, run by the l15 interpreter)",
+      "code": "(DEFINE (QUOTE (\n  (FIZZBUZZ (LAMBDA (N)\n    (PROG (I)\n          (SETQ I 1)\n     LOOP (COND ((GREATERP I N) (RETURN NIL)))\n          (PRINT (COND ((ZEROP (REMAINDER I 15)) (QUOTE |FizzBuzz|))\n                       ((ZEROP (REMAINDER I 3)) (QUOTE |Fizz|))\n                       ((ZEROP (REMAINDER I 5)) (QUOTE |Buzz|))\n                       (T I)))\n          (SETQ I (ADD1 I))\n          (GO LOOP))))\n)))\n\n(FIZZBUZZ 15)\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Uses the PROG feature, LISP 1.5's form for sequential code: local variables, SETQ, statement labels and GO. As the manual notes, a COND at the top level of a PROG with no true clause falls through to the next statement instead of signalling an error. The original could only print FIZZ and BUZZ in capitals; mixed case needs l15's |...| atoms.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "LISP 1.5 (S-expression form, run by the l15 interpreter)",
+      "code": "(DEFINE (QUOTE (\n  (EVENS (LAMBDA (L)\n    (COND ((NULL L) NIL)\n          ((ZEROP (REMAINDER (CAR L) 2)) (CONS (CAR L) (EVENS (CDR L))))\n          (T (EVENS (CDR L))))))\n  (SQUARES (LAMBDA (L)\n    (MAPLIST L (FUNCTION (LAMBDA (J) (TIMES (CAR J) (CAR J)))))))\n  (PRINTLINE (LAMBDA (L)\n    (PROG ()\n     LOOP (COND ((NULL (CDR L)) (RETURN (PRINT (CAR L)))))\n          (PRIN1 (CAR L))\n          (PRIN1 (QUOTE | |))\n          (SETQ L (CDR L))\n          (GO LOOP))))\n)))\n\n(PRINTLINE (SQUARES (EVENS (QUOTE (1 2 3 4 5 6 7 8 9 10)))))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "MAPLIST (list first, function second) applies its functional argument to successive tails of the list, hence (CAR J), and collects the results; FUNCTION marks a functional argument. There was no built-in filter, so EVENS is an ordinary recursive function. PRIN1 prints each element without a newline and PRINT ends the line.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "LISP 1.5 (S-expression form, run by the l15 interpreter)",
+      "code": "(DEFLIST (QUOTE (\n  (|Rectangle| (LAMBDA (W H) (TIMES W H)))\n  (|Triangle|  (LAMBDA (B H) (QUOTIENT (TIMES B H) 2)))\n)) (QUOTE AREA))\n\n(DEFINE (QUOTE (\n  (AREA (LAMBDA (S) (APPLY (GET (CAR S) (QUOTE AREA)) (CDR S) NIL)))\n  (SHOW (LAMBDA (S)\n    (PROG ()\n          (PRIN1 (CAR S))\n          (PRIN1 (QUOTE |: |))\n          (PRINT (AREA S)))))\n)))\n\n(SHOW (QUOTE (|Rectangle| 3 4)))\n(SHOW (QUOTE (|Triangle| 10 3)))\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "LISP 1.5 had no records or objects; the idiomatic tool was the property list. DEFLIST stores each shape's area function under the indicator AREA on the shape's atom, and AREA fetches it with GET and calls it with APPLY: data-directed dispatch that later Lisps developed into Flavors and CLOS. A shape is just a list (KIND DIMENSION DIMENSION); the mixed-case kind atoms use l15's |...| quoting.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Code is data: symbolic differentiation",
+      "dialect": "LISP 1.5 (S-expression form, run by the l15 interpreter)",
+      "code": "(DEFINE (QUOTE (\n  (DERIV (LAMBDA (E X)\n    (COND ((ATOM E) (COND ((EQ E X) 1) (T 0)))\n          ((EQ (CAR E) (QUOTE PLUS))\n           (LIST (QUOTE PLUS) (DERIV (CADR E) X) (DERIV (CADDR E) X)))\n          ((EQ (CAR E) (QUOTE TIMES))\n           (LIST (QUOTE PLUS)\n                 (LIST (QUOTE TIMES) (CADR E) (DERIV (CADDR E) X))\n                 (LIST (QUOTE TIMES) (DERIV (CADR E) X) (CADDR E)))))))\n)))\n\n(CSETQ DX (DERIV (QUOTE (PLUS (TIMES X X) (TIMES 3 X))) (QUOTE X)))\n(PRINT DX)\n(PRINT (EVAL DX (LIST (CONS (QUOTE X) 5))))\n",
+      "expected_output": "(PLUS (PLUS (TIMES X 1) (TIMES 1 X)) (PLUS (TIMES 3 1) (TIMES 0 X)))\n13\n",
+      "notes": "Symbolic differentiation was the problem that led McCarthy to recursion and conditional expressions. DERIV builds the derivative of x² + 3x as new list structure; EVAL then runs that list as a program, with the environment given as an association list ((X . 5)), LISP 1.5's representation of variable bindings. CSETQ defines a global constant (an APVAL). The derivative is left unsimplified: 2x + 3 = 13 at x = 5.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "l15 (LISP 1.5 interpreter, github.com/aap/l15)",
+        "version": "git cb56c34 (2021-03-10)",
+        "docker_image": "plw-lisp",
+        "install": "FROM debian:trixie-slim; apt-get install -y gcc make libc6-dev git ca-certificates && git clone https://github.com/aap/l15 /opt/l15 && cd /opt/l15 && git checkout cb56c34 && make LDLIBS=-lm; then add /usr/local/bin/lisp15: d=$(mktemp -d); cat /opt/l15/lib.l \"$1\" > $d/lib.l; cd $d && /opt/l15/lisp </dev/null | tr -d '\\000' | sed '$d'",
+        "run": "lisp15 {file}",
+        "notes": "l15 silently evaluates ./lib.l at start-up (it defines DEFINE, DEFLIST and friends), so the lisp15 wrapper appends the program to a copy of lib.l, strips the NUL padding l15 prints after atom names and drops the REPL's closing '*' prompt. For an interactive EVALQUOTE session like the original, run /opt/l15/lisp -q.",
+        "dockerfile": "sandbox/lisp/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "These snippets do not run on a 1962 IBM 7090 system: l15 is a modern C reimplementation that follows the LISP 1.5 Programmer's Manual (EVALQUOTE, PROG, property lists, FEXPRs, FUNARG) but not its compiler or LAP assembler, and it adds |...| symbol quoting. Rob Pike's robpike/lisp (Go) is another reimplementation based on the manual."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Lisp_(programming_language)",
+    "spec": "https://www.softwarepreservation.org/projects/LISP/book/LISP%201.5%20Programmers%20Manual.pdf"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Lisp_(programming_language)",
+    "http://www-formal.stanford.edu/jmc/history/lisp/lisp.html",
+    "http://www-formal.stanford.edu/jmc/history/lisp/node2.html",
+    "http://www-formal.stanford.edu/jmc/history/lisp/node3.html",
+    "http://www-formal.stanford.edu/jmc/history/lisp/node4.html",
+    "http://www-formal.stanford.edu/jmc/recursive.pdf",
+    "https://www.softwarepreservation.org/projects/LISP/book/LISP%201.5%20Programmers%20Manual.pdf",
+    "https://dspace.mit.edu/handle/1721.1/6111",
+    "https://github.com/aap/l15"
+  ]
+}

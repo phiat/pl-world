@@ -1,0 +1,350 @@
+{
+  "id": "kotlin",
+  "name": "Kotlin",
+  "aliases": [
+    "Project Kotlin",
+    "Kotlin/JVM",
+    "Kotlin Multiplatform"
+  ],
+  "year": 2011,
+  "year_note": "Development began in 2010 (first commit on 8 November 2010) and JetBrains unveiled 'Project Kotlin' in July 2011; it was open-sourced in February 2012, and 1.0, the first stable release, came on 15 February 2016.",
+  "designers": [
+    "Andrey Breslav"
+  ],
+  "organization": "JetBrains",
+  "tagline": "JetBrains' pragmatic, null-safe successor to Java: concise, statically typed and fully interoperable with the JVM and Android.",
+  "summary": "Kotlin is a statically typed, multi-paradigm language designed by JetBrains as a more concise and safer alternative to Java that interoperates with existing Java code in both directions. It tracks nullability in the type system, infers local types, and adds data classes, sealed hierarchies, extension functions, smart casts and lambdas with trailing-block syntax. Its suspend functions provide language-level coroutines. Kotlin targets the JVM, Android, JavaScript, WebAssembly and native code, and has been Google's preferred language for Android since 2019.",
+  "history": "JetBrains, the Czech maker of IntelliJ IDEA, started Kotlin in 2010 with Andrey Breslav as lead designer. The announced goals were a Java-compatible language that was safer than Java, statically catching null dereferences, more concise, and simpler than Scala; JetBrains lead Dmitry Jemerov said Scala was the only existing language with most of the features they wanted, but it compiled too slowly. JetBrains announced Project Kotlin in July 2011, open-sourced it under the Apache 2 licence in February 2012, and after years of public development released Kotlin 1.0 on 15 February 2016 with a commitment to backward compatibility.\n\nAdoption accelerated when Google announced first-class Kotlin support for Android at Google I/O 2017, and in May 2019 declared Android development 'Kotlin-first'. Kotlin 1.3 (2018) made coroutines stable, and 1.5 (2021) added sealed interfaces and value classes. Kotlin/Native was declared stable in 2023, and Kotlin 2.0 (May 2024) introduced the K2 compiler, the same year Google endorsed Kotlin Multiplatform for sharing code between Android, iOS, desktop and web.",
+  "innovations": [
+    "Brought nullable types (String vs String?) with safe calls, the elvis operator and flow-sensitive smart casts to a mainstream JVM language",
+    "Designed for seamless two-way interoperability with an existing Java code base, including platform types for unannotated Java APIs",
+    "Suspend functions: coroutines as a small language feature, with launch/async/channels provided by a library",
+    "Extension functions, trailing lambdas and function types with receivers for type-safe builders and DSLs (as in Gradle Kotlin scripts)",
+    "Data classes and sealed class hierarchies as a concise class-based encoding of algebraic data types"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "object-oriented",
+    "functional",
+    "imperative"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Nullability is part of every type; Java types of unknown nullability appear as platform types (String!). Kotlin/JS also has a dynamic type."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "bytecode-vm",
+    "jit",
+    "native-compiled",
+    "transpiled"
+  ],
+  "status": "active",
+  "latest_version": "2.4.20 (September 2026)",
+  "file_extensions": [
+    ".kt",
+    ".kts"
+  ],
+  "color": "#A97BFF",
+  "primary_parent": "java",
+  "influenced_by": [
+    {
+      "id": "java",
+      "kind": "platform",
+      "weight": "major",
+      "note": "Designed as a better Java for the JVM: same class model and libraries, compiled to JVM bytecode with two-way interop."
+    },
+    {
+      "id": "scala",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Wikipedia notes Scala's influence on Kotlin's mix of object-oriented and functional programming; JetBrains found Scala closest to its needs but too slow to compile, and aimed to be simpler."
+    },
+    {
+      "id": "csharp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia; extension functions and properties resemble C#'s, and C#'s async/await was a reference point for Kotlin's coroutines."
+    },
+    {
+      "id": "javascript",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia."
+    },
+    {
+      "id": "ml",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia."
+    },
+    {
+      "id": "eiffel",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Groovy",
+      "year": 2003,
+      "note": "Listed by Wikipedia; Groovy already had the ?. safe-navigation operator, an implicit 'it' closure parameter and builder DSLs, all of which Kotlin also offers."
+    },
+    {
+      "name": "Gosu",
+      "note": "Listed by Wikipedia; another pragmatic statically typed JVM language."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if and when are expressions; for over ranges and iterables, while, labelled break/continue."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "try/catch/finally is an expression; there are no checked exceptions."
+    },
+    "coroutines": {
+      "level": "core",
+      "since": 2018,
+      "version": "Kotlin 1.3",
+      "note": "suspend functions are a language feature compiled to state machines; builders such as launch and async live in kotlinx.coroutines. Experimental from 1.1 (2017)."
+    },
+    "generators": {
+      "level": "library",
+      "since": 2018,
+      "version": "Kotlin 1.3",
+      "note": "sequence { yield(x) } in the standard library, built on suspend functions."
+    },
+    "pattern-matching": {
+      "level": "supported",
+      "note": "when with is-checks and smart casts, destructuring declarations, and guard conditions; no nested structural patterns."
+    },
+    "tail-calls": {
+      "level": "supported",
+      "note": "The tailrec modifier turns self-recursive tail calls into loops."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Local inference for variables, expression-bodied function results and lambda parameters."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Declaration-site variance (in/out), use-site projections and reified type parameters in inline functions."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "Sealed classes and interfaces with data classes; when over a sealed type is checked for exhaustiveness. Sealed interfaces since 1.5 (2021)."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "Nullable types T? with ?., ?:, !! and smart casts, checked at compile time."
+    },
+    "gradual-typing": {
+      "level": "supported",
+      "note": "Only on Kotlin/JS: the dynamic type switches off static checking for interop with JavaScript."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Interfaces may contain default method implementations and properties."
+    },
+    "classes": {
+      "level": "core",
+      "note": "Classes are final by default and must be marked open to be subclassed."
+    },
+    "inheritance": {
+      "level": "core"
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "note": "Interfaces with method bodies (but no state) and class delegation with 'by'."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "Private and internal (module-level) visibility; @JvmInline value classes (1.5) wrap a hidden representation."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Packages plus 'internal' visibility scoped to a compilation module."
+    },
+    "design-by-contract": {
+      "level": "library",
+      "note": "require, check and assert in the standard library give runtime preconditions and checks."
+    },
+    "operator-overloading": {
+      "level": "supported",
+      "note": "A fixed set of operators via 'operator fun' (plus, get, invoke, compareTo...); no new symbols."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Function types, lambdas with implicit 'it', function references and trailing-lambda syntax."
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "val vs var and read-only collection interfaces (List vs MutableList); read-only views are not deeply immutable."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "by lazy delegated properties and lazy Sequences; evaluation is strict by default."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "The JVM's collectors; Kotlin/Native has its own tracing GC."
+    },
+    "csp-channels": {
+      "level": "library",
+      "note": "Channel and select in kotlinx.coroutines."
+    },
+    "async-await": {
+      "level": "core",
+      "since": 2018,
+      "version": "Kotlin 1.3",
+      "note": "Direct-style asynchronous code via suspend functions, compiled to continuation state machines; async/await exist only as library functions returning Deferred."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Class references (::class) and callable references in the language; full reflection needs the kotlin-reflect library or Java reflection."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2010,
+      "event": "Development starts at JetBrains (first commit 8 November)"
+    },
+    {
+      "year": 2011,
+      "event": "JetBrains unveils Project Kotlin (July)"
+    },
+    {
+      "year": 2012,
+      "event": "Open-sourced under the Apache 2 licence (February)"
+    },
+    {
+      "year": 2016,
+      "event": "Kotlin 1.0, the first stable release (15 February)"
+    },
+    {
+      "year": 2017,
+      "event": "Google announces first-class Kotlin support for Android at Google I/O"
+    },
+    {
+      "year": 2018,
+      "event": "Kotlin 1.3 makes coroutines stable"
+    },
+    {
+      "year": 2019,
+      "event": "Google declares Android development Kotlin-first (May)"
+    },
+    {
+      "year": 2021,
+      "event": "Kotlin 1.5: sealed interfaces, value classes, JVM records"
+    },
+    {
+      "year": 2023,
+      "event": "Kotlin/Native declared stable (1.9.20)"
+    },
+    {
+      "year": 2024,
+      "event": "Kotlin 2.0 with the K2 compiler; Google endorses Kotlin Multiplatform"
+    }
+  ],
+  "trivia": [
+    "Kotlin is named after Kotlin Island in the Gulf of Finland near Saint Petersburg, in imitation of Java being named after an island.",
+    "One of JetBrains' reasons for creating Kotlin was that Scala, the closest existing match for what they wanted, compiled too slowly."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Kotlin 2.4 (JVM)",
+      "code": "fun main() {\n    println(\"Hello, World!\")\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Top-level functions need no enclosing class; the compiler puts main in a JVM class named HelloKt.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Kotlin 2.4 (JVM)",
+      "code": "fun factorial(n: Int): Long = if (n <= 1) 1 else n * factorial(n - 1)\n\nfun main() {\n    println(factorial(10))\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "An expression-bodied function; if is an expression, and the Int result of n * factorial(...) widens to Long.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Kotlin 2.4 (JVM)",
+      "code": "fun main() {\n    for (i in 1..15) {\n        val word = when {\n            i % 15 == 0 -> \"FizzBuzz\"\n            i % 3 == 0 -> \"Fizz\"\n            i % 5 == 0 -> \"Buzz\"\n            else -> i.toString()\n        }\n        println(word)\n    }\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "when without a subject acts as an if/else-if chain and is an expression.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Kotlin 2.4 (JVM)",
+      "code": "fun main() {\n    val squares = (1..10).filter { it % 2 == 0 }.map { it * it }\n    println(squares.joinToString(\" \"))\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "it is the implicit parameter of a one-argument lambda; trailing-lambda syntax drops the parentheses.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Kotlin 2.4 (JVM)",
+      "code": "sealed interface Shape\ndata class Rectangle(val width: Int, val height: Int) : Shape\ndata class Triangle(val base: Int, val height: Int) : Shape\n\n// `when` over a sealed type must be exhaustive; `is` smart-casts the subject.\nfun area(shape: Shape): Int = when (shape) {\n    is Rectangle -> shape.width * shape.height\n    is Triangle -> shape.base * shape.height / 2\n}\n\nfun main() {\n    println(\"Rectangle: ${area(Rectangle(3, 4))}\")\n    println(\"Triangle: ${area(Triangle(10, 3))}\")\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Sealed interfaces arrived in Kotlin 1.5 (2021); earlier code used a sealed class. Data classes generate equals, hashCode, toString and copy.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Null safety in the type system",
+      "dialect": "Kotlin 2.4 (JVM)",
+      "code": "// Nullability is part of the type: String is never null, String? may be.\ndata class User(val name: String, val email: String?)\n\n// An extension on a nullable receiver, using ?. (safe call) and ?: (elvis).\nfun User?.domain(): String = this?.email?.substringAfter('@') ?: \"(none)\"\n\nfun main() {\n    val users: List<User?> = listOf(User(\"ada\", \"ada@example.org\"), User(\"bob\", null), null)\n    for (u in users) println(\"${u?.name ?: \"nobody\"} -> ${u.domain()}\")\n\n    val email = users[0]?.email\n    // println(email.length)                 // compile error: email is String?\n    if (email != null) println(email.length)  // smart cast to String after the check\n\n    println(users[0]?.copy(name = \"lovelace\"))  // data classes get copy() and toString()\n}\n",
+      "expected_output": "ada -> example.org\nbob -> (none)\nnobody -> (none)\n15\nUser(name=lovelace, email=ada@example.org)\n",
+      "notes": "String? admits null and String does not: dereferencing email directly is a compile error, while ?. , ?: and smart casts after a null check are accepted. domain() is an extension function callable on a null receiver.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "kotlinc (JVM)",
+        "version": "2.4.20 (Temurin JDK 21)",
+        "docker_image": "plw-kotlin",
+        "install": "FROM eclipse-temurin:21-jdk; ADD https://github.com/JetBrains/kotlin/releases/download/v2.4.20/kotlin-compiler-2.4.20.zip /opt/kotlin.zip; RUN cd /opt && jar xf kotlin.zip && rm kotlin.zip && chmod +x /opt/kotlinc/bin/*; ENV PATH=/opt/kotlinc/bin:$PATH",
+        "compile": "kotlinc {file} -include-runtime -d {out}.jar",
+        "run": "java -jar {out}.jar",
+        "notes": "plw-kotlin is a throwaway image built from the Dockerfile lines in 'install'. Compilation takes a few seconds per file. The public zenika/kotlin image ships only Kotlin 1.4.10, too old for sealed interfaces.",
+        "dockerfile": "sandbox/kotlin/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "The official Kotlin Playground (play.kotlinlang.org) compiles on a server; Kotlin/JS and Kotlin/Wasm target the browser but the compiler does not run there."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Kotlin",
+    "homepage": "https://kotlinlang.org/",
+    "spec": "https://kotlinlang.org/spec/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Kotlin",
+    "https://www.infoq.com/news/2011/07/kotlin/",
+    "https://blog.jetbrains.com/kotlin/2016/02/kotlin-1-0-released-pragmatic-language-for-jvm-and-android/",
+    "https://kotlinlang.org/docs/whatsnew13.html",
+    "https://kotlinlang.org/docs/whatsnew15.html",
+    "https://github.com/JetBrains/kotlin/releases"
+  ]
+}

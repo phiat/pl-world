@@ -1,0 +1,160 @@
+{
+  "id": "r",
+  "name": "R",
+  "aliases": ["GNU S", "R language"],
+  "year": 1993,
+  "year_note": "Ihaka and Gentleman announced binaries on the s-news mailing list in August 1993; the source was released under the GNU GPL in June 1995, and R 1.0.0 followed on 29 February 2000.",
+  "designers": ["Ross Ihaka", "Robert Gentleman"],
+  "organization": "University of Auckland",
+  "country": "New Zealand",
+  "tagline": "A free implementation of the S statistics language on a Scheme-inspired core, built around vectors and data frames.",
+  "summary": "R is a dynamically typed language and interactive environment for statistical computing and graphics. It adopts the syntax and much of the semantics of Bell Labs' S, but its interpreter was built on Scheme ideas such as lexical scoping and closures. Every value is a vector, operations apply element-wise, and data frames, missing values (NA) and model formulas are part of everyday code; the CRAN package archive made R a standard tool of statistics and data science.",
+  "history": "Ross Ihaka and Robert Gentleman began R at the University of Auckland as a better environment for their statistics teaching laboratory. Inspired by Abelson and Sussman's Structure and Interpretation of Computer Programs, they started from a small Scheme-like interpreter of their own, written in C, and gave it an S-like syntax because both knew S well; the name nods both to S and to the authors' first names. Binaries were announced on the s-news mailing list in August 1993.\n\nPersuaded by Martin Mächler of ETH Zurich, the authors released the source under the GNU GPL in June 1995. A larger core group took over development in mid-1997, Kurt Hornik set up CRAN (the Comprehensive R Archive Network) to distribute contributed packages, and R became part of the GNU project with version 0.60 in December 1997. R 1.0.0 was released on 29 February 2000.\n\nR kept S's user-visible language while differing underneath, most visibly in lexical scoping, which lets functions close over the environment where they were defined. Later releases enabled a byte-code JIT compiler by default (3.4.0, 2017), switched to reference counting for copy-on-modify and stopped converting strings to factors by default (4.0.0, 2020), and added a native pipe |> and the \\(x) lambda shorthand (4.1.0, 2021).",
+  "innovations": [
+    "Made the S language freely available, becoming the standard open-source environment for statistics",
+    "Combined S's syntax with Scheme-style lexical scoping and closures",
+    "Popularized the data frame, which inspired pandas and other data-frame libraries",
+    "CRAN (1997): a curated archive of contributed packages for a language community"
+  ],
+  "paradigms": ["multi-paradigm", "array", "functional", "object-oriented", "procedural", "reflective"],
+  "family": "array",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Atomic vectors are silently coerced along logical < integer < double < character (c(1, \"a\") is a character vector and 1 == \"1\" is TRUE), though arithmetic on strings is an error. S3 classes are just a class attribute."
+  },
+  "memory": "tracing-gc",
+  "execution": ["interpreted", "bytecode-vm"],
+  "status": "active",
+  "latest_version": "4.6.1",
+  "file_extensions": [".R", ".r", ".rds", ".rda"],
+  "color": "#198CE7",
+  "primary_parent": "scheme",
+  "influenced_by": [
+    { "id": "scheme", "kind": "influence", "weight": "major", "note": "R began as a small Scheme-like interpreter (after SICP); lexical scoping and closures distinguish it from S." },
+    { "id": "lisp", "kind": "influence", "weight": "minor", "note": "'R began as an experiment in trying to use the methods of Lisp implementors' (Ihaka); code is manipulable as language objects." },
+    { "id": "common-lisp", "kind": "influence", "weight": "minor", "note": "Calling handlers and restarts in the condition system are based on Common Lisp's." }
+  ],
+  "influenced_by_external": [
+    { "name": "S", "year": 1976, "note": "Bell Labs statistics language by John Chambers, Rick Becker and Allan Wilks; R adopted its syntax, and most S code runs unaltered in R." },
+    { "name": "Dylan", "year": 1992, "note": "Calling handlers in the condition system are based on Common Lisp and Dylan." }
+  ],
+  "influenced": ["julia"],
+  "traits": {
+    "structured-control": { "level": "core", "note": "if/else, for, while and repeat, although vectorised code often replaces loops." },
+    "block-scope": { "level": "supported", "note": "Lexical scoping (from Scheme) at the function level; braces do not create a new scope." },
+    "recursion": { "level": "core" },
+    "exceptions": { "level": "core", "note": "Condition system: stop()/warning(), tryCatch(), and Common Lisp-style calling handlers and restarts." },
+    "tail-calls": { "level": "supported", "since": 2024, "version": "R 4.4.0", "note": "Experimental Tailcall()/Exec(); ordinary calls are not tail-call optimised." },
+    "continuations": { "level": "supported", "since": 2007, "version": "R 2.5.0", "note": "callCC(): a downward-only (escape) version of Scheme's call/cc." },
+    "classes": { "level": "core", "note": "Several coexisting systems: S3 (a class attribute plus generic functions), S4 (setClass/setGeneric), Reference Classes, and packages such as R6 and S7." },
+    "inheritance": { "level": "core", "note": "S3 class vectors with NextMethod(); S4 contains=." },
+    "multiple-dispatch": { "level": "supported", "note": "S4 generics dispatch on the classes of several arguments; S3 dispatches on the first only." },
+    "modules": { "level": "supported", "note": "Packages with NAMESPACE files control exports and imports; scripts have no module construct." },
+    "operator-overloading": { "level": "core", "note": "Operators are functions: S3/S4 methods for +, [, == (the Ops group generic), and user-defined %infix% operators." },
+    "first-class-functions": { "level": "core", "note": "function(x) or, since R 4.1, \\(x)." },
+    "closures": { "level": "core", "note": "Lexical closures were R's key semantic departure from S." },
+    "immutability": { "level": "supported", "note": "Copy-on-modify value semantics: a function cannot change its caller's vectors or lists; environments are the mutable exception." },
+    "lazy-evaluation": { "level": "core", "note": "Function arguments are promises evaluated on first use, which enables non-standard evaluation; data structures are strict." },
+    "garbage-collection": { "level": "core", "note": "Tracing GC; since R 4.0 reference counts decide when copy-on-modify may mutate in place." },
+    "array-programming": { "level": "core", "note": "Every value is a vector: arithmetic, comparisons and most functions are vectorised with recycling; matrices are vectors with a dim attribute." },
+    "reflection": { "level": "core", "note": "Functions, calls and environments can be inspected and rewritten at run time (body(), formals(), sys.call(), environment())." },
+    "homoiconicity": { "level": "supported", "note": "Code is available as R objects (calls, symbols) via quote() and substitute() and can be built and evaluated; source is not written as data literals." },
+    "declarative-queries": { "level": "library", "note": "subset()/merge()/aggregate() in base R; dplyr and data.table provide relational verbs, and dbplyr translates them to SQL." },
+    "regex-builtin": { "level": "library", "note": "Base functions grepl(), sub(), regmatches() (TRE, or PCRE with perl = TRUE); no literal syntax." }
+  },
+  "milestones": [
+    { "year": 1993, "event": "Binaries announced on the s-news mailing list (August)" },
+    { "year": 1995, "event": "Source released under the GNU GPL (June)" },
+    { "year": 1997, "event": "R core group formed and CRAN established; R 0.60 becomes part of the GNU project (December)" },
+    { "year": 2000, "event": "R 1.0.0 released (29 February)" },
+    { "year": 2017, "event": "R 3.4.0 enables the byte-code JIT compiler by default" },
+    { "year": 2020, "event": "R 4.0.0: stringsAsFactors = FALSE by default; reference counting" },
+    { "year": 2021, "event": "R 4.1.0 adds the native pipe |> and the \\(x) function shorthand" }
+  ],
+  "trivia": [
+    "R's lexical scoping traces to a failed demonstration: Ihaka tried to show 'own variables' via lexical scope in S and it did not work, because S's scoping rules differ from Scheme's.",
+    "R 1.0.0 was released on a leap day, 29 February 2000.",
+    "John Chambers, principal designer of S and later a member of R core, summed up R's semantics as: 'Everything that exists is an object. Everything that happens is a function call.'"
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "R 4.6",
+      "code": "cat(\"Hello, World!\\n\")\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "cat() writes raw text; print(\"Hello, World!\") would show [1] \"Hello, World!\".",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "R 4.6",
+      "code": "factorial <- function(n) {\n  if (n <= 1) 1 else n * factorial(n - 1)\n}\n\ncat(factorial(10), \"\\n\", sep = \"\")\n",
+      "expected_output": "3628800\n",
+      "notes": "if/else is an expression. This shadows base R's factorial(), which uses gamma(n + 1).",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "R 4.6",
+      "code": "# Vectorised: no explicit loop, every operation works on the whole vector 1:15.\ni <- 1:15\nout <- ifelse(i %% 15 == 0, \"FizzBuzz\",\n       ifelse(i %% 3 == 0, \"Fizz\",\n       ifelse(i %% 5 == 0, \"Buzz\", i)))\nwriteLines(out)\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "No loop: ifelse() works on the whole vector 1:15 at once, and the numbers are coerced to strings.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "R 4.6",
+      "code": "x <- 1:10\nsquares <- x[x %% 2 == 0]^2   # logical-vector indexing, then vectorised power\nwriteLines(paste(squares, collapse = \" \"))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Idiomatic R filters with a logical vector; the functional spelling is Filter(\\(v) v %% 2 == 0, x) |> sapply(\\(v) v^2).",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "R 4.6",
+      "code": "# S3: a \"class\" is just an attribute; generic functions dispatch on it.\nrectangle <- function(width, height)\n  structure(list(width = width, height = height), class = c(\"Rectangle\", \"shape\"))\ntriangle <- function(base, height)\n  structure(list(base = base, height = height), class = c(\"Triangle\", \"shape\"))\n\narea <- function(s) UseMethod(\"area\")\narea.Rectangle <- function(s) s$width * s$height\narea.Triangle  <- function(s) s$base * s$height / 2\n\nprint.shape <- function(x, ...) cat(class(x)[1], \": \", area(x), \"\\n\", sep = \"\")\n\nfor (s in list(rectangle(3, 4), triangle(10, 3))) print(s)\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "S3 objects are lists tagged with a class attribute; UseMethod() dispatches on it and print() finds print.shape through the class vector. S4 (setClass/setGeneric) is the formal alternative.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Vectors, data frames and formulas",
+      "dialect": "R 4.6",
+      "code": "# Vectors, data frames, NA and model formulas are built into the language.\ntrial <- data.frame(\n  dose     = 1:5,\n  response = c(2.2, 4.0, NA, 8.1, 9.7)\n)\n\nfit <- lm(response ~ dose, data = trial)          # \"response modelled by dose\"\ncat(sprintf(\"slope = %.2f\\n\", coef(fit)[[\"dose\"]]))  # the NA row is skipped\n\ntrial$predicted <- round(predict(fit, trial), 1)  # a whole column at once\nprint(trial[trial$dose > 2, ])                    # rows picked by a logical vector\n",
+      "expected_output": "slope = 1.91\n  dose response predicted\n3    3       NA       6.0\n4    4      8.1       7.9\n5    5      9.7       9.8\n",
+      "notes": "lm() fits a linear model from the formula response ~ dose, silently dropping the NA row; predict(), round() and the comparison dose > 2 all work on whole columns at once. Data-frame printing aligns columns and keeps row names.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      { "name": "R", "version": "4.6.1", "docker_image": "r-base:4.6.1", "run": "Rscript {file}" },
+      {
+        "name": "R (Rocker)",
+        "docker_image": "rocker/r-ver:4.6.1",
+        "run": "Rscript {file}",
+        "notes": "Alternative Rocker Project image (Ubuntu-based, version-pinned CRAN snapshot)."
+      }
+    ],
+    "browser": {
+      "name": "webR",
+      "url": "https://docs.r-wasm.org/webr/latest/",
+      "notes": "R compiled to WebAssembly with Emscripten; runs in the browser or Node.js."
+    },
+    "notes": "All six snippets verified with Rscript in both r-base:4.6.1 and rocker/r-ver:4.6.1."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/R_(programming_language)",
+    "homepage": "https://www.r-project.org/",
+    "spec": "https://cran.r-project.org/doc/manuals/r-release/R-lang.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/R_(programming_language)",
+    "https://www.stat.auckland.ac.nz/~ihaka/downloads/Interface98.pdf",
+    "https://cran.r-project.org/doc/manuals/r-release/NEWS.html",
+    "https://stat.ethz.ch/R-manual/R-devel/library/base/html/conditions.html",
+    "https://stat.ethz.ch/R-manual/R-devel/library/base/html/callCC.html",
+    "https://adv-r.hadley.nz/functions.html"
+  ]
+}

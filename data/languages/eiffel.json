@@ -1,0 +1,316 @@
+{
+  "id": "eiffel",
+  "name": "Eiffel",
+  "aliases": [
+    "ECMA Eiffel",
+    "Standard Eiffel"
+  ],
+  "year": 1986,
+  "year_note": "Meyer designed the language on 23 September 1985 as an internal tool at ISE; the first internal implementation ran in mid-1986, it was presented at the first OOPSLA conference in 1986, and the compiler went on sale in December 1986.",
+  "designers": [
+    "Bertrand Meyer"
+  ],
+  "organization": "Interactive Software Engineering (ISE), now Eiffel Software",
+  "country": "United States",
+  "tagline": "Meyer's object-oriented language built on design by contract: preconditions, postconditions and invariants in every class.",
+  "summary": "Eiffel is a statically typed, class-based object-oriented language designed by Bertrand Meyer around the idea that software components should carry executable specifications. Routines state preconditions and postconditions and classes state invariants — the method Meyer named Design by Contract — alongside multiple inheritance with renaming, constrained genericity, garbage collection and, later, agents (routine objects) and void-safe types. Its ideas on contracts, command–query separation and uniform access influenced Java, C#, Ada 2012 and contract libraries in many other languages.",
+  "history": "Bertrand Meyer designed Eiffel in September 1985 as an internal tool for his new company, Interactive Software Engineering (ISE) in Santa Barbara, California. He names as its main influences Simula 67, the ALGOL 60–ALGOL W–Pascal–Ada line of languages, work on abstract data types, the Z specification language, and program proving in the tradition of Floyd, Hoare and Dijkstra. A presentation at the first OOPSLA conference in 1986 led ISE to sell the compiler from December 1986, and Meyer's book Object-Oriented Software Construction (1988) carried the method well beyond Eiffel's users. The name honours Gustave Eiffel, whose tower was finished on time and within budget.\n\nIn 1990 ISE placed the language definition in the public domain, which led to independent implementations such as SmallEiffel from the University of Nancy (later SmartEiffel, continued as Liberty Eiffel); 'Eiffel: The Language' (1991) became the reference. ISE re-engineered its own tools in Eiffel as ISE Eiffel 3 (1993), the ancestor of EiffelStudio, and through the 1990s added agents, the Precursor mechanism and conversion constructs.\n\nEcma standardised the language as ECMA-367 in 2005 and ISO followed in 2006, adding attached (void-safe) types and inline agents. EiffelStudio implemented void safety from version 6.1 (2007) and shipped the SCOOP concurrency model in 2011, and Gobo Eiffel and Liberty Eiffel remain open-source alternatives. Eiffel never became a mass-market language, but design by contract spread from it into Ada 2012 and many other languages' assertion and contract facilities.",
+  "innovations": [
+    "Design by Contract: preconditions, postconditions and class invariants as executable parts of the interface, with rules for how they are inherited",
+    "Disciplined exception handling tied to contracts (rescue clauses with retry)",
+    "Multiple inheritance made manageable through renaming, redefinition and select",
+    "Constrained genericity (LIST [G -> COMPARABLE])",
+    "The command–query separation and uniform access principles",
+    "Void safety through attached and detachable types in a mainstream-style OO language"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "imperative",
+    "generic",
+    "concurrent"
+  ],
+  "family": "algol",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "Every type is based on a class, including INTEGER and BOOLEAN (expanded types). Covariant redefinition of arguments is allowed, a known soundness gap ('catcalls') that compilers check with extra rules."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "native-compiled",
+    "transpiled",
+    "bytecode-vm"
+  ],
+  "status": "maintained",
+  "latest_version": "ECMA-367 2nd ed. / ISO/IEC 25436:2006; EiffelStudio 25.12",
+  "file_extensions": [
+    ".e"
+  ],
+  "color": "#4d6977",
+  "primary_parent": "simula",
+  "influenced_by": [
+    {
+      "id": "simula",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Meyer's main source of object-oriented concepts, which he had used since 1973."
+    },
+    {
+      "id": "ada",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Part of the ALGOL 60–ALGOL W–Pascal–Ada line Meyer cites."
+    },
+    {
+      "id": "pascal",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Keyword-based ALGOL/Pascal-style syntax."
+    },
+    {
+      "id": "algol60",
+      "kind": "influence",
+      "weight": "minor"
+    },
+    {
+      "id": "clu",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Meyer cites the abstract-data-type work of Liskov and Zilles (among others)."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Z notation",
+      "note": "Abrial's formal specification language, which Meyer had described in a 1978 book."
+    },
+    {
+      "name": "Hoare logic",
+      "year": 1969,
+      "note": "Contracts are executable Hoare-style preconditions and postconditions."
+    }
+  ],
+  "influenced": [
+    "ada",
+    "csharp",
+    "java",
+    "ruby",
+    "scala"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "from … until … loop … end (with optional loop invariant and variant); no break, continue or return — every routine has a single exit."
+    },
+    "block-scope": {
+      "level": "supported",
+      "note": "Locals are declared per routine; only object tests, across loops and inline agents introduce narrower scopes."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "A routine's rescue clause handles failures and may retry the body; contract violations are exceptions."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "generics": {
+      "level": "core",
+      "note": "Unconstrained (LIST [G]) and constrained (SORTED_LIST [G -> COMPARABLE]) genericity since the first version."
+    },
+    "option-types": {
+      "level": "core",
+      "since": 2005,
+      "version": "ECMA-367",
+      "note": "Void safety: attached types cannot be Void, and detachable ones must be tested (`if attached x as y`) before use; implemented from EiffelStudio 6.1 (2007)."
+    },
+    "interfaces": {
+      "level": "supported",
+      "note": "Fully deferred classes, combined with multiple inheritance, serve as interfaces; there is no separate interface construct."
+    },
+    "classes": {
+      "level": "core"
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Multiple inheritance with renaming, redefinition, undefinition and `select` for repeated inheritance; non-conforming inheritance since ECMA-367."
+    },
+    "everything-is-an-object": {
+      "level": "supported",
+      "note": "Every type is a class, including INTEGER and BOOLEAN, but control structures are built-in syntax rather than messages."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Classes are presented as implementations of abstract data types, with selective export ({NONE}, {ANY} or named client classes) for information hiding."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "The class is the only unit of modularity; clusters (directories) group classes."
+    },
+    "design-by-contract": {
+      "level": "core",
+      "note": "require/ensure/invariant, loop invariants and variants, and check instructions. Contracts are inherited (preconditions may only be weakened, postconditions only strengthened) and run-time monitoring is configurable per class."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Any feature can carry an operator or bracket alias (e.g. `plus alias \"+\"`); the basic numeric classes define their arithmetic this way."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Agents wrap routines as objects (added in the 1990s); inline agents came with ECMA-367."
+    },
+    "closures": {
+      "level": "supported",
+      "note": "Agents capture explicitly closed operands and Current; inline agents cannot access the enclosing routine's local variables."
+    },
+    "garbage-collection": {
+      "level": "core"
+    },
+    "actors": {
+      "level": "supported",
+      "since": 2011,
+      "version": "EiffelStudio 6.8 (SCOOP)",
+      "note": "SCOOP: objects declared `separate` belong to their own processor and receive asynchronous calls; preconditions on separate objects act as wait conditions."
+    },
+    "reflection": {
+      "level": "library",
+      "note": "Library classes such as INTERNAL offer limited introspection of objects and types."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1985,
+      "event": "Meyer designs Eiffel at ISE, Santa Barbara (23 September)"
+    },
+    {
+      "year": 1986,
+      "event": "Presented at the first OOPSLA; commercial release in December"
+    },
+    {
+      "year": 1988,
+      "event": "Object-Oriented Software Construction (1st edition); Eiffel 2"
+    },
+    {
+      "year": 1990,
+      "event": "Language definition released to the public domain"
+    },
+    {
+      "year": 1991,
+      "event": "'Eiffel: The Language' published"
+    },
+    {
+      "year": 1993,
+      "event": "ISE Eiffel 3, a graphical environment rewritten in Eiffel"
+    },
+    {
+      "year": 1997,
+      "event": "Object-Oriented Software Construction, 2nd edition"
+    },
+    {
+      "year": 2005,
+      "event": "Ecma approves ECMA-367 (21 June)"
+    },
+    {
+      "year": 2006,
+      "event": "ISO/IEC 25436 published; EiffelStudio 5.7 adds inline agents"
+    },
+    {
+      "year": 2007,
+      "event": "EiffelStudio 6.1 introduces void safety"
+    },
+    {
+      "year": 2011,
+      "event": "SCOOP concurrency ships with EiffelStudio 6.8"
+    }
+  ],
+  "trivia": [
+    "Meyer named the language after Gustave Eiffel, noting that the Eiffel Tower was completed on time and within budget.",
+    "Eiffel Software registered 'Design by Contract' as a trademark (granted in 2004).",
+    "Meyer received the 2006 ACM Software System Award for the design of Eiffel."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "ECMA-367 Eiffel (Gobo Eiffel gec)",
+      "code": "class HELLO\n\ncreate\n\tmake\n\nfeature\n\n\tmake\n\t\tdo\n\t\t\tprint (\"Hello, World!%N\")\n\t\tend\n\nend\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "An Eiffel program is a system of classes: execution creates an instance of the root class and runs its creation procedure (here `make`). `%N` is Eiffel's newline escape.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "ECMA-367 Eiffel (Gobo Eiffel gec)",
+      "code": "class FACTORIAL\n\ncreate\n\tmake\n\nfeature\n\n\tmake\n\t\tdo\n\t\t\tprint (factorial (10).out + \"%N\")\n\t\tend\n\n\tfactorial (n: INTEGER): INTEGER\n\t\t\t-- n! computed recursively\n\t\trequire\n\t\t\tnon_negative: n >= 0\n\t\tdo\n\t\t\tif n <= 1 then\n\t\t\t\tResult := 1\n\t\t\telse\n\t\t\t\tResult := n * factorial (n - 1)\n\t\t\tend\n\t\tend\n\nend\n",
+      "expected_output": "3628800\n",
+      "notes": "Functions return through the implicit `Result` entity. The `require` clause is a precondition, checked at run time when assertion monitoring is on.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "ECMA-367 Eiffel (Gobo Eiffel gec)",
+      "code": "class FIZZBUZZ\ncreate make\nfeature\n\tmake\n\t\tlocal\n\t\t\ti: INTEGER\n\t\tdo\n\t\t\tfrom i := 1 until i > 15 loop\n\t\t\t\tif i \\\\ 15 = 0 then\n\t\t\t\t\tprint (\"FizzBuzz%N\")\n\t\t\t\telseif i \\\\ 3 = 0 then\n\t\t\t\t\tprint (\"Fizz%N\")\n\t\t\t\telseif i \\\\ 5 = 0 then\n\t\t\t\t\tprint (\"Buzz%N\")\n\t\t\t\telse\n\t\t\t\t\tprint (i.out + \"%N\")\n\t\t\t\tend\n\t\t\t\ti := i + 1\n\t\t\tend\n\t\tend\nend\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "from/until/loop is Eiffel's classic loop form (the only one before `across` was added); `\\\\` is the integer remainder operator.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "ECMA-367 Eiffel (Gobo Eiffel gec)",
+      "code": "class MAP_FILTER\n\ncreate\n\tmake\n\nfeature\n\n\tmake\n\t\tlocal\n\t\t\tsquares: ARRAYED_LIST [INTEGER]\n\t\t\tline: STRING\n\t\tdo\n\t\t\tcreate squares.make (5)\n\t\t\t(1 |..| 10).as_array.do_if (\n\t\t\t\tagent (x: INTEGER; acc: ARRAYED_LIST [INTEGER]) do acc.extend (x * x) end (?, squares),\n\t\t\t\tagent (x: INTEGER): BOOLEAN do Result := x \\\\ 2 = 0 end)\n\t\t\tcreate line.make_empty\n\t\t\tacross squares is n loop\n\t\t\t\tif not line.is_empty then line.append (\" \") end\n\t\t\t\tline.append (n.out)\n\t\t\tend\n\t\t\tprint (line + \"%N\")\n\t\tend\n\nend\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Agents turn routines into objects. The inline agents here act as lambdas; `(?, squares)` leaves the first argument open and closes the second, because inline agents cannot see the enclosing routine's locals. `across … is n` iterates over items.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "ECMA-367 Eiffel (Gobo Eiffel gec)",
+      "code": "-- Eiffel keeps one class per file: shapes.e, shape.e, rectangle.e, triangle.e\nclass SHAPES\n\ncreate\n\tmake\n\nfeature\n\n\tmake\n\t\tdo\n\t\t\tacross {ARRAY [SHAPE]} <<create {RECTANGLE}.make (3, 4), create {TRIANGLE}.make (10, 3)>> is s loop\n\t\t\t\tprint (s.name + \": \" + s.area.out + \"%N\")\n\t\t\tend\n\t\tend\n\nend\n\ndeferred class SHAPE\nfeature\n\tname: STRING deferred end\n\tarea: INTEGER deferred end\nend\n\nclass RECTANGLE\ninherit SHAPE\ncreate make\nfeature\n\twidth, height: INTEGER\n\tmake (w, h: INTEGER) do width := w; height := h end\n\tname: STRING do Result := \"Rectangle\" end\n\tarea: INTEGER do Result := width * height end\nend\n\nclass TRIANGLE\ninherit SHAPE\ncreate make\nfeature\n\tbase, height: INTEGER\n\tmake (b, h: INTEGER) do base := b; height := h end\n\tname: STRING do Result := \"Triangle\" end\n\tarea: INTEGER do Result := base * height // 2 end\nend\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Eiffel puts one class per file, so this listing is four files (shapes.e, shape.e, rectangle.e, triangle.e); the sandbox's compile step splits it. SHAPE is a deferred (abstract) class and calls to `name` and `area` bind dynamically.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Design by Contract",
+      "dialect": "ECMA-367 Eiffel (Gobo Eiffel gec)",
+      "code": "class ACCOUNT\ncreate make\nfeature\n\tbalance: INTEGER\n\n\twithdraw (amount: INTEGER)\n\t\trequire\n\t\t\tcovered: amount <= balance                -- the caller's obligation\n\t\tdo\n\t\t\tbalance := balance - amount\n\t\tensure\n\t\t\tdeducted: balance = old balance - amount  -- the supplier's guarantee\n\t\tend\n\n\tmake\n\t\tlocal\n\t\t\tretried: BOOLEAN\n\t\tdo\n\t\t\tif not retried then\n\t\t\t\tbalance := 100\n\t\t\t\twithdraw (30)\n\t\t\t\tprint (\"balance: \" + balance.out + \"%N\")\n\t\t\t\twithdraw (500)                          -- breaks the precondition\n\t\t\tend\n\t\trescue\n\t\t\tif attached (create {EXCEPTIONS}).tag_name as tag then\n\t\t\t\tprint (\"rejected: \" + tag + \" violated%N\")\n\t\t\tend\n\t\t\tretried := True\n\t\t\tretry\n\t\tend\n\ninvariant\n\tnever_negative: balance >= 0\nend\n",
+      "expected_output": "balance: 70\nrejected: covered violated\n",
+      "notes": "The precondition is the caller's obligation, the postcondition the supplier's guarantee (`old` is the value on entry), and the invariant must hold after every exported call. The rescue clause catches the violation and `retry` re-runs the body. gec's single-file mode monitors preconditions by default; postconditions and invariants are switched on in an ECF file (<assertions precondition=\"true\" postcondition=\"true\" invariant=\"true\"/>).",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Gobo Eiffel (gec)",
+        "version": "26.09",
+        "docker_image": "plw-eiffel",
+        "install": "FROM debian:trixie-slim; apt-get install -y --no-install-recommends gcc libc6-dev curl ca-certificates xz-utils; extract https://github.com/gobo-eiffel/gobo/releases/download/gobo-26.09/gobo-linux-x86_64-26.09.03+8969a11.tar.xz to /opt (giving /opt/gobo); ENV GOBO=/opt/gobo PATH=/opt/gobo/bin:$PATH",
+        "compile": "sh -c 'f=$(realpath {file}); o=$(realpath -m {out}); cd \"$(mktemp -d)\" && awk \"/^(deferred |expanded |frozen )?class /{c=tolower(\\$NF)\\\".e\\\"; if(!r)r=c} c{print > c} END{print r > \\\"ROOT\\\"}\" \"$f\" && gec --silent \"$(cat ROOT)\" && mv \"$(basename \"$(cat ROOT)\" .e)\" \"$o\"'",
+        "run": "{out}",
+        "notes": "gec compiles Eiffel to C and then to a native executable. Given a single .e file it takes the root class from the file name and finds other classes as <name>.e files in the same directory, so the compile step splits the snippet at each `class` header into a scratch directory and compiles the first (root) class.",
+        "dockerfile": "sandbox/eiffel/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "EiffelStudio (the reference implementation) and Liberty Eiffel are alternatives; Gobo's prebuilt Linux release is the lightest to install."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Eiffel_(programming_language)",
+    "homepage": "https://www.eiffel.org/",
+    "spec": "https://ecma-international.org/publications-and-standards/standards/ecma-367/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Eiffel_(programming_language)",
+    "https://se.inf.ethz.ch/~meyer/ongoing/etl/history.pdf",
+    "https://www.eiffel.com/resources/faqs/eiffel-language/",
+    "https://archive.eiffel.com/eiffel/nutshell.html",
+    "https://en.wikipedia.org/wiki/Design_by_contract",
+    "https://en.wikipedia.org/wiki/EiffelStudio",
+    "https://en.wikipedia.org/wiki/SCOOP_(software)",
+    "https://en.wikipedia.org/wiki/Void_safety",
+    "https://en.wikipedia.org/wiki/Bertrand_Meyer",
+    "https://github.com/gobo-eiffel/gobo"
+  ]
+}

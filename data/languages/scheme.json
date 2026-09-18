@@ -1,0 +1,155 @@
+{
+  "id": "scheme",
+  "name": "Scheme",
+  "aliases": ["Schemer", "R7RS Scheme"],
+  "year": 1975,
+  "year_note": "Described in MIT AI Memo 349, 'Scheme: An Interpreter for Extended Lambda Calculus' (December 1975). The language is defined by the Revised^n Reports on the Algorithmic Language Scheme; R7RS-small (2013) is the current one.",
+  "designers": ["Guy L. Steele", "Gerald Jay Sussman"],
+  "organization": "MIT AI Lab",
+  "country": "United States",
+  "tagline": "A minimalist, lexically scoped Lisp built on lambda, proper tail calls and first-class continuations.",
+  "summary": "Scheme is a small dialect of Lisp designed by Guy Steele and Gerald Jay Sussman at the MIT AI Lab. It was the first Lisp to use lexical scope throughout, it requires implementations to perform proper tail calls, and it exposes first-class continuations through call/cc, so loops, coroutines and exception mechanisms can all be built from procedures. Its compact definition, maintained through the 'Revised^n Report' series, made it a favourite for teaching (notably with SICP) and for research on language implementation.",
+  "history": "Scheme began in 1975 as Steele and Sussman's attempt to understand Carl Hewitt's Actor model: they wrote a tiny Lisp interpreter in MacLisp and added mechanisms for creating actors and sending messages. With ALGOL-style lexical scoping in place, they found that actors and lexical closures were essentially the same thing, and the language that remained, originally named 'Schemer' after Planner and Conniver and truncated by the ITS operating system's six-character file names, was described in AI Memo 349. The 'Lambda Papers' that followed argued that lambda with proper tail calls could express loops, GOTO and actors, and could be compiled efficiently.\n\nScheme has been defined by a series of consensus reports: the Revised Report (1978), R2RS to R4RS (1985 to 1991), the IEEE 1178-1990 standard, and R5RS (1998), which added hygienic syntax-rules macros, dynamic-wind and multiple values. R6RS (2007) introduced libraries, Unicode and a standard exception system but proved controversial as a departure from Scheme's minimalism; R7RS-small (2013) returned to a small core with a simple library system, while a larger R7RS-large is being assembled from SRFIs (Scheme Requests for Implementation).\n\nIts small, regular core made Scheme a favourite teaching language (MIT taught its introductory course from Abelson and Sussman's 'Structure and Interpretation of Computer Programs', 1985) and a laboratory for compilers and language design. Racket grew out of PLT Scheme, and languages from JavaScript and Lua to Clojure and Rust list Scheme among their influences.",
+  "innovations": [
+    "The first Lisp dialect with lexical scope throughout, making closures the natural unit of abstraction",
+    "Proper tail calls required by the language definition, so iteration can be written as recursion",
+    "First-class continuations (call/cc) as a primitive for building generators, coroutines, backtracking and exceptions",
+    "Hygienic macros (syntax-rules), standardized in R5RS",
+    "A single namespace for procedures and variables (a 'Lisp-1'), treating procedures as ordinary values",
+    "The Lambda Papers' demonstration that procedure calls can be compiled as cheaply as GOTO"
+  ],
+  "paradigms": ["functional", "imperative", "metaprogramming"],
+  "family": "lisp",
+  "syntax_family": "s-expression",
+  "block_style": "s-expression",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "Latent types: values carry their type and primitives check it at run time. Built-in types are disjoint, define-record-type creates new ones, and numbers form a tower of exact integers and rationals, inexact reals and complex numbers."
+  },
+  "memory": "tracing-gc",
+  "execution": ["interpreted", "bytecode-vm", "native-compiled"],
+  "status": "maintained",
+  "latest_version": "R7RS-small (2013)",
+  "file_extensions": [".scm", ".ss", ".sld"],
+  "color": "#1e4aec",
+  "primary_parent": "lisp",
+  "influenced_by": [
+    { "id": "lisp", "kind": "dialect", "weight": "major", "note": "A Lisp dialect; the first interpreter was written in MacLisp." },
+    { "id": "algol60", "kind": "influence", "weight": "major", "note": "Lexical scoping and block structure, the feature that most distinguished Scheme from earlier Lisps." }
+  ],
+  "influenced_by_external": [
+    { "name": "Actor model (Carl Hewitt)", "year": 1973, "note": "Scheme started as an interpreter for experimenting with actors." },
+    { "name": "MDL (Muddle)", "note": "MIT Lisp-like language listed among Scheme's influences." },
+    { "name": "MacLisp", "note": "Host language of the first Scheme interpreter and source of much of its vocabulary." },
+    { "name": "Lambda calculus (Alonzo Church)", "note": "The 'extended lambda calculus' of the original memo's title." }
+  ],
+  "influenced": ["common-lisp", "clojure", "haskell", "javascript", "lua", "python", "r", "ruby", "rust", "scala"],
+  "traits": {
+    "structured-control": { "level": "core", "note": "if, cond, case, when/unless and do; loops are usually named-let recursion." },
+    "block-scope": { "level": "core", "note": "Lexical scope everywhere: let, let*, letrec and internal defines." },
+    "recursion": { "level": "core" },
+    "tail-calls": { "level": "core", "note": "Required of every implementation by the Revised Reports; iteration is expressed as tail recursion." },
+    "continuations": { "level": "core", "note": "call-with-current-continuation (call/cc), plus dynamic-wind (R5RS) for entry/exit actions." },
+    "exceptions": { "level": "supported", "since": 2007, "version": "R6RS", "note": "raise, guard and with-exception-handler (also in R7RS-small); earlier code built its own from call/cc." },
+    "coroutines": { "level": "supported", "note": "No dedicated primitive; coroutines are built from first-class continuations." },
+    "generators": { "level": "library", "note": "Built from call/cc, or SRFI 158 generators and accumulators." },
+    "first-class-functions": { "level": "core" },
+    "closures": { "level": "core", "note": "Lexical closures are the basic abstraction mechanism; SICP-style message passing uses them as objects." },
+    "lazy-evaluation": { "level": "supported", "note": "Explicit promises with delay, delay-force and force; evaluation is strict by default." },
+    "garbage-collection": { "level": "core" },
+    "macros": { "level": "core", "note": "syntax-rules pattern macros; R6RS adds procedural syntax-case, and many implementations offer non-hygienic transformers too." },
+    "hygienic-macros": { "level": "core", "note": "Hygienic expansion was developed for Scheme by Kohlbecker et al. (1986); syntax-rules appeared in an R4RS appendix (1991) and became part of the language in R5RS (1998)." },
+    "homoiconicity": { "level": "core" },
+    "reflection": { "level": "supported", "note": "eval with environment specifiers such as (environment '(scheme base)); the standard offers little runtime introspection." },
+    "compile-time-execution": { "level": "supported", "since": 2007, "version": "R6RS", "note": "syntax-case transformers run arbitrary Scheme at expansion time." },
+    "modules": { "level": "supported", "since": 2007, "version": "R6RS", "note": "R6RS library forms; R7RS-small uses define-library with import/export." }
+  },
+  "milestones": [
+    { "year": 1975, "event": "AI Memo 349 introduces Scheme" },
+    { "year": 1978, "event": "Revised Report on Scheme (AI Memo 452)" },
+    { "year": 1985, "event": "Structure and Interpretation of Computer Programs published; R2RS" },
+    { "year": 1991, "event": "IEEE Std 1178-1990 published; R4RS" },
+    { "year": 1998, "event": "R5RS: syntax-rules macros, dynamic-wind, multiple values" },
+    { "year": 2007, "event": "R6RS ratified: libraries, Unicode, exceptions, syntax-case" },
+    { "year": 2013, "event": "R7RS-small ratified" }
+  ],
+  "trivia": [
+    "The language was called 'Schemer', following Planner and Conniver, but the ITS operating system limited file names to two six-character components.",
+    "Steele and Sussman found that the code in their interpreter's apply for invoking an actor and for applying a closure was identical, which convinced them the two concepts were the same."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "R7RS-small",
+      "code": "(import (scheme base) (scheme write))\n\n(display \"Hello, World!\")\n(newline)\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "R7RS programs begin with an import declaration; display lives in the (scheme write) library.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "R7RS-small",
+      "code": "(import (scheme base) (scheme write))\n\n(define (factorial n)\n  (if (= n 0)\n      1\n      (* n (factorial (- n 1)))))\n\n(display (factorial 10))\n(newline)\n",
+      "expected_output": "3628800\n",
+      "notes": "Exact integers are arbitrary-precision in most implementations, so (factorial 100) is exact too.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "R7RS-small",
+      "code": "(import (scheme base) (scheme write))\n\n;; A named let: the \"loop\" is just a tail-recursive local procedure.\n(let loop ((i 1))\n  (when (<= i 15)\n    (display (cond ((zero? (modulo i 15)) \"FizzBuzz\")\n                   ((zero? (modulo i 3)) \"Fizz\")\n                   ((zero? (modulo i 5)) \"Buzz\")\n                   (else i)))\n    (newline)\n    (loop (+ i 1))))\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "A named let defines and calls a local procedure; because the recursive call is in tail position, Scheme guarantees it runs in constant stack space, like a loop.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "R7RS-small + SRFI 1",
+      "code": "(import (scheme base) (scheme write)\n        (srfi 1))                       ; list library: iota, filter\n\n(define result\n  (map square (filter even? (iota 10 1))))\n\n(display (car result))\n(for-each (lambda (x) (display \" \") (display x))\n          (cdr result))\n(newline)\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "square is in (scheme base), but filter and iota come from SRFI 1, the de facto list library: it is not part of R7RS-small, though R7RS-large adopts it as (scheme list).",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "R7RS-small",
+      "code": "(import (scheme base) (scheme write))\n\n;; Objects as closures: a shape is a procedure that answers messages.\n(define (make-rectangle width height)\n  (lambda (message)\n    (case message\n      ((name) \"Rectangle\")\n      ((area) (* width height)))))\n\n(define (make-triangle base height)\n  (lambda (message)\n    (case message\n      ((name) \"Triangle\")\n      ((area) (/ (* base height) 2)))))\n\n(for-each (lambda (shape)\n            (display (shape 'name))\n            (display \": \")\n            (display (shape 'area))\n            (newline))\n          (list (make-rectangle 3 4) (make-triangle 10 3)))\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Message-passing closures in the style of SICP: each constructor returns a procedure that closes over its fields and dispatches on a symbol. For plain data, R7RS also has define-record-type.",
+      "verified": true
+    },
+    "signature": {
+      "title": "First-class continuations (call/cc)",
+      "dialect": "R7RS-small",
+      "code": "(import (scheme base) (scheme write))\n\n;; call/cc captures \"the rest of the computation\" as a procedure.\n;; Escape: jump out of a for-each as soon as we find a match.\n(define (find-first pred xs)\n  (call/cc                          ; = call-with-current-continuation\n    (lambda (return)\n      (for-each (lambda (x) (when (pred x) (return x))) xs)\n      #f)))\n\n(display (find-first even? '(1 3 5 6 7 8)))\n(newline)\n\n;; Re-entry: jump *back* into a continuation to build a loop from scratch.\n(define (count-to n)\n  (let ((i 0) (again #f))\n    (call/cc (lambda (k) (set! again k)))  ; mark this point\n    (set! i (+ i 1))\n    (display i)\n    (when (< i n) (display \" \") (again #f)) ; resume at the mark\n    (newline)))\n\n(count-to 5)\n",
+      "expected_output": "6\n1 2 3 4 5\n",
+      "notes": "find-first escapes from the middle of for-each by calling a captured continuation. count-to saves a continuation inside a procedure body and re-enters it, so a loop appears without any looping construct. Generators, coroutines, backtracking and exception systems can all be built this way.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "Chibi-Scheme",
+        "version": "0.12.0",
+        "docker_image": "schemers/chibi:latest",
+        "run": "chibi-scheme {file}",
+        "notes": "Small R7RS implementation that bundles SRFI 1; starts fast."
+      }
+    ],
+    "browser": { "name": "BiwaScheme", "url": "https://www.biwascheme.org/", "notes": "JavaScript Scheme interpreter covering much of R6RS/R7RS; import/define-library support is partial, so snippets may need their import lines removed (not tested here)." },
+    "notes": "Chez Scheme 9.5 (installed on the host as `scheme`) implements R6RS and rejects R7RS (scheme base) imports, so Chibi is used. Other R7RS systems such as Gauche, CHICKEN or Guile 3 should also work but were not tested."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Scheme_(programming_language)",
+    "homepage": "https://www.scheme.org/",
+    "spec": "https://small.r7rs.org/attachment/r7rs.pdf"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Scheme_(programming_language)",
+    "https://en.wikipedia.org/wiki/History_of_the_Scheme_programming_language",
+    "https://dspace.mit.edu/handle/1721.1/5794",
+    "https://research.scheme.org/lambda-papers/",
+    "https://doi.org/10.1023/A:1010079421970",
+    "https://small.r7rs.org/attachment/r7rs.pdf"
+  ]
+}

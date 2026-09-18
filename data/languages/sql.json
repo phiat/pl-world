@@ -1,0 +1,253 @@
+{
+  "id": "sql",
+  "name": "SQL",
+  "aliases": [
+    "Structured Query Language",
+    "SEQUEL"
+  ],
+  "year": 1974,
+  "year_note": "Chamberlin and Boyce began work on SEQUEL at IBM San Jose in 1973 (Wikipedia's infobox gives 1973) and published it in May 1974. It was renamed SQL for trademark reasons; commercial implementations appeared from 1979, and ANSI and ISO standardized it in 1986–87.",
+  "designers": [
+    "Donald D. Chamberlin",
+    "Raymond F. Boyce"
+  ],
+  "organization": "IBM San Jose Research Laboratory",
+  "country": "United States",
+  "tagline": "The declarative language of relational databases: describe the rows you want and let the engine work out how to get them.",
+  "summary": "SQL is a declarative, domain-specific language for defining, querying and updating data in relational database management systems. Designed at IBM as SEQUEL for the System R prototype, it expresses Edgar F. Codd's relational model in English-like keywords: a query describes the result, and a query optimizer chooses how to compute it. Standardized by ANSI and ISO since 1986, it remains the dominant database language, spoken in vendor dialects by systems from SQLite to Oracle.",
+  "history": "In 1970 Edgar F. Codd of IBM published the relational model of data. His colleagues Donald Chamberlin and Raymond Boyce first designed SQUARE, a query notation whose subscripts and superscripts proved hard to use; after moving to IBM's San Jose Research Laboratory in 1973 they began its sequel, SEQUEL (Structured English Query Language), described in a May 1974 paper; Boyce died that June, weeks after its publication. SEQUEL became the language of the System R research prototype, and was renamed SQL because 'SEQUEL' was a trademark of the British company Hawker Siddeley Dynamics Engineering.\n\nRelational Software, Inc. (now Oracle) shipped one of the first commercial SQL systems, Oracle V2, in June 1979, while IBM's System R-derived products — System/38, SQL/DS and DB2 — appeared in 1979, 1981 and 1983; IBM's endorsement moved the industry to SQL from alternatives such as QUEL. ANSI standardized SQL in 1986 and ISO in 1987. SQL-92 was a major revision; SQL:1999 added recursive queries, triggers, procedural control flow and object-relational types; later editions added window functions (2003), JSON (2016) and property-graph queries (2023). Every major database implements its own dialect of the standard.",
+  "innovations": [
+    "Made Codd's relational model practical as an English-like, non-procedural query language",
+    "Declarative queries whose execution plan is chosen by a query optimizer rather than the programmer",
+    "One language for data definition, manipulation and access control",
+    "Set-at-a-time processing with joins, grouping and aggregation",
+    "Recursive common table expressions (SQL:1999) for transitive closure and other recursive queries"
+  ],
+  "paradigms": [
+    "declarative",
+    "query"
+  ],
+  "family": "query",
+  "syntax_family": "english-like",
+  "block_style": "none",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "Columns and expressions have SQL types that are checked when a statement is prepared, with three-valued logic for NULL. SQLite is a notable exception, using dynamic 'type affinity'."
+  },
+  "memory": "mixed",
+  "execution": [
+    "interpreted",
+    "bytecode-vm"
+  ],
+  "status": "active",
+  "latest_version": "SQL:2023 (ISO/IEC 9075:2023)",
+  "file_extensions": [
+    ".sql"
+  ],
+  "color": "#e38c00",
+  "primary_parent": null,
+  "influenced_by": [],
+  "influenced_by_external": [
+    {
+      "name": "Relational model (E. F. Codd)",
+      "year": 1970,
+      "note": "'A Relational Model of Data for Large Shared Data Banks' — the theory SQL was designed to make usable."
+    },
+    {
+      "name": "SQUARE",
+      "note": "Chamberlin and Boyce's earlier relational query notation; SEQUEL was conceived as its sequel."
+    },
+    {
+      "name": "Datalog",
+      "note": "Listed by Wikipedia; its influence shows in SQL:1999's recursive queries rather than in the 1974 design."
+    }
+  ],
+  "influenced": [
+    "csharp"
+  ],
+  "traits": {
+    "declarative-queries": {
+      "level": "core",
+      "note": "SELECT describes the result; the optimizer picks join order, indexes and algorithms."
+    },
+    "static-typing": {
+      "level": "core",
+      "note": "Declared column types; SQLite is dynamically typed."
+    },
+    "recursion": {
+      "level": "supported",
+      "since": 1999,
+      "version": "SQL:1999",
+      "note": "Recursive common table expressions (WITH RECURSIVE); SQL/PSM routines can also recurse."
+    },
+    "structured-control": {
+      "level": "supported",
+      "since": 1996,
+      "version": "SQL/PSM",
+      "note": "IF, CASE, LOOP and WHILE in stored routines (ISO/IEC 9075-4); vendor dialects such as PL/SQL, T-SQL and PL/pgSQL predate or extend it."
+    },
+    "exceptions": {
+      "level": "supported",
+      "since": 1996,
+      "version": "SQL/PSM",
+      "note": "Condition handlers (DECLARE … HANDLER) and SIGNAL/RESIGNAL in stored routines."
+    },
+    "regex-builtin": {
+      "level": "supported",
+      "since": 1999,
+      "version": "SQL:1999",
+      "note": "SIMILAR TO (SQL:1999) and LIKE_REGEX (SQL:2008) extend the original LIKE wildcards."
+    },
+    "reflection": {
+      "level": "supported",
+      "since": 1992,
+      "version": "SQL-92",
+      "note": "INFORMATION_SCHEMA views expose the schema as queryable tables, and DDL can change it at run time."
+    },
+    "classes": {
+      "level": "supported",
+      "since": 1999,
+      "version": "SQL:1999",
+      "note": "Structured user-defined types with methods; rarely implemented (Db2 and Oracle object types)."
+    },
+    "inheritance": {
+      "level": "supported",
+      "since": 1999,
+      "version": "SQL:1999",
+      "note": "Type and table hierarchies with UNDER; rarely used in practice."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1970,
+      "event": "Codd publishes the relational model of data"
+    },
+    {
+      "year": 1974,
+      "event": "Chamberlin and Boyce publish SEQUEL: A Structured English Query Language"
+    },
+    {
+      "year": 1979,
+      "event": "Relational Software ships Oracle V2, one of the first commercial SQL databases"
+    },
+    {
+      "year": 1983,
+      "event": "IBM releases DB2, following System/38 (1979) and SQL/DS (1981)"
+    },
+    {
+      "year": 1986,
+      "event": "ANSI standard SQL-86 (adopted by ISO in 1987)"
+    },
+    {
+      "year": 1992,
+      "event": "SQL-92, a major revision of the standard"
+    },
+    {
+      "year": 1999,
+      "event": "SQL:1999 adds recursive queries, triggers, procedural statements and structured types"
+    },
+    {
+      "year": 2003,
+      "event": "SQL:2003 adds window functions and SQL/XML"
+    },
+    {
+      "year": 2016,
+      "event": "SQL:2016 adds JSON operations and row pattern matching"
+    },
+    {
+      "year": 2023,
+      "event": "SQL:2023 adds a JSON data type and property graph queries (SQL/PGQ)"
+    }
+  ],
+  "trivia": [
+    "SEQUEL was so named because it was the sequel to Chamberlin and Boyce's earlier language, SQUARE.",
+    "It was shortened to SQL because 'SEQUEL' was a trademark of the British company Hawker Siddeley Dynamics Engineering.",
+    "The standard prescribes the pronunciation 'ess-cue-el', but many practitioners — including Chamberlin — say 'sequel'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "SQL:1999 (SQLite 3.46, PostgreSQL 18)",
+      "code": "SELECT 'Hello, World!';\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "SQL has no 'program': a query returns a table and the client prints its rows. SELECT without FROM is a near-universal extension; strict ISO SQL requires a FROM clause (or VALUES ('Hello, World!')).",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "SQL:1999 (SQLite 3.46, PostgreSQL 18)",
+      "code": "-- No recursive functions here: recursion lives in a\n-- recursive common table expression that builds a relation (n, n!).\nWITH RECURSIVE factorial(n, f) AS (\n  SELECT 0, 1\n  UNION ALL\n  SELECT n + 1, f * (n + 1) FROM factorial WHERE n < 10\n)\nSELECT f FROM factorial WHERE n = 10;\n",
+      "expected_output": "3628800\n",
+      "notes": "Standard SQL queries cannot define recursive functions (SQL/PSM and vendor procedural dialects can); instead, a SQL:1999 recursive CTE builds the relation of (n, n!) pairs. SEQUEL (1974) had no recursion at all.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "SQL:1999 (SQLite 3.46, PostgreSQL 18)",
+      "code": "WITH RECURSIVE nums(i) AS (\n  SELECT 1\n  UNION ALL\n  SELECT i + 1 FROM nums WHERE i < 15\n)\nSELECT CASE\n         WHEN i % 15 = 0 THEN 'FizzBuzz'\n         WHEN i % 3 = 0  THEN 'Fizz'\n         WHEN i % 5 = 0  THEN 'Buzz'\n         ELSE CAST(i AS VARCHAR(2))\n       END AS fizzbuzz\nFROM nums\nORDER BY i;\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "% is the near-universal modulo operator; the standard spells it MOD(i, 15), but SQLite's mod() returns a floating-point value. ORDER BY is required — without it row order is unspecified — and the alias keeps PostgreSQL from sorting by the output column.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "SQL:1999 + string_agg (SQLite ≥ 3.44, PostgreSQL)",
+      "code": "-- Filter with WHERE, map with the SELECT list, fold with an aggregate.\nWITH RECURSIVE nums(n) AS (\n  SELECT 1 UNION ALL SELECT n + 1 FROM nums WHERE n < 10\n)\nSELECT string_agg(CAST(n * n AS VARCHAR(3)), ' ' ORDER BY n)\nFROM nums\nWHERE n % 2 = 0;\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "WHERE filters, the SELECT list maps and an aggregate folds. string_agg with an in-aggregate ORDER BY works in PostgreSQL and SQLite ≥ 3.44; the ISO spelling is LISTAGG(…) WITHIN GROUP (ORDER BY n) (SQL:2016), and MySQL uses GROUP_CONCAT.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "SQL:1999 (SQLite 3.46, PostgreSQL 18)",
+      "code": "-- Each kind of shape is its own table (its own \"type\")...\nCREATE TABLE rectangle (width INTEGER NOT NULL, height INTEGER NOT NULL);\nCREATE TABLE triangle  (base  INTEGER NOT NULL, height INTEGER NOT NULL);\n\nINSERT INTO rectangle VALUES (3, 4);\nINSERT INTO triangle  VALUES (10, 3);\n\n-- ...and a view gives them a common \"area\" interface.\nCREATE VIEW shape_area (shape, area) AS\n  SELECT 'Rectangle', width * height   FROM rectangle\n  UNION ALL\n  SELECT 'Triangle',  base * height / 2 FROM triangle;\n\nSELECT shape || ': ' || area FROM shape_area ORDER BY shape;\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Relational modelling: one table per kind of shape, and a view (UNION ALL) as the common 'area' interface. A single table with a kind column and CASE is the other common design. Integer division truncates.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Say what, not how",
+      "dialect": "SQL:1999 (SQLite 3.46, PostgreSQL 18)",
+      "code": "-- Data lives in relations (tables); a query states WHAT to find,\n-- and the engine's planner decides HOW (join order, indexes...).\nCREATE TABLE language  (name VARCHAR(20) PRIMARY KEY, year INTEGER);\nCREATE TABLE influence (parent VARCHAR(20), child VARCHAR(20));\n\nINSERT INTO language VALUES\n  ('Lisp', 1958), ('ML', 1973), ('Scheme', 1975),\n  ('Miranda', 1985), ('Haskell', 1990), ('OCaml', 1996);\nINSERT INTO influence VALUES\n  ('Lisp', 'ML'), ('Lisp', 'Scheme'), ('ML', 'Miranda'), ('ML', 'Haskell'),\n  ('ML', 'OCaml'), ('Miranda', 'Haskell'), ('Scheme', 'Haskell');\n\n-- Which languages influenced at least two others, and when was the first?\nSELECT p.name, COUNT(*) AS children, MIN(c.year) AS first_child\nFROM language p\nJOIN influence i ON i.parent = p.name\nJOIN language c  ON c.name = i.child\nGROUP BY p.name\nHAVING COUNT(*) >= 2\nORDER BY children DESC, p.name;\n",
+      "expected_output": "ML|3|1985\nLisp|2|1973\n",
+      "notes": "Printed in the sqlite3 shell's default list mode (columns separated by |); psql -A -t prints the same. The explicit JOIN … ON syntax dates from SQL-92; earlier SQL listed the tables in FROM and put join conditions in WHERE.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "SQLite",
+        "version": "3.46.1",
+        "docker_image": "plw-sql",
+        "install": "FROM debian:trixie-slim; apt-get install -y sqlite3",
+        "run": "sqlite3 -batch :memory: \".read {file}\"",
+        "notes": "Uses a fresh in-memory database; also verified with the host sqlite3 3.45.1.",
+        "dockerfile": "sandbox/sql/Dockerfile"
+      },
+      {
+        "name": "PostgreSQL",
+        "version": "18.1",
+        "docker_image": "postgres:18",
+        "run": "sh -c 'gosu postgres initdb -D /tmp/db >/dev/null 2>&1 && gosu postgres pg_ctl -D /tmp/db -o \"-c listen_addresses=\" -w start >/dev/null && gosu postgres psql -qAtX -d postgres -f {file}'",
+        "notes": "Starts a throwaway server inside the container over a Unix socket (works with --network none); psql -qAtX prints bare, |-separated rows."
+      }
+    ],
+    "browser": {
+      "name": "sql.js (SQLite compiled to WebAssembly)",
+      "url": "https://sql.js.org/",
+      "notes": "The official SQLite WASM build and PGlite (PostgreSQL in WASM) are alternatives."
+    },
+    "notes": "All six snippets produce identical output in SQLite and PostgreSQL."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/SQL",
+    "spec": "https://www.iso.org/standard/76583.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/SQL",
+    "https://en.wikipedia.org/wiki/Raymond_F._Boyce",
+    "https://dl.acm.org/doi/10.1145/800296.811515",
+    "https://www.sqlite.org/lang_with.html",
+    "https://www.postgresql.org/docs/current/queries-with.html"
+  ]
+}

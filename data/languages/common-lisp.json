@@ -1,0 +1,163 @@
+{
+  "id": "common-lisp",
+  "name": "Common Lisp",
+  "aliases": ["CL", "ANSI Common Lisp"],
+  "year": 1984,
+  "year_note": "Design began in 1981 at ARPA's initiative; Guy Steele's 'Common Lisp the Language' (1984) was the first specification. The ANSI standard (X3.226-1994) was approved in December 1994.",
+  "designers": ["Scott Fahlman", "Richard P. Gabriel", "David A. Moon", "Kent Pitman", "Guy L. Steele", "Daniel Weinreb"],
+  "organization": "ANSI X3J13 committee",
+  "country": "United States",
+  "tagline": "The standardized industrial Lisp: macros, CLOS multiple dispatch, and conditions with restarts in a live image.",
+  "summary": "Common Lisp is a standardized, general-purpose dialect of Lisp created in the 1980s to unify the fragmented MacLisp family. It combines Lisp's code-as-data macros with a large standard library, optional type declarations that native compilers use for speed, the Common Lisp Object System (CLOS) with multiple dispatch and method combination, and a condition system whose restarts let errors be handled without unwinding the stack. ANSI standardized it in 1994, and implementations such as SBCL remain in active use.",
+  "history": "By the late 1970s the MacLisp family had splintered into Lisp Machine Lisp, NIL, Spice Lisp, S-1 Lisp and others, while Interlisp flourished separately. In 1981, at the initiative of ARPA manager Bob Engelmore, a group including Scott Fahlman, Richard Gabriel, David Moon, Kent Pitman, Guy Steele and Daniel Weinreb began defining a single community standard. Their design, which adopted lexical scoping from Scheme while keeping MacLisp's practicality, was published as Steele's 'Common Lisp the Language' (1984).\n\nThe ANSI committee X3J13, formed in 1986, then extended the language. In June 1988 it accepted the Common Lisp Object System, which drew on MIT's Flavors and Xerox's CommonLoops, and it added the condition system and the extended LOOP macro, all reflected in the second edition of Steele's book (1990). The standard, ANSI X3.226-1994, was approved in December 1994 and has not been revised since; the language evolves through portable libraries instead, and implementations such as SBCL (forked from CMUCL in 1999), Clozure CL, ECL, LispWorks and Allegro CL remain in production use.",
+  "innovations": [
+    "CLOS: generic functions with multiple dispatch and declarative method combination (:before, :after, :around methods), extensible through a metaobject protocol",
+    "A condition system with restarts that separates signalling an error, deciding how to recover, and recovering, without unwinding the stack",
+    "Optional type declarations that native compilers use for optimization and compile-time checking",
+    "A programmable reader (reader macros) and compiler macros alongside defmacro",
+    "Image-based incremental development: functions and classes can be redefined in a running system, and existing instances are updated to new class definitions",
+    "A single ANSI standard (1994) consolidating the MacLisp family"
+  ],
+  "paradigms": ["multi-paradigm", "functional", "procedural", "object-oriented", "metaprogramming", "reflective", "generic"],
+  "family": "lisp",
+  "syntax_family": "s-expression",
+  "block_style": "s-expression",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "mixed",
+    "notes": "Dynamically typed with optional declarations (declare, declaim, the). Classes are nominal, while type specifiers such as (integer 0 9) or (or string null) describe sets of values. The standard requires no inference, but compilers such as SBCL infer and check types at compile time."
+  },
+  "memory": "tracing-gc",
+  "execution": ["native-compiled", "bytecode-vm", "image-based"],
+  "status": "maintained",
+  "latest_version": "ANSI INCITS 226-1994 (S2018)",
+  "file_extensions": [".lisp", ".lsp", ".l", ".cl", ".fasl"],
+  "color": "#3fb68b",
+  "primary_parent": "lisp",
+  "influenced_by": [
+    { "id": "lisp", "kind": "dialect", "weight": "major", "note": "Descends from LISP 1.5 through MacLisp and its successors." },
+    { "id": "scheme", "kind": "influence", "weight": "minor", "note": "Lexical scoping and closures by default." }
+  ],
+  "influenced_by_external": [
+    { "name": "MacLisp", "note": "The main ancestor; most of Common Lisp's vocabulary comes from it." },
+    { "name": "Lisp Machine Lisp (ZetaLisp)", "note": "MacLisp successor on MIT and Symbolics Lisp machines." },
+    { "name": "Interlisp", "note": "The other major Lisp tradition of the 1970s." },
+    { "name": "NIL, Spice Lisp and S-1 Lisp", "note": "MacLisp successors whose implementers formed the core design group." },
+    { "name": "Flavors", "year": 1980, "note": "Lisp Machine object system with mixins and method combination; an ancestor of CLOS." },
+    { "name": "CommonLoops", "note": "Xerox PARC object system; with New Flavors, the basis of CLOS." }
+  ],
+  "influenced": ["clojure", "julia", "r"],
+  "traits": {
+    "structured-control": { "level": "core", "note": "if, cond, case, when/unless, plus do, dolist, dotimes and the LOOP macro." },
+    "block-scope": { "level": "core", "note": "Lexical scope by default; special (dynamic) variables are declared explicitly." },
+    "recursion": { "level": "core" },
+    "exceptions": { "level": "core", "note": "The condition system: signal/error, handler-case and handler-bind, and restarts (restart-case, invoke-restart) that recover without unwinding." },
+    "tail-calls": { "level": "supported", "note": "Not required by the standard; SBCL, CCL and other compilers eliminate tail calls at suitable optimization settings." },
+    "gradual-typing": { "level": "supported", "note": "Optional type declarations are checked or trusted depending on the implementation and safety settings; SBCL reports type conflicts at compile time." },
+    "classes": { "level": "core", "since": 1988, "version": "CLOS (X3J13)", "note": "defclass with slots, initargs and accessors; every value has a class." },
+    "inheritance": { "level": "core", "since": 1988, "version": "CLOS (X3J13)", "note": "Multiple inheritance, linearized into a class precedence list." },
+    "multiple-dispatch": { "level": "core", "since": 1988, "version": "CLOS (X3J13)", "note": "Generic functions choose methods by the classes (or eql values) of all required arguments." },
+    "traits-mixins": { "level": "supported", "note": "Mixin classes via multiple inheritance, a style inherited from Flavors." },
+    "modules": { "level": "supported", "note": "Packages are symbol namespaces; files are compiled separately to fasl files, and the de facto ASDF tool defines systems." },
+    "first-class-functions": { "level": "core", "note": "A Lisp-2: functions live in a separate namespace and are passed with #' and called with funcall/apply." },
+    "closures": { "level": "core" },
+    "garbage-collection": { "level": "core" },
+    "macros": { "level": "core", "note": "defmacro with backquote, plus reader macros, compiler macros and symbol macros; hygiene is by convention (gensym)." },
+    "homoiconicity": { "level": "core" },
+    "reflection": { "level": "core", "note": "Introspection of symbols, packages, classes and functions; compile and eval at run time; the widely implemented metaobject protocol exposes CLOS itself." },
+    "compile-time-execution": { "level": "core", "note": "Macros, eval-when, #. read-time evaluation and load-time-value run arbitrary code during compilation or loading." },
+    "hot-code-reload": { "level": "core", "note": "Functions and classes can be redefined in a running image; update-instance-for-redefined-class migrates existing objects." }
+  },
+  "milestones": [
+    { "year": 1981, "event": "ARPA-initiated effort to define a common Lisp dialect begins" },
+    { "year": 1984, "event": "'Common Lisp the Language' (CLtL1) published" },
+    { "year": 1986, "event": "ANSI committee X3J13 formed" },
+    { "year": 1988, "event": "X3J13 accepts the Common Lisp Object System (CLOS)" },
+    { "year": 1990, "event": "CLtL2 documents CLOS, the condition system and extended LOOP" },
+    { "year": 1994, "event": "ANSI X3.226-1994 approved (December 8)" },
+    { "year": 1999, "event": "SBCL forked from CMUCL" }
+  ],
+  "trivia": [
+    "Specifying CLOS alone took X3J13 nearly two years and seven of its members.",
+    "SBCL ('Steel Bank Common Lisp') is named after CMUCL's home, Carnegie Mellon University: Andrew Carnegie made his fortune in steel and Andrew Mellon in banking."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "ANSI Common Lisp",
+      "code": "(format t \"Hello, World!~%\")\n",
+      "expected_output": "Hello, World!\n",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "ANSI Common Lisp",
+      "code": "(defun factorial (n)\n  (if (<= n 1)\n      1\n      (* n (factorial (1- n)))))\n\n(format t \"~D~%\" (factorial 10))\n",
+      "expected_output": "3628800\n",
+      "notes": "Integers are arbitrary-precision, so (factorial 100) is exact as well.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "ANSI Common Lisp",
+      "code": "(loop for i from 1 to 15\n      do (format t \"~A~%\"\n                 (cond ((zerop (mod i 15)) \"FizzBuzz\")\n                       ((zerop (mod i 3)) \"Fizz\")\n                       ((zerop (mod i 5)) \"Buzz\")\n                       (t i))))\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "LOOP is a macro that implements a whole iteration sub-language (for, collect, when, sum...).",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "ANSI Common Lisp",
+      "code": "(let ((numbers (loop for i from 1 to 10 collect i)))\n  ;; ~{...~} iterates over a list; ~^ skips the separator after the last item\n  (format t \"~{~D~^ ~}~%\"\n          (mapcar (lambda (x) (* x x))\n                  (remove-if-not #'evenp numbers))))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "(loop for i from 1 to 10 when (evenp i) collect (* i i)) is the equivalent LOOP one-liner. FORMAT's ~{~D~^ ~} directive iterates over the list, printing a space between items.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "ANSI Common Lisp",
+      "code": "(defclass shape () ())\n\n(defclass rectangle (shape)\n  ((width  :initarg :width  :reader width)\n   (height :initarg :height :reader height)))\n\n(defclass triangle (shape)\n  ((base   :initarg :base   :reader base)\n   (height :initarg :height :reader height)))\n\n(defgeneric area (shape)\n  (:documentation \"Area of SHAPE, dispatched on its class.\"))\n\n(defmethod area ((r rectangle)) (* (width r) (height r)))\n(defmethod area ((tr triangle)) (/ (* (base tr) (height tr)) 2))\n\n(dolist (s (list (make-instance 'rectangle :width 3 :height 4)\n                 (make-instance 'triangle :base 10 :height 3)))\n  (format t \"~:(~A~): ~D~%\" (class-name (class-of s)) (area s)))\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Methods belong to generic functions, not to classes: AREA has one method per class, and CLOS could dispatch on several arguments just as easily (multiple dispatch). class-name returns the symbol RECTANGLE, which the ~:( ~) FORMAT directive capitalizes. (/ 30 2) is the integer 15; (/ 7 2) would be the exact rational 7/2.",
+      "verified": true
+    },
+    "signature": {
+      "title": "defmacro: code that writes code",
+      "dialect": "ANSI Common Lisp",
+      "code": ";; DEFMACRO: a function from code to code, run at compile time.\n;; Paul Graham's anaphoric IF deliberately captures the symbol IT --\n;; something a hygienic macro system would not let you do.\n(defmacro aif (test then &optional else)\n  `(let ((it ,test))\n     (if it ,then ,else)))\n\n;; The expansion is just a list, so we can print it...\n(let ((*print-pretty* nil))\n  (format t \"~S~%\" (macroexpand-1 '(aif (assoc :b alist) (cdr it) :none))))\n\n;; ...and use the new control structure like a built-in.\n(let ((alist '((:a . 1) (:b . 2))))\n  (format t \"~S~%\" (aif (assoc :b alist) (cdr it) :none)))\n",
+      "expected_output": "(LET ((IT (ASSOC :B ALIST))) (IF IT (CDR IT) :NONE))\n2\n",
+      "notes": "AIF runs at macroexpansion time and returns a new LET form built with backquote. Because it deliberately captures IT, it is an unhygienic macro: a common Common Lisp idiom (see Paul Graham's 'On Lisp') that Scheme's syntax-rules rules out. *print-pretty* is turned off so the expansion prints on one line.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "SBCL",
+        "version": "2.6.1",
+        "docker_image": "clfoundation/sbcl:latest",
+        "run": "sbcl --script {file}",
+        "notes": "--script skips init files, disables the debugger and exits at end of file."
+      },
+      {
+        "name": "SBCL (host)",
+        "version": "2.2.9",
+        "run": "sbcl --script {file}",
+        "notes": "Also verified with the Debian package on the host."
+      }
+    ],
+    "browser": { "name": "JSCL", "url": "https://jscl-project.github.io/", "notes": "Common Lisp to JavaScript compiler with an in-browser REPL; implements a subset of the standard, so not every snippet may run (not tested here)." },
+    "notes": "SBCL compiles every top-level form to native code, so --script runs are fast. CLISP, ECL and Clozure CL are other open-source implementations."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Common_Lisp",
+    "homepage": "https://common-lisp.net/",
+    "spec": "https://www.lispworks.com/documentation/HyperSpec/Front/index.htm"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Common_Lisp",
+    "https://en.wikipedia.org/wiki/Common_Lisp_Object_System",
+    "https://en.wikipedia.org/wiki/X3J13",
+    "https://en.wikipedia.org/wiki/Steel_Bank_Common_Lisp",
+    "https://www.dreamsongs.com/Files/HOPL2-Uncut.pdf",
+    "https://www.lispworks.com/documentation/HyperSpec/Front/index.htm"
+  ]
+}

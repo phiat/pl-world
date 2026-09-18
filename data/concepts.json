@@ -1,0 +1,848 @@
+[
+  {
+    "id": "structured-control",
+    "name": "Structured control flow",
+    "category": "control",
+    "summary": "if/else, while and for blocks with single entry/exit instead of arbitrary GOTO jumps.",
+    "origin": {
+      "lang": "algol60",
+      "year": 1960,
+      "note": "Formalised by Böhm–Jacopini (1966) and Dijkstra's 'Go To Statement Considered Harmful' (1968)."
+    },
+    "popularized_by": [
+      "pascal",
+      "c"
+    ]
+  },
+  {
+    "id": "block-scope",
+    "name": "Lexical block scope",
+    "category": "control",
+    "summary": "Nested blocks introduce their own variables, visible only inside the block (lexical scoping).",
+    "origin": {
+      "lang": "algol60",
+      "year": 1960
+    },
+    "popularized_by": [
+      "pascal",
+      "c",
+      "scheme"
+    ]
+  },
+  {
+    "id": "recursion",
+    "name": "Recursion",
+    "category": "control",
+    "summary": "Procedures that call themselves, supported by a call stack.",
+    "origin": {
+      "lang": "lisp",
+      "year": 1958,
+      "note": "ALGOL 60 brought recursive procedures to imperative languages."
+    },
+    "popularized_by": [
+      "algol60",
+      "scheme"
+    ]
+  },
+  {
+    "id": "exceptions",
+    "name": "Exception handling",
+    "category": "control",
+    "summary": "Non-local transfer of control for error conditions with handlers (try/catch, raise/rescue).",
+    "origin": {
+      "external": "PL/I",
+      "year": 1964,
+      "note": "PL/I ON-conditions; LISP 1.5 ERRORSET (1962) was an earlier error trap, and CLU (1975) introduced the structured signal/except model most languages follow."
+    },
+    "popularized_by": [
+      "clu",
+      "ada",
+      "cpp",
+      "java"
+    ]
+  },
+  {
+    "id": "coroutines",
+    "name": "Coroutines",
+    "category": "control",
+    "summary": "Routines that can suspend and resume, cooperatively passing control.",
+    "origin": {
+      "lang": "simula",
+      "year": 1967,
+      "note": "Term coined by Melvin Conway in 1958."
+    },
+    "popularized_by": [
+      "lua",
+      "kotlin",
+      "python"
+    ]
+  },
+  {
+    "id": "generators",
+    "name": "Iterators & generators",
+    "category": "control",
+    "summary": "Functions that lazily yield a sequence of values (yield).",
+    "origin": {
+      "lang": "clu",
+      "year": 1975,
+      "note": "CLU iterators; Icon (1977) generalized generators."
+    },
+    "popularized_by": [
+      "python",
+      "csharp",
+      "javascript"
+    ]
+  },
+  {
+    "id": "pattern-matching",
+    "name": "Structural pattern matching",
+    "category": "control",
+    "summary": "Destructure data by shape and dispatch on it (match/case with bindings).",
+    "origin": {
+      "external": "NPL / Hope (Burstall)",
+      "year": 1977
+    },
+    "popularized_by": [
+      "ml",
+      "haskell",
+      "rust",
+      "scala",
+      "elixir"
+    ]
+  },
+  {
+    "id": "tail-calls",
+    "name": "Proper tail calls",
+    "category": "control",
+    "summary": "Calls in tail position reuse the stack frame, so recursion can express unbounded loops.",
+    "origin": {
+      "lang": "scheme",
+      "year": 1975
+    },
+    "popularized_by": [
+      "scheme",
+      "erlang",
+      "haskell"
+    ]
+  },
+  {
+    "id": "continuations",
+    "name": "First-class continuations",
+    "category": "control",
+    "summary": "Capture 'the rest of the computation' as a value (call/cc) to build any control structure.",
+    "origin": {
+      "lang": "scheme",
+      "year": 1975,
+      "note": "Anticipated by Landin's J operator (1965)."
+    },
+    "popularized_by": [
+      "scheme"
+    ]
+  },
+  {
+    "id": "static-typing",
+    "name": "Static typing",
+    "category": "types",
+    "summary": "Types are checked at compile time.",
+    "origin": {
+      "lang": "fortran",
+      "year": 1957,
+      "note": "FORTRAN distinguished INTEGER and REAL (implicitly by first letter I–N)."
+    },
+    "popularized_by": [
+      "algol60",
+      "pascal",
+      "c",
+      "java"
+    ]
+  },
+  {
+    "id": "type-inference",
+    "name": "Type inference",
+    "category": "types",
+    "summary": "The compiler deduces types without annotations (Hindley–Milner globally, or locally via var/auto/:=).",
+    "origin": {
+      "lang": "ml",
+      "year": 1973,
+      "note": "Milner's algorithm W (1978)."
+    },
+    "popularized_by": [
+      "haskell",
+      "ocaml",
+      "rust",
+      "kotlin",
+      "swift",
+      "typescript"
+    ]
+  },
+  {
+    "id": "generics",
+    "name": "Generics / parametric polymorphism",
+    "category": "types",
+    "summary": "Code parameterized over types (List<T>, templates, 'a list).",
+    "origin": {
+      "lang": "ml",
+      "year": 1973,
+      "note": "CLU (1975) and Ada (1980) generics brought it to imperative languages."
+    },
+    "popularized_by": [
+      "cpp",
+      "java",
+      "csharp"
+    ]
+  },
+  {
+    "id": "algebraic-data-types",
+    "name": "Algebraic data types",
+    "category": "types",
+    "summary": "Sum types (tagged variants) and product types (records/tuples) as first-class type definitions.",
+    "origin": {
+      "external": "Hope",
+      "year": 1980,
+      "note": "ALGOL 68 united modes (1968) were an earlier sum-type precursor; Hope combined sum types with pattern matching."
+    },
+    "popularized_by": [
+      "ml",
+      "haskell",
+      "ocaml",
+      "rust",
+      "swift"
+    ]
+  },
+  {
+    "id": "type-classes",
+    "name": "Type classes",
+    "category": "types",
+    "summary": "Ad-hoc polymorphism: types opt into interfaces via instances resolved by the type checker.",
+    "origin": {
+      "lang": "haskell",
+      "year": 1990,
+      "note": "Wadler & Blott, \"How to make ad-hoc polymorphism less ad hoc\" (proposed 1988, POPL 1989)."
+    },
+    "popularized_by": [
+      "haskell",
+      "rust",
+      "scala",
+      "swift"
+    ]
+  },
+  {
+    "id": "option-types",
+    "name": "Option types / null safety",
+    "category": "types",
+    "summary": "Absence is modelled in the type (Option/Maybe/T?) so null dereferences are compile errors.",
+    "origin": {
+      "lang": "ml",
+      "year": 1973,
+      "note": "LCF ML (1973) had sum types that could model absence; the named `option` type came with Standard ML. Contrast: the null reference Tony Hoare added to ALGOL W (1965), his \"billion-dollar mistake\"."
+    },
+    "popularized_by": [
+      "haskell",
+      "rust",
+      "swift",
+      "kotlin"
+    ]
+  },
+  {
+    "id": "gradual-typing",
+    "name": "Gradual typing",
+    "category": "types",
+    "summary": "Mix typed and untyped code in one program; annotations are optional and checked where present.",
+    "origin": {
+      "external": "Siek & Taha (gradual typing)",
+      "year": 2006,
+      "note": "Common Lisp type declarations were an early optional-typing precedent."
+    },
+    "popularized_by": [
+      "typescript",
+      "python",
+      "php"
+    ]
+  },
+  {
+    "id": "structural-typing",
+    "name": "Structural typing",
+    "category": "types",
+    "summary": "Type compatibility is decided by shape (members) rather than by declared name.",
+    "origin": {
+      "lang": "algol68",
+      "year": 1968,
+      "note": "ALGOL 68 modes are equivalent by structure; Modula-3 (1988) revived structural equivalence, and Go and TypeScript made it mainstream."
+    },
+    "popularized_by": [
+      "go",
+      "typescript",
+      "ocaml"
+    ]
+  },
+  {
+    "id": "ownership",
+    "name": "Ownership & borrowing",
+    "category": "types",
+    "summary": "The type system tracks who owns memory and who may borrow it, giving memory safety without a GC.",
+    "origin": {
+      "lang": "rust",
+      "year": 2012,
+      "note": "First described publicly in 2010 and refined 2012–2015; builds on region-based memory from Cyclone (2002) and linear/affine type theory."
+    },
+    "popularized_by": [
+      "rust"
+    ]
+  },
+  {
+    "id": "interfaces",
+    "name": "Interfaces / protocols",
+    "category": "types",
+    "summary": "Named sets of method signatures a type promises to implement, separate from inheritance.",
+    "origin": {
+      "lang": "objective-c",
+      "year": 1990,
+      "note": "Objective-C protocols (NeXT); Java made interfaces mainstream."
+    },
+    "popularized_by": [
+      "java",
+      "csharp",
+      "go",
+      "swift"
+    ]
+  },
+  {
+    "id": "classes",
+    "name": "Classes & objects",
+    "category": "abstraction",
+    "summary": "Bundle state and behavior into objects instantiated from classes.",
+    "origin": {
+      "lang": "simula",
+      "year": 1967
+    },
+    "popularized_by": [
+      "smalltalk",
+      "cpp",
+      "java"
+    ]
+  },
+  {
+    "id": "inheritance",
+    "name": "Inheritance",
+    "category": "abstraction",
+    "summary": "Subclasses reuse and specialize the structure and behavior of superclasses.",
+    "origin": {
+      "lang": "simula",
+      "year": 1967
+    },
+    "popularized_by": [
+      "smalltalk",
+      "cpp",
+      "java"
+    ]
+  },
+  {
+    "id": "everything-is-an-object",
+    "name": "Pure objects & message passing",
+    "category": "abstraction",
+    "summary": "Every value is an object and all computation is sending messages, including control flow.",
+    "origin": {
+      "lang": "smalltalk",
+      "year": 1972
+    },
+    "popularized_by": [
+      "ruby",
+      "python"
+    ]
+  },
+  {
+    "id": "prototypes",
+    "name": "Prototype-based objects",
+    "category": "abstraction",
+    "summary": "Objects inherit directly from other objects via delegation; no classes required.",
+    "origin": {
+      "lang": "self",
+      "year": 1987
+    },
+    "popularized_by": [
+      "javascript",
+      "lua"
+    ]
+  },
+  {
+    "id": "multiple-dispatch",
+    "name": "Multiple dispatch",
+    "category": "abstraction",
+    "summary": "The method chosen depends on the runtime types of all arguments, not just the receiver.",
+    "origin": {
+      "lang": "common-lisp",
+      "year": 1988,
+      "note": "CLOS generic functions."
+    },
+    "popularized_by": [
+      "julia"
+    ]
+  },
+  {
+    "id": "traits-mixins",
+    "name": "Mixins & traits",
+    "category": "abstraction",
+    "summary": "Compose reusable bundles of methods into classes without single-inheritance chains.",
+    "origin": {
+      "external": "Flavors (Lisp Machine)",
+      "year": 1980
+    },
+    "popularized_by": [
+      "ruby",
+      "scala",
+      "php"
+    ]
+  },
+  {
+    "id": "abstract-data-types",
+    "name": "Abstract data types",
+    "category": "abstraction",
+    "summary": "A type is defined by its operations while its representation is hidden (encapsulation).",
+    "origin": {
+      "lang": "clu",
+      "year": 1975,
+      "note": "Barbara Liskov's CLU clusters; LCF ML's abstype was roughly contemporaneous."
+    },
+    "popularized_by": [
+      "modula2",
+      "ada"
+    ]
+  },
+  {
+    "id": "modules",
+    "name": "Modules & separate compilation",
+    "category": "abstraction",
+    "summary": "Programs split into modules with explicit export/import interfaces, compiled separately.",
+    "origin": {
+      "lang": "modula2",
+      "year": 1978,
+      "note": "Influenced by Xerox PARC's Mesa."
+    },
+    "popularized_by": [
+      "ada",
+      "ml",
+      "python"
+    ]
+  },
+  {
+    "id": "design-by-contract",
+    "name": "Design by contract",
+    "category": "abstraction",
+    "summary": "Preconditions, postconditions and invariants as executable parts of the interface.",
+    "origin": {
+      "lang": "eiffel",
+      "year": 1986
+    },
+    "popularized_by": [
+      "eiffel",
+      "ada"
+    ]
+  },
+  {
+    "id": "operator-overloading",
+    "name": "Operator overloading",
+    "category": "abstraction",
+    "summary": "User-defined types can give their own meaning to operators like + and ==.",
+    "origin": {
+      "lang": "algol68",
+      "year": 1968
+    },
+    "popularized_by": [
+      "cpp",
+      "python",
+      "scala"
+    ]
+  },
+  {
+    "id": "first-class-functions",
+    "name": "First-class functions & lambdas",
+    "category": "functional",
+    "summary": "Functions are values: passed as arguments, returned, stored, and written anonymously.",
+    "origin": {
+      "lang": "lisp",
+      "year": 1958,
+      "note": "LAMBDA from Church's lambda calculus; MAPLIST as an early higher-order function."
+    },
+    "popularized_by": [
+      "scheme",
+      "javascript",
+      "python"
+    ]
+  },
+  {
+    "id": "closures",
+    "name": "Lexical closures",
+    "category": "functional",
+    "summary": "Functions capture the variables of the scope they were defined in.",
+    "origin": {
+      "lang": "scheme",
+      "year": 1975,
+      "note": "Concept from Landin (1964); LISP 1.5 FUNARG (1962) was an early partial form, and Scheme made lexically scoped closures standard."
+    },
+    "popularized_by": [
+      "javascript",
+      "ruby",
+      "python"
+    ]
+  },
+  {
+    "id": "immutability",
+    "name": "Immutable by default",
+    "category": "functional",
+    "summary": "Bindings and data structures cannot be mutated unless explicitly opted in.",
+    "origin": {
+      "lang": "ml",
+      "year": 1973
+    },
+    "popularized_by": [
+      "haskell",
+      "clojure",
+      "rust",
+      "elixir"
+    ]
+  },
+  {
+    "id": "list-comprehensions",
+    "name": "List comprehensions",
+    "category": "functional",
+    "summary": "Set-builder notation for constructing collections: [x*x | x <- xs, even x].",
+    "origin": {
+      "external": "SETL",
+      "year": 1969
+    },
+    "popularized_by": [
+      "miranda",
+      "haskell",
+      "python"
+    ]
+  },
+  {
+    "id": "lazy-evaluation",
+    "name": "Lazy evaluation",
+    "category": "functional",
+    "summary": "Expressions are evaluated only when their value is needed, enabling infinite structures.",
+    "origin": {
+      "external": "SASL",
+      "year": 1976
+    },
+    "popularized_by": [
+      "miranda",
+      "haskell"
+    ]
+  },
+  {
+    "id": "purity",
+    "name": "Purity & tracked effects",
+    "category": "functional",
+    "summary": "Functions are pure by default; side effects are tracked in types (e.g. the IO monad).",
+    "origin": {
+      "lang": "haskell",
+      "year": 1990,
+      "note": "Monadic I/O arrived in Haskell 1.3 (1996)."
+    },
+    "popularized_by": [
+      "haskell"
+    ]
+  },
+  {
+    "id": "effect-handlers",
+    "name": "Algebraic effect handlers",
+    "category": "functional",
+    "summary": "User-defined effects that code can perform and handlers can intercept and resume.",
+    "origin": {
+      "external": "Eff",
+      "year": 2012
+    },
+    "popularized_by": [
+      "ocaml"
+    ]
+  },
+  {
+    "id": "garbage-collection",
+    "name": "Garbage collection",
+    "category": "memory",
+    "summary": "The runtime automatically reclaims memory that is no longer reachable.",
+    "origin": {
+      "lang": "lisp",
+      "year": 1959,
+      "note": "Designed by John McCarthy for Lisp (1959); Daniel Edwards wrote the LISP 1.5 collector."
+    },
+    "popularized_by": [
+      "smalltalk",
+      "java",
+      "javascript"
+    ]
+  },
+  {
+    "id": "reference-counting",
+    "name": "Automatic reference counting",
+    "category": "memory",
+    "summary": "Objects are freed when their reference count drops to zero, deterministically.",
+    "origin": {
+      "external": "George E. Collins",
+      "year": 1960
+    },
+    "popularized_by": [
+      "objective-c",
+      "swift",
+      "python",
+      "perl",
+      "php"
+    ]
+  },
+  {
+    "id": "pointers",
+    "name": "Pointers & manual memory",
+    "category": "memory",
+    "summary": "Explicit addresses, pointer arithmetic, and programmer-managed allocation and freeing.",
+    "origin": {
+      "external": "PL/I",
+      "year": 1964,
+      "note": "Harold Lawson is credited with the pointer variable for PL/I."
+    },
+    "popularized_by": [
+      "c",
+      "cpp"
+    ]
+  },
+  {
+    "id": "actors",
+    "name": "Actors & message passing",
+    "category": "concurrency",
+    "summary": "Isolated share-nothing processes, each with private state and a mailbox, communicating only by asynchronous messages.",
+    "origin": {
+      "lang": "erlang",
+      "year": 1986,
+      "note": "Carl Hewitt's actor model (1973) is the theoretical root."
+    },
+    "popularized_by": [
+      "erlang",
+      "elixir",
+      "scala"
+    ]
+  },
+  {
+    "id": "csp-channels",
+    "name": "CSP channels",
+    "category": "concurrency",
+    "summary": "Concurrent processes synchronise and communicate over typed channels.",
+    "origin": {
+      "external": "Occam",
+      "year": 1983,
+      "note": "Tony Hoare's Communicating Sequential Processes (1978)."
+    },
+    "popularized_by": [
+      "go",
+      "clojure",
+      "kotlin"
+    ]
+  },
+  {
+    "id": "async-await",
+    "name": "async / await",
+    "category": "concurrency",
+    "summary": "Write asynchronous code in direct style; the compiler turns it into continuations or state machines (built on coroutine-style suspension).",
+    "origin": {
+      "lang": "fsharp",
+      "year": 2007,
+      "note": "F# asynchronous workflows; C# 5 (2012) popularized the keywords."
+    },
+    "popularized_by": [
+      "csharp",
+      "javascript",
+      "python",
+      "rust",
+      "swift"
+    ]
+  },
+  {
+    "id": "stm",
+    "name": "Software transactional memory",
+    "category": "concurrency",
+    "summary": "Shared-memory updates grouped into atomic transactions that retry on conflict.",
+    "origin": {
+      "lang": "haskell",
+      "year": 2005,
+      "note": "GHC's STM (Harris, Marlow, Peyton Jones, Herlihy)."
+    },
+    "popularized_by": [
+      "clojure"
+    ]
+  },
+  {
+    "id": "macros",
+    "name": "Syntactic macros",
+    "category": "metaprogramming",
+    "summary": "Code that transforms code at compile time, operating on syntax rather than text.",
+    "origin": {
+      "lang": "lisp",
+      "year": 1963,
+      "note": "Timothy Hart's MACRO definitions for Lisp 1.5."
+    },
+    "popularized_by": [
+      "common-lisp",
+      "clojure",
+      "rust",
+      "elixir"
+    ]
+  },
+  {
+    "id": "hygienic-macros",
+    "name": "Hygienic macros",
+    "category": "metaprogramming",
+    "summary": "Macros that cannot accidentally capture or shadow identifiers at the use site.",
+    "origin": {
+      "lang": "scheme",
+      "year": 1986,
+      "note": "Kohlbecker et al.; standardized as syntax-rules in R4RS/R5RS."
+    },
+    "popularized_by": [
+      "scheme",
+      "rust"
+    ]
+  },
+  {
+    "id": "homoiconicity",
+    "name": "Homoiconicity",
+    "category": "metaprogramming",
+    "summary": "Programs are written in the language's own primary data structure (code is data).",
+    "origin": {
+      "lang": "lisp",
+      "year": 1958
+    },
+    "popularized_by": [
+      "common-lisp",
+      "clojure"
+    ]
+  },
+  {
+    "id": "reflection",
+    "name": "Reflection",
+    "category": "metaprogramming",
+    "summary": "Programs can inspect and modify their own structure (types, methods, classes) at runtime.",
+    "origin": {
+      "lang": "lisp",
+      "year": 1958,
+      "note": "Smalltalk made fully reflective object systems the norm."
+    },
+    "popularized_by": [
+      "smalltalk",
+      "java",
+      "ruby"
+    ]
+  },
+  {
+    "id": "compile-time-execution",
+    "name": "Compile-time execution",
+    "category": "metaprogramming",
+    "summary": "Ordinary code runs inside the compiler to compute values, types or generate code (CTFE, comptime).",
+    "origin": {
+      "lang": "lisp",
+      "year": 1963,
+      "note": "Lisp macros/eval-when; Zig's comptime unified it with normal code."
+    },
+    "popularized_by": [
+      "cpp",
+      "zig"
+    ]
+  },
+  {
+    "id": "hot-code-reload",
+    "name": "Hot code reloading",
+    "category": "metaprogramming",
+    "summary": "Replace code in a running system without stopping it.",
+    "origin": {
+      "lang": "erlang",
+      "year": 1986,
+      "note": "The requirement came from Ericsson's telephone switches (PLEX/AXE); Smalltalk and Lisp images also allowed live redefinition."
+    },
+    "popularized_by": [
+      "erlang",
+      "elixir"
+    ]
+  },
+  {
+    "id": "array-programming",
+    "name": "Array programming",
+    "category": "paradigm",
+    "summary": "Operations apply to whole arrays at once; loops disappear into vectorized primitives.",
+    "origin": {
+      "lang": "apl",
+      "year": 1966,
+      "note": "Iverson's notation, published 1962."
+    },
+    "popularized_by": [
+      "r",
+      "julia"
+    ]
+  },
+  {
+    "id": "logic-unification",
+    "name": "Logic programming & unification",
+    "category": "paradigm",
+    "summary": "Programs are facts and rules; execution is search via unification and backtracking.",
+    "origin": {
+      "lang": "prolog",
+      "year": 1972
+    },
+    "popularized_by": [
+      "prolog"
+    ]
+  },
+  {
+    "id": "declarative-queries",
+    "name": "Declarative queries",
+    "category": "paradigm",
+    "summary": "Describe the result you want (relational algebra) and let the engine decide how to compute it.",
+    "origin": {
+      "lang": "sql",
+      "year": 1974
+    },
+    "popularized_by": [
+      "sql"
+    ]
+  },
+  {
+    "id": "concatenative",
+    "name": "Stack-based / concatenative",
+    "category": "paradigm",
+    "summary": "Words operate on an implicit data stack; programs are compositions of words.",
+    "origin": {
+      "lang": "forth",
+      "year": 1970
+    },
+    "popularized_by": [
+      "forth"
+    ]
+  },
+  {
+    "id": "significant-whitespace",
+    "name": "Significant indentation",
+    "category": "syntax",
+    "summary": "Indentation defines block structure (the off-side rule) instead of braces or keywords.",
+    "origin": {
+      "external": "ISWIM (Landin)",
+      "year": 1966
+    },
+    "popularized_by": [
+      "python",
+      "haskell"
+    ]
+  },
+  {
+    "id": "regex-builtin",
+    "name": "Built-in regular expressions",
+    "category": "syntax",
+    "summary": "Regular expressions for string matching: as literal syntax and operators (core) or via the standard library.",
+    "origin": {
+      "external": "QED / ed (Ken Thompson)",
+      "year": 1968,
+      "note": "SNOBOL (1962) pioneered string pattern matching but not regular expressions; Perl made regexes core syntax."
+    },
+    "popularized_by": [
+      "perl",
+      "ruby",
+      "javascript"
+    ]
+  }
+]

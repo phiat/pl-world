@@ -1,0 +1,224 @@
+{
+  "id": "algol68",
+  "name": "ALGOL 68",
+  "aliases": [
+    "Algol 68",
+    "Algorithmic Language 1968"
+  ],
+  "year": 1968,
+  "year_note": "The Final Report was adopted by IFIP Working Group 2.1 on 20 December 1968 and published in 1969; the Revised Report was completed in 1973 and published in 1975. The first implementation, ALGOL 68-R, ran in 1970.",
+  "designers": [
+    "Adriaan van Wijngaarden",
+    "Barry J. Mailloux",
+    "John E. L. Peck",
+    "Cornelis H. A. Koster"
+  ],
+  "organization": "IFIP Working Group 2.1",
+  "country": "International",
+  "tagline": "ALGOL's ambitious, orthogonal successor: user-defined operators, tagged unions, parallel clauses and a two-level grammar.",
+  "summary": "ALGOL 68 was IFIP Working Group 2.1's successor to ALGOL 60, designed around orthogonality: a small set of independent concepts — modes (types), coercions and references — that combine freely. Every construct yields a value, programmers can declare new operators with their own priorities, and the language provided structures, tagged unions, heap storage with garbage collection and parallel clauses. It was defined with an unusually formal two-level (van Wijngaarden) grammar; its complexity limited adoption, but its ideas reached C, the Bourne shell and later languages.",
+  "history": "IFIP Working Group 2.1 spent the mid-1960s designing a successor to ALGOL 60. A proposal by Niklaus Wirth and Tony Hoare was judged too small an advance, and in a contentious process the group chose Adriaan van Wijngaarden's far more ambitious design; Wirth went on to build ALGOL W and later Pascal. The Final Report was adopted on 20 December 1968 over a Minority Report signed by Edsger Dijkstra, Tony Hoare and six other members who objected to its complexity.\n\nThe Royal Radar Establishment's ALGOL 68-R (1970) was the first working compiler, followed by ALGOL 68C at Cambridge and others. Stephen Bourne, who worked on ALGOL 68C, carried its if ... fi and case ... esac syntax into the Unix Bourne shell. A Revised Report (1973, published 1975) cleaned up the definition and remains the reference.\n\nThe language has since been revived by open-source implementations: Marcel van der Veer's interpreter Algol 68 Genie, first published in 2001, and ga68, a front end by Jose E. Marchesi that was merged into GCC in November 2025 as an experimental language for GCC 16.",
+  "innovations": [
+    "Orthogonal design: modes, coercions and references combine without special cases",
+    "Expression-oriented syntax: every clause, including IF and CASE, yields a value",
+    "User-declared operators with programmable priorities, and overloading of existing ones",
+    "Type-safe united modes (tagged unions) inspected with conformity CASE clauses",
+    "The two-level van Wijngaarden grammar, which expressed context conditions in the syntax itself",
+    "PAR clauses and semaphores for parallel execution inside the language",
+    "Heap allocation with garbage collection in an ALGOL-family language"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured",
+    "concurrent"
+  ],
+  "family": "algol",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "structural",
+    "notes": "Modes are equivalent by structure, not by name. The syntactic context determines which implicit coercions apply (dereferencing, widening INT to REAL, uniting into a UNION, voiding), and united values can only be used after a conformity check."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "native-compiled",
+    "interpreted"
+  ],
+  "status": "historical",
+  "latest_version": "Revised Report (1973, published 1975)",
+  "file_extensions": [
+    ".a68"
+  ],
+  "color": "#D1E0DB",
+  "primary_parent": "algol60",
+  "influenced_by": [
+    {
+      "id": "algol60",
+      "kind": "successor",
+      "weight": "major",
+      "note": "Designed by IFIP WG 2.1 as the successor to ALGOL 60."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "ALGOL Y",
+      "note": "A more radical successor language discussed in WG 2.1 alongside the work that became ALGOL 68."
+    }
+  ],
+  "influenced": [
+    "c",
+    "cpp",
+    "ada",
+    "python"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "IF ~ FI, CASE ~ ESAC and FOR/WHILE ~ DO ~ OD, all usable as expressions, with brief forms such as ( c | a | b )."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Recursive procedures and recursive modes (e.g. a list node holding a REF to its own mode)."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "algebraic-data-types": {
+      "level": "supported",
+      "note": "STRUCT modes are products and UNION modes are tagged sums, taken apart with conformity CASE clauses; alternatives are distinguished by mode rather than by named constructors."
+    },
+    "structural-typing": {
+      "level": "core",
+      "note": "Two MODE declarations with the same structure denote the same mode."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "OP declarations overload operators by operand modes, and PRIO sets the priority of new dyadic operators."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "PROC values can be stored, passed and returned, and routine texts such as (INT x) INT: x * x are anonymous functions."
+    },
+    "closures": {
+      "level": "supported",
+      "note": "Routine texts capture their lexical environment, but scope rules forbid a routine from outliving the locals it uses; Algol 68 Genie adds partial parametrisation as an extension."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "HEAP generators allocate storage reclaimed by a garbage collector; LOC storage lives on the stack."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "REF modes are typed references with NIL, but there is no pointer arithmetic or explicit deallocation."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1968,
+      "event": "Final Report adopted by IFIP WG 2.1 on 20 December, over a Minority Report"
+    },
+    {
+      "year": 1970,
+      "event": "ALGOL 68-R, the first working compiler, at the Royal Radar Establishment"
+    },
+    {
+      "year": 1973,
+      "event": "Revised Report completed (published 1975)"
+    },
+    {
+      "year": 1975,
+      "event": "ALGOL 68C, Cambridge's portable compiler"
+    },
+    {
+      "year": 2001,
+      "event": "Algol 68 Genie released under the GNU GPL"
+    },
+    {
+      "year": 2025,
+      "event": "ga68 front end merged into GCC as an experimental language (GCC 16)"
+    }
+  ],
+  "trivia": [
+    "Stephen Bourne reused ALGOL 68's if ... fi and case ... esac in the Unix shell and wrote its C source with macros giving it an ALGOL 68 look, a style nicknamed 'Bournegol'.",
+    "The Minority Report was signed by Edsger Dijkstra, Fraser Duncan, Jan Garwick, Tony Hoare, Brian Randell, Gerhard Seegmüller, Wlad Turski and Mike Woodger."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "ALGOL 68 Revised Report (Algol 68 Genie, UPPER stropping)",
+      "code": "BEGIN\n   print((\"Hello, World!\", newline))\nEND\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Keywords are bold symbols in the Report; Algol 68 Genie's default UPPER stropping writes them in capitals, leaving lower case for identifiers. print takes a row of values and layout routines such as newline. Unlike ALGOL 60, ALGOL 68 defined its standard I/O ('transput') in the Report itself.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "ALGOL 68 Revised Report (Algol 68 Genie, UPPER stropping)",
+      "code": "PROC factorial = (INT n) INT:\n   IF n <= 1 THEN 1 ELSE n * factorial(n - 1) FI;\n\nprint((whole(factorial(10), 0), newline))\n",
+      "expected_output": "3628800\n",
+      "notes": "The IF ... FI clause is an expression that yields the result; the brief form (n <= 1 | 1 | n * factorial(n - 1)) is equivalent. whole(x, 0) formats an integer in minimal width, whereas plain print would add a sign and padding.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "ALGOL 68 Revised Report (Algol 68 Genie, UPPER stropping)",
+      "code": "FOR i TO 15 DO\n   # IF ... FI is an expression: it yields the string to print #\n   print((IF i MOD 15 = 0 THEN \"FizzBuzz\"\n          ELIF i MOD 3 = 0 THEN \"Fizz\"\n          ELIF i MOD 5 = 0 THEN \"Buzz\"\n          ELSE whole(i, 0)\n          FI, newline))\nOD\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "FOR i TO 15 starts at 1 by default; any of a loop's FOR, FROM, BY, TO and WHILE parts may be omitted. The conditional clause yields the string that print consumes, and comments are delimited by # ... #.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "ALGOL 68 Revised Report (Algol 68 Genie, UPPER stropping)",
+      "code": "PROC map = (PROC (INT) INT f, []INT xs) []INT:\nBEGIN\n   [LWB xs : UPB xs] INT ys;\n   FOR i FROM LWB xs TO UPB xs DO ys[i] := f(xs[i]) OD;\n   ys\nEND;\n\nPROC filter = (PROC (INT) BOOL keep, []INT xs) []INT:\nBEGIN\n   [1 : UPB xs - LWB xs + 1] INT ys;\n   INT n := 0;\n   FOR i FROM LWB xs TO UPB xs DO\n      IF keep(xs[i]) THEN ys[n +:= 1] := xs[i] FI\n   OD;\n   ys[1 : n]\nEND;\n\n[]INT numbers = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);\n[]INT squares = map((INT x) INT: x * x, filter((INT x) BOOL: NOT ODD x, numbers));\nFOR i TO UPB squares DO\n   print((whole(squares[i], 0), (i < UPB squares | \" \" | newline)))\nOD\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "There is no built-in map or filter, but PROC modes are first-class, so they are ordinary procedures taking routine texts such as (INT x) BOOL: NOT ODD x. n +:= 1 increments n and yields it, ys[1 : n] slices a row, and the brief conditional ( ... | \" \" | newline ) chooses the separator.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "ALGOL 68 Revised Report (Algol 68 Genie, UPPER stropping)",
+      "code": "MODE RECTANGLE = STRUCT (INT width, height);\nMODE TRIANGLE  = STRUCT (INT base, height);\nMODE SHAPE     = UNION (RECTANGLE, TRIANGLE);\n\nPROC area = (SHAPE s) INT:\n   CASE s IN\n      (RECTANGLE r): width OF r * height OF r,\n      (TRIANGLE t):  base OF t * height OF t OVER 2\n   ESAC;\n\nPROC name = (SHAPE s) STRING:\n   CASE s IN (RECTANGLE): \"Rectangle\", (TRIANGLE): \"Triangle\" ESAC;\n\n[]SHAPE shapes = (RECTANGLE (3, 4), TRIANGLE (10, 3));\nFOR i TO UPB shapes DO\n   print((name(shapes[i]), \": \", whole(area(shapes[i]), 0), newline))\nOD\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "UNION(RECTANGLE, TRIANGLE) is a type-safe tagged union, and the conformity CASE clause dispatches on the value's actual mode while binding r or t — an early form of algebraic data types with pattern matching. Fields are selected with width OF r.",
+      "verified": true
+    },
+    "signature": {
+      "title": "User-defined operators and priorities",
+      "dialect": "ALGOL 68 Revised Report (Algol 68 Genie, UPPER stropping)",
+      "code": "MODE VEC = STRUCT (INT x, y);\n\n# New meanings for old operators... #\nOP + = (VEC a, b) VEC: (x OF a + x OF b, y OF a + y OF b);\nOP * = (INT k, VEC v) VEC: (k * x OF v, k * y OF v);\n\n# ...and brand-new operators with a declared priority #\nPRIO DOT = 7;\nOP DOT = (VEC a, b) INT: x OF a * x OF b + y OF a * y OF b;\nOP SHOW = (VEC v) STRING:\n   \"(\" + whole(x OF v, 0) + \", \" + whole(y OF v, 0) + \")\";\n\nVEC p = (1, 2), q = (3, 4);\nprint((SHOW (p + 2 * q), newline));\nprint((whole(p DOT q + 1, 0), newline))   # DOT binds tighter than + #\n",
+      "expected_output": "(7, 10)\n12\n",
+      "notes": "ALGOL 68 originated user-definable operators: OP gives + and * new meanings for the VEC mode (resolved by operand modes), PRIO declares the priority (1–9) of the brand-new dyadic operator DOT, and monadic operators such as SHOW need no priority. Structure displays like (1, 2) are coerced to VEC by context.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Algol 68 Genie (a68g)",
+        "version": "3.1.2",
+        "docker_image": "plw-algol68",
+        "install": "FROM debian:trixie-slim; apt-get install -y --no-install-recommends algol68g",
+        "run": "a68g {file}",
+        "notes": "Interpreter; diagnostics such as warnings about hidden declarations go to stderr.",
+        "dockerfile": "sandbox/algol68/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "All six snippets were verified with Algol 68 Genie 3.1.2. GCC 16's experimental ga68 front end is a native-code alternative."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/ALGOL_68",
+    "homepage": "https://jmvdveer.home.xs4all.nl/en.algol-68-genie.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/ALGOL_68",
+    "https://en.wikipedia.org/wiki/ALGOL_W",
+    "https://en.wikipedia.org/wiki/Bourne_shell",
+    "https://www.phoronix.com/news/Algol-68-Merged-Into-GCC-16",
+    "https://jmvdveer.home.xs4all.nl/en.algol-68-genie.html"
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "id": "objective-c",
+  "name": "Objective-C",
+  "aliases": [
+    "ObjC",
+    "Obj-C",
+    "Objective C"
+  ],
+  "year": 1984,
+  "year_note": "Brad Cox wrote its precursor, the Object-Oriented Pre-Compiler (OOPC), at ITT in 1981 and described it in 1983; it became Objective-C at Productivity Products International (later Stepstone). Wikipedia dates its first appearance to 1984.",
+  "designers": [
+    "Brad Cox",
+    "Tom Love"
+  ],
+  "organization": "Productivity Products International (later Stepstone)",
+  "country": "United States",
+  "tagline": "Smalltalk-style messaging grafted onto C: the language of NeXTSTEP, Mac OS X and the original iPhone SDK.",
+  "summary": "Objective-C is a strict superset of C that adds Smalltalk-style objects and message passing, with methods bound at run time. It was the language of NeXTSTEP and then of Apple's Cocoa and Cocoa Touch frameworks for macOS and iOS until Swift arrived in 2014. Its protocols anticipated Java's interfaces, and its dynamic runtime still underlies Apple's platforms.",
+  "history": "In the early 1980s Brad Cox, working in Tom Love's productivity research group at ITT, encountered Smalltalk-80 and in 1981 wrote the Object-Oriented Pre-Compiler (OOPC), which translated Smalltalk-like message expressions into C. Cox and Love founded Productivity Products International (later renamed Stepstone) to sell the idea as Objective-C, and Cox's 1986 book 'Object-Oriented Programming: An Evolutionary Approach' presented it as a way to build reusable 'software-ICs'.\n\nNeXT licensed Objective-C in 1988 for NeXTSTEP. Steve Naroff added it to GCC, whose Objective-C front end NeXT had to release under the GPL, and NeXT extended the language with protocols, categories and the ability to mix in C++. NeXT acquired the rights to the language from Stepstone in 1995, and after Apple bought NeXT in 1997, Objective-C and the NeXT frameworks became Cocoa, the native API of Mac OS X (2001) and later of the iPhone.\n\nApple modernized the language with Objective-C 2.0 (2007: properties, fast enumeration and an optional garbage collector, later deprecated), blocks (2009), Automatic Reference Counting (2011) and object literals (2012). Swift, introduced in 2014, has since become Apple's preferred language, but Objective-C remains supported and interoperates with it.",
+  "innovations": [
+    "Smalltalk-style dynamic message passing layered on C as a strict superset",
+    "Protocols: named method sets independent of the class hierarchy, a precursor of Java interfaces",
+    "Categories: adding methods to existing classes, including framework classes, without subclassing",
+    "A reflective, late-bound runtime (introspection, forwarding, method swizzling) that underpinned NeXTSTEP and Cocoa",
+    "Automatic Reference Counting (2011): compiler-inserted retain/release instead of a tracing garbage collector"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "imperative",
+    "procedural",
+    "reflective"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "mixed",
+    "notes": "C's static, weak typing plus optional static class types; the `id` type is fully dynamic. Messages are bound at run time, so a wrong static type usually yields a warning rather than an error, and any object that responds to a selector can receive it."
+  },
+  "memory": "reference-counting",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "maintained",
+  "latest_version": "Objective-C 2.0 (as extended in Apple Clang)",
+  "file_extensions": [
+    ".m",
+    ".h",
+    ".mm"
+  ],
+  "color": "#438eff",
+  "primary_parent": "c",
+  "influenced_by": [
+    {
+      "id": "c",
+      "kind": "superset",
+      "weight": "major",
+      "note": "A strict superset: any C program is a valid Objective-C program."
+    },
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Objects, classes, message-send syntax with keyword selectors, and the dynamic runtime model."
+    }
+  ],
+  "influenced_by_external": [],
+  "influenced": [
+    "java",
+    "swift"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core"
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "@try/@catch/@finally/@throw with NSException, but Cocoa convention reserves exceptions for programmer errors and reports recoverable errors through NSError** parameters."
+    },
+    "static-typing": {
+      "level": "supported",
+      "note": "C types and optional static object types are checked at compile time; message dispatch itself is dynamic."
+    },
+    "generics": {
+      "level": "supported",
+      "since": 2015,
+      "note": "'Lightweight generics' (NSArray<NSString *> *) are compile-time annotations only, erased at run time; added mainly for Swift interoperability."
+    },
+    "interfaces": {
+      "level": "core",
+      "since": 1990,
+      "note": "@protocol, introduced at NeXT; classes adopt protocols with <...> and can be tested with conformsToProtocol:."
+    },
+    "classes": {
+      "level": "core"
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Single inheritance, conventionally rooted at NSObject."
+    },
+    "everything-is-an-object": {
+      "level": "supported",
+      "note": "Objects communicate purely by Smalltalk-style messages (even classes are objects, and messaging nil is a no-op), but C primitives and structs are not objects."
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "note": "Categories add bundles of methods to any existing class, including Foundation classes; they cannot add instance variables."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "@interface/@implementation separation with private instance variables and class extensions."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "C header files and #import; Clang modules (@import) since 2013."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "since": 2009,
+      "note": "Blocks (^), Apple's C extension introduced with Mac OS X 10.6; selectors (SEL) are first-class message names."
+    },
+    "closures": {
+      "level": "core",
+      "since": 2009,
+      "note": "Blocks capture enclosing variables by value, or by reference when declared __block."
+    },
+    "immutability": {
+      "level": "library",
+      "note": "Foundation's immutable/mutable class pairs (NSArray/NSMutableArray, NSString/NSMutableString)."
+    },
+    "reference-counting": {
+      "level": "core",
+      "note": "retain/release/autorelease conventions from NeXT's Foundation, automated by ARC (2011) on Apple's runtime."
+    },
+    "pointers": {
+      "level": "core",
+      "note": "Full C pointers; every object is accessed through a pointer."
+    },
+    "reflection": {
+      "level": "core",
+      "note": "The runtime exposes classes, methods and selectors (respondsToSelector:, class_copyMethodList), and methods can be added or swapped at run time."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1981,
+      "event": "Brad Cox writes the Object-Oriented Pre-Compiler (OOPC) at ITT"
+    },
+    {
+      "year": 1983,
+      "event": "Cox describes OOPC in SIGPLAN Notices; PPI (later Stepstone) is founded to commercialize it"
+    },
+    {
+      "year": 1986,
+      "event": "Cox publishes 'Object-Oriented Programming: An Evolutionary Approach'"
+    },
+    {
+      "year": 1988,
+      "event": "NeXT licenses Objective-C from Stepstone for NeXTSTEP"
+    },
+    {
+      "year": 1995,
+      "event": "NeXT acquires the Objective-C trademark and rights from Stepstone"
+    },
+    {
+      "year": 1997,
+      "event": "Apple acquires NeXT, and with it Objective-C"
+    },
+    {
+      "year": 2001,
+      "event": "Mac OS X ships with Cocoa as its native Objective-C API"
+    },
+    {
+      "year": 2007,
+      "event": "Objective-C 2.0 in Mac OS X 10.5: properties, fast enumeration, garbage collection"
+    },
+    {
+      "year": 2008,
+      "event": "iPhone SDK and App Store bring Objective-C to mobile developers"
+    },
+    {
+      "year": 2009,
+      "event": "Blocks (closures) arrive with Mac OS X 10.6"
+    },
+    {
+      "year": 2011,
+      "event": "Automatic Reference Counting (ARC) in LLVM 3.0 / Xcode 4.2"
+    },
+    {
+      "year": 2012,
+      "event": "Object literals and subscripting (@[...], @{...}, @42)"
+    },
+    {
+      "year": 2014,
+      "event": "Apple introduces Swift as its successor"
+    }
+  ],
+  "trivia": [
+    "NeXT initially wanted to ship its GCC Objective-C front end separately to keep it proprietary; after objections from Richard Stallman's lawyers it was released under the GPL.",
+    "Swift was pitched as 'Objective-C without the C'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Objective-C 2.0 (Clang + GNUstep Foundation, manual retain/release)",
+      "code": "#import <Foundation/Foundation.h>\n\nint main(void) {\n    @autoreleasepool {\n        NSString *greeting = [@\"Hello\" stringByAppendingString:@\", World!\"];\n        printf(\"%s\\n\", [greeting UTF8String]);\n    }\n    return 0;\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Square brackets send messages: [receiver message:argument]. NSLog would add a timestamp and write to stderr, so the NSString's UTF-8 bytes are printed with C's printf.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Objective-C 2.0 (Clang + GNUstep Foundation, manual retain/release)",
+      "code": "#import <Foundation/Foundation.h>\n\n@interface MathUtil : NSObject\n+ (unsigned long)factorial:(unsigned long)n;\n@end\n\n@implementation MathUtil\n+ (unsigned long)factorial:(unsigned long)n {\n    return n <= 1 ? 1 : n * [self factorial:n - 1];\n}\n@end\n\nint main(void) {\n    @autoreleasepool {\n        printf(\"%lu\\n\", [MathUtil factorial:10]);\n    }\n    return 0;\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "A class method (+) invoked by sending a message to the class object; inside it, `self` is the class.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Objective-C 2.0 (Clang + GNUstep Foundation, manual retain/release)",
+      "code": "#import <Foundation/Foundation.h>\n\nint main(void) {\n    @autoreleasepool {\n        for (int i = 1; i <= 15; i++) {\n            NSMutableString *s = [NSMutableString string];\n            if (i % 3 == 0) [s appendString:@\"Fizz\"];\n            if (i % 5 == 0) [s appendString:@\"Buzz\"];\n            if ([s length] == 0) [s appendFormat:@\"%d\", i];\n            printf(\"%s\\n\", [s UTF8String]);\n        }\n    }\n    return 0;\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "The loop and modulo are plain C; string building is done by messaging an NSMutableString.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Objective-C 2.0 (Clang + GNUstep Foundation, manual retain/release)",
+      "code": "#import <Foundation/Foundation.h>\n\nint main(void) {\n    @autoreleasepool {\n        NSMutableArray *nums = [NSMutableArray array];\n        for (int i = 1; i <= 10; i++) [nums addObject:@(i)];\n\n        NSIndexSet *evens = [nums indexesOfObjectsPassingTest:\n            ^BOOL(NSNumber *n, NSUInteger idx, BOOL *stop) { return [n intValue] % 2 == 0; }];\n\n        NSMutableArray *squares = [NSMutableArray array];\n        [[nums objectsAtIndexes:evens] enumerateObjectsUsingBlock:\n            ^(NSNumber *n, NSUInteger idx, BOOL *stop) {\n                [squares addObject:@([n intValue] * [n intValue])];\n            }];\n\n        printf(\"%s\\n\", [[squares componentsJoinedByString:@\" \"] UTF8String]);\n    }\n    return 0;\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Blocks (^...) are Apple's closure extension to C (2009); @(i) boxes an int into an NSNumber (2012 literals). Foundation's block-based collection methods stand in for map/filter.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Objective-C 2.0 (Clang + GNUstep Foundation, manual retain/release)",
+      "code": "#import <Foundation/Foundation.h>\n\n@protocol Shape <NSObject>\n- (NSString *)name;\n- (int)area;\n@end\n\n@interface Rectangle : NSObject <Shape> { int width, height; }\n- (instancetype)initWithWidth:(int)w height:(int)h;\n@end\n\n@implementation Rectangle\n- (instancetype)initWithWidth:(int)w height:(int)h {\n    if ((self = [super init])) { width = w; height = h; }\n    return self;\n}\n- (NSString *)name { return @\"Rectangle\"; }\n- (int)area { return width * height; }\n@end\n\n@interface Triangle : NSObject <Shape> { int base, height; }\n- (instancetype)initWithBase:(int)b height:(int)h;\n@end\n\n@implementation Triangle\n- (instancetype)initWithBase:(int)b height:(int)h {\n    if ((self = [super init])) { base = b; height = h; }\n    return self;\n}\n- (NSString *)name { return @\"Triangle\"; }\n- (int)area { return base * height / 2; }\n@end\n\nint main(void) {\n    @autoreleasepool {\n        NSArray *shapes = @[[[Rectangle alloc] initWithWidth:3 height:4],\n                            [[Triangle alloc] initWithBase:10 height:3]];\n        for (id<Shape> s in shapes)\n            printf(\"%s: %d\\n\", [[s name] UTF8String], [s area]);\n    }\n    return 0;\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "@protocol declares the interface both classes adopt; initWithWidth:height: is a keyword selector. Written ARC-style, as on Apple platforms: the GNU runtime used here has no ARC, so the two shapes simply live until exit.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Categories and dynamic messaging",
+      "dialect": "Objective-C 2.0 (Clang + GNUstep Foundation, manual retain/release)",
+      "code": "#import <Foundation/Foundation.h>\n\n// A category adds methods to an existing class -- even Foundation's NSString.\n@interface NSString (Shouting)\n- (NSString *)shout;\n@end\n\n@implementation NSString (Shouting)\n- (NSString *)shout { return [[self uppercaseString] stringByAppendingString:@\"!\"]; }\n@end\n\nint main(void) {\n    @autoreleasepool {\n        NSString *s = @\"hello\";\n        printf(\"%s\\n\", [[s shout] UTF8String]);\n\n        // Selectors are values; the receiver decides at run time what a message means.\n        SEL sel = NSSelectorFromString(@\"shout\");\n        printf(\"%s\\n\", [[s performSelector:sel] UTF8String]);\n        printf(\"NSNumber responds to shout? %s\\n\", [@42 respondsToSelector:sel] ? \"YES\" : \"NO\");\n\n        // Messaging nil is legal: it does nothing and returns nil / 0.\n        NSString *nothing = nil;\n        printf(\"length of [nil shout]: %lu\\n\", (unsigned long)[[nothing shout] length]);\n    }\n    return 0;\n}\n",
+      "expected_output": "HELLO!\nHELLO!\nNSNumber responds to shout? NO\nlength of [nil shout]: 0\n",
+      "notes": "Categories, selectors as values, run-time introspection and nil messaging: Smalltalk's dynamism on top of C. Under ARC, performSelector: with a non-constant selector draws a warning.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Clang + GNUstep Base",
+        "version": "Clang 19, gnustep-base 1.31",
+        "docker_image": "plw-objective-c",
+        "install": "Self-built image: FROM debian:trixie-slim; apt-get install -y --no-install-recommends gobjc libgnustep-base-dev gnustep-make clang libblocksruntime-dev",
+        "compile": "sh -c 'clang -fobjc-runtime=gcc -fblocks -I/usr/lib/gcc/x86_64-linux-gnu/14/include $(gnustep-config --objc-flags) -o {out} {file} $(gnustep-config --base-libs) -lBlocksRuntime'",
+        "run": "{out}",
+        "notes": "Debian's GNUstep is built for GCC's libobjc runtime, so ARC is unavailable; Clang supplies blocks, literals and @autoreleasepool (GCC itself rejects them). gnustep-config's flags write a .d dependency file next to {out}.",
+        "dockerfile": "sandbox/objective-c/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "Apple's Clang and Foundation are the reference platform; on Linux, GNUstep's Foundation implements the same core classes."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Objective-C",
+    "homepage": "https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Objective-C",
+    "https://dl.acm.org/doi/10.1145/3386332",
+    "https://dl.acm.org/doi/10.1145/948093.948095",
+    "https://en.wikipedia.org/wiki/Stepstone",
+    "https://hopl4.sigplan.org/details/hopl-4-papers/18/The-Origins-of-Objective-C-at-PPI-Stepstone-and-its-Evolution-at-NeXT"
+  ]
+}

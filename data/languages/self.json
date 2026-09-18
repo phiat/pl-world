@@ -1,0 +1,228 @@
+{
+  "id": "self",
+  "name": "Self",
+  "aliases": [],
+  "year": 1987,
+  "year_note": "Designed by Ungar and Smith at Xerox PARC in 1986; the first working compiler was built at Stanford in 1987, the year the language was published at OOPSLA. The first public release followed in 1990.",
+  "designers": [
+    "David Ungar",
+    "Randall B. Smith"
+  ],
+  "organization": "Xerox PARC, Stanford University, Sun Microsystems",
+  "country": "United States",
+  "tagline": "Smalltalk reduced to objects, slots and messages: no classes, no variables, and the JIT research behind modern virtual machines.",
+  "summary": "Self is a dynamically typed, prototype-based object-oriented language that simplifies Smalltalk: objects are collections of slots, new objects are made by copying prototypes, and behaviour is shared by delegating to parent objects rather than by classes. Even state is accessed only through messages. Making such a uniform language fast led to adaptive just-in-time compilation techniques later used in Java HotSpot and JavaScript engines.",
+  "history": "David Ungar and Randall Smith designed Self at Xerox PARC in 1986 to push object-oriented language design beyond the recently released Smalltalk-80, aiming for simplicity, uniformity, concreteness and liveness. They moved to Stanford, where the first Self compiler ran in 1987, and presented the language in 'Self: The Power of Simplicity' at OOPSLA '87. Craig Chambers, Urs Hölzle and colleagues then developed maps (hidden classes), customization, polymorphic inline caches and adaptive recompilation, which let this very dynamic language run at up to half the speed of optimized C.\n\nThe first public release came in 1990; in 1991 the project moved to Sun Microsystems Laboratories, where Randy Smith and John Maloney created the Morphic user interface and the group released Self 4.0 in 1995 before the project wound down. Self alumni such as Lars Bak carried its compiler technology into Strongtalk and Java's HotSpot virtual machine, and later into Google's V8.\n\nSelf's prototype model influenced NewtonScript, JavaScript, Io and Lua, and Morphic was ported to Squeak. A small group of original and independent developers has kept Self running: 4.4 (2010) added Linux, followed by 2017.1 and 2024.1.",
+  "innovations": [
+    "Prototype-based objects: new objects are made by copying existing ones instead of instantiating classes",
+    "Slots unify state and behaviour: reading a field, assigning it and calling a method are all message sends",
+    "Delegation through parent slots, including multiple and dynamic (assignable) inheritance",
+    "Maps (hidden classes), customization, polymorphic inline caches and adaptive recompilation with deoptimization",
+    "Mirror-based reflection, separating meta-level operations from ordinary objects",
+    "The Morphic direct-manipulation user-interface framework"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "prototype-based",
+    "reflective"
+  ],
+  "family": "smalltalk",
+  "syntax_family": "smalltalk",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Any object with the right slots will do; unknown messages are reported at run time."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "jit",
+    "image-based"
+  ],
+  "status": "maintained",
+  "latest_version": "2024.1",
+  "file_extensions": [
+    ".self"
+  ],
+  "color": "#0579aa",
+  "primary_parent": "smalltalk",
+  "influenced_by": [
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Designed as a radical simplification of Smalltalk-80, keeping its message syntax and blocks but dropping classes and variables."
+    },
+    {
+      "id": "apl",
+      "kind": "influence",
+      "weight": "minor"
+    }
+  ],
+  "influenced_by_external": [],
+  "influenced": [
+    "javascript",
+    "lua"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "Conditionals and loops are messages taking blocks, as in Smalltalk."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Object-based: any slot marked * is a parent; objects can have several parents and assignable parents (dynamic inheritance)."
+    },
+    "everything-is-an-object": {
+      "level": "core",
+      "note": "Even local variables and method activations are slots of objects."
+    },
+    "prototypes": {
+      "level": "core"
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "note": "Multiple parent slots let an object combine several behaviour objects; the Self world keeps shared behaviour in objects under traits and mixins."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Binary messages such as + are ordinary slots any object can define."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Blocks, and methods stored in slots, are objects."
+    },
+    "closures": {
+      "level": "supported",
+      "note": "Blocks capture their lexical scope but may only run while their enclosing method is active (no non-LIFO blocks)."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Generation scavenging, which Ungar had developed for Berkeley Smalltalk."
+    },
+    "reflection": {
+      "level": "core",
+      "note": "Mirrors: objects are inspected and changed through separate mirror objects."
+    },
+    "hot-code-reload": {
+      "level": "core",
+      "note": "Programs are edited inside the running world."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1986,
+      "event": "Ungar and Smith design Self at Xerox PARC"
+    },
+    {
+      "year": 1987,
+      "event": "'Self: The Power of Simplicity' at OOPSLA; first compiler at Stanford"
+    },
+    {
+      "year": 1990,
+      "event": "First public release"
+    },
+    {
+      "year": 1991,
+      "event": "Project moves to Sun Microsystems Laboratories"
+    },
+    {
+      "year": 1995,
+      "event": "Self 4.0 released, with the Morphic user interface"
+    },
+    {
+      "year": 2010,
+      "event": "Self 4.4 brings the system to Linux"
+    },
+    {
+      "year": 2024,
+      "event": "Self 2024.1 released"
+    }
+  ],
+  "trivia": [
+    "The name reflects that messages sent to self are so common the receiver can be left out.",
+    "A Smalltalk implementation was once built in Self, where it benefited from Self's JIT compiler."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Self 2024.1",
+      "code": "'Hello, World!' printLine.\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Scripts are read into a running Self world (here a headless snapshot); printLine prints the receiver followed by a newline.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Self 2024.1",
+      "code": "\"An object literal with one method slot. Inside the method,\n 'fact: n - 1' is a message sent to the implicit receiver, self.\"\n((|\n    fact: n = ( n <= 1 ifTrue: [ 1 ] False: [ n * (fact: n - 1) ] )\n|) fact: 10) printLine.\n",
+      "expected_output": "3628800\n",
+      "notes": "(| ... |) is an object literal and fact: n = ( ... ) a method slot. Messages with no explicit receiver go to self. Keyword parts after the first are capitalized (ifTrue:False:), which lets Self parse nested keyword messages without Smalltalk's parentheses.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Self 2024.1",
+      "code": "1 to: 15 Do: [| :i |\n    (i % 15) = 0 ifTrue: [ 'FizzBuzz' printLine ] False: [\n    (i % 3)  = 0 ifTrue: [ 'Fizz' printLine ]     False: [\n    (i % 5)  = 0 ifTrue: [ 'Buzz' printLine ]     False: [\n    i printLine ] ] ] ].\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Control structures are messages taking blocks; [| :i | ... ] declares a block argument in the block's slot list. Self gives different binary operators no relative precedence, so (i % 15) = 0 needs its parentheses.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Self 2024.1",
+      "code": "\"Blocks are closures; collections are transformed by sending them blocks.\n (10 asVector holds 0..9, so add 1 first.)\"\n((((10 asVector mapBy: [| :i | i + 1]) asList\n    copyFilteredBy: [| :x | x even])\n    copyMappedBy: [| :x | x * x])\n    do: [| :x | x print] SeparatedBy: [ ' ' print ]).\n'' printLine.\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "10 asVector is a vector of 0 to 9. Vectors are fixed-size, so the numbers become a list before filtering. The script reader evaluates an expression as soon as a line ends with balanced parentheses, so the multi-line pipeline is wrapped in parentheses.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Self 2024.1",
+      "code": "\"No classes: a parent object holds the shared behaviour,\n prototypes hold the state and are copied to make new shapes.\"\nlobby _AddSlots: (| shape = (| parent* = traits clonable.\n    describe = ( (name, ': ', area printString) printLine ) |) |).\nlobby _AddSlots: (| rectangle = (| parent* = shape. name = 'Rectangle'.\n    width <- 0. height <- 0. area = ( width * height ) |) |).\nlobby _AddSlots: (| triangle = (| parent* = shape. name = 'Triangle'.\n    base <- 0. height <- 0. area = ( (base * height) / 2 ) |) |).\n\n((rectangle copy width: 3) height: 4) describe.\n((triangle copy base: 10) height: 3) describe.\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "shape holds the shared behaviour; rectangle and triangle are prototypes that delegate to it through parent* slots, and copy (from traits clonable) makes new shapes. width <- 0 declares an assignable slot, so width: 3 is an assignment message; it answers the receiver, which allows chaining. Slot initializers cannot refer to the object literal being built, so the objects are added to the lobby one at a time.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Prototypes and dynamic inheritance",
+      "dialect": "Self 2024.1",
+      "code": "\"No classes: objects are made by copying prototypes and share\n behaviour by delegating to parent slots (marked with *).\"\nlobby _AddSlots: (| happy = (| mood = 'wags its tail' |).\n                    grumpy = (| mood = 'growls' |) |).\nlobby _AddSlots: (| dog = (| parent* = traits clonable.\n    temper* <- happy.   \"an assignable parent: dynamic inheritance\"\n    name <- 'dog'.\n    report = ( (name, ' ', mood) printLine ) |) |).\n\n(dog copy name: 'Rex') report.\n((dog copy name: 'Fido') temper: grumpy) report.\ndog report.\n((dog copy name: 'Spot') _AddSlots: (| mood = 'rolls over' |)) report.\n",
+      "expected_output": "Rex wags its tail\nFido growls\ndog wags its tail\nSpot rolls over\n",
+      "notes": "temper* is an assignable parent slot, so temper: grumpy changes what one object inherits at run time. Rex and Fido are copies of the dog prototype; Spot gets a mood slot of its own via _AddSlots:, which overrides the inherited one. The prototype itself is an ordinary, usable object.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Self VM",
+        "version": "2024.1",
+        "docker_image": "plw-self",
+        "install": "FROM debian:bookworm-slim with i386 multiarch (gcc-multilib, g++-multilib, cmake, libx11-dev:i386, libxext-dev:i386, libncurses-dev:i386); build github.com/russellallen/self tag 2024.1 with CC='gcc -m32' CXX='g++ -m32'; build a headless world with 'Self -f worldBuilder.self -b objects -o none' and saveAs: /opt/self/clean.snap; install a self-run wrapper",
+        "run": "self-run {file}",
+        "notes": "self-run copies the script, appends _Quit and runs 'Self -s /opt/self/clean.snap -f <copy>'. VM start-up diagnostics go to stderr; program output to stdout. The VM is 32-bit x86 only.",
+        "dockerfile": "sandbox/self/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "No prebuilt Linux binaries are published for 2024.1, so the VM and a world without the GUI are built from source into the image."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Self_(programming_language)",
+    "homepage": "https://selflanguage.org",
+    "spec": "https://handbook.selflanguage.org/2024.1/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Self_(programming_language)",
+    "https://selflanguage.org",
+    "https://handbook.selflanguage.org/2024.1/",
+    "https://github.com/russellallen/self",
+    "https://en.wikipedia.org/wiki/Morphic_(software)",
+    "https://en.wikipedia.org/wiki/Lars_Bak_(computer_programmer)"
+  ]
+}

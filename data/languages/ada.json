@@ -1,0 +1,358 @@
+{
+  "id": "ada",
+  "name": "Ada",
+  "aliases": [
+    "Ada 83",
+    "Ada 95",
+    "Ada 2012",
+    "Ada 2022",
+    "MIL-STD-1815"
+  ],
+  "year": 1980,
+  "year_note": "Ichbiah's 'Green' design won the DoD competition in May 1979 and a preliminary reference manual appeared in SIGPLAN Notices that June; MIL-STD-1815 was approved on 10 December 1980. The corrected Ada 83 standard (ANSI/MIL-STD-1815A, ISO 8652:1987) is the version the first compilers implemented.",
+  "designers": [
+    "Jean Ichbiah",
+    "S. Tucker Taft"
+  ],
+  "organization": "CII Honeywell Bull, under contract to the US Department of Defense",
+  "country": "France",
+  "tagline": "The US DoD's language for reliable embedded systems: strong types, packages, tasks and contracts for software that must not fail.",
+  "summary": "Ada is a statically and strongly typed, Pascal-family language commissioned by the US Department of Defense to replace the hundreds of languages used in its embedded systems. It combines packages with separate specifications and bodies, generics, exceptions and built-in concurrency (tasks with rendezvous and, since Ada 95, protected objects) with extensive compile-time and run-time checking. Later revisions added object-oriented programming (Ada 95), interfaces (Ada 2005) and contracts (Ada 2012), and Ada together with its formally verifiable subset SPARK remains a mainstay of avionics, rail and other safety-critical software.",
+  "history": "In 1975 the DoD's High Order Language Working Group set out to replace the more than 450 languages used on its projects. A series of requirement documents (Strawman through Steelman, 1978) concluded that no existing language qualified, and four contractors were hired to compete. In May 1979 the 'Green' design by Jean Ichbiah's team at CII Honeywell Bull won and was named after Ada Lovelace; the standard was numbered MIL-STD-1815 after her birth year and approved on her birthday, 10 December 1980.\n\nEarly compilers struggled with the large language and the mandatory validation suite: the first validated implementation, NYU's Ada/Ed written in SETL, was certified in April 1983, the year the corrected Ada 83 standard appeared. The DoD required Ada for its software from 1991 until 1997, and the language spread into civil aviation (including the Boeing 777's primary flight control system), air traffic control, rail signalling and space systems.\n\nAda 95, designed by a team led by Tucker Taft at Intermetrics, added tagged types for object-oriented programming, protected objects and hierarchical packages, making it the first ISO-standard object-oriented language; the US Air Force funded the free GNAT compiler at NYU to accompany it, and GNAT is now part of GCC. Ada 2005 added Java-style interfaces and the Ravenscar tasking profile, Ada 2012 added preconditions, postconditions, type invariants and predicates, and Ada 2022 added parallel blocks and loops, reduction expressions and new aggregate forms. The SPARK subset uses these contracts to prove programs free of run-time errors.",
+  "innovations": [
+    "Packages with separately compiled specifications and bodies, and private types for information hiding",
+    "Generic units that brought parametric polymorphism to a mainstream imperative language (1980)",
+    "Concurrency in the language itself: tasks with rendezvous (Ada 83) and protected objects (Ada 95)",
+    "User-defined numeric types with declared ranges, subtypes and derived types, checked at compile and run time",
+    "A mandatory compiler validation suite (ACVC) for any implementation using the name",
+    "First ISO-standardised object-oriented language (Ada 95)",
+    "Contracts as standard syntax (Ada 2012), the basis for SPARK's formal verification"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "imperative",
+    "procedural",
+    "structured",
+    "object-oriented",
+    "concurrent",
+    "generic"
+  ],
+  "family": "algol",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "Types with identical representations are incompatible unless related by derivation; subtypes add range constraints checked at run time (Constraint_Error). Unchecked_Conversion and Unchecked_Deallocation are the explicit escape hatches."
+  },
+  "memory": "manual",
+  "memory_note": "Objects live on the stack by default; heap objects use access types with explicit Unchecked_Deallocation or custom storage pools, and controlled types give RAII-style finalization. The standard permits but does not require garbage collection, and mainstream compilers do not provide it.",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "Ada 2022 (ISO/IEC 8652:2023)",
+  "file_extensions": [
+    ".adb",
+    ".ads",
+    ".ada"
+  ],
+  "color": "#02f88c",
+  "primary_parent": "pascal",
+  "influenced_by": [
+    {
+      "id": "pascal",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Syntax, strong typing, records and subranges; Ichbiah's earlier LIS was itself based on Pascal and Simula."
+    },
+    {
+      "id": "algol68",
+      "kind": "influence",
+      "weight": "minor"
+    },
+    {
+      "id": "simula",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Via LIS; Ichbiah had chaired the Simula Users' Group."
+    },
+    {
+      "id": "modula2",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed as an influence on Ada 95."
+    },
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Ada 95 object-oriented programming."
+    },
+    {
+      "id": "cpp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Ada 95 object-oriented programming."
+    },
+    {
+      "id": "java",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Ada 2005 interfaces."
+    },
+    {
+      "id": "eiffel",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Ada 2012 contracts: Pre, Post and type invariants."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "LIS",
+      "year": 1973,
+      "note": "Ichbiah's Pascal- and Simula-based system implementation language (1972–74)."
+    },
+    {
+      "name": "Steelman requirements",
+      "year": 1978,
+      "note": "DoD requirements the design had to meet, including exceptions, run-time checking and concurrency."
+    }
+  ],
+  "influenced": [
+    "cpp",
+    "eiffel",
+    "java",
+    "python",
+    "ruby"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "Every construct closes with its own keyword (end if, end loop, end case); named loops with exit when."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "declare … begin … end blocks, and nested subprograms and packages."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "raise and exception handlers since Ada 83; failed run-time checks raise Constraint_Error."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "generics": {
+      "level": "core",
+      "note": "Generic packages and subprograms parameterized by types, values, subprograms and packages; instantiated explicitly."
+    },
+    "algebraic-data-types": {
+      "level": "supported",
+      "note": "Discriminated records with variant parts are checked tagged unions (reading an inactive variant raises Constraint_Error), and case statements must cover every choice; there is no pattern matching."
+    },
+    "option-types": {
+      "level": "supported",
+      "since": 2007,
+      "version": "Ada 2005",
+      "note": "`not null` access subtypes exclude null; violations are caught at compile time where possible, otherwise at run time."
+    },
+    "interfaces": {
+      "level": "core",
+      "since": 2007,
+      "version": "Ada 2005",
+      "note": "Java-style interface types with multiple interface inheritance."
+    },
+    "classes": {
+      "level": "core",
+      "since": 1995,
+      "version": "Ada 95",
+      "note": "A tagged record type plus its primitive operations in a package plays the role of a class; there is no class keyword."
+    },
+    "inheritance": {
+      "level": "core",
+      "since": 1995,
+      "version": "Ada 95",
+      "note": "Type extension of tagged types, with dynamic dispatch through class-wide types (T'Class); single inheritance of implementation."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Private and limited private types declared in package specifications."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Packages with separately compiled specification and body; child packages (Ada 95) form hierarchies."
+    },
+    "design-by-contract": {
+      "level": "core",
+      "since": 2012,
+      "version": "Ada 2012",
+      "note": "Pre and Post aspects, type invariants and subtype predicates, checked at run time or proved statically with SPARK."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Operators such as \"+\" can be defined for any type since Ada 83; overload resolution also uses the expected result type."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Access-to-subprogram types (Ada 95) and generic formal subprograms; no anonymous functions."
+    },
+    "closures": {
+      "level": "supported",
+      "since": 2007,
+      "version": "Ada 2005",
+      "note": "Anonymous access-to-subprogram parameters let nested subprograms be passed downward; accessibility rules stop them from escaping."
+    },
+    "generators": {
+      "level": "supported",
+      "since": 2012,
+      "version": "Ada 2012",
+      "note": "User-defined iterators (Ada.Iterator_Interfaces) drive `for … of` loops; there is no yield."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "Access types are typed and null-checked; deallocation is explicit via Ada.Unchecked_Deallocation, and address arithmetic requires System.Storage_Elements."
+    },
+    "csp-channels": {
+      "level": "supported",
+      "note": "Tasks synchronise and exchange data by rendezvous on entries (accept/select), a CSP-like model — but entries belong to a task rather than being first-class channels."
+    },
+    "array-programming": {
+      "level": "supported",
+      "note": "Whole-array assignment, slices, concatenation and elementwise logical operators on boolean arrays; Ada 2022 adds 'Reduce. Elementwise arithmetic needs user-defined operators."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "since": 2023,
+      "version": "Ada 2022",
+      "note": "Static expression functions (aspect Static) can be evaluated at compile time; otherwise limited to static expressions."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1975,
+      "event": "DoD forms the High Order Language Working Group"
+    },
+    {
+      "year": 1978,
+      "event": "Steelman requirements; Red (Intermetrics) and Green (CII Honeywell Bull) designs advance"
+    },
+    {
+      "year": 1979,
+      "event": "Green chosen and named Ada; preliminary reference manual in SIGPLAN Notices"
+    },
+    {
+      "year": 1980,
+      "event": "MIL-STD-1815 approved on 10 December"
+    },
+    {
+      "year": 1983,
+      "event": "Ada 83 (ANSI/MIL-STD-1815A); NYU Ada/Ed is the first validated compiler"
+    },
+    {
+      "year": 1987,
+      "event": "Adopted by ISO as ISO 8652:1987"
+    },
+    {
+      "year": 1995,
+      "event": "Ada 95: tagged types, protected objects, child packages; first validation of GNAT"
+    },
+    {
+      "year": 2007,
+      "event": "Ada 2005 amendment published: interfaces, Ravenscar profile, container library"
+    },
+    {
+      "year": 2012,
+      "event": "Ada 2012: contracts, expression functions, iterators"
+    },
+    {
+      "year": 2023,
+      "event": "Ada 2022 (ISO/IEC 8652:2023): parallel constructs, 'Reduce, new aggregates"
+    }
+  ],
+  "trivia": [
+    "MIL-STD-1815 is numbered after Ada Lovelace's birth year, and it was approved on her birthday, 10 December.",
+    "Ichbiah publicly predicted that within ten years only two languages would remain: Ada and Lisp.",
+    "Tony Hoare criticised Ada as overly complex in his Turing Award lecture, but later wrote a foreword to an Ada textbook."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Ada 95 (GNAT, -gnat2022)",
+      "code": "with Ada.Text_IO; use Ada.Text_IO;\n\nprocedure Hello is\nbegin\n   Put_Line (\"Hello, World!\");\nend Hello;\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Dependencies are named with `with`; `use` makes their names directly visible. GNAT expects a file named after the unit (hello.adb) and only warns when a main program's file name differs.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Ada 95 (GNAT, -gnat2022)",
+      "code": "with Ada.Text_IO;         use Ada.Text_IO;\nwith Ada.Integer_Text_IO; use Ada.Integer_Text_IO;\n\nprocedure Factorial is\n   function Fact (N : Natural) return Positive is\n   begin\n      if N <= 1 then\n         return 1;\n      else\n         return N * Fact (N - 1);\n      end if;\n   end Fact;\nbegin\n   Put (Fact (10), Width => 0);\n   New_Line;\nend Factorial;\n",
+      "expected_output": "3628800\n",
+      "notes": "Natural and Positive are predefined range-constrained subtypes of Integer, so passing -1 would raise Constraint_Error. Ada 2012 could write the body as an expression function: `(if N <= 1 then 1 else N * Fact (N - 1))`.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Ada 95 (GNAT, -gnat2022)",
+      "code": "with Ada.Text_IO;         use Ada.Text_IO;\nwith Ada.Integer_Text_IO; use Ada.Integer_Text_IO;\n\nprocedure FizzBuzz is\nbegin\n   for I in 1 .. 15 loop\n      if I mod 15 = 0 then\n         Put (\"FizzBuzz\");\n      elsif I mod 3 = 0 then\n         Put (\"Fizz\");\n      elsif I mod 5 = 0 then\n         Put (\"Buzz\");\n      else\n         Put (I, Width => 0);\n      end if;\n      New_Line;\n   end loop;\nend FizzBuzz;\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "The loop parameter I is a constant inside the loop. Integer_Text_IO.Put with Width => 0 avoids the leading blank that Integer'Image adds to non-negative numbers.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Ada 2022 (GNAT, -gnat2022)",
+      "code": "with Ada.Text_IO;         use Ada.Text_IO;\nwith Ada.Integer_Text_IO; use Ada.Integer_Text_IO;\n\nprocedure Map_Filter is\n   type Int_Array is array (Positive range <>) of Integer;\n   Numbers : constant Int_Array := [for I in 1 .. 10 => I];  -- Ada 2022 aggregate\n   First   : Boolean := True;\nbegin\n   for N of Numbers when N mod 2 = 0 loop                   -- Ada 2022 filter\n      if not First then\n         Put (\" \");\n      end if;\n      Put (N * N, Width => 0);\n      First := False;\n   end loop;\n   New_Line;\nend Map_Filter;\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Uses Ada 2022 square-bracket aggregates with an iterated component association and an iterator filter (`when`). Before 2022 the idiom was a plain loop, or a generic procedure taking the predicate and mapping as formal subprograms.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Ada 2012 (GNAT)",
+      "code": "with Ada.Text_IO; use Ada.Text_IO;\n\nprocedure Shapes is\n   package Geometry is\n      type Shape is abstract tagged null record;\n      function Area (S : Shape) return Natural is abstract;\n      function Name (S : Shape) return String is abstract;\n\n      type Rectangle is new Shape with record\n         Width, Height : Natural;\n      end record;\n      overriding function Area (R : Rectangle) return Natural is (R.Width * R.Height);\n      overriding function Name (R : Rectangle) return String is (\"Rectangle\");\n\n      type Triangle is new Shape with record\n         Base, Height : Natural;\n      end record;\n      overriding function Area (T : Triangle) return Natural is (T.Base * T.Height / 2);\n      overriding function Name (T : Triangle) return String is (\"Triangle\");\n   end Geometry;\n   use Geometry;\n\n   procedure Show (S : Shape'Class) is   -- class-wide: calls dispatch at run time\n   begin\n      Put_Line (S.Name & \":\" & Natural'Image (S.Area));\n   end Show;\nbegin\n   Show (Rectangle'(Width => 3, Height => 4));\n   Show (Triangle'(Base => 10, Height => 3));\nend Shapes;\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Tagged types (Ada 95) give dynamic dispatch: Show takes the class-wide type Shape'Class and calls the right Area at run time. Abstract functions force every extension to override them, and `overriding` (Ada 2005) is checked by the compiler.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Strong types and range checks",
+      "dialect": "Ada 95 (GNAT, -gnat2022)",
+      "code": "with Ada.Text_IO; use Ada.Text_IO;\n\nprocedure Strong_Types is\n   type Celsius is range -273 .. 1_000;   -- a new integer type with its own range\n   type Floor   is range -2 .. 120;       -- also an integer, but a distinct type\n   type Day     is (Mon, Tue, Wed, Thu, Fri, Sat, Sun);\n   subtype Weekend is Day range Sat .. Sun;\n\n   Temp : Celsius := 20;\nbegin\n   --  Temp := Floor'(3);   -- rejected at compile time: Floor is not Celsius\n   for D in Weekend loop\n      Put_Line (Day'Image (D) & \" is day\" & Integer'Image (Day'Pos (D) + 1));\n   end loop;\n   Temp := Temp - 300;                    -- -280 is out of range: checked at run time\n   Put_Line (\"unreachable\" & Celsius'Image (Temp));\nexception\n   when Constraint_Error =>\n      Put_Line (\"Constraint_Error: Celsius must stay within -273 .. 1000\");\nend Strong_Types;\n",
+      "expected_output": "SAT is day 6\nSUN is day 7\nConstraint_Error: Celsius must stay within -273 .. 1000\n",
+      "notes": "Celsius and Floor are both integer types, but distinct: mixing them is a compile-time error. Range constraints are checked at run time and raise Constraint_Error, which a handler at the end of the block catches.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "GNAT (GCC Ada)",
+        "version": "14.2",
+        "docker_image": "plw-ada",
+        "install": "FROM debian:trixie-slim; apt-get install -y --no-install-recommends gnat",
+        "compile": "gnatmake -q -gnat2022 -o {out} {file}",
+        "run": "{out}",
+        "notes": "gnatmake writes .ali/.o files to the working directory. A main file not named after its unit (e.g. main.adb for procedure Hello) compiles with a warning. Snippets were also verified with host GNAT 13.3.",
+        "dockerfile": "sandbox/ada/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "GNAT is the only widely available open-source Ada compiler; -gnat2022 enables the newest language features used by the map/filter snippet."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+    "homepage": "https://www.adaic.org/",
+    "spec": "http://www.ada-auth.org/standards/ada22.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Ada_(programming_language)",
+    "https://en.wikipedia.org/wiki/Jean_Ichbiah",
+    "https://en.wikipedia.org/wiki/GNAT",
+    "https://en.wikipedia.org/wiki/SPARK_(programming_language)",
+    "https://www.adaic.org/",
+    "http://www.ada-auth.org/standards/ada22.html"
+  ]
+}

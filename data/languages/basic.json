@@ -1,0 +1,238 @@
+{
+  "id": "basic",
+  "name": "BASIC",
+  "aliases": [
+    "Dartmouth BASIC",
+    "Beginner's All-purpose Symbolic Instruction Code"
+  ],
+  "year": 1964,
+  "year_note": "The first BASIC programs ran at Dartmouth College on 1 May 1964, on the Dartmouth Time-Sharing System (a GE-225 paired with a DATANET-30).",
+  "designers": [
+    "John G. Kemeny",
+    "Thomas E. Kurtz"
+  ],
+  "organization": "Dartmouth College",
+  "country": "United States",
+  "tagline": "Dartmouth's beginner-friendly, line-numbered language that put programming on time-sharing terminals and then on every home computer.",
+  "summary": "BASIC (Beginner's All-purpose Symbolic Instruction Code) was created at Dartmouth College so that students outside science and engineering could write programs at time-sharing terminals. Numbered lines, a handful of statements such as LET, PRINT, IF ... THEN and FOR ... NEXT, and near-instant compile-and-go turnaround made it easy to learn. Small interpreters, starting with Microsoft's Altair BASIC in 1975, put BASIC in the ROM of almost every 1970s–80s home computer, and structured dialects such as True BASIC, QuickBASIC and Visual Basic later extended the family.",
+  "history": "John Kemeny and Thomas Kurtz designed BASIC alongside the Dartmouth Time-Sharing System, and Kemeny and John McGeachie ran the first programs at 4 a.m. on 1 May 1964. Its operators and keywords came from FORTRAN II and its FOR ... TO ... STEP loop from ALGOL 60. The first version had about a dozen statements — LET, PRINT, END, FOR/NEXT, GOTO, GOSUB/RETURN, IF ... THEN, DEF, READ/DATA, DIM and REM — and no string variables or INPUT. Dartmouth BASIC was a compiler: typing RUN compiled and executed the program in one step.\n\nLater Dartmouth editions added INPUT and the MAT matrix statements (Third Edition, 1966), string variables and multi-line functions (Fourth Edition, 1968), block-structured control in SBASIC (1976) and recursive subroutines (Seventh Edition, 1980). Meanwhile BASIC spread to minicomputers and, from Microsoft's Altair BASIC (1975), into tiny interpreters built into home computers, which made line-numbered BASIC the first language of a generation.\n\nANSI standardized Minimal BASIC in 1978 and Full BASIC in 1987. Kemeny and Kurtz released the structured, line-number-free True BASIC in 1983, and Microsoft's QuickBASIC (1985), QBasic and Visual Basic (both 1991) carried the name into structured and event-driven programming.",
+  "innovations": [
+    "Designed for non-specialists and paired with time-sharing, making interactive terminal programming routine for students",
+    "Programs as numbered lines that could be added, replaced or deleted by typing a line number",
+    "Compile-and-go turnaround: RUN compiled and executed a program in one step",
+    "MAT statements for whole-matrix arithmetic in early Dartmouth editions",
+    "Compact interpreters that made a programming language standard equipment on home computers"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured"
+  ],
+  "family": "basic",
+  "syntax_family": "fortran",
+  "block_style": "line-based",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "A variable's type is fixed by its name rather than a declaration: A is numeric and A$ a string (from 1968); Microsoft dialects add A% integer, A! single and A# double. Mixing strings and numbers is an error — reported at compile time by Dartmouth's compiler, when the statement runs in most interpreters."
+  },
+  "memory": "static",
+  "execution": [
+    "native-compiled",
+    "interpreted"
+  ],
+  "status": "maintained",
+  "latest_version": "ISO/IEC 10279:1991 (Full BASIC)",
+  "file_extensions": [
+    ".bas"
+  ],
+  "color": "#ff0000",
+  "primary_parent": "fortran",
+  "influenced_by": [
+    {
+      "id": "fortran",
+      "kind": "influence",
+      "weight": "major",
+      "note": "FORTRAN II supplied BASIC's operators and keywords."
+    },
+    {
+      "id": "algol60",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "The FOR ... TO ... STEP loop."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "JOSS",
+      "year": 1963,
+      "note": "RAND's interactive time-sharing language; its influence shows in later Dartmouth features such as statement modifiers (PRINT I IF I > 10)."
+    },
+    {
+      "name": "DOPE",
+      "year": 1962,
+      "note": "Kemeny's Dartmouth Oversimplified Programming Experiment, which already used numbered lines."
+    }
+  ],
+  "influenced": [
+    "perl",
+    "ruby"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "supported",
+      "since": 1976,
+      "version": "SBASIC (Dartmouth)",
+      "note": "The 1964 language had only FOR/NEXT, GOTO and IF ... THEN line-number; block IF, DO/LOOP and SELECT CASE came with SBASIC (1976), True BASIC (1983), QuickBASIC (1985) and ANSI Full BASIC (1987)."
+    },
+    "recursion": {
+      "level": "supported",
+      "since": 1980,
+      "version": "Dartmouth BASIC Seventh Edition",
+      "note": "Classic GOSUB subroutines take no parameters and share global variables; recursive procedures arrived in structured dialects (Dartmouth's Seventh Edition, True BASIC, QuickBASIC)."
+    },
+    "static-typing": {
+      "level": "supported",
+      "note": "Types are fixed by name suffix (A versus A$), not by declarations."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "Microsoft BASIC's ON ERROR GOTO ... RESUME; ANSI Full BASIC and True BASIC have structured WHEN EXCEPTION IN ... USE ... END WHEN blocks."
+    },
+    "array-programming": {
+      "level": "supported",
+      "since": 1966,
+      "version": "Dartmouth BASIC Third Edition",
+      "note": "MAT statements (MAT C = A * B, MAT INV, MAT PRINT) operated on whole matrices; most microcomputer BASICs dropped them."
+    },
+    "garbage-collection": {
+      "level": "supported",
+      "note": "Microsoft-derived interpreters reclaim unused string storage with a garbage collector; numeric variables and arrays live as long as the program."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1964,
+      "event": "First BASIC programs run at Dartmouth on 1 May"
+    },
+    {
+      "year": 1966,
+      "event": "Third Edition adds INPUT and MAT statements"
+    },
+    {
+      "year": 1968,
+      "event": "Fourth Edition adds string variables and multi-line functions"
+    },
+    {
+      "year": 1975,
+      "event": "Altair BASIC, Microsoft's first product"
+    },
+    {
+      "year": 1976,
+      "event": "SBASIC brings block-structured control to Dartmouth BASIC"
+    },
+    {
+      "year": 1978,
+      "event": "Minimal BASIC standardized (ECMA-55; ANSI X3.60)"
+    },
+    {
+      "year": 1983,
+      "event": "Kemeny and Kurtz release True BASIC"
+    },
+    {
+      "year": 1985,
+      "event": "Microsoft QuickBASIC: structured BASIC without line numbers"
+    },
+    {
+      "year": 1987,
+      "event": "ANSI X3.113 Full BASIC"
+    },
+    {
+      "year": 1991,
+      "event": "Visual Basic and QBasic released"
+    }
+  ],
+  "trivia": [
+    "The first BASIC program ran at 4 a.m. on 1 May 1964, typed in by John Kemeny and John McGeachie.",
+    "Microsoft's first product was Altair BASIC (1975).",
+    "Edsger Dijkstra wrote in 1975 that students with prior exposure to BASIC were 'mentally mutilated beyond hope of regeneration'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Dartmouth-style BASIC (bwBASIC 3.20)",
+      "code": "10 PRINT \"Hello, World!\"\n20 END\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Every line carries a number, and the 1964 language required END as the last statement. Dartmouth's Teletype terminals printed only upper case, so period listings read PRINT \"HELLO, WORLD!\".",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Classic line-numbered BASIC (bwBASIC 3.20; also runs in GW-BASIC)",
+      "code": "10 REM NO RECURSION OR PARAMETERS: A GOSUB SUBROUTINE WORKS ON GLOBALS\n20 LET N = 10\n30 GOSUB 100\n40 PRINT USING \"#######\"; F\n50 GOTO 999\n100 REM FACTORIAL: IN N, OUT F\n110 LET F = 1\n120 FOR I = 2 TO N\n130 LET F = F * I\n140 NEXT I\n150 RETURN\n999 END\n",
+      "expected_output": "3628800\n",
+      "notes": "The 1964 language had no recursion: GOSUB subroutines take no parameters, all variables are global, and DEF defined only one-line functions until 1968. So 10! is a loop inside a subroutine that communicates through the globals N and F; recursive procedures arrived with Dartmouth's Seventh Edition (1980) and structured dialects. PRINT USING, a later addition, prints the number without the blank BASIC normally reserves for a sign.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Classic line-numbered BASIC (bwBASIC 3.20; also runs in GW-BASIC)",
+      "code": "10 REM FNM(D) IS I MOD D, BUILT FROM INT\n20 DEF FNM(D) = I - D * INT(I / D)\n30 FOR I = 1 TO 15\n40 IF FNM(15) = 0 THEN 90\n50 IF FNM(3) = 0 THEN 110\n60 IF FNM(5) = 0 THEN 130\n70 PRINT MID$(STR$(I), 2)\n80 GOTO 140\n90 PRINT \"FizzBuzz\"\n100 GOTO 140\n110 PRINT \"Fizz\"\n120 GOTO 140\n130 PRINT \"Buzz\"\n140 NEXT I\n150 END\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Dartmouth-era IF ... THEN could only jump to a line number, hence the web of GOTOs. There was no MOD operator (1964's built-in functions included INT, ABS, SQR and trigonometry), so the one-line function FNM computes the remainder with INT, reading the global loop variable I. MID$(STR$(I), 2) drops the leading sign blank BASIC prints before positive numbers; string functions came later than 1964.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Classic line-numbered BASIC (bwBASIC 3.20; also runs in GW-BASIC)",
+      "code": "10 DIM A(10)\n20 FOR I = 1 TO 10\n30 READ A(I)\n40 NEXT I\n50 DATA 1, 2, 3, 4, 5, 6, 7, 8, 9, 10\n60 LET S$ = \"\"\n70 FOR I = 1 TO 10\n80 IF A(I) - 2 * INT(A(I) / 2) <> 0 THEN 100\n90 LET S$ = S$ + STR$(A(I) * A(I))\n100 NEXT I\n110 REM STR$ PADS EACH NUMBER WITH A SIGN SPACE; DROP THE FIRST ONE\n120 PRINT MID$(S$, 2)\n130 END\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "No collections or lambdas: the idiom is a DIM array filled from DATA statements and walked with FOR loops. STR$ prefixes each number with a sign blank, which conveniently becomes the separator, and MID$(S$, 2) removes the first one. The 1964 language had no string variables, so it would have printed each square with PRINT S; instead.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Classic line-numbered BASIC (bwBASIC 3.20; also runs in GW-BASIC)",
+      "code": "10 REM A SHAPE IS A KIND CODE PLUS TWO NUMBERS; ON...GOSUB DISPATCHES\n20 FOR S = 1 TO 2\n30 READ K, A, B\n40 ON K GOSUB 100, 200\n50 NEXT S\n60 GOTO 999\n70 DATA 1, 3, 4\n80 DATA 2, 10, 3\n100 REM KIND 1 = RECTANGLE: A = WIDTH, B = HEIGHT\n110 PRINT \"Rectangle:\"; STR$(A * B)\n120 RETURN\n200 REM KIND 2 = TRIANGLE: A = BASE, B = HEIGHT\n210 PRINT \"Triangle:\"; STR$(A * B / 2)\n220 RETURN\n999 END\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "BASIC has no records or user-defined types: a shape is a kind code and two numbers read from DATA, and ON K GOSUB 100, 200 jumps to the subroutine for kind K — a computed dispatch table. ON ... GOTO first appeared, experimentally, in Dartmouth's Fourth Edition (1968).",
+      "verified": true
+    },
+    "signature": {
+      "title": "Line numbers, GOTO and READ/DATA",
+      "dialect": "Dartmouth-style BASIC (bwBASIC 3.20 print zones)",
+      "code": "10 REM LINE NUMBERS, GOTO, READ/DATA AND COMMA-ZONED PRINT\n20 PRINT \"X\", \"X*X\", \"SQR(X)\"\n30 READ X\n40 IF X = 0 THEN 999\n50 PRINT X, X * X, SQR(X)\n60 GOTO 30\n70 DATA 1, 4, 9, 16, 0\n999 END\n",
+      "expected_output": "X              X*X            SQR(X)\n 1              1              1 \n 4              16             2 \n 9              81             3 \n 16             256            4 \n",
+      "notes": "The program is a numbered list of statements: READ takes values from the DATA line, the sentinel 0 ends the loop, and GOTO closes it. Commas in PRINT advance to the next print zone — five per line in Dartmouth BASIC — whose width is implementation-defined (15 columns in bwBASIC, 14 in Microsoft BASIC), and numbers print with a leading sign blank and a trailing space.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Bywater BASIC (bwBASIC)",
+        "version": "3.20",
+        "docker_image": "plw-basic",
+        "install": "FROM debian:trixie-slim; download bwbasic-3.20.zip from sourceforge.net/projects/bwbasic and build it with gcc -o /usr/local/bin/bwbasic bwbasic.c bwb_*.c bwd_*.c bwx_tty.c -lm",
+        "run": "bwbasic {file}",
+        "notes": "Debian's bwbasic package is the older 2.20 release, which prints a sign-on banner to stdout; 3.20 does not, and its OPTION VERSION command emulates dialects such as \"DARTMOUTH\", \"ECMA-55\" and \"MBASIC\".",
+        "dockerfile": "sandbox/basic/Dockerfile"
+      },
+      {
+        "name": "PC-BASIC (GW-BASIC emulator)",
+        "docker_image": "python:3.12-slim",
+        "install": "pip install pcbasic",
+        "run": "pcbasic -n --run={file} --quit=True < /dev/null | tr -d '\\r'",
+        "notes": "Cross-check: all six snippets run unchanged, but output uses CRLF line endings and 14-column print zones, so the signature snippet's spacing differs."
+      }
+    ],
+    "browser": null,
+    "notes": "All six snippets were verified with bwBASIC 3.20. BASIC dialects differ in number formatting, which is why the snippets strip the sign blank explicitly."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/BASIC"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/BASIC",
+    "https://en.wikipedia.org/wiki/Dartmouth_BASIC",
+    "https://sourceforge.net/projects/bwbasic/"
+  ]
+}

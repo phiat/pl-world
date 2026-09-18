@@ -1,0 +1,363 @@
+{
+  "id": "fsharp",
+  "name": "F#",
+  "aliases": [
+    "F Sharp",
+    "Caml.NET"
+  ],
+  "year": 2005,
+  "year_note": "Started in late 2001 as 'Caml.NET' at Microsoft Research Cambridge; a research version 0.1 was released quietly on 4 June 2002, a pre-release of F# 1.0 was announced on 5 January 2005, and the productized F# 2.0 shipped with Visual Studio 2010.",
+  "designers": [
+    "Don Syme"
+  ],
+  "organization": "Microsoft Research",
+  "country": "United Kingdom",
+  "tagline": "A functional-first ML for .NET: OCaml's core, pipelines and type inference, plus computation expressions that gave the world async.",
+  "summary": "F# is a strongly typed, functional-first language in the ML family that runs on .NET and interoperates with C# and the rest of the platform. Its core is OCaml-like — Hindley–Milner type inference, discriminated unions, pattern matching and immutable data — with an indentation-aware syntax, .NET objects and interfaces, and features of its own: the |> pipeline style, active patterns, units of measure, type providers and computation expressions. Its async workflows (2007) were the direct precursor of async/await in C# and many later languages.",
+  "history": "Don Syme created F# at Microsoft Research Cambridge after helping design and implement .NET generics, which were themselves meant to make the runtime a good target for typed functional languages. In late 2001 he began a 'Caml.NET' implementing the core of OCaml on .NET, renamed it F# to allow divergence from OCaml, and released a first research version in June 2002. F# 1.0, announced in January 2005, and the releases that followed added .NET class and interface programming, the lightweight indentation syntax, quotations, the F# Interactive REPL and active patterns (2006); in 2007 came async workflows and the general computation-expression notation behind them.\n\nAfter uptake in finance and within Microsoft, Microsoft productized the language, and F# 2.0 shipped with Visual Studio 2010, including Andrew Kennedy's units of measure. F# 3.0 (2012) added type providers and query expressions. The compiler and core library became open source and cross-platform, and development moved into the open on GitHub with the F# Software Foundation; recent releases added task expressions (F# 6, 2021) and nullable reference types (F# 9, 2024). Many of C#'s later features, including generics, var inference, async/await, tuples and pattern matching, were influenced by F#.",
+  "innovations": [
+    "Asynchronous workflows (async { let! ... }, 2007): the direct ancestor of C#'s async/await",
+    "Computation expressions: a general, user-extensible notation for monads, sequences, queries and other computations",
+    "Units of measure: dimensional analysis checked and inferred by the type system and erased at runtime",
+    "Active patterns: user-defined, extensible patterns (views) in a mainstream language",
+    "Type providers (F# 3.0): compile-time generation of types from external schemas and data sources",
+    "Popularised the |> pipeline operator as a way to write left-to-right data transformations with type inference"
+  ],
+  "paradigms": [
+    "functional",
+    "multi-paradigm",
+    "object-oriented",
+    "imperative"
+  ],
+  "family": "ml",
+  "syntax_family": "ml",
+  "block_style": "indentation",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "global",
+    "equivalence": "nominal",
+    "notes": "Hindley–Milner inference extended with .NET subtyping and overloading. Mostly nominal, but statically resolved type parameters (member constraints) and anonymous records are structural."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "bytecode-vm",
+    "jit"
+  ],
+  "status": "active",
+  "latest_version": "F# 10 (November 2025, with .NET 10)",
+  "file_extensions": [
+    ".fs",
+    ".fsi",
+    ".fsx",
+    ".fsscript"
+  ],
+  "color": "#b845fc",
+  "primary_parent": "ocaml",
+  "influenced_by": [
+    {
+      "id": "ocaml",
+      "kind": "dialect",
+      "weight": "major",
+      "note": "Began in 2001–2002 as 'Caml.NET', an implementation of the core of OCaml for .NET; renamed F# to allow it to diverge."
+    },
+    {
+      "id": "ml",
+      "kind": "influence",
+      "weight": "major",
+      "note": "The ML tradition of type inference, polymorphism and pattern matching."
+    },
+    {
+      "id": "csharp",
+      "kind": "platform",
+      "weight": "minor",
+      "note": "Shares the .NET runtime and libraries with C#; objects, properties and events followed C# 1.0 and query expressions followed C# 3.0's LINQ."
+    },
+    {
+      "id": "haskell",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Monads and do-notation informed computation expressions."
+    },
+    {
+      "id": "erlang",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "MailboxProcessor agents follow Erlang-style message passing."
+    },
+    {
+      "id": "python",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia."
+    },
+    {
+      "id": "scala",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Isabelle/ML",
+      "year": 1994,
+      "note": "Origin of the |> pipeline operator (Tobias Nipkow, 1994)."
+    },
+    {
+      "name": ".NET Common Language Runtime",
+      "year": 2002,
+      "note": "F#'s target platform; .NET 2.0 generics were designed partly with F# in mind."
+    }
+  ],
+  "influenced": [
+    "csharp",
+    "elixir"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if/then/else, for and while are expressions; there is no break or early return."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Recursive functions are marked with let rec."
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "try/with (pattern matching on exceptions) and try/finally; Result types are common for expected errors."
+    },
+    "generators": {
+      "level": "core",
+      "note": "Sequence expressions: seq { yield ... } produce lazy IEnumerable sequences."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "match on unions, tuples, lists and records, extended by active patterns."
+    },
+    "tail-calls": {
+      "level": "core",
+      "note": "The compiler emits .NET tail calls and turns self-recursion into loops."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Hindley–Milner with automatic generalization."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Automatic generalization onto .NET generics; statically resolved type parameters for inline member constraints."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "Discriminated unions, records and tuples."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "Option and ValueOption; F# types do not admit null, and F# 9 (2024) added nullable reference type checking for .NET interop."
+    },
+    "structural-typing": {
+      "level": "supported",
+      "note": "Anonymous records and member constraints on inline functions are structural."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": ".NET interfaces, implemented in classes or inline with object expressions."
+    },
+    "classes": {
+      "level": "supported",
+      "note": "Full .NET classes, used mainly for interop and encapsulation."
+    },
+    "inheritance": {
+      "level": "supported"
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Signature files (.fsi) and private representations hide a type's implementation."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Modules and namespaces with optional signature files; no OCaml-style functors."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Custom symbolic operators and static member operators on types."
+    },
+    "first-class-functions": {
+      "level": "core"
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "core",
+      "note": "let bindings, records, unions and lists are immutable; mutable must be declared."
+    },
+    "list-comprehensions": {
+      "level": "core",
+      "note": "List, array and sequence expressions: [ for x in xs do if x % 2 = 0 then x * x ]."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "lazy values and on-demand seq sequences; evaluation is strict by default."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": ".NET's generational collector."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "byrefs, nativeptr and fixed for low-level interop."
+    },
+    "actors": {
+      "level": "library",
+      "note": "MailboxProcessor agents in FSharp.Core."
+    },
+    "async-await": {
+      "level": "core",
+      "since": 2007,
+      "note": "async { let! ... } workflows announced in October 2007; task { } expressions (F# 6, 2021) produce .NET Tasks directly."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": ".NET reflection plus FSharp.Reflection for unions and records; code quotations (<@ ... @>) expose typed ASTs."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "since": 2012,
+      "version": "F# 3.0",
+      "note": "Type providers run code inside the compiler to generate types from schemas and data."
+    },
+    "declarative-queries": {
+      "level": "supported",
+      "since": 2012,
+      "version": "F# 3.0",
+      "note": "query { for c in db.Customers do where ... select ... } expressions translated to LINQ."
+    },
+    "significant-whitespace": {
+      "level": "core",
+      "since": 2006,
+      "note": "The 'light' indentation-aware syntax, added in 2006, became the default; the verbose OCaml-style syntax remains available."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2002,
+      "event": "Research release 0.1 of 'Caml.NET', renamed F#, at Microsoft Research Cambridge (June)"
+    },
+    {
+      "year": 2005,
+      "event": "F# 1.0 pre-release announced (January) and demonstrated at Microsoft Research TechFest"
+    },
+    {
+      "year": 2006,
+      "event": "Light indentation syntax, active patterns and F# Interactive"
+    },
+    {
+      "year": 2007,
+      "event": "Asynchronous workflows and computation expressions announced; Microsoft commits to productizing F#"
+    },
+    {
+      "year": 2010,
+      "event": "F# 2.0 ships with Visual Studio 2010, including units of measure"
+    },
+    {
+      "year": 2012,
+      "event": "F# 3.0: type providers and query expressions"
+    },
+    {
+      "year": 2021,
+      "event": "F# 6: task expressions"
+    },
+    {
+      "year": 2024,
+      "event": "F# 9: nullable reference types"
+    },
+    {
+      "year": 2025,
+      "event": "F# 10 released with .NET 10"
+    }
+  ],
+  "trivia": [
+    "According to Syme, the 'F' stands for both 'Functional' and 'System F'; the community saying is 'F is for Fun'.",
+    "The |> pipeline operator most associated with F# first appeared in Isabelle/ML in 1994, named by Tobias Nipkow."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "F# 10 (F# Interactive script, .fsx)",
+      "code": "printfn \"Hello, World!\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "A script needs no entry point; a compiled program uses top-level code in its last file or an [<EntryPoint>] function.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "F# 10 (F# Interactive script, .fsx)",
+      "code": "let rec factorial n =\n    if n <= 1 then 1 else n * factorial (n - 1)\n\nprintfn \"%d\" (factorial 10)\n",
+      "expected_output": "3628800\n",
+      "notes": "let rec marks a recursive binding; the type int -> int is inferred. int is 32-bit, so larger inputs would use bigint (10I).",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "F# 10 (F# Interactive script, .fsx)",
+      "code": "let fizzbuzz n =\n    match n % 3, n % 5 with\n    | 0, 0 -> \"FizzBuzz\"\n    | 0, _ -> \"Fizz\"\n    | _, 0 -> \"Buzz\"\n    | _ -> string n\n\n[ 1 .. 15 ] |> List.iter (fizzbuzz >> printfn \"%s\")\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Matching on a tuple of remainders; >> composes fizzbuzz with printfn.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "F# 10 (F# Interactive script, .fsx)",
+      "code": "[ 1 .. 10 ]\n|> List.filter (fun x -> x % 2 = 0)\n|> List.map (fun x -> x * x)\n|> List.map string\n|> String.concat \" \"\n|> printfn \"%s\"\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Pipelines read left to right and let type inference flow along them. A list expression [ for x in 1 .. 10 do if x % 2 = 0 then x * x ] is equivalent.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "F# 10 (F# Interactive script, .fsx)",
+      "code": "// A discriminated union: one type, two cases, each with its own data.\ntype Shape =\n    | Rectangle of width: int * height: int\n    | Triangle of baseLength: int * height: int\n\nlet area = function\n    | Rectangle (w, h) -> w * h\n    | Triangle (b, h) -> b * h / 2\n\nprintfn \"Rectangle: %d\" (area (Rectangle (3, 4)))\nprintfn \"Triangle: %d\" (area (Triangle (10, 3)))\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "A discriminated union with named fields ('base' is a keyword, hence baseLength); function defines a lambda that matches its argument, and the compiler warns about unhandled cases.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Computation expressions: async and your own",
+      "dialect": "F# 10 (F# Interactive script, .fsx)",
+      "code": "// A computation expression builder: let! short-circuits when a step is None.\ntype MaybeBuilder() =\n    member _.Bind(x, f) = Option.bind f x\n    member _.Return x = Some x\n\nlet maybe = MaybeBuilder()\n\nlet parse (s: string) =\n    match System.Int32.TryParse s with\n    | true, n -> Some n\n    | _ -> None\n\nlet addStrings a b = maybe {\n    let! x = parse a\n    let! y = parse b\n    return x + y }\n\n// The same notation powers async workflows (2007), the ancestor of async/await.\nlet total = async {\n    let! parts = Async.Parallel [ async { return 20 }; async { return 22 } ]\n    return Array.sum parts }\n\nprintfn \"%A\" (addStrings \"20\" \"22\")\nprintfn \"%A\" (addStrings \"20\" \"x\")\nprintfn \"%d\" (Async.RunSynchronously total)\n",
+      "expected_output": "Some 42\nNone\n42\n",
+      "notes": "A user-defined builder turns let! into Bind calls, giving an Option 'maybe' workflow; the same notation drives the built-in async workflow.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": ".NET SDK (F# Interactive)",
+        "version": "10.0 (F# 10)",
+        "docker_image": "mcr.microsoft.com/dotnet/sdk:10.0",
+        "run": "dotnet fsi {file}",
+        "notes": "The file must end in .fsx. Set DOTNET_NOLOGO=1 and DOTNET_CLI_TELEMETRY_OPTOUT=1 to silence first-run messages; each run takes a few seconds to start."
+      }
+    ],
+    "browser": {
+      "name": "Fable REPL",
+      "url": "https://fable.io/repl/",
+      "notes": "Fable compiles F# to JavaScript in the browser; .NET-specific APIs such as Async.Parallel may behave differently or be missing."
+    },
+    "notes": "The host's dotnet fsi (SDK 10.0.112) gave identical output."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/F_Sharp_(programming_language)",
+    "homepage": "https://fsharp.org/",
+    "spec": "https://fsharp.org/specs/language-spec/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/F_Sharp_(programming_language)",
+    "https://fsharp.org/history/hopl-final/hopl-fsharp.pdf",
+    "https://dl.acm.org/doi/10.1145/3386325"
+  ]
+}

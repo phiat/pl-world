@@ -1,0 +1,188 @@
+{
+  "id": "cpp",
+  "name": "C++",
+  "aliases": ["C with Classes", "ISO C++", "CPP"],
+  "year": 1985,
+  "year_note": "Bjarne Stroustrup started 'C with Classes' at Bell Labs in 1979; it was renamed C++ in 1983 and released commercially (Cfront 1.0), together with the first edition of 'The C++ Programming Language', in October 1985.",
+  "designers": ["Bjarne Stroustrup"],
+  "organization": "Bell Labs",
+  "country": "United States",
+  "tagline": "C plus zero-overhead abstractions: classes, templates and RAII on top of C's machine model.",
+  "summary": "C++ extends C with classes, templates, exceptions and deterministic destruction (RAII), aiming for abstractions that cost nothing at run time compared with hand-written code. It is a multi-paradigm systems language used for operating systems, browsers, game engines, databases, finance and high-performance computing. Standardized by ISO since 1998, it has been revised every three years since C++11.",
+  "history": "Bjarne Stroustrup began 'C with Classes' at Bell Labs in 1979, wanting the program-organization facilities of Simula — which he had found productive but too slow during his PhD work at Cambridge — combined with the speed and portability of C. Classes, derived classes, access control and inline functions were implemented by the Cfront front end, which translated to C. Renamed C++ in 1983 (a name suggested by Rick Mascitti), the language was released commercially in October 1985 alongside the first edition of 'The C++ Programming Language'.\n\nRelease 2.0 (1989) added multiple inheritance and abstract classes, and the Annotated C++ Reference Manual (1990) specified templates and exception handling. The first ISO standard, C++98, incorporated Alexander Stepanov's Standard Template Library, making generic programming with templates a central style of the language.\n\nC++11 modernized the language with auto, lambdas, move semantics, smart pointers and a memory model for threads, and the committee has since shipped a revision every three years: C++14, C++17, C++20 (concepts, ranges, coroutines, modules) and C++23. Contracts and static reflection have been voted into the working draft for C++26.",
+  "innovations": [
+    "Zero-overhead abstraction: classes, inlining and templates that compile to code as efficient as hand-written C",
+    "RAII: tying resource lifetime to object scope through constructors and destructors",
+    "Templates and the STL made generic programming and compile-time metaprogramming mainstream",
+    "Brought Simula-style object-oriented programming to mainstream systems programming",
+    "User-defined types that behave like built-ins via operator overloading, references and value semantics"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "imperative",
+    "procedural",
+    "object-oriented",
+    "generic",
+    "functional",
+    "metaprogramming"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Stronger than C (no implicit void* conversion, type-safe linkage), but C's implicit numeric conversions and unchecked casts remain. `auto` and template argument deduction infer types locally; templates are checked structurally at instantiation."
+  },
+  "memory": "manual",
+  "execution": ["native-compiled"],
+  "status": "active",
+  "latest_version": "C++23 (ISO/IEC 14882:2024)",
+  "file_extensions": [".cpp", ".cc", ".cxx", ".hpp", ".hh", ".h", ".cppm", ".ixx"],
+  "color": "#f34b7d",
+  "primary_parent": "c",
+  "influenced_by": [
+    {"id": "c", "kind": "superset", "weight": "major", "note": "Designed as a (nearly) compatible superset of C, keeping its syntax, types and machine model."},
+    {"id": "simula", "kind": "influence", "weight": "major", "note": "Classes, derived classes and virtual functions came from Simula 67."},
+    {"id": "algol68", "kind": "influence", "weight": "minor", "note": "Operator overloading and declarations anywhere in a block."},
+    {"id": "bcpl", "kind": "influence", "weight": "minor", "note": "The // line comment."},
+    {"id": "ada", "kind": "influence", "weight": "minor", "note": "Generics and exceptions informed the design of templates and exception handling."},
+    {"id": "clu", "kind": "influence", "weight": "minor", "note": "Parameterized types and exception handling."},
+    {"id": "ml", "kind": "influence", "weight": "minor", "note": "Exception handling."}
+  ],
+  "influenced_by_external": [
+    {"name": "Mesa", "year": 1976, "note": "Listed among C++'s influences (exceptions and modularity)."}
+  ],
+  "influenced": ["java", "csharp", "rust", "python", "perl", "php", "lua", "ruby", "zig"],
+  "traits": {
+    "structured-control": {"level": "core"},
+    "block-scope": {"level": "core"},
+    "recursion": {"level": "core"},
+    "exceptions": {"level": "core", "since": 1990, "note": "try/catch/throw, specified in the Annotated C++ Reference Manual (1990) and standardized in C++98; destructors run during unwinding."},
+    "coroutines": {"level": "supported", "since": 2020, "version": "C++20", "note": "Stackless coroutines via co_await/co_yield/co_return; the standard library offers few ready-made coroutine types."},
+    "generators": {"level": "library", "since": 2023, "version": "C++23", "note": "std::generator built on C++20 coroutines; STL iterators and C++20 range views are the classic alternative."},
+    "static-typing": {"level": "core"},
+    "type-inference": {"level": "supported", "since": 2011, "version": "C++11", "note": "`auto`, `decltype` and template argument deduction; no global inference."},
+    "generics": {"level": "core", "since": 1990, "note": "Templates (specified in the 1990 ARM, first shipped in Cfront 3.0); the STL joined the standard in C++98, and C++20 concepts constrain template parameters."},
+    "algebraic-data-types": {"level": "library", "since": 2017, "version": "C++17", "note": "std::variant, std::optional and std::tuple; matching is done with std::visit rather than language syntax."},
+    "type-classes": {"level": "supported", "since": 2020, "version": "C++20", "note": "Concepts name sets of requirements on types, but types satisfy them implicitly rather than by declaring instances."},
+    "option-types": {"level": "library", "since": 2017, "version": "C++17", "note": "std::optional; raw pointers can still be null, so there is no null safety."},
+    "structural-typing": {"level": "supported", "note": "Templates are 'duck-typed' at compile time: any type with the required operations works. Class types are otherwise nominal."},
+    "ownership": {"level": "library", "since": 2011, "version": "C++11", "note": "Move semantics and std::unique_ptr express unique ownership, but borrowing and lifetimes are not checked by the compiler."},
+    "interfaces": {"level": "supported", "note": "Abstract classes with pure virtual functions serve as interfaces; there is no separate interface construct."},
+    "classes": {"level": "core"},
+    "inheritance": {"level": "core", "note": "Multiple inheritance (since 2.0, 1989) and virtual base classes."},
+    "traits-mixins": {"level": "supported", "note": "Mixins via multiple inheritance and the CRTP idiom."},
+    "abstract-data-types": {"level": "core", "note": "private/protected members hide a class's representation."},
+    "modules": {"level": "supported", "since": 2020, "version": "C++20", "note": "Traditionally header files, separate compilation and namespaces; C++20 modules are still being adopted by toolchains."},
+    "operator-overloading": {"level": "core"},
+    "first-class-functions": {"level": "core", "since": 2011, "version": "C++11", "note": "Lambdas and std::function; function pointers and function objects before that."},
+    "closures": {"level": "core", "since": 2011, "version": "C++11", "note": "Lambdas capture by value or by reference through explicit capture lists."},
+    "immutability": {"level": "supported", "note": "`const` and `constexpr`, but mutability is the default."},
+    "lazy-evaluation": {"level": "library", "since": 2020, "version": "C++20", "note": "Range views are evaluated lazily; the language itself is strict."},
+    "reference-counting": {"level": "library", "since": 2011, "version": "C++11", "note": "std::shared_ptr / std::weak_ptr."},
+    "pointers": {"level": "core", "note": "Raw pointers and pointer arithmetic from C, plus references and smart pointers."},
+    "async-await": {"level": "supported", "since": 2020, "version": "C++20", "note": "co_await transforms functions into state machines, but task and executor types come from libraries."},
+    "reflection": {"level": "supported", "note": "Only run-time type information (typeid, dynamic_cast) in C++23; compile-time static reflection has been voted into C++26."},
+    "compile-time-execution": {"level": "core", "since": 2011, "version": "C++11", "note": "constexpr functions (much extended in C++14/20, plus consteval) on top of template metaprogramming, which dates from the 1990s."}
+  },
+  "milestones": [
+    {"year": 1979, "event": "Stroustrup begins 'C with Classes' at Bell Labs"},
+    {"year": 1983, "event": "Renamed C++"},
+    {"year": 1985, "event": "Cfront 1.0 and 'The C++ Programming Language' (1st edition)"},
+    {"year": 1989, "event": "C++ 2.0: multiple inheritance, abstract classes"},
+    {"year": 1990, "event": "The Annotated C++ Reference Manual specifies templates and exceptions"},
+    {"year": 1998, "event": "C++98, the first ISO standard, including the STL"},
+    {"year": 2011, "event": "C++11: auto, lambdas, move semantics, smart pointers, threads"},
+    {"year": 2017, "event": "C++17: std::optional, std::variant, structured bindings"},
+    {"year": 2020, "event": "C++20: concepts, ranges, coroutines, modules"},
+    {"year": 2024, "event": "C++23 published as ISO/IEC 14882:2024"},
+    {"year": 2025, "event": "Contracts and static reflection voted into the C++26 draft"}
+  ],
+  "trivia": [
+    "The name C++ was suggested by Rick Mascitti in 1983; Mascitti later said it was given 'in a tongue-in-cheek spirit', after C's ++ increment operator.",
+    "Stroustrup's motivation came from his Cambridge PhD work, where he found Simula well suited to large programs but too slow for practical use."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "C++20",
+      "code": "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\\n\";\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "`std::cout << ...` is itself operator overloading on a stream object. C++23 also offers std::println (GCC 14+).",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "C++20",
+      "code": "#include <iostream>\n\nconstexpr unsigned long long factorial(unsigned n) {\n    return n <= 1 ? 1 : n * factorial(n - 1);\n}\n\nint main() {\n    static_assert(factorial(5) == 120);  // checked at compile time\n    std::cout << factorial(10) << '\\n';\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "`constexpr` lets the same function run at compile time (checked by static_assert) or at run time.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "C++20",
+      "code": "#include <iostream>\n#include <string>\n\nint main() {\n    for (int i = 1; i <= 15; ++i) {\n        std::string s;\n        if (i % 3 == 0) s += \"Fizz\";\n        if (i % 5 == 0) s += \"Buzz\";\n        std::cout << (s.empty() ? std::to_string(i) : s) << '\\n';\n    }\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "C++20",
+      "code": "#include <iostream>\n#include <ranges>\n\nint main() {\n    namespace views = std::views;\n    auto squares = views::iota(1, 11)\n                 | views::filter([](int x) { return x % 2 == 0; })\n                 | views::transform([](int x) { return x * x; });\n\n    const char* sep = \"\";\n    for (int x : squares) {\n        std::cout << sep << x;\n        sep = \" \";\n    }\n    std::cout << '\\n';\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "C++20 range views compose lazily with `|`; nothing is computed until the for loop pulls values.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "C++20",
+      "code": "#include <iostream>\n#include <memory>\n#include <string>\n#include <vector>\n\nstruct Shape {\n    virtual ~Shape() = default;\n    virtual std::string name() const = 0;\n    virtual int area() const = 0;\n};\n\nstruct Rectangle : Shape {\n    int width, height;\n    Rectangle(int w, int h) : width(w), height(h) {}\n    std::string name() const override { return \"Rectangle\"; }\n    int area() const override { return width * height; }\n};\n\nstruct Triangle : Shape {\n    int base, height;\n    Triangle(int b, int h) : base(b), height(h) {}\n    std::string name() const override { return \"Triangle\"; }\n    int area() const override { return base * height / 2; }\n};\n\nint main() {\n    std::vector<std::unique_ptr<Shape>> shapes;\n    shapes.push_back(std::make_unique<Rectangle>(3, 4));\n    shapes.push_back(std::make_unique<Triangle>(10, 3));\n    for (const auto& s : shapes)\n        std::cout << s->name() << \": \" << s->area() << '\\n';\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Classic OOP: an abstract base class, virtual dispatch and std::unique_ptr ownership. std::variant with std::visit (C++17) is the closed sum-type alternative.",
+      "verified": true
+    },
+    "signature": {
+      "title": "RAII: destructors that always run",
+      "dialect": "C++20",
+      "code": "#include <iostream>\n#include <stdexcept>\n#include <string>\n\n// RAII: a resource's lifetime is tied to an object's scope.\nclass Resource {\n    std::string name;\npublic:\n    explicit Resource(std::string n) : name(std::move(n)) {\n        std::cout << \"open \" << name << '\\n';\n    }\n    ~Resource() { std::cout << \"close \" << name << '\\n'; }\n};\n\nvoid work() {\n    Resource log(\"log.txt\");\n    Resource db(\"db\");\n    throw std::runtime_error(\"disk full\");\n}   // db, then log, are closed while the exception unwinds the stack\n\nint main() {\n    try {\n        work();\n    } catch (const std::exception& e) {\n        std::cout << \"caught: \" << e.what() << '\\n';\n    }\n}\n",
+      "expected_output": "open log.txt\nopen db\nclose db\nclose log.txt\ncaught: disk full\n",
+      "notes": "When the exception leaves work(), destructors run in reverse order of construction. This deterministic cleanup is how C++ manages files, locks and memory (std::unique_ptr, std::lock_guard) without a garbage collector.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "GCC (g++)",
+        "version": "14",
+        "docker_image": "gcc:14",
+        "compile": "g++ -std=c++20 -O2 -o {out} {file}",
+        "run": "{out}"
+      },
+      {
+        "name": "Clang (clang++)",
+        "version": "18",
+        "install": "apt-get install -y clang",
+        "compile": "clang++ -std=c++20 -O2 -o {out} {file}",
+        "run": "{out}",
+        "notes": "All snippets also verified with Clang 18 and libstdc++ 13."
+      }
+    ],
+    "browser": {
+      "name": "Clang compiled to WebAssembly (wasm-clang)",
+      "url": "https://github.com/binji/wasm-clang",
+      "notes": "In-browser compile+run is feasible but heavy (~30MB)."
+    },
+    "notes": "Snippets need C++20 (ranges); std::print/println would need GCC 14+ or a recent libc++."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/C%2B%2B",
+    "homepage": "https://isocpp.org/",
+    "spec": "https://www.open-std.org/jtc1/sc22/wg21/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/C%2B%2B",
+    "https://www.stroustrup.com/hopl2.pdf",
+    "https://en.wikipedia.org/wiki/Cfront"
+  ]
+}

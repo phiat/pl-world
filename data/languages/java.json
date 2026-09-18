@@ -1,0 +1,171 @@
+{
+  "id": "java",
+  "name": "Java",
+  "aliases": ["Oak", "Java SE", "OpenJDK"],
+  "year": 1995,
+  "year_note": "Began in 1991 as Oak in Sun's Green project; first public release May 23, 1995; JDK 1.0 on January 23, 1996.",
+  "designers": ["James Gosling"],
+  "organization": "Sun Microsystems (now Oracle)",
+  "country": "United States",
+  "tagline": "C++-style syntax on a garbage-collected virtual machine: 'write once, run anywhere', and the workhorse of enterprise software.",
+  "summary": "Java is a statically typed, class-based object-oriented language that compiles to bytecode for the Java Virtual Machine, giving portable, memory-safe, garbage-collected programs backed by a large standard library. Launched by Sun Microsystems in 1995, it became dominant in enterprise servers, education and, through Android, mobile apps. Since Java 8 (2014) it has steadily added functional and data-oriented features, and since 2017 it has shipped on a six-month release cadence.",
+  "history": "In 1991 James Gosling, Mike Sheridan and Patrick Naughton started the Green project at Sun Microsystems to build software for consumer devices. Gosling designed a language, first called Oak after a tree outside his office, with C++-like syntax but without pointer arithmetic, multiple inheritance of classes or manual memory management, compiled to portable bytecode. Renamed Java, it was publicly released on May 23, 1995, when applets running in web browsers made it famous; JDK 1.0 followed in January 1996.\n\nA rich class library, JIT-compiling virtual machines and the J2EE platform made Java the dominant enterprise language of the 2000s. J2SE 5.0 (2004) added generics, annotations and enums; Sun released the JVM and class libraries as open source (OpenJDK) under the GPL in 2006–2007, and Oracle acquired Sun in 2010. Android adopted the Java language for its apps from 2008.\n\nJava 8 (2014) introduced lambdas and streams. Java 9 (2017) added a module system, after which the platform moved to a six-month release cadence with periodic long-term-support releases (11, 17, 21, 25). Recent versions added local type inference, records, sealed classes, pattern matching for switch and virtual threads (Java 21), and compact source files for beginners (Java 25).",
+  "innovations": [
+    "Made a bytecode virtual machine with JIT compilation the mainstream deployment model ('write once, run anywhere')",
+    "Brought garbage collection and memory safety to mainstream industrial programming",
+    "Interfaces as the standard alternative to multiple inheritance of classes",
+    "Checked exceptions: the compiler enforces that declared exceptions are caught or propagated",
+    "Threads and monitors built into the language, later backed by a formal memory model (2004)"
+  ],
+  "paradigms": ["object-oriented", "imperative", "generic", "functional", "concurrent", "reflective"],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Generics are checked at compile time and erased at run time. `var` (Java 10) infers local variable types, and lambda parameter types are inferred from their target functional interface."
+  },
+  "memory": "tracing-gc",
+  "execution": ["bytecode-vm", "jit"],
+  "status": "active",
+  "latest_version": "Java SE 27 (September 2026); latest LTS: Java SE 25",
+  "file_extensions": [".java", ".class", ".jar"],
+  "color": "#b07219",
+  "primary_parent": "cpp",
+  "influenced_by": [
+    {"id": "cpp", "kind": "influence", "weight": "major", "note": "Syntax and much of the class model, minus pointers, operator overloading and multiple inheritance of classes."},
+    {"id": "smalltalk", "kind": "influence", "weight": "major", "note": "A bytecode virtual machine, garbage collection and a single-rooted class hierarchy."},
+    {"id": "objective-c", "kind": "influence", "weight": "minor", "note": "Interfaces resemble Objective-C protocols; dynamic class loading and run-time type information."},
+    {"id": "c", "kind": "influence", "weight": "minor", "note": "Primitive types, operators and statement syntax (via C++)."},
+    {"id": "simula", "kind": "influence", "weight": "minor", "note": "Classes, objects and virtual methods."},
+    {"id": "lisp", "kind": "influence", "weight": "minor", "note": "Garbage collection."},
+    {"id": "clu", "kind": "influence", "weight": "minor", "note": "Exception handling."},
+    {"id": "pascal", "kind": "influence", "weight": "minor", "note": "UCSD Pascal's portable p-code virtual machine."}
+  ],
+  "influenced_by_external": [
+    {"name": "Mesa", "year": 1976},
+    {"name": "Modula-3", "year": 1988},
+    {"name": "Oberon", "year": 1987}
+  ],
+  "influenced": ["csharp", "scala", "kotlin", "clojure", "javascript", "php", "typescript"],
+  "traits": {
+    "structured-control": {"level": "core"},
+    "block-scope": {"level": "core"},
+    "recursion": {"level": "core"},
+    "exceptions": {"level": "core", "note": "try/catch/finally with checked exceptions that must be declared in `throws` clauses; try-with-resources since Java 7."},
+    "pattern-matching": {"level": "core", "since": 2023, "version": "Java 21", "note": "Type patterns for instanceof (Java 16), then switch patterns and record patterns (Java 21) with exhaustiveness checking over sealed hierarchies."},
+    "static-typing": {"level": "core"},
+    "type-inference": {"level": "supported", "since": 2018, "version": "Java 10", "note": "`var` for local variables; diamond operator (Java 7) and lambda parameter inference (Java 8)."},
+    "generics": {"level": "core", "since": 2004, "version": "J2SE 5.0", "note": "Implemented by type erasure, with bounded and wildcard types."},
+    "algebraic-data-types": {"level": "supported", "since": 2021, "version": "Java 17", "note": "Records (Java 16) as product types and sealed interfaces (Java 17) as closed sums."},
+    "option-types": {"level": "library", "since": 2014, "version": "Java 8", "note": "java.util.Optional; references can still be null."},
+    "interfaces": {"level": "core", "note": "Default and static methods since Java 8; functional interfaces are the target type of lambdas."},
+    "classes": {"level": "core"},
+    "inheritance": {"level": "core", "note": "Single inheritance of classes, multiple inheritance of interfaces."},
+    "traits-mixins": {"level": "supported", "since": 2014, "version": "Java 8", "note": "Interfaces with default methods act as stateless mixins."},
+    "abstract-data-types": {"level": "core", "note": "Access modifiers hide fields; encapsulation is the idiomatic style."},
+    "modules": {"level": "core", "note": "Packages since 1.0; the Java Platform Module System since Java 9 (2017)."},
+    "first-class-functions": {"level": "core", "since": 2014, "version": "Java 8", "note": "Lambdas and method references implementing functional interfaces; anonymous inner classes before that."},
+    "closures": {"level": "supported", "since": 1997, "version": "Java 1.1", "note": "Inner classes and (since Java 8) lambdas can capture only final (since Java 8, effectively final) local variables."},
+    "immutability": {"level": "supported", "note": "`final`, immutable String, records and unmodifiable collections (List.of, Java 9), but mutability is the default."},
+    "lazy-evaluation": {"level": "library", "since": 2014, "version": "Java 8", "note": "Stream pipelines are evaluated lazily when a terminal operation runs."},
+    "garbage-collection": {"level": "core", "note": "Several generational and concurrent collectors (G1, ZGC, Shenandoah)."},
+    "reflection": {"level": "core", "since": 1997, "version": "Java 1.1", "note": "java.lang.reflect, annotations and dynamic proxies underpin most Java frameworks."},
+    "compile-time-execution": {"level": "supported", "since": 2006, "version": "Java 6", "note": "Annotation processors run Java code inside javac to generate sources (Lombok, Dagger, MapStruct); no general compile-time evaluation."},
+    "hot-code-reload": {"level": "supported", "since": 2002, "version": "J2SE 1.4", "note": "JVM HotSwap can redefine method bodies in a running JVM, typically through a debugger or agent."}
+  },
+  "milestones": [
+    {"year": 1991, "event": "Green project at Sun; the language is called Oak"},
+    {"year": 1995, "event": "Public release as Java (May 23), with applets in web browsers"},
+    {"year": 1996, "event": "JDK 1.0"},
+    {"year": 1997, "event": "JDK 1.1: inner classes, reflection, JDBC"},
+    {"year": 2004, "event": "J2SE 5.0: generics, annotations, enums, enhanced for loop"},
+    {"year": 2007, "event": "OpenJDK: the JVM and class libraries released under the GPL (2006–2007)"},
+    {"year": 2008, "event": "Android launches with Java as its application language"},
+    {"year": 2010, "event": "Oracle acquires Sun Microsystems"},
+    {"year": 2014, "event": "Java 8: lambdas, streams, default methods"},
+    {"year": 2017, "event": "Java 9: module system; six-month release cadence begins"},
+    {"year": 2021, "event": "Java 17 LTS: records and sealed classes"},
+    {"year": 2023, "event": "Java 21 LTS: virtual threads, record patterns, pattern matching for switch"},
+    {"year": 2025, "event": "Java 25 LTS: compact source files and instance main methods"}
+  ],
+  "trivia": [
+    "The language was first called Oak after an oak tree outside Gosling's office, and was renamed Java after the coffee.",
+    "Java's slogan 'write once, run anywhere' referred to running the same compiled bytecode on any platform with a JVM."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Java 25 (single-file source launch)",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Runs directly with `java Main.java` (source launcher, Java 11+). Since Java 25 a compact source file can shrink this to `void main() { IO.println(\"Hello, World!\"); }`.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Java 25 (single-file source launch)",
+      "code": "public class Main {\n    static long factorial(int n) {\n        return n <= 1 ? 1 : n * factorial(n - 1);\n    }\n\n    public static void main(String[] args) {\n        System.out.println(factorial(10));\n    }\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "long is 64-bit; java.math.BigInteger is the usual choice for larger factorials.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Java 25 (single-file source launch)",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        for (int i = 1; i <= 15; i++) {\n            if (i % 15 == 0) System.out.println(\"FizzBuzz\");\n            else if (i % 3 == 0) System.out.println(\"Fizz\");\n            else if (i % 5 == 0) System.out.println(\"Buzz\");\n            else System.out.println(i);\n        }\n    }\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Java 25 (single-file source launch)",
+      "code": "import java.util.stream.Collectors;\nimport java.util.stream.IntStream;\n\npublic class Main {\n    public static void main(String[] args) {\n        String result = IntStream.rangeClosed(1, 10)\n                .filter(n -> n % 2 == 0)\n                .map(n -> n * n)\n                .mapToObj(Integer::toString)\n                .collect(Collectors.joining(\" \"));\n        System.out.println(result);\n    }\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Streams (Java 8) are lazy pipelines; IntStream avoids boxing each int into an Integer.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Java 25 (records and sealed interfaces, Java 17+)",
+      "code": "public class Main {\n    sealed interface Shape permits Rectangle, Triangle {\n        int area();\n    }\n\n    record Rectangle(int width, int height) implements Shape {\n        public int area() { return width * height; }\n    }\n\n    record Triangle(int base, int height) implements Shape {\n        public int area() { return base * height / 2; }\n    }\n\n    public static void main(String[] args) {\n        Shape[] shapes = { new Rectangle(3, 4), new Triangle(10, 3) };\n        for (Shape s : shapes) {\n            System.out.println(s.getClass().getSimpleName() + \": \" + s.area());\n        }\n    }\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Records (Java 16) generate constructors and accessors; the sealed interface (Java 17) closes the hierarchy, and area() is ordinary virtual dispatch. Java 21 can also switch over it with record patterns: `case Rectangle(int w, int h) -> w * h`.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Ten thousand virtual threads",
+      "dialect": "Java 25 (virtual threads, Java 21+)",
+      "code": "import java.util.concurrent.Executors;\nimport java.util.concurrent.atomic.AtomicLong;\n\npublic class Main {\n    public static void main(String[] args) {\n        var total = new AtomicLong();\n        // One lightweight virtual thread per task; close() waits for them all.\n        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {\n            for (int i = 1; i <= 10_000; i++) {\n                final int n = i;\n                executor.submit(() -> total.addAndGet(n));\n            }\n        }\n        System.out.println(\"10000 virtual threads, sum = \" + total.get());\n    }\n}\n",
+      "expected_output": "10000 virtual threads, sum = 50005000\n",
+      "notes": "Threads and `synchronized` monitors were part of Java 1.0. Virtual threads (Java 21, Project Loom) make blocking-style threads cheap enough to start one per task; try-with-resources closes the executor, which waits for all of them.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "OpenJDK (Eclipse Temurin)",
+        "version": "25",
+        "docker_image": "eclipse-temurin:25-jdk",
+        "run": "java {file}",
+        "notes": "Single-file source launch: the file name need not match the class; the first top-level class must declare main. Also verified with OpenJDK 27."
+      }
+    ],
+    "browser": {
+      "name": "CheerpJ",
+      "url": "https://cheerpj.com/",
+      "notes": "An OpenJDK runtime compiled to WebAssembly; supports Java 8 and 11, with Java 17 in preview (4.1), so snippets needing Java 21+ (virtual threads) will not run."
+    },
+    "notes": "JVM startup plus in-memory compilation takes around a second per snippet."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+    "homepage": "https://dev.java/",
+    "spec": "https://docs.oracle.com/javase/specs/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Java_(programming_language)",
+    "https://openjdk.org/jeps/512",
+    "https://labs.leaningtech.com/blog/cheerpj-4.1"
+  ]
+}

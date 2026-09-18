@@ -1,0 +1,175 @@
+{
+  "id": "javascript",
+  "name": "JavaScript",
+  "aliases": ["JS", "ECMAScript", "Mocha", "LiveScript"],
+  "year": 1995,
+  "year_note": "Prototyped as Mocha in ten days in May 1995; first public as LiveScript in the Netscape Navigator 2.0 beta (September 1995); announced as JavaScript on 4 December 1995; JavaScript 1.0 shipped with Navigator 2.0 in March 1996.",
+  "designers": ["Brendan Eich"],
+  "organization": "Netscape Communications",
+  "country": "United States",
+  "tagline": "The language of the web browser: Java-like syntax over Scheme-style functions and Self-style prototypes.",
+  "summary": "JavaScript is a dynamically typed, multi-paradigm language created at Netscape to script web pages and standardized as ECMAScript. Behind syntax that was required to 'look like Java' it combines first-class functions and closures in the spirit of Scheme with prototype-based objects taken from Self, driven by a single-threaded event loop. As the only language every web browser runs natively it became one of the most widely used languages in the world, and with Node.js and Deno it also runs on servers.",
+  "history": "Netscape hired Brendan Eich in 1995 to add a scripting language to its Navigator browser; management required that it 'look like Java' while staying simple and object-based rather than class-based. Eich wrote the Mocha prototype in ten contiguous days in May 1995, taking its object model (delegation through a single prototype link) from Self and its first-class functions from Scheme. It first shipped publicly as LiveScript in the Navigator 2.0 beta in September 1995 and was renamed JavaScript in a joint Netscape–Sun announcement on 4 December 1995, a marketing link to Java that the two languages' designs did not share.\n\nAfter Microsoft shipped its reverse-engineered JScript in Internet Explorer 3 (1996), Netscape took the language to Ecma International, whose ECMA-262 standard (June 1997) adopted the placeholder name ECMAScript. ES3 (1999) standardized regular expressions and try/catch, but the ambitious ES4 effort was abandoned in 2008 in favour of the incremental ES5 (2009). Faster engines such as Google's V8 (2008), Ajax-style web applications and Node.js (2009) turned JavaScript from a page-scripting tool into a general-purpose language.\n\nECMAScript 2015 (ES6) was the largest revision: classes, modules, let/const block scoping, arrow functions, promises, iterators and generators. TC39 has since published a new edition every June, adding async/await (ES2017), private class fields (ES2022) and more, and JavaScript has become the compilation target of languages such as TypeScript.",
+  "innovations": [
+    "Brought first-class functions and lexical closures (from Scheme) to a mass audience",
+    "Made prototype-based objects (from Self) the object model of a mainstream language",
+    "Event-driven scripting of web documents through event handlers and the DOM",
+    "Object and array literal syntax that became the JSON data-interchange format",
+    "Made non-blocking, callback- and promise-based asynchronous I/O mainstream, in the browser and on the server (Node.js)"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "prototype-based",
+    "object-oriented",
+    "functional",
+    "imperative",
+    "event-driven",
+    "scripting"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Implicit coercions are pervasive (\"1\" + 2 is \"12\", [] == false is true); === compares without coercion. Values carry types, variables do not."
+  },
+  "memory": "tracing-gc",
+  "execution": ["jit", "bytecode-vm"],
+  "status": "active",
+  "latest_version": "ECMAScript 2026 (ECMA-262, 17th edition)",
+  "file_extensions": [".js", ".mjs", ".cjs"],
+  "color": "#f1e05a",
+  "primary_parent": "self",
+  "influenced_by": [
+    { "id": "self", "kind": "influence", "weight": "major", "note": "Prototype delegation: 'Self-ish (albeit singular) prototypes' (Eich)." },
+    { "id": "scheme", "kind": "influence", "weight": "major", "note": "'Scheme-ish first-class functions'; Eich was recruited to Netscape to 'do Scheme' in the browser." },
+    { "id": "java", "kind": "influence", "weight": "major", "note": "Management required it to 'look like Java'; also the name, `this`, the Date class and the primitive/object split (string vs String)." },
+    { "id": "c", "kind": "influence", "weight": "minor", "note": "JavaScript 1.0's statement syntax was modelled directly on C." },
+    { "id": "perl", "kind": "influence", "weight": "minor", "note": "Regular-expression syntax and semantics, and the push/pop/shift/unshift/splice array methods (JavaScript 1.2)." },
+    { "id": "python", "kind": "influence", "weight": "minor", "note": "slice/concat methods (JavaScript 1.2); later iterators, generators and destructuring." }
+  ],
+  "influenced_by_external": [
+    { "name": "AWK", "year": 1977, "note": "The function declaration syntax and the for-in statement." },
+    { "name": "HyperTalk (HyperCard)", "year": 1987, "note": "Inspired the event-handler model of the original Netscape DOM (onclick and friends)." }
+  ],
+  "influenced": ["typescript", "php", "kotlin"],
+  "traits": {
+    "structured-control": { "level": "core" },
+    "block-scope": { "level": "core", "since": 2015, "version": "ES2015", "note": "let/const are block-scoped; the original var is function-scoped." },
+    "recursion": { "level": "core" },
+    "exceptions": { "level": "core", "since": 1999, "version": "ES3", "note": "try/catch/finally and throw; any value can be thrown." },
+    "coroutines": { "level": "supported", "since": 2015, "version": "ES2015", "note": "Generators and async functions are stackless (one-level) coroutines." },
+    "generators": { "level": "core", "since": 2015, "version": "ES2015", "note": "function* and yield, modelled on Python's; async generators since ES2018." },
+    "pattern-matching": { "level": "supported", "since": 2015, "version": "ES2015", "note": "Destructuring of arrays and objects only; there is no match/case construct." },
+    "tail-calls": { "level": "supported", "since": 2015, "version": "ES2015", "note": "Required by the spec in strict mode, but only JavaScriptCore (Safari) implements them." },
+    "classes": { "level": "core", "since": 2015, "version": "ES2015", "note": "Syntactic sugar over constructor functions and prototypes; #private fields since ES2022." },
+    "inheritance": { "level": "core", "note": "Prototype chains; class ... extends since ES2015." },
+    "prototypes": { "level": "core", "note": "Every object has a [[Prototype]] link; Object.create() sets it directly." },
+    "traits-mixins": { "level": "supported", "note": "Mixins via Object.assign() or class-expression factories; no dedicated construct." },
+    "abstract-data-types": { "level": "supported", "note": "Encapsulation through closures (the module pattern) and #private class fields (ES2022)." },
+    "modules": { "level": "core", "since": 2015, "version": "ES2015", "note": "import/export ES modules; Node.js long used CommonJS require()." },
+    "first-class-functions": { "level": "core", "note": "Arrow functions since ES2015." },
+    "closures": { "level": "core" },
+    "garbage-collection": { "level": "core" },
+    "actors": { "level": "library", "note": "Web Workers / Node.js worker_threads: isolated event loops communicating by postMessage (host APIs, not ECMAScript)." },
+    "async-await": { "level": "core", "since": 2017, "version": "ES2017", "note": "Built on Promises (ES2015) and the event loop." },
+    "reflection": { "level": "core", "note": "Property enumeration, typeof, eval, and the Reflect and Proxy APIs (ES2015)." },
+    "hot-code-reload": { "level": "library", "note": "Hot Module Replacement in bundlers and dev servers such as webpack and Vite (tooling, not the language)." },
+    "regex-builtin": { "level": "core", "since": 1997, "version": "JavaScript 1.2", "note": "Perl-style /regex/ literals; standardized in ES3 (1999)." }
+  },
+  "milestones": [
+    { "year": 1995, "event": "Mocha prototyped in ten days (May); ships as LiveScript in the Navigator 2.0 beta (September); renamed JavaScript (4 December)" },
+    { "year": 1996, "event": "JavaScript 1.0 ships in Navigator 2.0 (March); Microsoft's JScript ships in Internet Explorer 3 (August)" },
+    { "year": 1997, "event": "ECMA-262 1st edition standardizes the language as ECMAScript; JavaScript 1.2 adds regular expressions" },
+    { "year": 1999, "event": "ES3: regular expressions, try/catch, switch and do-while standardized" },
+    { "year": 2008, "event": "ES4 abandoned; Google Chrome ships the V8 engine" },
+    { "year": 2009, "event": "ES5 (strict mode, JSON, property descriptors); first public release of Node.js" },
+    { "year": 2015, "event": "ES2015 (ES6): classes, modules, let/const, arrow functions, promises, generators" },
+    { "year": 2017, "event": "ES2017 adds async functions (async/await)" },
+    { "year": 2022, "event": "ES2022: class fields, #private members and top-level await" }
+  ],
+  "trivia": [
+    "Eich later wrote that the Java influences, 'especially y2k Date bugs but also the primitive vs. object distinction', were unfortunate.",
+    "'ECMAScript' began as a placeholder: Ecma avoided the trademarked name JavaScript, Netscape would not transfer 'LiveScript', and in September 1997 TC39 kept the placeholder.",
+    "Netscape 2 opened a JavaScript console when you typed javascript: into the address bar; the prototype's original mocha: scheme still worked."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "ECMAScript 2017+ (Node.js / Deno)",
+      "code": "console.log(\"Hello, World!\");\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "console.log is provided by the host environment (browser, Node.js, Deno), not by ECMAScript itself.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "ECMAScript 2017+ (Node.js / Deno)",
+      "code": "function factorial(n) {\n  return n <= 1 ? 1 : n * factorial(n - 1);\n}\n\nconsole.log(factorial(10));\n",
+      "expected_output": "3628800\n",
+      "notes": "Numbers are IEEE 754 doubles, exact up to 2^53; BigInt literals (10n) handle larger factorials.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "ECMAScript 2017+ (Node.js / Deno)",
+      "code": "for (let i = 1; i <= 15; i++) {\n  let out = \"\";\n  if (i % 3 === 0) out += \"Fizz\";\n  if (i % 5 === 0) out += \"Buzz\";\n  console.log(out || i); // \"\" is falsy, so fall back to the number\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Builds the string, then relies on \"\" being falsy so `out || i` falls back to the number.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "ECMAScript 2017+ (Node.js / Deno)",
+      "code": "const squares = Array.from({ length: 10 }, (_, i) => i + 1)\n  .filter((x) => x % 2 === 0)\n  .map((x) => x * x);\n\nconsole.log(squares.join(\" \"));\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Array.prototype.filter/map (ES5) with ES2015 arrow functions.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "ECMAScript 2017+ (Node.js / Deno)",
+      "code": "// No classes needed: objects delegate to a shared prototype object.\nconst shape = {\n  describe() {\n    return `${this.name}: ${this.area()}`;\n  },\n};\n\nfunction rectangle(width, height) {\n  return Object.assign(Object.create(shape), {\n    name: \"Rectangle\",\n    area: () => width * height, // closes over width and height\n  });\n}\n\nfunction triangle(base, height) {\n  return Object.assign(Object.create(shape), {\n    name: \"Triangle\",\n    area: () => (base * height) / 2,\n  });\n}\n\nfor (const s of [rectangle(3, 4), triangle(10, 3)]) {\n  console.log(s.describe());\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Objects delegate to a shared prototype made with Object.create(); ES2015 `class Rectangle extends Shape` is sugar for the same prototype chain.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Closures and the event loop",
+      "dialect": "ECMAScript 2017+ (Node.js / Deno)",
+      "code": "// Closures hold private state; one event loop interleaves all async work.\nfunction counter() {\n  let n = 0; // captured, invisible outside\n  return () => ++n;\n}\nconst step = counter();\n\nconst wait = (ms, value) =>\n  new Promise((resolve) => setTimeout(() => resolve(value), ms));\n\nasync function main() {\n  console.log(`${step()}: start`);\n  setTimeout(() => console.log(`${step()}: timer callback (task queue)`), 0);\n  Promise.resolve().then(() => console.log(`${step()}: promise callback (microtask)`));\n  console.log(`${step()}: synchronous code always finishes first`);\n  const msg = await wait(10, \"resumed after await\");\n  console.log(`${step()}: ${msg}`);\n}\n\nmain();\n",
+      "expected_output": "1: start\n2: synchronous code always finishes first\n3: promise callback (microtask)\n4: timer callback (task queue)\n5: resumed after await\n",
+      "notes": "Synchronous code always runs to completion, then queued microtasks (promise callbacks), then tasks (timers). await suspends only the async function, never the thread, and `step` keeps its count in a closure.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      { "name": "Node.js", "version": "24", "docker_image": "node:24-alpine", "run": "node {file}" },
+      {
+        "name": "Deno",
+        "version": "2.9.6",
+        "docker_image": "denoland/deno:alpine-2.9.6",
+        "run": "deno run {file}"
+      }
+    ],
+    "browser": {
+      "name": "Native browser JavaScript engine",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+      "notes": "Runs natively in every browser (e.g. in a sandboxed iframe or Web Worker, capturing console.log); no WebAssembly needed."
+    },
+    "notes": "All six snippets give identical output under Node.js 24 and Deno 2.9."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/JavaScript",
+    "homepage": "https://tc39.es/",
+    "spec": "https://tc39.es/ecma262/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/JavaScript",
+    "https://doi.org/10.1145/3386327",
+    "https://www.wirfs-brock.com/allen/jshopl.pdf",
+    "https://brendaneich.com/2008/04/popularity/",
+    "https://ecma-international.org/publications-and-standards/standards/ecma-262/",
+    "https://en.wikipedia.org/wiki/JSON"
+  ]
+}

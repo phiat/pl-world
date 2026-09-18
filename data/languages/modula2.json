@@ -1,0 +1,286 @@
+{
+  "id": "modula2",
+  "name": "Modula-2",
+  "aliases": [
+    "Modula 2",
+    "PIM Modula-2",
+    "ISO Modula-2"
+  ],
+  "year": 1978,
+  "year_note": "Wirth wrote a preliminary memo in 1977 and designed the language in 1978–79; Wikipedia dates it to 1978, while Wirth's own HOPL III paper dates the defining report to 1979. The first PDP-11 compiler ran in early 1979, and the Lilith workstations programmed in it arrived at ETH in 1980.",
+  "designers": [
+    "Niklaus Wirth"
+  ],
+  "organization": "ETH Zurich",
+  "country": "Switzerland",
+  "tagline": "Pascal's successor for systems programming, built around separately compiled modules with explicit, type-checked imports and exports.",
+  "summary": "Modula-2 is Niklaus Wirth's successor to Pascal, designed to write all the software of the Lilith personal workstation, from device drivers to applications. Its central idea is the module: a unit of separate compilation split into a definition module (the interface) and an implementation module, with explicit, type-checked imports and exports and opaque types for information hiding. It also added procedure types, coroutines and a SYSTEM module that fences off low-level operations, and fixed Pascal quirks such as the dangling else.",
+  "history": "During a 1976–77 sabbatical at Xerox PARC, Wirth used the Alto workstation and the Mesa language, whose type-safe separate compilation convinced him that a Pascal-like language could scale to whole systems. Back at ETH Zurich he simplified Mesa's module machinery into Modula-2, generalising the monitors of his short-lived concurrent language Modula (1975) into modules. A multi-pass compiler for the PDP-11 was working in early 1979, and Modula-2 became the only language of the Lilith workstation that Wirth designed with Richard Ohran, including its Medos-2 operating system; a pilot series of 20 Liliths reached ETH in December 1980.\n\nWirth's book Programming in Modula-2 (1982; fourth edition 1988) defined the 'PIM' dialects, and Byte devoted its August 1984 issue to the language. Modula-2 found industrial use in embedded and control systems — Delco's Modula-GM engine controllers for General Motors, a Paris Metro control system and the software of Russia's GLONASS navigation satellites — but never matched Pascal's popularity, being perceived, in Wirth's words, as merely an upgrade on Pascal. The ISO standard (ISO/IEC 10514-1, 1996) resolved PIM's ambiguities and added exceptions, module finalisation and a complete I/O library, with optional object-oriented and generic extensions following in 1998.\n\nWirth's own successor was Oberon (1988), while researchers at DEC and Olivetti extended Modula-2 into Modula-2+ and Modula-3. GNU Modula-2, supporting the PIM2–4 and ISO dialects, was merged into GCC with version 13 in 2023.",
+  "innovations": [
+    "Modules as units of separate compilation with type-checked interfaces (definition and implementation modules) in a Pascal-family language",
+    "Opaque types that export an abstract data type while hiding its representation",
+    "Explicit import/export lists, with qualified (M.x) and unqualified (FROM M IMPORT x) imports",
+    "Procedure types: procedures as storable values with fully checked signatures",
+    "Coroutines (NEWPROCESS/TRANSFER) as the single primitive from which libraries build processes and monitors",
+    "A SYSTEM pseudo-module that isolates and visibly marks machine-level, type-unsafe operations"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured",
+    "concurrent"
+  ],
+  "family": "algol",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "Unsafe operations (ADDRESS, WORD, type transfer) must be imported from the SYSTEM pseudo-module, so loopholes are explicit. INTEGER and the unsigned CARDINAL are distinct types."
+  },
+  "memory": "manual",
+  "execution": [
+    "native-compiled",
+    "bytecode-vm"
+  ],
+  "status": "maintained",
+  "latest_version": "ISO/IEC 10514-1:1996",
+  "file_extensions": [
+    ".mod",
+    ".def",
+    ".mi",
+    ".md",
+    ".m2"
+  ],
+  "color": "#10253f",
+  "primary_parent": "pascal",
+  "influenced_by": [
+    {
+      "id": "pascal",
+      "kind": "successor",
+      "weight": "major",
+      "note": "Wirth designed it as a new version of Pascal, correcting its syntax anomalies and adding modules."
+    },
+    {
+      "id": "clu",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Wirth presents opaque types as a realisation of Barbara Liskov's abstract data types (1974), the idea behind CLU."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Mesa",
+      "year": 1976,
+      "note": "Xerox PARC's modular Pascal descendant; Modula-2 is a simplified Mesa with Pascal's appearance."
+    },
+    {
+      "name": "Modula",
+      "year": 1975,
+      "note": "Wirth's language for concurrent programming; its monitors became Modula-2's modules."
+    },
+    {
+      "name": "Monitors (Hoare)",
+      "year": 1974,
+      "note": "Wirth chose module notation identical to Hoare's monitor, minus mutual exclusion."
+    },
+    {
+      "name": "ALGOL W",
+      "year": 1966
+    },
+    {
+      "name": "Euclid"
+    }
+  ],
+  "influenced": [
+    "ada",
+    "lua"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "Every IF, WHILE, FOR, CASE and LOOP closes with END, removing Pascal's dangling else and begin…end pairs; LOOP…EXIT handles mid-loop exits."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Nested procedures and nested (local) modules with lexical scope."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "modules": {
+      "level": "core",
+      "note": "Definition and implementation modules compiled separately with consistency-checked symbol files; local modules; qualified (IMPORT M) and unqualified (FROM M IMPORT x) imports."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Opaque types declared in a definition module hide their representation (PIM restricts them to pointer-sized types)."
+    },
+    "coroutines": {
+      "level": "core",
+      "note": "NEWPROCESS/TRANSFER from SYSTEM (PIM) or the COROUTINES module (ISO); Wirth left processes, signals and monitors to library modules built on them."
+    },
+    "pointers": {
+      "level": "core",
+      "note": "POINTER TO T with NEW/DISPOSE (via the Storage module); SYSTEM.ADDRESS allows address arithmetic. No garbage collection."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Procedure types let top-level procedures be stored, passed and returned with checked signatures; no anonymous procedures, and nested procedures cannot be assigned."
+    },
+    "algebraic-data-types": {
+      "level": "supported",
+      "note": "Variant records as in Pascal (variants separated by |); the tag is not enforced."
+    },
+    "exceptions": {
+      "level": "supported",
+      "since": 1996,
+      "version": "ISO Modula-2",
+      "note": "PIM has only HALT; ISO 10514-1 added EXCEPT handlers, RETRY and the EXCEPTIONS module."
+    },
+    "generics": {
+      "level": "supported",
+      "since": 1998,
+      "version": "ISO/IEC 10514-3",
+      "note": "Optional generic extension to the standard, implemented by few compilers."
+    },
+    "classes": {
+      "level": "supported",
+      "since": 1998,
+      "version": "ISO/IEC 10514-2",
+      "note": "Optional object-oriented extension to the standard, implemented by few compilers (e.g. ADW Modula-2)."
+    },
+    "inheritance": {
+      "level": "supported",
+      "since": 1998,
+      "version": "ISO/IEC 10514-2",
+      "note": "Part of the optional object-oriented extension."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1975,
+      "event": "Wirth designs Modula, a small language for concurrent programming"
+    },
+    {
+      "year": 1976,
+      "event": "Sabbatical at Xerox PARC: Wirth meets the Alto and Mesa"
+    },
+    {
+      "year": 1979,
+      "event": "Defining report and first compiler (PDP-11) completed"
+    },
+    {
+      "year": 1980,
+      "event": "First 20 Lilith workstations, programmed entirely in Modula-2, delivered to ETH Zurich"
+    },
+    {
+      "year": 1982,
+      "event": "Programming in Modula-2 (PIM), first edition"
+    },
+    {
+      "year": 1984,
+      "event": "Byte devotes its August issue to Modula-2"
+    },
+    {
+      "year": 1988,
+      "event": "PIM fourth edition; Wirth's successor language Oberon"
+    },
+    {
+      "year": 1990,
+      "event": "Delco's Modula-GM enters production in GM vehicle control modules"
+    },
+    {
+      "year": 1996,
+      "event": "ISO/IEC 10514-1 standard"
+    },
+    {
+      "year": 2023,
+      "event": "GNU Modula-2 ships as part of GCC 13"
+    }
+  ],
+  "trivia": [
+    "Wirth introduced the unsigned CARDINAL type because 16-bit address arithmetic needed unsigned numbers.",
+    "Wirth notes that Modula-2 was used for a Paris Metro control system and for the entire software of a new Russian satellite navigation system.",
+    "Modula-GM, Delco Electronics' dialect, was the first high-level language to replace machine code in its engine control units."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "PIM4 Modula-2 (GNU Modula-2, -fpim4)",
+      "code": "MODULE Hello;\n\nFROM InOut IMPORT WriteString, WriteLn;\n\nBEGIN\n  WriteString(\"Hello, World!\");\n  WriteLn\nEND Hello.\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "InOut is the classic PIM library module; ISO Modula-2 uses STextIO instead. Every imported name is listed explicitly.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "PIM4 Modula-2 (GNU Modula-2, -fpim4)",
+      "code": "MODULE Factorial;\n\nFROM InOut IMPORT WriteCard, WriteLn;\n\nPROCEDURE Fact(n: CARDINAL): CARDINAL;\nBEGIN\n  IF n <= 1 THEN\n    RETURN 1\n  ELSE\n    RETURN n * Fact(n - 1)\n  END\nEND Fact;\n\nBEGIN\n  WriteCard(Fact(10), 0);\n  WriteLn\nEND Factorial.\n",
+      "expected_output": "3628800\n",
+      "notes": "Unlike Pascal, functions return with RETURN, and IF … ELSE … END needs no BEGIN. CARDINAL is Modula-2's unsigned integer type.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "PIM4 Modula-2 (GNU Modula-2, -fpim4)",
+      "code": "MODULE FizzBuzz;\n\nFROM InOut IMPORT WriteString, WriteCard, WriteLn;\n\nVAR i: CARDINAL;\n\nBEGIN\n  FOR i := 1 TO 15 DO\n    IF i MOD 15 = 0 THEN WriteString(\"FizzBuzz\")\n    ELSIF i MOD 3 = 0 THEN WriteString(\"Fizz\")\n    ELSIF i MOD 5 = 0 THEN WriteString(\"Buzz\")\n    ELSE WriteCard(i, 0)\n    END;\n    WriteLn\n  END\nEND FizzBuzz.\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "ELSIF and a single closing END replace Pascal's nested else-if chains; identifiers and keywords are case-sensitive.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "PIM4 Modula-2 (GNU Modula-2, -fpim4)",
+      "code": "MODULE MapFilter;\nFROM InOut IMPORT Write, WriteCard, WriteLn;\n\nTYPE\n  Predicate = PROCEDURE (CARDINAL): BOOLEAN;   (* procedure types *)\n  Mapping   = PROCEDURE (CARDINAL): CARDINAL;\n\nPROCEDURE IsEven(x: CARDINAL): BOOLEAN; BEGIN RETURN NOT ODD(x) END IsEven;\nPROCEDURE Square(x: CARDINAL): CARDINAL; BEGIN RETURN x * x END Square;\n\n(* An open array parameter accepts any length; HIGH gives the last index. *)\nPROCEDURE FilterMap(VAR a: ARRAY OF CARDINAL; keep: Predicate; f: Mapping);\n  VAR i: CARDINAL; first: BOOLEAN;\nBEGIN\n  first := TRUE;\n  FOR i := 0 TO HIGH(a) DO\n    IF keep(a[i]) THEN\n      IF NOT first THEN Write(\" \") END;\n      WriteCard(f(a[i]), 0);\n      first := FALSE\n    END\n  END;\n  WriteLn\nEND FilterMap;\n\nVAR xs: ARRAY [1..10] OF CARDINAL; i: CARDINAL;\nBEGIN\n  FOR i := 1 TO 10 DO xs[i] := i END;\n  FilterMap(xs, IsEven, Square)\nEND MapFilter.\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Procedure types make procedures first-class values (without closures). Open array parameters (ARRAY OF CARDINAL, with HIGH for the last index) fix Pascal's fixed-size array parameters.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "PIM4 Modula-2 (GNU Modula-2, -fpim4)",
+      "code": "MODULE Shapes;\nFROM InOut IMPORT WriteString, WriteCard, WriteLn;\n\nTYPE\n  Kind = (Rectangle, Triangle);\n  Shape = RECORD\n    CASE kind: Kind OF                 (* variant record, as in Pascal *)\n      Rectangle: width, height: CARDINAL\n    | Triangle:  base, altitude: CARDINAL\n    END\n  END;\n\nPROCEDURE Area(s: Shape): CARDINAL;\nBEGIN\n  CASE s.kind OF\n    Rectangle: RETURN s.width * s.height\n  | Triangle:  RETURN s.base * s.altitude DIV 2\n  END\nEND Area;\n\nPROCEDURE Show(name: ARRAY OF CHAR; s: Shape);\nBEGIN\n  WriteString(name); WriteString(\": \"); WriteCard(Area(s), 0); WriteLn\nEND Show;\n\nVAR r, t: Shape;\nBEGIN\n  r.kind := Rectangle; r.width := 3; r.height := 4;\n  t.kind := Triangle;  t.base := 10; t.altitude := 3;\n  Show(\"Rectangle\", r); Show(\"Triangle\", t)\nEND Shapes.\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Variant records carry over from Pascal, with variants separated by |. Larger programs would hide Shape behind an opaque type exported from a definition module.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Modules: walls around data",
+      "dialect": "PIM4 Modula-2 (GNU Modula-2, -fpim4)",
+      "code": "MODULE Modules;\nFROM InOut IMPORT WriteString, WriteCard, WriteLn;\n\n  MODULE Stack;                      (* a local module: a wall around its data *)\n    EXPORT Push, Pop, Empty;         (* only these names are visible outside *)\n    VAR items: ARRAY [1..16] OF CARDINAL;\n        top: CARDINAL;\n\n    PROCEDURE Push(x: CARDINAL); BEGIN INC(top); items[top] := x END Push;\n    PROCEDURE Pop(): CARDINAL; BEGIN DEC(top); RETURN items[top + 1] END Pop;\n    PROCEDURE Empty(): BOOLEAN; BEGIN RETURN top = 0 END Empty;\n  BEGIN\n    top := 0                         (* module initialisation runs first *)\n  END Stack;\n\nVAR i: CARDINAL;\nBEGIN\n  FOR i := 1 TO 5 DO Push(i * i) END;\n  (* 'items' and 'top' are out of scope here; only the exports are usable *)\n  WriteCard(Pop(), 0);\n  WHILE NOT Empty() DO WriteString(\" \"); WriteCard(Pop(), 0) END;\n  WriteLn\nEND Modules.\n",
+      "expected_output": "25 16 9 4 1\n",
+      "notes": "A local module shows the idea in one file: only exported names cross the module wall, and the module body runs as an initialiser. In real programs the interface is a separate DEFINITION MODULE (.def) compiled apart from its IMPLEMENTATION MODULE (.mod); PIM2 also required EXPORT QUALIFIED lists there.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "GNU Modula-2 (gm2)",
+        "version": "14.2",
+        "docker_image": "plw-modula2",
+        "install": "apt-get install -y gm2",
+        "compile": "gm2 -fpim4 -o {out} {file}",
+        "run": "{out}",
+        "notes": "plw-modula2 is debian:trixie-slim + gm2. Part of GCC since 13; -fiso, -fpim2 and -fpim3 select other dialects.",
+        "dockerfile": "sandbox/modula2/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "Wirth's ETH compilers (M2M, MacMETH, Lilith) are historical; GCC's front end is the maintained open-source option."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Modula-2",
+    "homepage": "https://www.modula2.org/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Modula-2",
+    "https://en.wikipedia.org/wiki/Modula",
+    "https://en.wikipedia.org/wiki/Mesa_(programming_language)",
+    "https://free.oberon.org/files/Modula2_and_Oberon.pdf",
+    "https://gcc.gnu.org/gcc-13/changes.html",
+    "https://gcc.gnu.org/onlinedocs/gm2/"
+  ]
+}

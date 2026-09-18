@@ -1,0 +1,168 @@
+{
+  "id": "lua",
+  "name": "Lua",
+  "aliases": ["PUC Lua", "LuaJIT"],
+  "year": 1993,
+  "year_note": "Lua 1.0 was running at Tecgraf by July 1993 but was never publicly released; the first public release, Lua 1.1, followed in July 1994. 1993 is the date given by Lua's authors and Wikipedia.",
+  "designers": ["Roberto Ierusalimschy", "Luiz Henrique de Figueiredo", "Waldemar Celes"],
+  "organization": "Tecgraf, PUC-Rio (Pontifical Catholic University of Rio de Janeiro)",
+  "country": "Brazil",
+  "tagline": "A tiny, fast, embeddable scripting language built on one data structure — the table — plus metatables and stackful coroutines.",
+  "summary": "Lua is a small, dynamically typed scripting language designed to be embedded in applications through a clean C API. Its only data-structuring mechanism is the table, an associative array that also serves as array, record, module and object; metatables let programs redefine operators and indexing, which yields prototype-style objects without any built-in classes. With first-class functions, proper tail calls and asymmetric stackful coroutines in an interpreter of a few hundred kilobytes, it became a leading scripting language in the game industry and is embedded in tools such as Neovim, Redis and Adobe Lightroom.",
+  "history": "Lua was created in 1993 at Tecgraf, the Computer Graphics Technology Group of PUC-Rio in Brazil, one of whose largest partners was the oil company Petrobras. Roberto Ierusalimschy, Luiz Henrique de Figueiredo and Waldemar Celes merged two in-house data-entry and configuration languages, DEL and SOL ('sun' in Portuguese), into one real programming language; a colleague suggested 'Lua', Portuguese for 'moon'. They borrowed control-structure syntax from Modula, multiple assignment and returns from CLU, local declarations from C++, and associative arrays from SNOBOL and AWK.\n\nLua 1.1 (1994) was the first public release. Lua 2.1 (1995) introduced 'fallbacks', which became tag methods in 3.0 (1997) and finally metatables in Lua 5.0 (2003) — the release that also added coroutines, full lexical closures, proper tail calls, a register-based virtual machine and the MIT license. LucasArts' Grim Fandango (1998) started Lua's spread through the game industry. Lua 5.1 (2006) added the module system and incremental garbage collection, 5.3 (2015) native integers, 5.4 (2020) a generational collector and const/to-be-closed variables, and 5.5 (2025) explicit global declarations.\n\nMike Pall's LuaJIT, a JIT compiler for Lua 5.1 begun in 2005 (a tracing JIT since version 2), is widely regarded as one of the fastest dynamic-language implementations, and derivatives such as Roblox's gradually typed Luau extend the language further.",
+  "innovations": [
+    "Tables as the single data structure: one associative array serves as array, record, set, module, namespace and object",
+    "Metatables: user-definable behaviour for indexing, arithmetic, comparison and calls, enough to build classes, prototypes and proxies",
+    "A language designed from the start to be embedded, with a small, clean C API and a whole implementation in portable ANSI C",
+    "Asymmetric, stackful coroutines built into a widely used scripting language (Lua 5.0)",
+    "The register-based virtual machine of Lua 5.0, described by its authors as the first register-based VM in wide use",
+    "'Mechanisms, not policy': a minimal core from which programmers build their own object systems and module conventions"
+  ],
+  "paradigms": ["multi-paradigm", "imperative", "procedural", "functional", "prototype-based", "scripting"],
+  "family": "scripting",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Values carry types (nil, boolean, number, string, table, function, userdata, thread); strings and numbers coerce in arithmetic and concatenation, but most other mismatches raise errors. Luau and Teal are gradually typed derivatives."
+  },
+  "memory": "tracing-gc",
+  "execution": ["bytecode-vm", "jit"],
+  "status": "active",
+  "latest_version": "5.5.1",
+  "file_extensions": [".lua"],
+  "color": "#000080",
+  "primary_parent": "scheme",
+  "influenced_by": [
+    { "id": "scheme", "kind": "influence", "weight": "major", "note": "Semantic model: first-class anonymous functions with lexical scoping, proper tail calls, a single namespace for functions and values; its influence grew over Lua's evolution." },
+    { "id": "modula2", "kind": "influence", "weight": "minor", "note": "Control-structure syntax (while, if, repeat–until); the authors cite 'Modula'." },
+    { "id": "clu", "kind": "influence", "weight": "minor", "note": "Multiple assignment and multiple return values." },
+    { "id": "cpp", "kind": "influence", "weight": "minor", "note": "Declaring local variables only where they are needed." }
+  ],
+  "influenced_by_external": [
+    { "name": "SOL (Simple Object Language)", "note": "Tecgraf's data-description language; Lua kept its table-constructor syntax for records and lists." },
+    { "name": "SNOBOL", "year": 1962, "note": "Associative arrays, which Lua made into first-class tables; string pattern matching." },
+    { "name": "AWK", "year": 1977, "note": "Associative arrays and pattern-matching functions such as gsub." }
+  ],
+  "influenced": ["ruby", "julia"],
+  "traits": {
+    "structured-control": { "level": "core", "note": "while, repeat–until, numeric and generic for; `goto` added in 5.2." },
+    "block-scope": { "level": "core", "note": "`local` variables are scoped to their block; undeclared names are globals (5.5 adds explicit `global` declarations)." },
+    "recursion": { "level": "core" },
+    "exceptions": { "level": "supported", "note": "`error` raises any value and `pcall`/`xpcall` catch it; there is no try/catch syntax." },
+    "coroutines": { "level": "core", "since": 2003, "version": "Lua 5.0", "note": "Asymmetric and stackful: `yield` may occur anywhere down the call stack." },
+    "generators": { "level": "core", "since": 2003, "version": "Lua 5.0", "note": "The generic `for` consumes iterator functions; `coroutine.wrap` turns any yielding function into a generator." },
+    "tail-calls": { "level": "core", "since": 2003, "version": "Lua 5.0", "note": "`return f(x)` reuses the stack frame, so tail recursion runs in constant space." },
+    "inheritance": { "level": "supported", "note": "No built-in classes; inheritance is delegation through chains of `__index` metatables." },
+    "prototypes": { "level": "core", "since": 2003, "version": "Lua 5.0", "note": "Metatables with `__index` delegate missing keys to another table; fallbacks (2.1, 1995) and tag methods (3.0) were earlier forms." },
+    "modules": { "level": "core", "since": 2006, "version": "Lua 5.1", "note": "`require` loads a chunk that conventionally returns a table of functions; the 5.1 `module` function was later dropped in favour of plain tables." },
+    "operator-overloading": { "level": "core", "note": "Metamethods such as __add, __eq, __lt, __concat, __call and __index." },
+    "first-class-functions": { "level": "core", "note": "All functions are anonymous values; `function f() end` is sugar for assigning one to a variable." },
+    "closures": { "level": "core", "since": 2003, "version": "Lua 5.0", "note": "Full lexical scoping with upvalues; Lua 3.1 had only read-only copies ('%x' upvalues)." },
+    "garbage-collection": { "level": "core", "note": "Incremental collector since 5.1 and an optional generational mode since 5.4; weak tables and finalizers." },
+    "reflection": { "level": "supported", "note": "type(), getmetatable, the global table _G / _ENV and the debug library." },
+    "regex-builtin": { "level": "library", "note": "Lua patterns in the string library (find, match, gmatch, gsub): a lighter regex-like syntax without alternation, implemented in a few hundred lines." }
+  },
+  "milestones": [
+    { "year": 1993, "event": "Lua designed at Tecgraf, PUC-Rio; Lua 1.0 running by July" },
+    { "year": 1994, "event": "Lua 1.1: first public release" },
+    { "year": 1995, "event": "Lua 2.1 introduces fallbacks, the ancestor of metatables" },
+    { "year": 1998, "event": "Grim Fandango (LucasArts) ships with much of the game written in Lua" },
+    { "year": 2003, "event": "Lua 5.0: coroutines, metatables, full closures, proper tail calls, register VM, MIT license" },
+    { "year": 2005, "event": "Mike Pall begins LuaJIT" },
+    { "year": 2006, "event": "Lua 5.1: module system and incremental garbage collector" },
+    { "year": 2011, "event": "Lua 5.2: _ENV, goto, ephemeron tables" },
+    { "year": 2015, "event": "Lua 5.3: integer subtype, bitwise operators, UTF-8 library" },
+    { "year": 2020, "event": "Lua 5.4: generational GC, const and to-be-closed variables" },
+    { "year": 2025, "event": "Lua 5.5: global declarations and incremental major collections" }
+  ],
+  "trivia": [
+    "Lua ('moon' in Portuguese) is named as a successor to SOL ('sun'), one of the two Tecgraf languages it replaced; the name was suggested by Tecgraf colleague Carlos Henrique Levy.",
+    "Lua's authors report that over 40% of Adobe Lightroom was written in Lua."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Lua 5.x",
+      "code": "print(\"Hello, World!\")\n",
+      "expected_output": "Hello, World!\n",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Lua 5.4",
+      "code": "local function factorial(n)\n  if n <= 1 then\n    return 1\n  end\n  return n * factorial(n - 1)\nend\n\nprint(factorial(10))\n",
+      "expected_output": "3628800\n",
+      "notes": "`local function` makes the name visible inside its own body, so it can recurse. Lua 5.3+ computes this with 64-bit integers; Lua 5.1 and LuaJIT use doubles, which print the same here.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Lua 5.x",
+      "code": "for i = 1, 15 do\n  if i % 15 == 0 then\n    print(\"FizzBuzz\")\n  elseif i % 3 == 0 then\n    print(\"Fizz\")\n  elseif i % 5 == 0 then\n    print(\"Buzz\")\n  else\n    print(i)\n  end\nend\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Blocks close with `end` and `elseif` is one word; the numeric `for` includes both bounds.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Lua 5.x",
+      "code": "-- No built-in map/filter: a few lines of tables and first-class functions provide them.\nlocal function filter(t, keep)\n  local out = {}\n  for _, v in ipairs(t) do\n    if keep(v) then out[#out + 1] = v end\n  end\n  return out\nend\n\nlocal function map(t, f)\n  local out = {}\n  for i, v in ipairs(t) do out[i] = f(v) end\n  return out\nend\n\nlocal nums = {}\nfor i = 1, 10 do nums[i] = i end\n\nlocal squares = map(filter(nums, function(x) return x % 2 == 0 end),\n                    function(x) return x * x end)\nprint(table.concat(squares, \" \"))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "The standard library deliberately omits map and filter, so programs write them (or use a library such as Penlight). Tables used as arrays start at index 1; `#t` is the length and `table.concat` joins the elements.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Lua 5.1+ (runs on 5.4, 5.5 and LuaJIT)",
+      "code": "-- Tables + metatables: an object delegates missing keys to its prototype.\nlocal Shape = {}\nShape.__index = Shape\n\nfunction Shape:extend(name, area)\n  local proto = setmetatable({ name = name, area = area }, self)\n  proto.__index = proto\n  return proto\nend\n\nfunction Shape:new(fields)\n  return setmetatable(fields, self)\nend\n\nfunction Shape:describe()\n  return (\"%s: %d\"):format(self.name, self:area())\nend\n\nlocal Rectangle = Shape:extend(\"Rectangle\", function(s) return s.width * s.height end)\nlocal Triangle  = Shape:extend(\"Triangle\",  function(s) return s.base * s.height / 2 end)\n\nfor _, shape in ipairs({ Rectangle:new{ width = 3, height = 4 },\n                         Triangle:new{ base = 10, height = 3 } }) do\n  print(shape:describe())\nend\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "There are no classes: `setmetatable` links each object to a prototype table whose `__index` supplies missing keys, and each prototype delegates to Shape the same way. `obj:m()` is sugar for `obj.m(obj)`. `/` yields the float 15.0 in Lua 5.3+, which `%d` prints as an integer.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Stackful coroutines",
+      "dialect": "Lua 5.x",
+      "code": "-- Coroutines are stackful: yield works from deep inside nested calls.\nlocal function walk(tree)\n  for _, node in ipairs(tree) do\n    if type(node) == \"table\" then\n      walk(node)                  -- plain recursion, no 'yield from' needed\n    else\n      coroutine.yield(node)\n    end\n  end\nend\n\nlocal function leaves(tree)\n  return coroutine.wrap(function() walk(tree) end)\nend\n\nlocal found = {}\nfor leaf in leaves({ 1, { 2, { 3, 4 } }, { { 5 } }, 6 }) do\n  found[#found + 1] = leaf\nend\nprint(table.concat(found, \" \"))\n\n-- Values flow both ways: resume passes arguments in, yield hands results out.\nlocal co = coroutine.create(function(a)\n  local b = coroutine.yield(a + 1)\n  return a * b\nend)\nprint(coroutine.resume(co, 10))   --> true  11\nprint(coroutine.resume(co, 5))    --> true  50\nprint(coroutine.status(co))       --> dead\n",
+      "expected_output": "1 2 3 4 5 6\ntrue\t11\ntrue\t50\ndead\n",
+      "notes": "`coroutine.wrap` turns a function into an iterator for the generic `for`. Because Lua coroutines are stackful, `walk` can yield from any recursion depth, whereas a Python generator needs `yield from` at every level. `print` separates multiple values with tabs.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "PUC Lua",
+        "version": "5.4",
+        "docker_image": "nickblah/lua:5.4",
+        "run": "lua {file}",
+        "notes": "Community-maintained image (there is no official Lua image); nickblah/lua:5.5 also passes all snippets."
+      },
+      {
+        "name": "LuaJIT",
+        "version": "2.1",
+        "docker_image": "nickblah/luajit:2",
+        "run": "luajit {file}",
+        "notes": "Lua 5.1 semantics with a tracing JIT; all snippets pass."
+      },
+      {
+        "name": "PUC Lua (system)",
+        "version": "5.4",
+        "run": "lua {file}",
+        "notes": "Packaged by every major Linux distribution (lua5.4)."
+      }
+    ],
+    "browser": { "name": "wasmoon", "url": "https://github.com/ceifa/wasmoon", "notes": "The reference Lua 5.4 interpreter compiled to WebAssembly with JS interop; Fengari (https://fengari.io) is an alternative Lua 5.3 VM written in JavaScript." },
+    "notes": "Lua is tiny, so both the container and the in-browser runtimes start almost instantly."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Lua",
+    "homepage": "https://www.lua.org/",
+    "spec": "https://www.lua.org/manual/5.5/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Lua",
+    "https://www.lua.org/doc/hopl.pdf",
+    "https://www.lua.org/history.html",
+    "https://www.lua.org/versions.html"
+  ]
+}

@@ -1,0 +1,348 @@
+{
+  "id": "ocaml",
+  "name": "OCaml",
+  "aliases": [
+    "Objective Caml",
+    "Caml"
+  ],
+  "year": 1996,
+  "year_note": "Released as Objective Caml in 1996, extending Caml Special Light (1995), which descended from Caml (1987) and Caml Light (1990–91); renamed OCaml in 2011.",
+  "designers": [
+    "Xavier Leroy",
+    "Jérôme Vouillon",
+    "Damien Doligez",
+    "Didier Rémy",
+    "Ascánder Suárez"
+  ],
+  "organization": "Inria",
+  "country": "France",
+  "tagline": "An industrial-strength ML: type inference, algebraic data types and a powerful module system, compiled to fast native code.",
+  "summary": "OCaml is a statically typed, functional-first language of the ML family developed at Inria. It pairs Hindley–Milner type inference, algebraic data types and pattern matching with an expressive module system (signatures and functors), an optional structurally typed object system, and a native-code compiler known for predictable performance. OCaml 5 added shared-memory parallelism and effect handlers, bringing user-defined effects from research into a mainstream compiler.",
+  "history": "OCaml descends from ML, the meta-language of Robin Milner's LCF prover, through Caml, an ML dialect first implemented in 1987 by Ascánder Suárez in Inria's Formel project and named after the Categorical Abstract Machine it compiled to. In 1990–91 Xavier Leroy wrote Caml Light, a compact bytecode implementation in C with a fast garbage collector by Damien Doligez and a Modula-2-style system of separately compiled modules.\n\nCaml Special Light (1995) added an optimizing native-code compiler and a module system inspired by Standard ML. In 1996 Didier Rémy and Jérôme Vouillon added a statically typed object system and the language was released as Objective Caml; Jacques Garrigue later contributed polymorphic methods, labelled and optional arguments and polymorphic variants, and the name was shortened to OCaml in 2011. OCaml 4.00 (2012) introduced GADTs and first-class modules.\n\nAfter years of work on the Multicore OCaml project, OCaml 5.0 (December 2022) replaced the runtime to support parallel domains and effect handlers, with dedicated effect syntax arriving in 5.3 (2025). OCaml is used to build proof assistants such as Rocq (Coq), static analysers such as Infer and Flow, Jane Street's trading systems and the MirageOS unikernel; the first Rust compiler was written in it, and it received the 2023 ACM SIGPLAN Programming Languages Software Award.",
+  "innovations": [
+    "Brought ML type inference and algebraic data types to an efficient, industrial native-code compiler",
+    "A statically type-safe object system with structural object types and row polymorphism",
+    "Polymorphic variants: open, structurally typed sum types",
+    "Combined an SML-style module system (signatures, functors) with separate compilation through .ml/.mli file pairs",
+    "One of the first industrial compilers to ship algebraic effect handlers (OCaml 5, 2022)"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "functional",
+    "imperative",
+    "object-oriented"
+  ],
+  "family": "ml",
+  "syntax_family": "ml",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "global",
+    "equivalence": "mixed",
+    "notes": "Hindley–Milner inference extended with row polymorphism, polymorphic variants and GADTs. Records and ordinary variants are nominal; objects, polymorphic variants and module signatures match structurally."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "native-compiled",
+    "bytecode-vm"
+  ],
+  "status": "active",
+  "latest_version": "5.5.1",
+  "file_extensions": [
+    ".ml",
+    ".mli"
+  ],
+  "color": "#ef7a08",
+  "primary_parent": "ml",
+  "influenced_by": [
+    {
+      "id": "ml",
+      "kind": "dialect",
+      "weight": "major",
+      "note": "An ML dialect descended from LCF ML via Caml and Caml Light; its module system is inspired by Standard ML."
+    },
+    {
+      "id": "modula2",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Caml Light (and its ZINC prototype) used a Modula-2-style module system: an .ml implementation plus an .mli interface per compilation unit."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Caml",
+      "year": 1987,
+      "note": "Inria's ML dialect for the Categorical Abstract Machine; Caml Light (1990) and Caml Special Light (1995) led to Objective Caml."
+    },
+    {
+      "name": "Modula-3",
+      "year": 1988
+    },
+    {
+      "name": "Eff",
+      "year": 2012,
+      "note": "Research language for algebraic effects and handlers, the line of work behind OCaml 5's effects."
+    }
+  ],
+  "influenced": [
+    "fsharp",
+    "rust",
+    "scala"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "Expression-oriented; for/while loops exist, but recursion and higher-order functions are more idiomatic."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "let ... in bindings."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Explicit let rec."
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "Cheap enough to be used for control flow."
+    },
+    "coroutines": {
+      "level": "supported",
+      "since": 2022,
+      "version": "OCaml 5.0",
+      "note": "Built from effect handlers and one-shot continuations (e.g. the fibres of the Eio library)."
+    },
+    "generators": {
+      "level": "library",
+      "note": "Lazy Seq.t sequences in the standard library; a yield-style generator takes a few lines with effects."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "Exhaustiveness and redundancy checking; or-patterns, guards and exception patterns."
+    },
+    "tail-calls": {
+      "level": "core",
+      "note": "Guaranteed; the [@tailcall] attribute checks them, and tail-recursion modulo cons arrived in 4.14."
+    },
+    "continuations": {
+      "level": "supported",
+      "since": 2022,
+      "version": "OCaml 5.0",
+      "note": "One-shot delimited continuations captured by effect handlers; no multi-shot call/cc."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Hindley–Milner; annotations are rarely needed outside .mli interfaces."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Parametric polymorphism ('a list), plus functors for module-level genericity."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "Variants and records, plus GADTs (4.00) and polymorphic variants."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "'a option; there is no null."
+    },
+    "structural-typing": {
+      "level": "core",
+      "note": "Objects (row polymorphism), polymorphic variants and module signatures are matched structurally."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Module signatures (.mli files) and class types."
+    },
+    "classes": {
+      "level": "supported",
+      "note": "The 'Objective' in Objective Caml: classes and immediate objects, used far less than modules and variants."
+    },
+    "inheritance": {
+      "level": "supported",
+      "note": "Class inheritance, including multiple inheritance; object subtyping is structural and independent of it."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Abstract types in signatures hide their representation."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Signatures, functors, first-class modules (4.00) and separate compilation."
+    },
+    "operator-overloading": {
+      "level": "supported",
+      "note": "No ad-hoc overloading (+ for int, +. for float); custom infix operators can be defined and locally opened, e.g. Int64.(a + b)."
+    },
+    "first-class-functions": {
+      "level": "core"
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "core",
+      "note": "Bindings and records are immutable by default; ref cells, mutable fields, arrays and Bytes opt into mutation."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "Strict by default; explicit lazy / Lazy.force suspensions and Seq for lazy sequences."
+    },
+    "effect-handlers": {
+      "level": "core",
+      "since": 2022,
+      "version": "OCaml 5.0",
+      "note": "Untyped effects with one-shot continuations; the `effect` pattern syntax arrived in 5.3."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Generational collector; the OCaml 5 runtime supports parallel domains."
+    },
+    "csp-channels": {
+      "level": "library",
+      "note": "The threads library's Event module provides Concurrent ML-style synchronous channels."
+    },
+    "async-await": {
+      "level": "library",
+      "note": "Lwt and Async promises with let* binding operators (4.08); Eio uses effects for direct-style I/O instead."
+    },
+    "macros": {
+      "level": "supported",
+      "since": 2014,
+      "version": "OCaml 4.02",
+      "note": "PPX rewriters transform the AST at compile time via [@attributes] and [%extensions]; there are no in-language macro definitions."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1987,
+      "event": "First Caml implementation, in Inria's Formel project"
+    },
+    {
+      "year": 1990,
+      "event": "Caml Light: a bytecode implementation by Xavier Leroy and Damien Doligez"
+    },
+    {
+      "year": 1995,
+      "event": "Caml Special Light adds a native-code compiler and SML-style modules"
+    },
+    {
+      "year": 1996,
+      "event": "Objective Caml released with Rémy and Vouillon's object system"
+    },
+    {
+      "year": 2011,
+      "event": "Objective Caml officially renamed OCaml"
+    },
+    {
+      "year": 2012,
+      "event": "OCaml 4.00: GADTs and first-class modules"
+    },
+    {
+      "year": 2022,
+      "event": "OCaml 5.0: multicore runtime (domains) and effect handlers (16 December)"
+    },
+    {
+      "year": 2023,
+      "event": "ACM SIGPLAN Programming Languages Software Award"
+    },
+    {
+      "year": 2025,
+      "event": "OCaml 5.3 adds syntax for deep effect handlers"
+    }
+  ],
+  "trivia": [
+    "CAML originally stood for Categorical Abstract Machine Language, after the abstract machine targeted by the first implementation.",
+    "The Rust compiler was first implemented in OCaml before becoming self-hosting."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "OCaml 5",
+      "code": "let () = print_endline \"Hello, World!\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "`let () = ...` evaluates a unit-valued expression when the module is initialised; there is no main function.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "OCaml 5",
+      "code": "let rec factorial n = if n <= 1 then 1 else n * factorial (n - 1)\n\nlet () = Printf.printf \"%d\\n\" (factorial 10)\n",
+      "expected_output": "3628800\n",
+      "notes": "Recursive bindings must be marked `let rec`. Native ints are 63-bit on 64-bit platforms.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "OCaml 5",
+      "code": "let fizzbuzz i =\n  match i mod 3, i mod 5 with\n  | 0, 0 -> \"FizzBuzz\"\n  | 0, _ -> \"Fizz\"\n  | _, 0 -> \"Buzz\"\n  | _ -> string_of_int i\n\nlet () =\n  for i = 1 to 15 do\n    print_endline (fizzbuzz i)\n  done\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Matching on the tuple (i mod 3, i mod 5) replaces an if/else chain.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "OCaml 5",
+      "code": "let () =\n  List.init 10 (fun i -> i + 1)\n  |> List.filter (fun x -> x mod 2 = 0)\n  |> List.map (fun x -> x * x)\n  |> List.map string_of_int\n  |> String.concat \" \"\n  |> print_endline\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "The |> operator threads the list through ordinary Stdlib functions.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "OCaml 5",
+      "code": "type shape =\n  | Rectangle of { width : int; height : int }\n  | Triangle of { base : int; height : int }\n\n(* The compiler warns if a match forgets a constructor. *)\nlet area = function\n  | Rectangle { width; height } -> width * height\n  | Triangle { base; height } -> base * height / 2\n\nlet name = function Rectangle _ -> \"Rectangle\" | Triangle _ -> \"Triangle\"\n\nlet () =\n  [ Rectangle { width = 3; height = 4 }; Triangle { base = 10; height = 3 } ]\n  |> List.iter (fun s -> Printf.printf \"%s: %d\\n\" (name s) (area s))\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "A variant type with inline records, taken apart by pattern matching. Classes (object method area = ... end) are the OOP alternative but are rarely used for this.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Effect handlers: resumable, user-defined effects",
+      "dialect": "OCaml 5.3+",
+      "code": "(* OCaml 5 effect handlers: declare an effect, perform it, handle it. *)\ntype _ Effect.t += Yield : int -> unit Effect.t\n\n(* An ordinary loop that yields values: no callbacks, threads or monads. *)\nlet squares n =\n  for i = 1 to n do\n    Effect.perform (Yield (i * i))\n  done\n\n(* The handler decides what Yield means, then resumes the paused loop. *)\nlet () =\n  let total = ref 0 in\n  match squares 5 with\n  | () -> Printf.printf \"total = %d\\n\" !total\n  | effect Yield x, k ->\n      Printf.printf \"got %d\\n\" x;\n      total := !total + x;\n      Effect.Deep.continue k ()\n",
+      "expected_output": "got 1\ngot 4\ngot 9\ngot 16\ngot 25\ntotal = 55\n",
+      "notes": "squares performs Yield without knowing how it will be handled; the handler prints, accumulates and resumes the paused loop with continue. The `effect` pattern needs OCaml 5.3+; 5.0–5.2 used Effect.Deep.match_with with a handler record.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "OCaml toplevel",
+        "version": "5.5.1",
+        "docker_image": "ocaml/opam:alpine-ocaml-5.5",
+        "run": "opam exec -- ocaml {file}",
+        "notes": "Runs the file as a script. The official opam image is large (~1.3 GB); the snippets need only the compiler and standard library."
+      },
+      {
+        "name": "ocamlopt (native)",
+        "version": "5.5.1",
+        "docker_image": "ocaml/opam:alpine-ocaml-5.5",
+        "compile": "ocamlopt -o {out} {file}",
+        "run": "{out}",
+        "notes": "The source file name must be a valid module name (e.g. main.ml); writes .cmi/.cmx/.o files next to the source."
+      }
+    ],
+    "browser": {
+      "name": "OCaml Playground (js_of_ocaml toplevel)",
+      "url": "https://ocaml.org/play",
+      "notes": "A toplevel compiled to JavaScript with js_of_ocaml; the effect-syntax signature snippet needs a 5.3+ toplevel with effects support."
+    },
+    "notes": "All six snippets verified with both the toplevel and ocamlopt in ocaml/opam:alpine-ocaml-5.5."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/OCaml",
+    "homepage": "https://ocaml.org/",
+    "spec": "https://ocaml.org/manual/latest/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/OCaml",
+    "https://ocaml.org/history",
+    "https://ocaml.org/about",
+    "https://ocaml.org/releases",
+    "https://xavierleroy.org/publi/ZINC.pdf",
+    "https://ocaml.org/manual/latest/effects.html",
+    "https://arxiv.org/abs/2104.00250",
+    "https://ocaml.org/news/sigplan_announcement"
+  ]
+}

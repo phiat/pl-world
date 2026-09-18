@@ -1,0 +1,426 @@
+{
+  "id": "csharp",
+  "name": "C#",
+  "aliases": [
+    "C Sharp",
+    "CSharp",
+    "Visual C#"
+  ],
+  "year": 2000,
+  "year_note": "Designed from January 1999 under the name COOL; announced at Microsoft's Professional Developers Conference in July 2000; C# 1.0 shipped with .NET Framework 1.0 in early 2002.",
+  "designers": [
+    "Anders Hejlsberg"
+  ],
+  "organization": "Microsoft",
+  "country": "United States",
+  "tagline": "Microsoft's managed C-family language for .NET, which carried LINQ and async/await into the mainstream.",
+  "summary": "C# is a statically typed, multi-paradigm language designed at Microsoft for the .NET platform, combining a Java-like managed object model with C++-style features, reified generics and a unified type system. It has absorbed functional and asynchronous ideas early, including LINQ, lambdas, async/await, pattern matching and records, and carried several of them into the mainstream. Open source and cross-platform since .NET Core, it is used for web services, desktop and mobile apps, and games built with the Unity engine.",
+  "history": "In January 1999 Anders Hejlsberg, previously involved in the design of Turbo Pascal, Delphi and Visual J++, formed a Microsoft team to build a new language for the .NET Framework, initially called COOL ('C-like Object Oriented Language'). Renamed C#, it was announced at the Professional Developers Conference in July 2000, standardized as ECMA-334 in December 2001 (ISO/IEC 23270 in 2003), and shipped as C# 1.0 with .NET Framework 1.0 in 2002. James Gosling and Bill Joy called it an imitation of Java; Hejlsberg replied that it was 'not a Java clone' and 'much closer to C++' in its design.\n\nLater versions added generics reified in the runtime, iterators and anonymous methods (2.0, 2005), LINQ with lambdas and local type inference (3.0, 2007), dynamic binding (4.0, 2010) and async/await (5.0, 2012), a model JavaScript, Python, Rust and Swift later adopted. In 2014 Microsoft open-sourced the Roslyn compiler and announced the cross-platform .NET Core, which became the main line of .NET with .NET 5 (2020).\n\nSince C# 7.0 (2017) the language has gained tuples, pattern matching, nullable reference types, records and less ceremony, such as top-level statements (C# 9) and, with .NET 10 and C# 14 (2025), single-file programs run with `dotnet run app.cs`.",
+  "innovations": [
+    "LINQ: language-integrated queries over collections, databases and XML, built on lambdas, extension methods and expression trees",
+    "async/await keywords (C# 5, 2012), the model later adopted by JavaScript, Python, Rust and Swift",
+    "Generics reified in the runtime (C# 2.0), unlike Java's type erasure",
+    "Properties, events and delegates as language features for component-oriented programming",
+    "A unified type system in which value types (structs) and reference types share System.Object as their root"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "object-oriented",
+    "imperative",
+    "functional",
+    "generic",
+    "concurrent",
+    "reflective",
+    "event-driven"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "`var` infers local variable types (C# 3.0); `dynamic` (C# 4.0) opts individual expressions into run-time binding; nullable reference types (C# 8.0) add flow-analysed null warnings."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "bytecode-vm",
+    "jit",
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "C# 14 (.NET 10, November 2025)",
+  "file_extensions": [
+    ".cs",
+    ".csx"
+  ],
+  "color": "#7355dd",
+  "primary_parent": "java",
+  "influenced_by": [
+    {
+      "id": "java",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Managed, garbage-collected, single-inheritance object model with interfaces, compiled to bytecode for a VM."
+    },
+    {
+      "id": "cpp",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Syntax plus structs, operator overloading, enums and unsafe pointers."
+    },
+    {
+      "id": "c",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "C-family statement and expression syntax, largely via C++."
+    },
+    {
+      "id": "haskell",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "LINQ's query comprehensions and lambdas drew on functional programming research (via Cω)."
+    },
+    {
+      "id": "ml",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Type inference, tuples and pattern matching in later versions."
+    },
+    {
+      "id": "clu",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "yield-based iterators (C# 2.0) descend from CLU's iterators."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Delphi (Object Pascal)",
+      "year": 1995,
+      "note": "Hejlsberg's earlier language: properties, events and component-oriented design."
+    },
+    {
+      "name": "Visual J++",
+      "year": 1996,
+      "note": "Microsoft's Java implementation, which Hejlsberg worked on; delegates first appeared there."
+    },
+    {
+      "name": "Cω",
+      "year": 2004,
+      "note": "Microsoft Research language whose query and stream features led to LINQ."
+    },
+    {
+      "name": "Visual Basic",
+      "year": 1991,
+      "note": "Properties and events for rapid application development."
+    },
+    {
+      "name": "Modula-3",
+      "year": 1988
+    }
+  ],
+  "influenced": [
+    "fsharp",
+    "kotlin",
+    "rust",
+    "swift",
+    "typescript"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core"
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "try/catch/finally and exception filters (`when`); exceptions are unchecked."
+    },
+    "generators": {
+      "level": "core",
+      "since": 2005,
+      "version": "C# 2.0",
+      "note": "`yield return` iterators; async iterators (IAsyncEnumerable) since C# 8.0."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "since": 2017,
+      "version": "C# 7.0",
+      "note": "Extended through switch expressions and positional/property patterns (8.0), relational and logical patterns (9.0) and list patterns (11)."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "supported",
+      "since": 2007,
+      "version": "C# 3.0",
+      "note": "`var`, lambda parameter and generic method inference; target-typed `new()` (C# 9)."
+    },
+    "generics": {
+      "level": "core",
+      "since": 2005,
+      "version": "C# 2.0",
+      "note": "Reified by the CLR, so List<int> stores unboxed ints; constraints with `where`."
+    },
+    "algebraic-data-types": {
+      "level": "supported",
+      "since": 2020,
+      "version": "C# 9.0",
+      "note": "Records and positional deconstruction give product types; sum types are emulated with abstract records, as the language has no closed unions."
+    },
+    "type-classes": {
+      "level": "supported",
+      "since": 2022,
+      "version": "C# 11",
+      "note": "Static abstract interface members enable type-class-style generic math (INumber<T>), though types opt in at their declaration."
+    },
+    "option-types": {
+      "level": "supported",
+      "since": 2019,
+      "version": "C# 8.0",
+      "note": "Nullable reference types (T?) give compile-time null warnings; Nullable<T> covers value types since C# 2.0."
+    },
+    "gradual-typing": {
+      "level": "supported",
+      "since": 2010,
+      "version": "C# 4.0",
+      "note": "The `dynamic` type defers member lookup to run time inside statically typed code."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Default interface methods since C# 8.0 and static abstract members since C# 11."
+    },
+    "classes": {
+      "level": "core"
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Single class inheritance, multiple interface implementation."
+    },
+    "everything-is-an-object": {
+      "level": "supported",
+      "note": "Unified type system: every type, including int, derives from System.Object (value types via boxing), but computation is not message passing."
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "since": 2019,
+      "version": "C# 8.0",
+      "note": "Default interface methods; extension methods (C# 3.0) and extension members (C# 14) add methods to existing types."
+    },
+    "abstract-data-types": {
+      "level": "core"
+    },
+    "modules": {
+      "level": "core",
+      "note": "Namespaces plus assemblies as units of separate compilation and deployment, with `internal` visibility."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "User-defined operators and implicit/explicit conversions."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Delegates since 1.0, anonymous methods in 2.0 and lambdas in 3.0 (2007)."
+    },
+    "closures": {
+      "level": "core",
+      "since": 2005,
+      "version": "C# 2.0",
+      "note": "Anonymous methods and lambdas capture variables by reference."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "readonly fields and structs, init-only setters and records (C# 9), but mutability is the default."
+    },
+    "list-comprehensions": {
+      "level": "core",
+      "since": 2007,
+      "version": "C# 3.0",
+      "note": "LINQ query expressions (from ... where ... select) are comprehension syntax that compiles to method calls."
+    },
+    "lazy-evaluation": {
+      "level": "library",
+      "note": "LINQ operators and iterators use deferred execution; Lazy<T> for lazy values."
+    },
+    "garbage-collection": {
+      "level": "core"
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "Pointers and pointer arithmetic are allowed in `unsafe` code; Span<T> and ref structs cover most low-level needs safely."
+    },
+    "csp-channels": {
+      "level": "library",
+      "since": 2019,
+      "note": "System.Threading.Channels in the standard library (.NET Core 3.0)."
+    },
+    "async-await": {
+      "level": "core",
+      "since": 2012,
+      "version": "C# 5.0",
+      "note": "Modelled on F# asynchronous workflows; the compiler rewrites async methods into state machines."
+    },
+    "reflection": {
+      "level": "core",
+      "note": "System.Reflection, custom attributes and expression trees."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "since": 2020,
+      "version": "C# 9.0",
+      "note": "Roslyn source generators run user code inside the compiler to generate source; there is no general constexpr."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "since": 2021,
+      "version": ".NET 6",
+      "note": "Edit and Continue and .NET Hot Reload apply code edits to a running process."
+    },
+    "declarative-queries": {
+      "level": "core",
+      "since": 2007,
+      "version": "C# 3.0",
+      "note": "LINQ queries can be translated from expression trees into SQL by providers such as Entity Framework."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1999,
+      "event": "Hejlsberg's team starts work on 'COOL'"
+    },
+    {
+      "year": 2000,
+      "event": "C# announced with .NET at PDC (July)"
+    },
+    {
+      "year": 2001,
+      "event": "ECMA-334 standard (December)"
+    },
+    {
+      "year": 2002,
+      "event": "C# 1.0 ships with .NET Framework 1.0 and Visual Studio .NET"
+    },
+    {
+      "year": 2005,
+      "event": "C# 2.0: generics, iterators, anonymous methods, nullable value types"
+    },
+    {
+      "year": 2007,
+      "event": "C# 3.0: LINQ, lambdas, var, extension methods"
+    },
+    {
+      "year": 2010,
+      "event": "C# 4.0: dynamic binding, named and optional arguments"
+    },
+    {
+      "year": 2012,
+      "event": "C# 5.0: async/await"
+    },
+    {
+      "year": 2014,
+      "event": "Roslyn compiler open-sourced; .NET Core announced"
+    },
+    {
+      "year": 2017,
+      "event": "C# 7.0: tuples and pattern matching"
+    },
+    {
+      "year": 2019,
+      "event": "C# 8.0: nullable reference types, switch expressions, default interface methods"
+    },
+    {
+      "year": 2020,
+      "event": "C# 9.0 and .NET 5: records, top-level statements"
+    },
+    {
+      "year": 2025,
+      "event": "C# 14 and .NET 10: extension members, file-based `dotnet run app.cs`"
+    }
+  ],
+  "trivia": [
+    "The name comes from musical notation, where a sharp raises a note by a semitone; the # also resembles four + signs arranged in a grid, echoing C++.",
+    "The team's working name for the language was COOL, for 'C-like Object Oriented Language', dropped for trademark reasons."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "C# 14 (.NET 10 file-based app)",
+      "code": "Console.WriteLine(\"Hello, World!\");\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Top-level statements (C# 9) remove the class/Main boilerplate, and .NET 10 runs a single .cs file without a project file. The classic form is `class Program { static void Main() { ... } }`.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "C# 14 (.NET 10 file-based app)",
+      "code": "Console.WriteLine(Factorial(10));\n\nstatic long Factorial(int n) => n <= 1 ? 1 : n * Factorial(n - 1);\n",
+      "expected_output": "3628800\n",
+      "notes": "A static local function declared after the top-level statements, with an expression body (=>).",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "C# 14 (.NET 10 file-based app)",
+      "code": "for (int i = 1; i <= 15; i++)\n{\n    Console.WriteLine((i % 3, i % 5) switch\n    {\n        (0, 0) => \"FizzBuzz\",\n        (0, _) => \"Fizz\",\n        (_, 0) => \"Buzz\",\n        _ => i.ToString(),\n    });\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "A switch expression over a tuple, using discards (_) as wildcards (C# 8).",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "C# 14 (.NET 10 file-based app)",
+      "code": "// LINQ query syntax: SQL-like comprehension over any IEnumerable\nvar squares = from n in Enumerable.Range(1, 10)\n              where n % 2 == 0\n              select n * n;\n\nConsole.WriteLine(string.Join(\" \", squares));\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Query syntax compiles to method calls: Enumerable.Range(1, 10).Where(n => n % 2 == 0).Select(n => n * n). Evaluation is deferred until string.Join enumerates the result.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "C# 14 (.NET 10 file-based app)",
+      "code": "Shape[] shapes = [new Rectangle(3, 4), new Triangle(10, 3)];\n\nforeach (var s in shapes)\n    Console.WriteLine($\"{s.GetType().Name}: {Area(s)}\");\n\nstatic int Area(Shape s) => s switch\n{\n    Rectangle(var w, var h) => w * h,\n    Triangle(var b, var h) => b * h / 2,\n    _ => throw new ArgumentException(\"unknown shape\"),\n};\n\nabstract record Shape;\nrecord Rectangle(int Width, int Height) : Shape;\nrecord Triangle(int Base, int Height) : Shape;\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Records (C# 9) with positional patterns in a switch expression. Record hierarchies are open to extension, so the switch needs a fallback arm to be exhaustive. [...] is a collection expression (C# 12).",
+      "verified": true
+    },
+    "signature": {
+      "title": "async/await",
+      "dialect": "C# 14 (.NET 10 file-based app)",
+      "code": "// async/await: asynchronous code written in direct style.\nvar slow = FetchAsync(\"slow\", delayMs: 300, value: 40);\nvar fast = FetchAsync(\"fast\", delayMs: 50, value: 2);\n\nint[] results = await Task.WhenAll(slow, fast);   // both run concurrently\nConsole.WriteLine($\"total = {results.Sum()}\");\n\nstatic async Task<int> FetchAsync(string name, int delayMs, int value)\n{\n    Console.WriteLine($\"{name}: started\");\n    await Task.Delay(delayMs);        // suspends without blocking a thread\n    Console.WriteLine($\"{name}: done\");\n    return value;\n}\n",
+      "expected_output": "slow: started\nfast: started\nfast: done\nslow: done\ntotal = 42\n",
+      "notes": "Both calls start immediately and run concurrently; `await` suspends without blocking a thread, and top-level code may await directly. The output order depends on the two delays (50 ms and 300 ms).",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": ".NET SDK (file-based apps)",
+        "version": "10.0",
+        "docker_image": "plw-csharp",
+        "install": "Self-built image: FROM mcr.microsoft.com/dotnet/sdk:10.0; ENV DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1 NuGetAudit=false; RUN one warm-up `dotnet run warm.cs` so the NuGet cache is populated for offline restores",
+        "run": "dotnet run {file}",
+        "notes": "The plain mcr.microsoft.com/dotnet/sdk:10.0 image fails under --network none because the implicit restore tries to reach nuget.org. {file} must end in .cs. Also verified with the host .NET SDK 10.0.112.",
+        "dockerfile": "sandbox/csharp/Dockerfile"
+      }
+    ],
+    "browser": {
+      "name": "Roslyn on Blazor WebAssembly (C# minor)",
+      "url": "https://github.com/MicrosoftLearning/c-sharp-minor",
+      "notes": "The Roslyn compiler and .NET runtime running as WebAssembly compile and run C# client-side; a large initial download."
+    },
+    "notes": "After warm-up, each file compiles and runs in well under a second."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/C_Sharp_(programming_language)",
+    "homepage": "https://learn.microsoft.com/en-us/dotnet/csharp/",
+    "spec": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/readme"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/C_Sharp_(programming_language)",
+    "https://en.wikipedia.org/wiki/CLU_(programming_language)",
+    "https://github.com/MicrosoftLearning/c-sharp-minor"
+  ]
+}

@@ -1,0 +1,7 @@
+#!/bin/sh
+# self-run file.self -- run a Self script headless against a prebuilt world, then quit.
+# VM diagnostics go to stderr; program output to stdout.
+t=$(mktemp /tmp/selfXXXXXX.self)
+cat "$1" > "$t"
+printf '\n_Quit\n' >> "$t"
+exec /opt/self/build/vm/Self -s /opt/self/clean.snap -f "$t" < /dev/null

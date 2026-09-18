@@ -1,0 +1,171 @@
+{
+  "id": "ruby",
+  "name": "Ruby",
+  "aliases": ["CRuby", "MRI (Matz's Ruby Interpreter)"],
+  "year": 1995,
+  "year_note": "Conceived and named in February 1993; version 0.95 was released to Japanese newsgroups on 21 December 1995, and Ruby 1.0 followed on 25 December 1996.",
+  "designers": ["Yukihiro Matsumoto"],
+  "country": "Japan",
+  "tagline": "A pure object-oriented scripting language built for programmer happiness, where every value is an object and every method can take a block.",
+  "summary": "Ruby is a dynamic, strongly typed, purely object-oriented scripting language in which every value — integers and nil included — is an object that responds to messages. Yukihiro 'Matz' Matsumoto blended Smalltalk's object model, Perl's practicality and text handling, and Lisp's closures into a language designed to make programmers happy. Blocks, open classes and pervasive metaprogramming make it well suited to internal DSLs, which Ruby on Rails turned into a major force in web development.",
+  "history": "Yukihiro Matsumoto began Ruby in February 1993 in Japan, wanting a scripting language 'more powerful than Perl, and more object-oriented than Python'; the name, chosen on 24 February 1993, is another gemstone after Perl. Version 0.95 appeared on Japanese newsgroups in December 1995 and 1.0 on Christmas Day 1996, and Ruby spread mainly within Japan until the English-language ruby-talk mailing list (1999) and the first English book, 'Programming Ruby' (2000).\n\nDavid Heinemeier Hansson's Ruby on Rails web framework (2004) brought Ruby worldwide attention by showing how blocks, open classes and metaprogramming could produce concise, convention-driven code. Ruby 1.9 (2007) replaced the tree-walking interpreter with the YARV bytecode VM and added fibers; Ruby became a Japanese Industrial Standard in 2011 and an ISO/IEC standard (30170) in 2012.\n\nReleases arrive every Christmas. Ruby 2.0 (2013) added keyword arguments, refinements and lazy enumerators; Ruby 3.0 (2020) delivered the '3x3' performance goal along with Ractors for parallelism, a fiber scheduler and the RBS type-signature language; 3.1 introduced the YJIT compiler, and Ruby 4.0 (2025) added the experimental ZJIT compiler and Ruby::Box namespaces.",
+  "innovations": [
+    "Blocks: a lightweight closure syntax attached to any method call, making internal iterators and embedded DSLs the everyday idiom",
+    "A pure Smalltalk-style object model (even integers and nil are objects) in a practical Perl-style scripting language",
+    "Modules as mixins as the main unit of code reuse alongside single inheritance",
+    "Open classes and runtime metaprogramming (define_method, method_missing) used to build internal DSLs such as Rails, RSpec and Rake",
+    "Programmer happiness stated as an explicit design goal",
+    "Via Ruby on Rails, popularised 'convention over configuration' web frameworks"
+  ],
+  "paradigms": ["multi-paradigm", "object-oriented", "imperative", "functional", "reflective", "metaprogramming", "scripting"],
+  "family": "scripting",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Optional RBS signature files (Ruby 3.0) and Sorbet annotations are checked by external tools; the interpreter itself only checks at run time."
+  },
+  "memory": "tracing-gc",
+  "execution": ["bytecode-vm", "jit"],
+  "status": "active",
+  "latest_version": "4.0",
+  "file_extensions": [".rb", ".ru", ".gemspec", ".rake"],
+  "color": "#701516",
+  "primary_parent": "perl",
+  "influenced_by": [
+    { "id": "perl", "kind": "influence", "weight": "major", "note": "The scripting niche, regex literals, $-prefixed globals, statement modifiers and much of the text-processing toolkit; the name is a gemstone pun on Perl." },
+    { "id": "smalltalk", "kind": "influence", "weight": "major", "note": "Everything is an object, message sending, blocks and much of the core class library's method naming." },
+    { "id": "lisp", "kind": "influence", "weight": "major", "note": "Matz (2006) described Ruby's design as a simple Lisp minus macros and s-expressions, plus a simple object system, blocks, Smalltalk's methods and Perl's functionality." },
+    { "id": "eiffel", "kind": "influence", "weight": "minor" },
+    { "id": "ada", "kind": "influence", "weight": "minor" },
+    { "id": "clu", "kind": "influence", "weight": "minor", "note": "`yield` to a block echoes CLU iterators." },
+    { "id": "python", "kind": "influence", "weight": "minor" },
+    { "id": "cpp", "kind": "influence", "weight": "minor" },
+    { "id": "basic", "kind": "influence", "weight": "minor" },
+    { "id": "lua", "kind": "influence", "weight": "minor" }
+  ],
+  "influenced_by_external": [
+    { "name": "Dylan", "year": 1992 }
+  ],
+  "influenced": ["elixir", "julia", "swift", "rust", "clojure"],
+  "traits": {
+    "structured-control": { "level": "core", "note": "`if`/`unless`/`while`/`until`/`case` are expressions; Perl-style statement modifiers (`x if y`)." },
+    "block-scope": { "level": "supported", "note": "def, class, module and blocks open new scopes, but if/while bodies do not." },
+    "recursion": { "level": "core", "note": "Tail-call optimisation exists only as an off-by-default VM compile option." },
+    "exceptions": { "level": "core", "note": "begin/rescue/else/ensure, `raise`, and `retry`." },
+    "coroutines": { "level": "supported", "since": 2007, "version": "Ruby 1.9", "note": "Fibers; Ruby 3.0 added a fiber scheduler for non-blocking I/O." },
+    "generators": { "level": "core", "note": "Internal iterators: methods `yield` to a block, as in CLU; Enumerator (1.9) adds external iteration." },
+    "pattern-matching": { "level": "supported", "since": 2019, "version": "Ruby 2.7", "note": "`case`/`in` with array, hash and find patterns; experimental in 2.7, stable since 3.0." },
+    "continuations": { "level": "library", "note": "`callcc` via `require 'continuation'`; obsolete and discouraged." },
+    "gradual-typing": { "level": "supported", "since": 2020, "version": "Ruby 3.0", "note": "RBS signatures live in separate .rbs files and are checked by external tools such as Steep; Sorbet uses inline `sig` annotations. There is no inline type syntax in the language." },
+    "classes": { "level": "core", "note": "Classes are objects too (instances of Class) and remain open for modification." },
+    "inheritance": { "level": "core", "note": "Single inheritance plus module mixins." },
+    "everything-is-an-object": { "level": "core", "note": "Every value is an object and every operation a method call (`1.+(2)`); `if` and `while` remain keywords, but most looping is done with methods that take blocks." },
+    "traits-mixins": { "level": "core", "note": "Modules mixed in with `include`, `extend` and `prepend` (2.0)." },
+    "abstract-data-types": { "level": "core", "note": "Instance variables are private to the object and reachable only through methods." },
+    "modules": { "level": "supported", "note": "Modules provide namespaces and mixins; `require` loads files into a single global namespace with no export lists (Ruby 4.0's experimental Ruby::Box adds isolation)." },
+    "operator-overloading": { "level": "core", "note": "Operators are ordinary methods (`def +(other)`)." },
+    "first-class-functions": { "level": "core", "note": "Blocks, procs and lambdas (`->(x) { x * 2 }`); methods become values via `method(:name)`." },
+    "closures": { "level": "core", "note": "Blocks, procs and lambdas capture their lexical environment." },
+    "lazy-evaluation": { "level": "supported", "since": 2013, "version": "Ruby 2.0", "note": "Enumerator::Lazy (`(1..Float::INFINITY).lazy.map { ... }.first(3)`); evaluation is otherwise strict." },
+    "garbage-collection": { "level": "core", "note": "Mark-and-sweep, generational since 2.1, incremental since 2.2, with optional compaction since 2.7." },
+    "actors": { "level": "supported", "since": 2020, "version": "Ruby 3.0", "note": "Ractors: isolated, message-passing units of parallel execution; still experimental in 4.0." },
+    "reflection": { "level": "core", "note": "`send`, `respond_to?`, `instance_variables`, `define_method` and `method_missing`." },
+    "regex-builtin": { "level": "core", "note": "Perl-style /regex/ literals, `=~` and match globals such as $~ and $1." }
+  },
+  "milestones": [
+    { "year": 1993, "event": "Matsumoto begins Ruby and chooses its name (24 February)" },
+    { "year": 1995, "event": "Ruby 0.95 released on Japanese newsgroups" },
+    { "year": 1996, "event": "Ruby 1.0 released (25 December)" },
+    { "year": 2004, "event": "Ruby on Rails released by David Heinemeier Hansson" },
+    { "year": 2007, "event": "Ruby 1.9: YARV bytecode VM, fibers, Enumerator" },
+    { "year": 2012, "event": "Ruby standardised as ISO/IEC 30170" },
+    { "year": 2013, "event": "Ruby 2.0: keyword arguments, refinements, lazy enumerators" },
+    { "year": 2019, "event": "Ruby 2.7: experimental pattern matching" },
+    { "year": 2020, "event": "Ruby 3.0: '3x3' performance goal, Ractors, fiber scheduler, RBS" },
+    { "year": 2021, "event": "Ruby 3.1: YJIT just-in-time compiler" },
+    { "year": 2025, "event": "Ruby 4.0: ZJIT and Ruby::Box" }
+  ],
+  "trivia": [
+    "The name was picked in an online chat on 24 February 1993, partly because ruby was a colleague's birthstone.",
+    "Ruby was standardised in Japan (JIS X 3017, 2011) before becoming an international ISO/IEC standard (2012)."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Ruby",
+      "code": "puts \"Hello, World!\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "`puts` adds the newline; parentheses around method arguments are optional.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Ruby",
+      "code": "def factorial(n)\n  n <= 1 ? 1 : n * factorial(n - 1)\nend\n\nputs factorial(10)\n",
+      "expected_output": "3628800\n",
+      "notes": "The last expression is the return value; Integer grows to arbitrary precision automatically.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Ruby",
+      "code": "1.upto(15) do |i|\n  word = \"\"\n  word += \"Fizz\" if (i % 3).zero?\n  word += \"Buzz\" if (i % 5).zero?\n  puts word.empty? ? i : word\nend\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "The loop is `upto`, a method on Integer that takes a block. Trailing `if` is a Perl-style statement modifier; `zero?` and `empty?` are predicate methods by naming convention.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Ruby",
+      "code": "squares = (1..10).select(&:even?).map { |x| x * x }\nputs squares.join(\" \")\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "`&:even?` converts the symbol into a block that calls `even?` on each element; select and map are Enumerable methods available on ranges, arrays and hashes alike.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Ruby 3.0+ (endless methods)",
+      "code": "class Rectangle\n  def initialize(width, height)\n    @width = width\n    @height = height\n  end\n\n  def area = @width * @height\nend\n\nclass Triangle\n  def initialize(base, height)\n    @base = base\n    @height = height\n  end\n\n  def area = @base * @height / 2\nend\n\n# Duck typing: no shared superclass or interface is needed to call #area.\n[Rectangle.new(3, 4), Triangle.new(10, 3)].each do |shape|\n  puts \"#{shape.class}: #{shape.area}\"\nend\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Instance variables (@width) are private to each object; `def area = ...` is Ruby 3.0's one-line 'endless' method. Ruby 3.2's `Data.define(:width, :height)` is a terser way to declare immutable value objects.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Everything is an object; every method takes a block",
+      "dialect": "Ruby 3.0+",
+      "code": "# Everything is an object: even integers and nil answer messages.\nputs 42.class, nil.to_a.inspect, 7.respond_to?(:+)\n\n# Classes stay open: teach a built-in class a new method.\nclass Integer\n  def factorial = (1..self).reduce(1, :*)\nend\nputs 10.factorial\n\n# Blocks: any method can take a chunk of code and `yield` to it.\ndef timed(label)\n  result = yield\n  puts \"#{label} -> #{result}\"\nend\ntimed(\"sum of squares\") { (1..4).sum { |x| x * x } }\n\n# Loops are just methods that take blocks.\n5.downto(1) { |i| print i }\nputs \" liftoff!\"\n",
+      "expected_output": "Integer\n[]\ntrue\n3628800\nsum of squares -> 30\n54321 liftoff!\n",
+      "notes": "`puts` prints each argument on its own line. Reopening Integer ('monkey patching') is powerful but discouraged in libraries, where refinements scope such changes. `yield` invokes the block passed to `timed`.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "CRuby",
+        "version": "4.0",
+        "docker_image": "ruby:4.0-slim",
+        "run": "ruby {file}"
+      },
+      {
+        "name": "CRuby (system)",
+        "run": "ruby {file}",
+        "notes": "Snippets also run on Ruby 3.2+ (shapes and signature need 3.0+ for endless methods)."
+      }
+    ],
+    "browser": { "name": "ruby.wasm", "url": "https://github.com/ruby/ruby.wasm", "notes": "Official CRuby port to WebAssembly/WASI, maintained by the Ruby core team (since Ruby 3.2)." },
+    "notes": "ruby.wasm runs CRuby itself in the browser; the container is the reference."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+    "homepage": "https://www.ruby-lang.org/",
+    "spec": "https://www.iso.org/standard/59579.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Ruby_(programming_language)",
+    "https://www.ruby-lang.org/en/about/",
+    "https://www.ruby-lang.org/en/news/2025/12/25/ruby-4-0-0-released/",
+    "https://www.iso.org/standard/59579.html",
+    "https://blade.ruby-lang.org/ruby-talk/179642"
+  ]
+}

@@ -1,0 +1,282 @@
+{
+  "id": "clu",
+  "name": "CLU",
+  "aliases": [
+    "Portable CLU",
+    "PCLU"
+  ],
+  "year": 1975,
+  "year_note": "Design began at MIT in fall 1973; a preliminary CLU .5 (without exceptions or iterators) was implemented on the PDP-10 from 1974 and documented in January 1975. The full design was complete by the end of 1976, the reference manual appeared in 1978–79, and a production compiler was exported from 1980.",
+  "designers": [
+    "Barbara Liskov",
+    "Russ Atkinson",
+    "Craig Schaffert",
+    "Alan Snyder"
+  ],
+  "organization": "Massachusetts Institute of Technology",
+  "country": "United States",
+  "tagline": "Barbara Liskov's MIT research language that made data abstraction concrete and introduced iterators with yield.",
+  "summary": "CLU is a statically typed, garbage-collected procedural language designed at MIT to support programming with abstract data types. Its clusters bind a hidden representation to a fixed set of operations, and it pioneered iterators (yield), termination-model exception handling and statically checked parameterized types. Though used mainly in research and teaching, its ideas reached Ada, C++, Java, Python, C# and most later languages.",
+  "history": "Barbara Liskov began working on data abstraction at MIT in 1972–73, drawing on her Venus operating system and on the modularity work of David Parnas and others. With Steve Zilles she refined the idea of an abstract type implemented by a 'cluster' of operations, and in the fall of 1973 the language was named CLU, from the first three letters of 'cluster'. The main designers were Liskov and graduate students Russ Atkinson, Craig Schaffert and Alan Snyder, later joined by Bob Scheifler and Eliot Moss.\n\nA preliminary CLU .5 was implemented on the PDP-10 from 1974; its compiler first generated Lisp (later MDL) and was soon rewritten in CLU itself. The exception mechanism was settled by June 1975, and Atkinson designed iterators in September 1975 after the group saw generators in CMU's Alphard. The design was complete by the end of 1976, the reference manual was published in 1978–79, and by 1980 a production compiler was being exported to other sites.\n\nCLU was conceived as a research vehicle rather than a product and never saw wide commercial use, but it was taught at MIT and elsewhere and led directly to Liskov's distributed language Argus. Dorothy Curtis's Portable CLU (early 1990s) retargeted the compiler to generate C. Liskov received the 2008 ACM Turing Award, whose citation singles out CLU as one of the earliest and most complete languages based on abstract data types.",
+  "innovations": [
+    "Clusters: language-enforced abstract data types whose representation is visible only inside the cluster (crossed with `cvt`)",
+    "Iterators with `yield` driving `for` loops (1975), the ancestor of generators in Python, C# and JavaScript",
+    "Termination-model exceptions: `signals` clauses in signatures, `except when` handlers and `resignal`; unhandled exceptions become `failure`",
+    "Statically checked parameterized types and procedures, with `where` clauses listing the operations a type parameter must provide",
+    "Object semantics on a garbage-collected heap ('call by sharing'), multiple assignment and multiple return values"
+  ],
+  "paradigms": [
+    "procedural",
+    "imperative",
+    "structured",
+    "object-oriented",
+    "generic"
+  ],
+  "family": "algol",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "mixed",
+    "notes": "Complete compile-time checking, including across separately compiled modules. Types built with type generators (array[int], record[...]) are equal when their parameters are equal, while each cluster defines a distinct abstract type; `any` with `force` is a checked escape hatch."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "historical",
+  "latest_version": "Portable CLU 3.7 (2016 update for 64-bit Linux)",
+  "file_extensions": [
+    ".clu",
+    ".spc"
+  ],
+  "color": "#4b7f8c",
+  "primary_parent": "simula",
+  "influenced_by": [
+    {
+      "id": "simula",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Liskov called Simula 67 the existing language closest to CLU's goals, though its classes did not enforce encapsulation."
+    },
+    {
+      "id": "algol60",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Block-structured, statement-oriented syntax and lexical scope."
+    },
+    {
+      "id": "lisp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Heap-allocated objects with garbage collection and reference semantics; the first compiler targeted Lisp."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Alphard",
+      "year": 1974,
+      "note": "CMU's data-abstraction language; its generators inspired CLU iterators."
+    },
+    {
+      "name": "Parnas's information hiding",
+      "year": 1972,
+      "note": "The modularity principle that clusters enforce in the language."
+    }
+  ],
+  "influenced": [
+    "ada",
+    "cpp",
+    "java",
+    "python",
+    "ruby",
+    "lua",
+    "csharp",
+    "swift",
+    "rust"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "No goto; break, continue and exceptions cover the remaining cases."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "Termination model: procedures declare `signals (...)`, callers handle with `except when`, and `resignal` (added 1979) passes exceptions up. An unhandled exception is converted to `failure` rather than propagating silently."
+    },
+    "generators": {
+      "level": "core",
+      "note": "`iter ... yields (t)` with `yield`, consumed by `for`; limited to nested use so a single stack suffices."
+    },
+    "pattern-matching": {
+      "level": "supported",
+      "note": "`tagcase` dispatches on the tag of a oneof/variant and binds its value; there are no nested patterns."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "generics": {
+      "level": "core",
+      "note": "Parameterized clusters, procedures and iterators (stack[t], array[t]); `where` clauses constrain type parameters by required operations."
+    },
+    "algebraic-data-types": {
+      "level": "supported",
+      "note": "Built-in type generators: oneof/variant for tagged sums, struct/record for products. Recursive types require a cluster."
+    },
+    "classes": {
+      "level": "supported",
+      "note": "Clusters bundle a hidden representation with operations, but operations belong to the type (t$op) and there is no inheritance."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Clusters: the rep is visible only inside the cluster; `cvt` converts between abstract and concrete views."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "Procedures, iterators and clusters are compiled separately against interface specifications in a program library, with full inter-module type checking."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Infix operators desugar to type operations (a + b is t$add(a, b)), so user-defined types can support them."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Procedures and iterators are values (proctype/itertype) that can be passed and stored, but there are no anonymous functions."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "Built-in types come in immutable/mutable pairs: sequence/array, struct/record, oneof/variant; strings are immutable."
+    },
+    "garbage-collection": {
+      "level": "core"
+    }
+  },
+  "milestones": [
+    {
+      "year": 1973,
+      "event": "Design begins at MIT; the name CLU is chosen from 'cluster'"
+    },
+    {
+      "year": 1974,
+      "event": "Work starts on the CLU .5 compiler for the PDP-10"
+    },
+    {
+      "year": 1975,
+      "event": "Exception mechanism settled; Russ Atkinson designs iterators"
+    },
+    {
+      "year": 1977,
+      "event": "'Abstraction Mechanisms in CLU' published in Communications of the ACM"
+    },
+    {
+      "year": 1979,
+      "event": "Final reference manual; resignal and own data added"
+    },
+    {
+      "year": 1980,
+      "event": "Production compiler for the DEC System 20 exported to other sites"
+    },
+    {
+      "year": 1981,
+      "event": "CLU Reference Manual published by Springer as Lecture Notes in Computer Science 114"
+    },
+    {
+      "year": 1986,
+      "event": "Liskov and Guttag's textbook 'Abstraction and Specification in Program Development' teaches with CLU"
+    },
+    {
+      "year": 1992,
+      "event": "Portable CLU 3.6, compiling CLU to C"
+    },
+    {
+      "year": 2009,
+      "event": "Liskov receives the 2008 ACM Turing Award, citing CLU"
+    }
+  ],
+  "trivia": [
+    "The name is simply the first three letters of 'cluster', chosen in the fall of 1973.",
+    "CLU deliberately has no inheritance; Liskov later wrote that if designing it again she would probably add subtype polymorphism.",
+    "Liskov listed closures and recursive type definitions as features CLU was missing."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "CLU (Portable CLU 3.7)",
+      "code": "start_up = proc ()\n    po: stream := stream$primary_output()\n    stream$putl(po, \"Hello, World!\")\nend start_up\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "PCLU starts programs at the procedure `start_up`. Output goes through a stream object, and operations are named type$operation.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "CLU (Portable CLU 3.7)",
+      "code": "factorial = proc (n: int) returns (int)\n    if n <= 1 then return(1) end\n    return(n * factorial(n - 1))\nend factorial\n\nstart_up = proc ()\n    po: stream := stream$primary_output()\n    stream$putl(po, int$unparse(factorial(10)))\nend start_up\n",
+      "expected_output": "3628800\n",
+      "notes": "CLU integers are bounded; an overflow would raise the `overflow` exception instead of wrapping.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "CLU (Portable CLU 3.7)",
+      "code": "start_up = proc ()\n    po: stream := stream$primary_output()\n    for i: int in int$from_to(1, 15) do\n        if i // 15 = 0 then stream$putl(po, \"FizzBuzz\")\n        elseif i // 3 = 0 then stream$putl(po, \"Fizz\")\n        elseif i // 5 = 0 then stream$putl(po, \"Buzz\")\n        else stream$putl(po, int$unparse(i))\n        end\n    end\nend start_up\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`int$from_to` is a built-in iterator. `//` is CLU's modulo operator and `/` is integer division.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "CLU (Portable CLU 3.7)",
+      "code": "% No lambdas or closures: procedures are passed as values,\n% and an iterator yields the results one at a time.\nfilter_map = iter (a: array[int], keep: proctype (int) returns (bool),\n                   f: proctype (int) returns (int)) yields (int)\n    for x: int in array[int]$elements(a) do\n        if keep(x) then yield(f(x)) end\n    end\nend filter_map\n\nis_even = proc (n: int) returns (bool)\n    return(n // 2 = 0)\nend is_even\n\nsquare = proc (n: int) returns (int)\n    return(n * n)\nend square\n\nstart_up = proc ()\n    po: stream := stream$primary_output()\n    nums: array[int] := array[int]$[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n    sep: string := \"\"\n    for y: int in filter_map(nums, is_even, square) do\n        stream$puts(po, sep || int$unparse(y))\n        sep := \" \"\n    end\n    stream$putl(po, \"\")\nend start_up\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "CLU has procedure values (proctype) but no lambdas or closures, so an iterator taking procedures as arguments is the idiomatic filter/map. `array[int]$[...]` is an array constructor.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "CLU (Portable CLU 3.7)",
+      "code": "rect = struct[width, height: int]\ntri = struct[base, height: int]\nshape = oneof[rectangle: rect, triangle: tri]\n\narea = proc (s: shape) returns (int)\n    tagcase s\n        tag rectangle (r: rect): return(r.width * r.height)\n        tag triangle (t: tri): return(t.base * t.height / 2)\n    end\nend area\n\nstart_up = proc ()\n    po: stream := stream$primary_output()\n    shapes: array[shape] := array[shape]$[\n        shape$make_rectangle(rect${width: 3, height: 4}),\n        shape$make_triangle(tri${base: 10, height: 3})]\n    for s: shape in array[shape]$elements(shapes) do\n        name: string\n        tagcase s\n            tag rectangle: name := \"Rectangle\"\n            tag triangle: name := \"Triangle\"\n        end\n        stream$putl(po, name || \": \" || int$unparse(area(s)))\n    end\nend start_up\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "`oneof` is CLU's immutable tagged union (`variant` is the mutable one), and `tagcase` dispatches on the tag. PCLU applies the type equates at the top of the file to every module in it.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Clusters: data abstraction with signals",
+      "dialect": "CLU (Portable CLU 3.7)",
+      "code": "% A cluster is an abstract data type: its representation (rep) is hidden,\n% and only the listed operations can touch it. cvt crosses the boundary.\nstack = cluster [t: type] is create, push, pop\n    rep = array[t]\n\n    create = proc () returns (cvt)\n        return(rep$new())\n    end create\n\n    push = proc (s: cvt, x: t)\n        rep$addh(s, x)\n    end push\n\n    pop = proc (s: cvt) returns (t) signals (empty)\n        return(rep$remh(s))\n            except when bounds: signal empty end\n    end pop\nend stack\n\nstart_up = proc ()\n    po: stream := stream$primary_output()\n    s: stack[string] := stack[string]$create()\n    stack[string]$push(s, \"abstraction\")\n    stack[string]$push(s, \"data\")\n    while true do\n        stream$putl(po, stack[string]$pop(s))\n    end except when empty: stream$putl(po, \"empty!\") end\nend start_up\n",
+      "expected_output": "data\nabstraction\nempty!\n",
+      "notes": "Outside the cluster, a stack[string] is opaque: only create, push and pop can see the array inside, and `cvt` crosses that boundary. `pop` declares `signals (empty)` and translates the array's `bounds` exception into one that makes sense for stacks.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Portable CLU (PCLU)",
+        "version": "3.7",
+        "docker_image": "plw-clu",
+        "install": "Self-built image: debian:bookworm-slim + gcc/make; Boehm GC 7.2g configured with --enable-threads=no --with-libatomic-ops=no and CFLAGS=-fcommon (private headers copied into code/gc/include/gc/private); then https://github.com/get-a-clu/updated-pclu built with `make symlinks`, `make optlib` in code/, `make` in code/cmp and `make libs` in lib/, using OPT_FLAGS='-O1 -w -fcommon'.",
+        "compile": "sh -c 'o=$(realpath -m {out}); d=$(mktemp -d); cp {file} $d/main.clu && cd $d && pclu -opt -compile main.clu >&2 && plink -opt -o \"$o\" main.o'",
+        "run": "{out}",
+        "notes": "pclu writes its C and object files next to the source and into the working directory, so the source is copied to a scratch directory first. Compiler messages go to stdout, hence the redirect to stderr.",
+        "dockerfile": "sandbox/clu/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "No maintained binary distribution exists; the image is built from MIT's 2016 Portable CLU release as fixed for modern GCC by community forks."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/CLU_(programming_language)",
+    "homepage": "https://pmg.csail.mit.edu/CLU.html",
+    "spec": "https://publications.csail.mit.edu/lcs/pubs/pdf/MIT-LCS-TR-225.pdf"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/CLU_(programming_language)",
+    "https://publications.csail.mit.edu/lcs/pubs/pdf/MIT-LCS-TR-561.pdf",
+    "https://github.com/get-a-clu/updated-pclu",
+    "https://cra.org/cra-wp/barbara-liskov-wins-acm-a-m-turing-award/"
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "id": "bcpl",
+  "name": "BCPL",
+  "aliases": [
+    "Basic Combined Programming Language"
+  ],
+  "year": 1967,
+  "year_note": "Martin Richards wrote the first compiler in spring 1967 on the IBM 7094 under CTSS while visiting MIT's Project MAC; the language was first described in a paper at the 1969 Spring Joint Computer Conference.",
+  "designers": [
+    "Martin Richards"
+  ],
+  "organization": "University of Cambridge",
+  "country": "United Kingdom",
+  "tagline": "A typeless, portable language for writing compilers: the first brace language and the grandparent of C.",
+  "summary": "BCPL is a small, typeless systems language derived from CPL by removing the features that made CPL hard to compile. Its only data type is the machine word, whose meaning depends on the operator applied, and its compiler was split into a front end emitting O-code and small machine-specific back ends, which made it easy to port. Through Ken Thompson's B it became the ancestor of C.",
+  "history": "BCPL began as a response to the difficulties of CPL, the ambitious ALGOL-derived language developed by Cambridge and London universities in the early 1960s. Martin Richards created it by 'removing those features of the full language which make compilation difficult', and wrote the first compiler in 1967 while visiting MIT's Project MAC. The compiler, itself written in BCPL, generated the intermediate O-code, so only a small back end had to be written for each new machine; by late 1970 implementations existed for about ten machines, from the IBM 360 and PDP-10 to the Honeywell 635 and 645 used at Bell Labs.\n\nBCPL was a common first language for bootstrapping systems. Ken Thompson's B was a stripped-down, re-syntaxed BCPL, and C followed from B. At Xerox PARC it was the first systems language of the Alto, used for the Bravo editor. At Cambridge Richards used it for the TRIPOS operating system, which later became the basis of AmigaDOS, and the first MUD (1978) was written in it. Versions ran on the BBC Micro and other 1980s home computers.\n\nBCPL gradually fell out of favour as C spread beyond Unix. Richards still maintains a Cintcode BCPL system (a compact bytecode interpreter plus compiler) for Linux, macOS and other platforms, with later additions such as floating point and pattern matching.",
+  "innovations": [
+    "A portable compiler structure: a front end producing O-code, an intermediate language, and small machine-specific back ends",
+    "A single data type, the machine word, whose meaning is chosen by the operator applied",
+    "Curly-brace blocks (section brackets, often typed $( and $)), later inherited by B, C and their descendants",
+    "// line comments, dropped by C and revived by C++ and C99",
+    "VALOF/RESULTIS expression blocks and the ! indirection operator for vectors and pointers",
+    "A global vector of numbered slots linking separately compiled sections and allowing library routines to be replaced"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "untyped",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "One data type, the word: + treats it as an integer, ! as an address, % as a byte vector and a call as a function."
+  },
+  "memory": "manual",
+  "execution": [
+    "native-compiled",
+    "bytecode-vm"
+  ],
+  "status": "historical",
+  "latest_version": "Cintcode BCPL (May 2026 distribution)",
+  "file_extensions": [
+    ".b",
+    ".bcpl"
+  ],
+  "color": "#6B5B45",
+  "primary_parent": "algol60",
+  "influenced_by": [
+    {
+      "id": "algol60",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Indirectly, through CPL, which was heavily based on ALGOL 60."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "CPL",
+      "year": 1963,
+      "note": "Combined Programming Language (Cambridge and London); BCPL is CPL with the hard-to-compile features removed."
+    }
+  ],
+  "influenced": [
+    "b",
+    "c",
+    "cpp"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "IF, TEST/ELSE, WHILE, UNTIL, FOR, SWITCHON, REPEAT, BREAK and LOOP."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "coroutines": {
+      "level": "library",
+      "note": "createco, callco, cowait and resumeco in the standard library (Moody and Richards, 1980)."
+    },
+    "pattern-matching": {
+      "level": "supported",
+      "since": 2022,
+      "version": "Cintcode BCPL",
+      "note": "MATCH and EVERY constructs, borrowed from Richards's MCPL, added to his Cintcode BCPL; not part of classic BCPL."
+    },
+    "pointers": {
+      "level": "core",
+      "note": "Word addresses with @ (address-of) and ! (indirection); getvec/freevec manage heap vectors."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Functions are word values that can be stored and passed; no closures, because a function may not refer to the local variables of an enclosing function."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "Separately compiled sections share data and functions through numbered slots in the global vector, declared in GET header files."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1967,
+      "event": "First BCPL compiler, on the IBM 7094 at MIT's Project MAC"
+    },
+    {
+      "year": 1969,
+      "event": "BCPL described at the Spring Joint Computer Conference; Thompson and Ritchie derive B from it"
+    },
+    {
+      "year": 1973,
+      "event": "Chosen as the initial language of the Xerox Alto project"
+    },
+    {
+      "year": 1976,
+      "event": "Development of the TRIPOS operating system in BCPL begins at Cambridge"
+    },
+    {
+      "year": 1980,
+      "event": "'BCPL: The Language and its Compiler' by Richards and Whitby-Strevens published"
+    },
+    {
+      "year": 1985,
+      "event": "AmigaDOS, derived from TRIPOS, ships largely written in BCPL"
+    }
+  ],
+  "trivia": [
+    "Richards and Whitby-Strevens describe BCPL as a servant rather than a tyrant: 'the programmer is always assumed to know what he is doing'.",
+    "The first multi-user dungeon, MUD1 (1978), was written in BCPL.",
+    "On keyboards without braces, BCPL programmers wrote $( and $) instead, and the notation survives in Richards's compiler today."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "BCPL (Martin Richards's Cintcode BCPL)",
+      "code": "GET \"libhdr\"\n\nLET start() = VALOF\n{ writes(\"Hello, World!*n\")\n  RESULTIS 0\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "GET \"libhdr\" includes the standard library's global declarations and execution starts at start(). *n is the newline escape that B later inherited; C changed it to \\n. Older programs wrote $( and $) for the braces, which the compiler still accepts.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "BCPL (Martin Richards's Cintcode BCPL)",
+      "code": "GET \"libhdr\"\n\nLET fact(n) = n = 0 -> 1, n * fact(n - 1)\n\nLET start() = VALOF\n{ writef(\"%n*n\", fact(10))\n  RESULTIS 0\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "c -> a, b is BCPL's conditional expression (C's ?:). The 32-bit Cintcode word is wide enough for 10!.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "BCPL (Martin Richards's Cintcode BCPL)",
+      "code": "GET \"libhdr\"\n\nLET start() = VALOF\n{ FOR i = 1 TO 15 DO\n  { TEST i MOD 15 = 0 THEN writes(\"FizzBuzz\")\n    ELSE TEST i MOD 3 = 0 THEN writes(\"Fizz\")\n    ELSE TEST i MOD 5 = 0 THEN writes(\"Buzz\")\n    ELSE writen(i)\n    newline()\n  }\n  RESULTIS 0\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "IF has no ELSE; the two-armed conditional is TEST ... THEN ... ELSE. Classic BCPL spelled the remainder operator REM, which the compiler still accepts alongside MOD.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "BCPL (Martin Richards's Cintcode BCPL)",
+      "code": "GET \"libhdr\"\n\n// No closures, but functions are ordinary word values.\nLET even(x) = x MOD 2 = 0\nAND square(x) = x * x\n\nLET filtermap(v, n, p, f, out) = VALOF\n{ LET k = 0\n  FOR i = 0 TO n - 1 DO\n    IF p(v!i) DO\n    { out!k := f(v!i)\n      k := k + 1\n    }\n  RESULTIS k\n}\n\nLET start() = VALOF\n{ LET v = VEC 9\n  AND w = VEC 9\n  FOR i = 0 TO 9 DO v!i := i + 1\n  { LET k = filtermap(v, 10, even, square, w)\n    FOR i = 0 TO k - 1 DO writef(i = 0 -> \"%n\", \" %n\", w!i)\n    newline()\n  }\n  RESULTIS 0\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Functions are plain word values, so even and square are passed like any other argument; there are no closures. v!i is subscription (the word at v+i) and VEC 9 reserves ten words on the stack. Declarations may not follow commands in a block, hence the inner block for k.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "BCPL (Martin Richards's Cintcode BCPL)",
+      "code": "GET \"libhdr\"\n\n// No records or classes: a shape is a vector of words, with a\n// function pointer in slot s_area (hand-rolled dynamic dispatch).\nMANIFEST { s_area=0; s_name; s_a; s_b; s_upb=s_b }\n\nLET rectarea(s) = s!s_a * s!s_b\nAND triarea(s) = s!s_a * s!s_b / 2\n\nLET mkshape(areafn, name, a, b) = VALOF\n{ LET s = getvec(s_upb)\n  s!s_area, s!s_name, s!s_a, s!s_b := areafn, name, a, b\n  RESULTIS s\n}\n\nLET show(s) BE writef(\"%s: %n*n\", s!s_name, (s!s_area)(s))\n\nLET start() = VALOF\n{ LET r = mkshape(rectarea, \"Rectangle\", 3, 4)\n  LET t = mkshape(triarea, \"Triangle\", 10, 3)\n  show(r); show(t)\n  freevec(r); freevec(t)\n  RESULTIS 0\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "BCPL has no records or types: a shape is a vector of words, MANIFEST constants name the field offsets, and the slot s_area holds a function, giving hand-rolled dynamic dispatch. getvec and freevec allocate and free heap vectors.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Everything is a word",
+      "dialect": "BCPL (Martin Richards's Cintcode BCPL)",
+      "code": "GET \"libhdr\"\n\n// BCPL has exactly one type: the word. Operators decide what it means.\nLET double(x) = 2 * x\n\nLET start() = VALOF\n{ LET v = VEC 2             // v holds the address of 3 words\n  v!0 := 21                 // an integer\n  v!1 := double             // a function is just a word, too\n  v!2 := \"BCPL\"             // so is a string: the address of packed bytes\n  writef(\"%n*n\", (v!1)(v!0))                // call through the vector\n  writef(\"%n %n %n*n\", v!0, 0!v, !(v+0))   // three spellings of one load\n  writef(\"%s: %n bytes, first %c*n\", v!2, v!2%0, v!2%1)\n  writef(\"%n*n\", VALOF                      // a block that yields a value\n                 { LET t = 0\n                   FOR i = 1 TO 10 DO t := t + i\n                   RESULTIS t\n                 })\n  RESULTIS 0\n}\n",
+      "expected_output": "42\n21 21 21\nBCPL: 4 bytes, first B\n55\n",
+      "notes": "An integer, a function and a string all fit in the same vector. v!0, 0!v and !(v+0) are the same load, because ! adds its operands and then indirects. A string is the address of a packed byte vector whose byte 0 holds the length, read with the byte-indirection operator %. VALOF ... RESULTIS turns a block of commands into an expression.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "BCPL Cintcode system",
+        "version": "May 2026 distribution",
+        "docker_image": "plw-bcpl",
+        "install": "FROM debian:trixie-slim; apt-get install -y gcc libc6-dev make; unpack https://www.cl.cam.ac.uk/~mr10/BCPL/bcpl.tgz into /opt; export BCPLROOT=/opt/BCPL/cintcode BCPLPATH=$BCPLROOT/cin BCPLHDRS=$BCPLROOT/g PATH=$BCPLROOT/bin:$PATH; cd $BCPLROOT && make sys",
+        "compile": "cintsys -q -c \"bcpl {file} to {out}\"",
+        "run": "sh -c \"cintsys -q -c {out} | tr -d '\\r'\"",
+        "notes": "-q suppresses the banner and prompts. The console stream writes a carriage return after every newline, which the run command strips.",
+        "dockerfile": "sandbox/bcpl/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "cintsys is Richards's Cintcode interpreter; the compiler itself runs as a Cintcode program."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/BCPL",
+    "homepage": "https://www.cl.cam.ac.uk/~mr10/BCPL.html",
+    "spec": "https://www.cl.cam.ac.uk/~mr10/bcplman.pdf"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/BCPL",
+    "https://www.cl.cam.ac.uk/~mr10/",
+    "https://www.cl.cam.ac.uk/~mr10/BCPL.html",
+    "https://www.bell-labs.com/usr/dmr/www/chist.html",
+    "https://en.wikipedia.org/wiki/TRIPOS"
+  ]
+}

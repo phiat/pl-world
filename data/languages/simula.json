@@ -1,0 +1,239 @@
+{
+  "id": "simula",
+  "name": "Simula",
+  "aliases": [
+    "Simula 67",
+    "SIMULA I"
+  ],
+  "year": 1967,
+  "year_note": "SIMULA I, a discrete-event simulation language, was designed from 1962 (first presented publicly at the IFIP congress in Munich in August 1962) and ran on a UNIVAC 1107 by January 1965. Simula 67, the general-purpose language with classes and subclasses, was presented in Oslo in May 1967 and formally frozen by the Simula Standards Group in February 1968.",
+  "designers": [
+    "Ole-Johan Dahl",
+    "Kristen Nygaard"
+  ],
+  "organization": "Norwegian Computing Center",
+  "country": "Norway",
+  "tagline": "The Norwegian simulation language that introduced classes, inheritance and virtual procedures: the first object-oriented language.",
+  "summary": "Simula is an extension of ALGOL 60 created in Oslo to describe and simulate systems of interacting processes. Simula 67 generalised its simulation machinery into classes, objects, subclasses, virtual procedures and coroutines, making it the first object-oriented language. It remained a niche language, but its ideas reached Smalltalk, C++, Java and nearly every class-based language since.",
+  "history": "Kristen Nygaard had been writing simulation programs since 1957 and wanted a language for describing complex systems; Ole-Johan Dahl joined him at the Norwegian Computing Center in January 1962, and they built their design on ALGOL 60. SIMULA I, presented at the 1962 IFIP congress and implemented by Dahl on a UNIVAC 1107 under contract with UNIVAC, was operational by January 1965 and was later ported to machines such as the Burroughs B5500.\n\nSeeking more general concepts, Dahl and Nygaard adapted Tony Hoare's 1965 record-class proposal, adding prefixing (subclassing) and virtual procedures. Their paper on class and subclass declarations at the IFIP working conference in Oslo in May 1967 became the first definition of Simula 67, which the Simula Standards Group froze in February 1968. Compilers followed for UNIVAC, IBM System/360, CDC and DEC TOPS-10 machines; the DEC-10 compiler's access control (hidden/protected) entered the 1986 Simula Standard, the language's last revision.\n\nSimula was used for simulation, VLSI design, process modelling, typesetting and teaching. Its lasting impact came through other languages: Alan Kay drew on it for Smalltalk, and Bjarne Stroustrup's C with Classes, later C++, grafted its classes onto C. Dahl and Nygaard received the 2001 ACM Turing Award for the ideas behind object-oriented programming.",
+  "innovations": [
+    "Classes and objects: records bundling data with procedures, created dynamically with new",
+    "Inheritance through class prefixing (subclasses)",
+    "Virtual procedures, bound at run time and overridden in subclasses (dynamic dispatch)",
+    "Objects that run as coroutines (detach, resume, call) for quasi-parallel processes",
+    "Garbage-collected, class-qualified references with run-time type tests (in, is, qua, inspect)",
+    "Class libraries as frameworks: the standard SIMSET and SIMULATION classes are prefixed onto user programs"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "imperative",
+    "procedural",
+    "structured"
+  ],
+  "family": "algol",
+  "syntax_family": "algol",
+  "block_style": "begin-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "References are qualified by class (ref(Shape)); qua and inspect perform checked conversions at run time."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "native-compiled",
+    "transpiled"
+  ],
+  "status": "historical",
+  "latest_version": "Simula Standard (1986)",
+  "file_extensions": [
+    ".sim"
+  ],
+  "color": "#7A9E8E",
+  "primary_parent": "algol60",
+  "influenced_by": [
+    {
+      "id": "algol60",
+      "kind": "superset",
+      "weight": "major",
+      "note": "Simula is an approximate superset of ALGOL 60; SIMULA I was implemented on top of UNIVAC's ALGOL 60 compiler."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "SIMSCRIPT",
+      "year": 1963,
+      "note": "Discrete-event simulation language whose design influenced both SIMULA I and Simula 67."
+    },
+    {
+      "name": "Hoare's record classes",
+      "year": 1965,
+      "note": "C. A. R. Hoare's record-class proposal (ALGOL Bulletin 21), which Dahl and Nygaard extended with prefixing."
+    }
+  ],
+  "influenced": [
+    "smalltalk",
+    "cpp",
+    "java",
+    "eiffel",
+    "clu",
+    "pascal",
+    "ada"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "ALGOL 60's if/for plus a while statement."
+    },
+    "block-scope": {
+      "level": "core"
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "coroutines": {
+      "level": "core",
+      "note": "Every object can act as a coroutine via detach, resume and call; the SIMULATION class builds process scheduling on them."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "classes": {
+      "level": "core"
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Single inheritance by prefixing (Shape Class Rectangle), with virtual procedures and inner."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "since": 1986,
+      "version": "Simula Standard 1986",
+      "note": "Classes bundled data and operations from 1967, but attribute hiding (hidden/protected) came from DEC-10 Simula and was only standardized in 1986."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "Classes and procedures can be compiled separately and imported with external declarations; there is no module system as such."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Procedures can be passed as parameters (from ALGOL 60) but not returned or stored in variables; no lambdas."
+    },
+    "closures": {
+      "level": "supported",
+      "note": "Downward only: a procedure passed as a parameter still sees its defining block."
+    },
+    "garbage-collection": {
+      "level": "core"
+    }
+  },
+  "milestones": [
+    {
+      "year": 1962,
+      "event": "Dahl and Nygaard design SIMULA I; first presented at the IFIP congress in Munich"
+    },
+    {
+      "year": 1965,
+      "event": "SIMULA I operational on the UNIVAC 1107 at the Norwegian Computing Center"
+    },
+    {
+      "year": 1967,
+      "event": "Class and subclass declarations presented in Oslo: the definition of Simula 67"
+    },
+    {
+      "year": 1968,
+      "event": "Simula Standards Group formally freezes Simula 67"
+    },
+    {
+      "year": 1970,
+      "event": "Common Base Language manual published"
+    },
+    {
+      "year": 1986,
+      "event": "Simula Standard adopted, adding hidden/protected attributes"
+    },
+    {
+      "year": 2002,
+      "event": "Dahl and Nygaard receive the 2001 ACM Turing Award"
+    }
+  ],
+  "trivia": [
+    "Bjarne Stroustrup (C++) and James Gosling (Java) have both acknowledged Simula as a major influence.",
+    "Dahl and Nygaard died in June and August 2002, before they could deliver their Turing Award lecture.",
+    "The new computer science building at the University of Oslo is named after Ole-Johan Dahl, and its main auditorium is called Simula."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Simula 67 (Simula Standard 1986 as accepted by GNU Cim)",
+      "code": "Begin\n    OutText(\"Hello, World!\");\n    OutImage;\nEnd;\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "OutText writes into the current output image (a line buffer); OutImage prints it and starts a new line. Simula is case-insensitive; uppercase keywords were the traditional style.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Simula 67 (Simula Standard 1986 as accepted by GNU Cim)",
+      "code": "Begin\n    Integer Procedure Fact(N); Integer N;\n        Fact := If N <= 1 Then 1 Else N * Fact(N - 1);\n\n    OutInt(Fact(10), 0);\n    OutImage\nEnd;\n",
+      "expected_output": "3628800\n",
+      "notes": "The conditional expression and the procedure heading followed by parameter specifications come straight from ALGOL 60. OutInt(n, 0) prints with the minimum field width.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Simula 67 (Simula Standard 1986 as accepted by GNU Cim)",
+      "code": "Begin\n    Integer I;\n    For I := 1 Step 1 Until 15 Do\n    Begin\n        If Mod(I, 15) = 0 Then OutText(\"FizzBuzz\")\n        Else If Mod(I, 3) = 0 Then OutText(\"Fizz\")\n        Else If Mod(I, 5) = 0 Then OutText(\"Buzz\")\n        Else OutInt(I, 0);\n        OutImage\n    End\nEnd;\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Mod is a standard procedure; the loop is ALGOL 60's For ... Step ... Until.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Simula 67 (Simula Standard 1986 as accepted by GNU Cim)",
+      "code": "Begin\n    Integer Array Xs(1:10);\n    Integer I;\n\n    Boolean Procedure Even(X); Integer X; Even := Mod(X, 2) = 0;\n    Integer Procedure Square(X); Integer X; Square := X * X;\n\n    ! No lambdas: ALGOL-style procedure parameters do the job;\n    Procedure FilterMap(A, N, Keep, F);\n        Integer Array A; Integer N;\n        Procedure Keep Is Boolean Procedure Keep(X); Integer X;;\n        Procedure F Is Integer Procedure F(X); Integer X;;\n    Begin\n        Integer I; Text Sep;\n        Sep :- \"\";\n        For I := 1 Step 1 Until N Do\n            If Keep(A(I)) Then\n            Begin\n                OutText(Sep); OutInt(F(A(I)), 0); Sep :- \" \"\n            End;\n        OutImage\n    End;\n\n    For I := 1 Step 1 Until 10 Do Xs(I) := I;\n    FilterMap(Xs, 10, Even, Square)\nEnd;\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "No lambdas: procedures are passed as parameters, as in ALGOL 60. GNU Cim requires the 1986 standard's full specification of formal procedures ('Procedure Keep Is Boolean Procedure Keep(X); Integer X;;'); Simula 67 compilers accepted the shorter 'Boolean Procedure Keep;'. Text variables are references, assigned with :-.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Simula 67 (Simula Standard 1986 as accepted by GNU Cim)",
+      "code": "Begin\n    Class Shape(Title); Text Title;\n        Virtual: Procedure Area Is Integer Procedure Area;;\n    Begin\n        Procedure Describe;\n        Begin\n            OutText(Title); OutText(\": \"); OutInt(Area, 0); OutImage\n        End;\n    End;\n\n    Shape Class Rectangle(W, H); Integer W, H;\n    Begin\n        Integer Procedure Area; Area := W * H;\n    End;\n\n    Shape Class Triangle(B, H); Integer B, H;\n    Begin\n        Integer Procedure Area; Area := B * H // 2;\n    End;\n\n    Ref(Shape) S;\n    S :- New Rectangle(\"Rectangle\", 3, 4);\n    S.Describe;\n    S :- New Triangle(\"Triangle\", 10, 3);\n    S.Describe\nEnd;\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Rectangle and Triangle are declared by prefixing Shape; Area is a virtual procedure bound at run time, so Describe in the superclass calls the subclass version. Simula 67 wrote the virtual as 'Virtual: Integer Procedure Area;' while Cim wants the 1986 'Is' form. 'Name' is a reserved word (call-by-name parameters), hence Title.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Objects as coroutines (Detach / Resume)",
+      "dialect": "Simula 67 (Simula Standard 1986 as accepted by GNU Cim)",
+      "code": "Begin\n    ! Every Simula object can be a coroutine: Detach suspends it,\n      Resume transfers control to another object where it left off;\n    Class Player(Who); Text Who;\n    Begin\n        Ref(Player) Other;\n        Integer I;\n        Detach;\n        For I := 1 Step 1 Until 3 Do\n        Begin\n            OutText(Who); OutInt(I, 2); OutImage;\n            Resume(Other)\n        End\n    End;\n\n    Ref(Player) Ping, Pong;\n    Ping :- New Player(\"Ping\");\n    Pong :- New Player(\"Pong\");\n    Ping.Other :- Pong;\n    Pong.Other :- Ping;\n    Resume(Ping);\n    OutText(\"Done\"); OutImage\nEnd;\n",
+      "expected_output": "Ping 1\nPong 1\nPing 2\nPong 2\nPing 3\nPong 3\nDone\n",
+      "notes": "Each New Player runs its body until Detach, which returns control to the creator. Resume(Other) suspends the current object and continues the other one where it left off. When Ping's body finally ends, control returns to the main program. This quasi-parallel mechanism is what Simula's SIMULATION class uses to schedule simulated processes.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "GNU Cim",
+        "version": "5.1",
+        "docker_image": "plw-simula",
+        "install": "FROM debian:bookworm-slim; apt-get install -y gcc libc6-dev make; build cim-5.1.tar.gz from ftp.gnu.org/gnu/cim with CFLAGS='-O2 -fcommon -std=gnu89 -w' after changing '#include \"../../lib/cim.h\"' to '#include \"cim.h\"' in lib/simset.c and lib/simulation.c; make install",
+        "compile": "cim -q -o {out} {file}",
+        "run": "{out}",
+        "notes": "Cim translates Simula to C and calls gcc; it leaves the generated .c/.o files next to the source, so the source directory must be writable.",
+        "dockerfile": "sandbox/simula/Dockerfile"
+      }
+    ],
+    "browser": null,
+    "notes": "GNU Cim implements the 1986 Simula Standard and is stricter than historical Simula 67 compilers (formal and virtual procedures need 'Is' specifications). Portable Simula Revisited (a Java-based implementation) is an alternative."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Simula",
+    "homepage": "http://www.simula67.info",
+    "spec": "https://web.archive.org/web/20240919044713/https://www.softwarepreservation.org/projects/ALGOL/manual/Simula-CommonBaseLanguage.pdf"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Simula",
+    "https://web.archive.org/web/20090420140846/http://heim.ifi.uio.no/~cim/sim_history.html",
+    "https://www.gnu.org/software/cim/",
+    "https://portablesimula.github.io/github.io/"
+  ]
+}

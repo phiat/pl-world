@@ -1,0 +1,284 @@
+{
+  "id": "prolog",
+  "name": "Prolog",
+  "aliases": [
+    "PROgrammation en LOGique",
+    "Edinburgh Prolog",
+    "ISO Prolog"
+  ],
+  "year": 1972,
+  "year_note": "Philippe Roussel implemented the first Prolog system (in Algol-W) in the fall of 1972, although the abstract of Colmerauer and Roussel's own history dates the preliminary version to late 1971. The simplified, definitive Fortran interpreter followed in 1973; the 'Edinburgh' syntax used today comes from DEC-10 Prolog (1975–77).",
+  "designers": [
+    "Alain Colmerauer",
+    "Philippe Roussel"
+  ],
+  "organization": "University of Aix-Marseille (Artificial Intelligence Group, Luminy)",
+  "country": "France",
+  "tagline": "Programming in logic: state facts and rules, then ask questions and let unification and backtracking find the answers.",
+  "summary": "Prolog is a logic programming language in which a program is a set of facts and rules (Horn clauses) and running it means posing a query that the system proves by resolution. Unification matches and builds terms, and depth-first search with backtracking enumerates every solution, so the same relation can often be run 'forwards' or 'backwards'. It became the standard language of logic programming and a mainstay of symbolic AI, natural-language processing and expert systems.",
+  "history": "Prolog grew out of Alain Colmerauer's natural-language question-answering work at Marseille, where he had earlier built the Q-systems rewriting language for machine translation. After Robert Kowalski visited Marseille in 1971, the group adopted a restricted form of his SL-resolution theorem-proving procedure, unifying only with clause heads. In the fall of 1972 Philippe Roussel implemented the first Prolog system in Algol-W, and a 610-clause French man–machine dialogue system became the first large Prolog program; a simplified, definitive interpreter was written in Fortran in 1973 by Gérard Battani, Henry Meloni and René Bazzoli. Kowalski supplied the theory: the procedural interpretation of Horn clauses (1974).\n\nDavid H. D. Warren took Prolog to Edinburgh, where DEC-10 Prolog (1975–77) added the first Prolog compiler and the 'Edinburgh syntax' that later systems follow; his 1983 Warren Abstract Machine became the standard blueprint for implementations. Japan's Fifth Generation Computer Systems project (1982) chose logic programming as its basis, and Prolog was standardized as ISO/IEC 13211-1 in 1995, with modules (2000) and definite clause grammars (2025) as later parts. Modern systems such as SWI-Prolog, SICStus, GNU Prolog and Scryer add constraint solving, tabling, modules and threads.",
+  "innovations": [
+    "Logic programming: a program is a set of Horn clauses and running it is proving a query",
+    "Unification as the single mechanism for parameter passing, pattern matching and building data",
+    "Built-in depth-first search with backtracking, with the cut (!) to prune the search",
+    "Relations that can be queried in several directions, with no fixed inputs and outputs",
+    "Definite clause grammars: grammar rules that translate directly into parsers",
+    "The Warren Abstract Machine (1983), the template for efficient logic-language compilers"
+  ],
+  "paradigms": [
+    "logic",
+    "declarative"
+  ],
+  "family": "logic",
+  "syntax_family": "prolog",
+  "block_style": "clauses",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "Every value is a term (atom, number, variable or compound); Wikipedia describes Prolog as untyped. ISO built-ins check argument types at run time and raise type_error."
+  },
+  "memory": "tracing-gc",
+  "execution": [
+    "bytecode-vm",
+    "native-compiled"
+  ],
+  "status": "maintained",
+  "latest_version": "ISO/IEC 13211-1:1995 (core); ISO/IEC TS 13211-3:2025 (DCGs); SWI-Prolog 10.0",
+  "file_extensions": [
+    ".pl",
+    ".pro",
+    ".P"
+  ],
+  "color": "#74283c",
+  "primary_parent": null,
+  "influenced_by": [],
+  "influenced_by_external": [
+    {
+      "name": "Q-systems",
+      "year": 1970,
+      "note": "Colmerauer's tree-rewriting language for machine translation; Prolog began as an attempt to write a whole question-answering system in logic instead."
+    },
+    {
+      "name": "SL-resolution (Kowalski & Kuehner)",
+      "year": 1971,
+      "note": "The resolution strategy that, restricted to Horn clauses (SLD-resolution), became Prolog's execution model."
+    },
+    {
+      "name": "Resolution principle (J. A. Robinson)",
+      "year": 1965,
+      "note": "Resolution with unification, the basis of automated theorem proving."
+    },
+    {
+      "name": "Planner",
+      "year": 1969,
+      "note": "Hewitt's goal-directed AI language; Kowalski's work reconciled its procedural approach with logic."
+    },
+    {
+      "name": "Floyd's nondeterministic algorithms",
+      "year": 1967,
+      "note": "Backtracking 'à la Floyd' was adopted to implement the search efficiently."
+    }
+  ],
+  "influenced": [
+    "erlang",
+    "clojure"
+  ],
+  "traits": {
+    "logic-unification": {
+      "level": "core",
+      "note": "Programs are Horn clauses executed by SLD-resolution: unification plus depth-first backtracking."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "The only looping construct besides backtracking."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "Clause heads are matched by two-way unification, which subsumes one-way pattern matching."
+    },
+    "tail-calls": {
+      "level": "core",
+      "note": "Last-call optimization in WAM-based systems (DEC-10 Prolog had it by 1980), so recursive loops run in constant stack."
+    },
+    "structured-control": {
+      "level": "supported",
+      "note": "Conjunction, disjunction, if-then-else (C -> T ; E) and negation as failure; iteration is recursion or failure-driven backtracking."
+    },
+    "generators": {
+      "level": "supported",
+      "note": "Any nondeterministic predicate (e.g. between/3, member/2) yields its solutions one at a time on backtracking."
+    },
+    "coroutines": {
+      "level": "supported",
+      "note": "Coroutining via delayed goals (freeze/2, dif/2) in most systems; not part of ISO."
+    },
+    "exceptions": {
+      "level": "core",
+      "since": 1995,
+      "version": "ISO/IEC 13211-1",
+      "note": "catch/3 and throw/1."
+    },
+    "immutability": {
+      "level": "core",
+      "note": "Terms are immutable and logic variables are bound once (undone on backtracking); assert/retract mutate only the clause database."
+    },
+    "list-comprehensions": {
+      "level": "supported",
+      "note": "findall/3, bagof/3 and setof/3 collect all solutions of a goal, set-builder style."
+    },
+    "declarative-queries": {
+      "level": "supported",
+      "note": "Facts form a relational database queried by goals, but the search order is fixed by the program (the root of Datalog)."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Goals are terms that can be passed and invoked with call/N (maplist/3 etc.); no closures in ISO, though SWI-Prolog's library(yall) adds lambdas."
+    },
+    "homoiconicity": {
+      "level": "core",
+      "note": "Clauses are ordinary terms: a :- b is the term ':-'(a, b)."
+    },
+    "reflection": {
+      "level": "core",
+      "note": "clause/2, assert/retract, functor/3 and =../2 inspect and rewrite the running program."
+    },
+    "macros": {
+      "level": "supported",
+      "note": "term_expansion/2 and goal_expansion/2 rewrite clauses at load time (de facto standard, not ISO)."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "Not in early Prologs or the ISO core; the ISO module standard (13211-2, 2000) is little used, and systems ship their own (Quintus/SWI-style) module systems."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "note": "Reconsulting a file (SWI-Prolog's make/0) redefines predicates in the running system."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "DEC-10 Prolog gained a garbage collector by 1980."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1971,
+      "event": "Robert Kowalski visits Marseille; SL-resolution is adopted for Colmerauer's question-answering project"
+    },
+    {
+      "year": 1972,
+      "event": "Roussel implements the first Prolog system in Algol-W; the language is named"
+    },
+    {
+      "year": 1973,
+      "event": "Definitive Marseille Prolog interpreter written in Fortran (Battani, Meloni, Bazzoli)"
+    },
+    {
+      "year": 1974,
+      "event": "Kowalski's 'Predicate Logic as Programming Language' gives the procedural interpretation of Horn clauses"
+    },
+    {
+      "year": 1977,
+      "event": "Warren, Pereira and Pereira describe DEC-10 Prolog, the first Prolog compiler, in Edinburgh"
+    },
+    {
+      "year": 1982,
+      "event": "Japan's Fifth Generation Computer Systems project adopts logic programming"
+    },
+    {
+      "year": 1983,
+      "event": "David H. D. Warren describes the Warren Abstract Machine (WAM)"
+    },
+    {
+      "year": 1995,
+      "event": "ISO/IEC 13211-1 standardizes the Prolog core"
+    },
+    {
+      "year": 2000,
+      "event": "ISO/IEC 13211-2 adds modules"
+    },
+    {
+      "year": 2025,
+      "event": "ISO/IEC TS 13211-3 standardizes definite clause grammar rules"
+    }
+  ],
+  "trivia": [
+    "The name, an abbreviation of 'PROgrammation en LOGique', was suggested by Philippe Roussel's wife.",
+    "Warren carried Prolog from Marseille to Edinburgh as a large deck of punched cards.",
+    "The 1973 Marseille interpreter dropped the unification 'occur check' as too costly; standard Prolog still omits it, offering unify_with_occurs_check/2 separately."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "ISO Prolog (SWI-Prolog 10)",
+      "code": "% A program is a set of clauses; running it means posing a query: ?- main.\nmain :-\n    write('Hello, World!'), nl.\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "The runner consults the file and poses the query ?- main. (swipl -g main -t halt). The ':-' clause notation is the Edinburgh (DEC-10) syntax adopted by ISO; the original Marseille Prolog marked literals with + and - signs instead.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "ISO Prolog (SWI-Prolog 10)",
+      "code": "% factorial(N, F) is a relation between N and F, not a function.\nfactorial(0, 1).\nfactorial(N, F) :-\n    N > 0,\n    N1 is N - 1,\n    factorial(N1, F1),\n    F is N * F1.\n\nmain :-\n    factorial(10, F),\n    write(F), nl.\n",
+      "expected_output": "3628800\n",
+      "notes": "Arithmetic is not evaluated by unification: is/2 must be called explicitly. SWI-Prolog integers are unbounded.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "ISO Prolog (SWI-Prolog 10)",
+      "code": "% The first clause whose guard succeeds wins; the cut (!) commits to it.\nfizzbuzz(N, 'FizzBuzz') :- N mod 15 =:= 0, !.\nfizzbuzz(N, 'Fizz')     :- N mod 3 =:= 0, !.\nfizzbuzz(N, 'Buzz')     :- N mod 5 =:= 0, !.\nfizzbuzz(N, N).\n\n% A failure-driven loop: fail forces backtracking into between/3.\nmain :-\n    (   between(1, 15, N),\n        fizzbuzz(N, Out),\n        write(Out), nl,\n        fail\n    ;   true\n    ).\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "The failure-driven loop (Goal, fail ; true) is classic Prolog iteration. between/3 is not in the ISO core but every major system provides it.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "ISO Prolog (SWI-Prolog 10)",
+      "code": "% findall/3 is Prolog's comprehension: collect every Y the goal can prove.\nmain :-\n    findall(Y, ( between(1, 10, X), X mod 2 =:= 0, Y is X * X ), Ys),\n    print_spaced(Ys).\n\nprint_spaced([X]) :- write(X), nl.\nprint_spaced([X, Y | Rest]) :-\n    write(X), write(' '),\n    print_spaced([Y | Rest]).\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "findall/3 (ISO) collects every solution of a goal. SWI-Prolog also has include/3, maplist/3 and yall lambdas: maplist([X,Y]>>(Y is X*X), Evens, Squares).",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "ISO Prolog (SWI-Prolog 10)",
+      "code": "% Shapes are plain terms; clauses dispatch by unifying on their structure.\narea(rectangle(W, H), A) :- A is W * H.\narea(triangle(B, H), A)  :- A is B * H // 2.\n\nlabel(rectangle(_, _), 'Rectangle').\nlabel(triangle(_, _), 'Triangle').\n\nmain :-\n    forall(member(S, [rectangle(3, 4), triangle(10, 3)]),\n           ( label(S, Name), area(S, A),\n             write(Name), write(': '), write(A), nl )).\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "No classes or declared types: shapes are compound terms and area/2 picks its clause by unifying the head. forall/2 and member/2 are de facto standard library predicates.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Facts, rules and backtracking",
+      "dialect": "ISO Prolog (SWI-Prolog 10)",
+      "code": "% Facts: a small family tree.\nparent(tom, bob).\nparent(tom, liz).\nparent(bob, ann).\nparent(bob, pat).\nparent(pat, jim).\n\n% Rules: ancestor is the transitive closure of parent.\nancestor(X, Y) :- parent(X, Y).\nancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).\n\n% Queries: backtracking enumerates every solution, in either direction.\nmain :-\n    write('Descendants of tom:'),\n    ( ancestor(tom, D), write(' '), write(D), fail ; nl ),\n    write('Ancestors of jim:'),\n    ( ancestor(A, jim), write(' '), write(A), fail ; nl ).\n",
+      "expected_output": "Descendants of tom: bob liz ann pat jim\nAncestors of jim: pat tom bob\n",
+      "notes": "One ancestor/2 relation answers both 'who descends from tom?' and 'who are jim's ancestors?'. The answer order follows Prolog's depth-first, left-to-right search. The family tree is adapted from Ivan Bratko's textbook 'Prolog Programming for Artificial Intelligence'.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "SWI-Prolog",
+        "version": "10.0.2",
+        "docker_image": "swipl:stable",
+        "run": "swipl -q -g main -t halt {file}",
+        "notes": "Snippets define main/0; -g runs it as a query and -t halt exits instead of entering the interactive top level."
+      }
+    ],
+    "browser": {
+      "name": "SWI-Prolog WebAssembly (swipl-wasm)",
+      "url": "https://github.com/SWI-Prolog/npm-swipl-wasm",
+      "notes": "Official WASM build of SWI-Prolog for browsers and Node.js; Tau Prolog is a pure-JavaScript alternative."
+    },
+    "notes": "Snippets avoid halt/0 inside initialization/1, which SWI-Prolog 10 warns about."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Prolog",
+    "spec": "https://www.iso.org/standard/21413.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Prolog",
+    "http://alain.colmerauer.free.fr/alcol/ArchivesPublications/PrologHistory/19november92.pdf",
+    "https://arxiv.org/abs/2201.10816",
+    "https://www.iso.org/standard/83635.html"
+  ]
+}

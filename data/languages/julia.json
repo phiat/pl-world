@@ -1,0 +1,172 @@
+{
+  "id": "julia",
+  "name": "Julia",
+  "aliases": ["JuliaLang"],
+  "year": 2012,
+  "year_note": "Work began at MIT in 2009; the language was announced publicly on 14 February 2012 with the post 'Why We Created Julia'; 1.0 was released on 8 August 2018.",
+  "designers": ["Jeff Bezanson", "Stefan Karpinski", "Viral B. Shah", "Alan Edelman"],
+  "organization": "MIT",
+  "country": "United States",
+  "tagline": "A dynamic language for technical computing that uses multiple dispatch and JIT specialization to run at compiled speed.",
+  "summary": "Julia is a high-level, dynamically typed language for numerical and scientific computing, designed to be as approachable as Python or MATLAB while running at the speed of compiled code. Its central idea is multiple dispatch: every function is a set of methods chosen by the types of all arguments, and an LLVM-based JIT compiler specializes each method for the concrete types it is called with. The combination lets generic code, user-defined types and independently written packages compose while staying fast, addressing the 'two-language problem' of prototyping in one language and rewriting in another.",
+  "history": "Jeff Bezanson, Stefan Karpinski and Viral B. Shah began Julia with Alan Edelman at MIT in 2009, frustrated at prototyping in high-level languages such as MATLAB, R or Python and rewriting the slow parts in C or Fortran. Their February 2012 launch post, 'Why We Created Julia', asked for 'the speed of C with the dynamism of Ruby', a language 'homoiconic, with true macros like Lisp, but with obvious, familiar mathematical notation like Matlab'.\n\nThe design rests on dataflow type inference and aggressive specialization: a method written without type annotations is compiled separately for each combination of concrete argument types, so abstraction costs little at run time. Much of the original front end, including the parser, was written in FemtoLisp, a small Scheme dialect; a parser written in Julia (JuliaSyntax.jl) took over in version 1.10.\n\nJulia 1.0, which committed to a stable language, was released on 8 August 2018. Julia Computing (now JuliaHub) was founded in 2015 to support commercial use, and three co-creators received the 2019 James H. Wilkinson Prize for Numerical Software. Later releases concentrated on latency: 1.9 (2023) caches native code for precompiled packages, and 1.12 (2025) introduced the juliac compiler for small standalone executables.",
+  "innovations": [
+    "Made multiple dispatch the organizing principle of a mainstream language, used throughout its standard library",
+    "JIT specialization of generic, unannotated code on concrete argument types, via type inference and LLVM",
+    "Dot-broadcasting syntax (f.(x), .+) that fuses element-wise operations into a single loop",
+    "Generic functions let independently written packages extend each other's operations, e.g. automatic differentiation through unmodified code",
+    "Unicode mathematical identifiers entered by LaTeX-style tab completion (\\alpha<Tab> gives α)"
+  ],
+  "paradigms": ["multi-paradigm", "generic", "array", "functional", "procedural", "metaprogramming", "reflective"],
+  "family": "array",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "global",
+    "equivalence": "nominal",
+    "notes": "Optional annotations drive dispatch and are checked at run time. The compiler infers concrete types across calls to specialize code, but inference never rejects a program. Parametric types (Vector{Float64}) sit in a nominal hierarchy of abstract types."
+  },
+  "memory": "tracing-gc",
+  "execution": ["jit"],
+  "status": "active",
+  "latest_version": "1.13.0",
+  "file_extensions": [".jl"],
+  "color": "#a270ba",
+  "primary_parent": "lisp",
+  "influenced_by": [
+    { "id": "lisp", "kind": "influence", "weight": "major", "note": "'Homoiconic, with true macros like Lisp'; the original parser was written in FemtoLisp, a Scheme dialect." },
+    { "id": "common-lisp", "kind": "influence", "weight": "minor", "note": "CLOS generic functions (and Dylan) are the multiple-dispatch systems Julia's designers measured their own use of dispatch against." },
+    { "id": "python", "kind": "influence", "weight": "minor", "note": "'As usable for general programming as Python'." },
+    { "id": "r", "kind": "influence", "weight": "minor", "note": "'As easy for statistics as R'." },
+    { "id": "ruby", "kind": "influence", "weight": "minor", "note": "'The dynamism of Ruby'." },
+    { "id": "perl", "kind": "influence", "weight": "minor", "note": "'As natural for string processing as Perl'." },
+    { "id": "lua", "kind": "influence", "weight": "minor" },
+    { "id": "c", "kind": "influence", "weight": "minor", "note": "'The speed of C' was the performance target; ccall calls C libraries without glue code." }
+  ],
+  "influenced_by_external": [
+    { "name": "MATLAB", "year": 1984, "note": "'Obvious, familiar mathematical notation like Matlab': array syntax, 1-based indexing and end-terminated blocks." },
+    { "name": "Dylan", "year": 1992, "note": "Multiple dispatch with a conventional, non-S-expression syntax." },
+    { "name": "Mathematica", "year": 1988 },
+    { "name": "Fortress" }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": { "level": "core" },
+    "block-scope": { "level": "core", "note": "function, let, for/while and comprehensions introduce local scopes; if and begin blocks do not." },
+    "recursion": { "level": "core", "note": "No tail-call elimination." },
+    "exceptions": { "level": "core", "note": "try/catch/finally, throw, and user-defined exception types." },
+    "coroutines": { "level": "core", "note": "Tasks are stackful coroutines scheduled by the runtime, and can also run on multiple threads." },
+    "generators": { "level": "supported", "note": "Lazy generator expressions (x^2 for x in xs) and the iterate() protocol; no yield keyword (Channels serve as producers)." },
+    "type-inference": { "level": "core", "note": "Dataflow inference in the compiler, used for specialization and performance rather than to reject programs." },
+    "generics": { "level": "core", "note": "Parametric types (Array{T,N}) and parametric methods (f(x::T) where T)." },
+    "gradual-typing": { "level": "supported", "note": "Annotations are optional; where present they restrict dispatch or assert types and are checked at run time, not by a static checker." },
+    "interfaces": { "level": "supported", "note": "Informal interfaces (iteration, indexing, broadcasting) defined by which methods a type implements; no language construct." },
+    "inheritance": { "level": "supported", "note": "Types can only subtype abstract types; concrete types are final and fields are never inherited." },
+    "multiple-dispatch": { "level": "core", "note": "Every function is generic; the method is chosen on the run-time types of all arguments." },
+    "traits-mixins": { "level": "supported", "note": "'Holy traits' pattern: trait types computed from a type and dispatched on (e.g. Base.IndexStyle)." },
+    "modules": { "level": "core", "note": "module/using/import/export; packages via the built-in Pkg manager." },
+    "operator-overloading": { "level": "core", "note": "Operators are ordinary generic functions: add a method to Base.:+." },
+    "first-class-functions": { "level": "core" },
+    "closures": { "level": "core" },
+    "immutability": { "level": "supported", "note": "struct types are immutable unless declared mutable struct; arrays and variable bindings are mutable." },
+    "list-comprehensions": { "level": "core", "note": "[x^2 for x in xs if iseven(x)], including multidimensional comprehensions." },
+    "garbage-collection": { "level": "core", "note": "Generational, non-moving tracing collector with parallel marking." },
+    "pointers": { "level": "supported", "note": "Ptr{T}, unsafe_load/unsafe_store! and ccall for C interop; not used in ordinary code." },
+    "csp-channels": { "level": "core", "note": "Channel{T} with put!/take! connects Tasks; buffered or unbuffered." },
+    "async-await": { "level": "supported", "note": "@async/Threads.@spawn create Tasks and fetch/wait block on them; stackful tasks mean there are no async-coloured functions." },
+    "macros": { "level": "core", "note": "@macro calls transform expression trees at parse time." },
+    "hygienic-macros": { "level": "core", "note": "Macro-local variables are renamed automatically (gensym); esc() deliberately breaks hygiene." },
+    "homoiconicity": { "level": "supported", "note": "Code is represented as Expr trees that programs and macros build and manipulate; the surface syntax is not written as data, unlike Lisp." },
+    "reflection": { "level": "core", "note": "methods(), fieldnames(), typeof(), and introspection of each compilation stage (@code_lowered … @code_native)." },
+    "compile-time-execution": { "level": "supported", "note": "Macros run arbitrary Julia code at expansion time, and @generated functions generate code from argument types." },
+    "hot-code-reload": { "level": "library", "note": "Revise.jl updates method definitions in a running session; world-age semantics keep redefinition safe." },
+    "array-programming": { "level": "core", "note": "Multidimensional arrays with 1-based indexing and dot-broadcasting (f.(x), .+) that fuses element-wise operations into one loop." },
+    "regex-builtin": { "level": "core", "note": "r\"...\" regex literals (a string macro in Base) backed by PCRE2." }
+  },
+  "milestones": [
+    { "year": 2009, "event": "Work begins at MIT" },
+    { "year": 2012, "event": "Public launch with 'Why We Created Julia' (14 February)" },
+    { "year": 2015, "event": "Julia Computing (now JuliaHub) founded" },
+    { "year": 2018, "event": "Julia 1.0 released (8 August)" },
+    { "year": 2019, "event": "Bezanson, Karpinski and Shah receive the James H. Wilkinson Prize for Numerical Software" },
+    { "year": 2023, "event": "Julia 1.9 caches native code for precompiled packages; 1.10 switches to the JuliaSyntax.jl parser" },
+    { "year": 2025, "event": "Julia 1.12 introduces the juliac compiler for small standalone executables" }
+  ],
+  "trivia": [
+    "Asked about the name, Stefan Karpinski said: 'There's no good reason, really. It just seemed like a pretty name.'",
+    "In 'Julia: A Fresh Approach to Numerical Computing', the designers report that Julia's Base library averages 5.86 methods per generic function (28.13 for operators), against 1.36–2.51 in the Dylan, Common Lisp (CLOS) and other multimethod codebases they compared."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Julia 1.13",
+      "code": "println(\"Hello, World!\")\n",
+      "expected_output": "Hello, World!\n",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Julia 1.13",
+      "code": "factorial(n) = n <= 1 ? 1 : n * factorial(n - 1)\n\nprintln(factorial(10))\n",
+      "expected_output": "3628800\n",
+      "notes": "One-line method definition. This shadows Base.factorial in Main; Int is 64-bit and wraps on overflow, so use factorial(big(25)) for large values.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Julia 1.13",
+      "code": "for i in 1:15\n    if i % 15 == 0\n        println(\"FizzBuzz\")\n    elseif i % 3 == 0\n        println(\"Fizz\")\n    elseif i % 5 == 0\n        println(\"Buzz\")\n    else\n        println(i)\n    end\nend\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "if/elseif/else … end blocks, as in MATLAB.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Julia 1.13",
+      "code": "xs = 1:10\nsquares = filter(iseven, xs) .^ 2   # the dot broadcasts ^ over the array\n\nprintln(join(squares, \" \"))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "filter(iseven, xs) returns a Vector and .^ broadcasts over it; the comprehension [x^2 for x in 1:10 if iseven(x)] is equally idiomatic.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Julia 1.13",
+      "code": "abstract type Shape end\n\nstruct Rectangle <: Shape\n    width::Int\n    height::Int\nend\n\nstruct Triangle <: Shape\n    base::Int\n    height::Int\nend\n\n# One generic function `area`, one method per type.\narea(r::Rectangle) = r.width * r.height\narea(t::Triangle) = t.base * t.height ÷ 2\n\nfor s in (Rectangle(3, 4), Triangle(10, 3))\n    println(nameof(typeof(s)), \": \", area(s))\nend\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Methods live outside the types: area is one generic function with a method per concrete type. ÷ is integer division; nameof(typeof(s)) gives the type's name.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Multiple dispatch: new types plug into existing code",
+      "dialect": "Julia 1.13",
+      "code": "# A new number type: forward-mode automatic differentiation in a dozen lines.\nstruct Dual <: Number\n    val::Float64   # f(x)\n    der::Float64   # f'(x)\nend\n\n# Teach existing generic functions about Dual by adding methods.\nBase.:+(a::Dual, b::Dual) = Dual(a.val + b.val, a.der + b.der)\nBase.:*(a::Dual, b::Dual) = Dual(a.val * b.val, a.val * b.der + a.der * b.val)\nBase.sin(a::Dual) = Dual(sin(a.val), cos(a.val) * a.der)\nBase.convert(::Type{Dual}, x::Real) = Dual(x, 0)\nBase.promote_rule(::Type{Dual}, ::Type{<:Real}) = Dual\n\nderivative(f, x) = f(Dual(x, 1)).der\n\nf(x) = 3x^2 + 2x + 1               # written with no knowledge of Dual\nprintln(derivative(f, 2.0))         # 6x + 2 at x = 2\nprintln(derivative(sin, 0.0))       # cos(0): Base.sin now accepts Dual\n",
+      "expected_output": "14.0\n1.0\n",
+      "notes": "f and Base.sin know nothing about Dual. Adding methods to +, *, sin, convert and promote_rule makes the untouched generic code differentiate itself, including 3x^2, where the integer 3 is promoted to a Dual. This is the idea behind the ForwardDiff.jl package.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Julia",
+        "version": "1.13.0",
+        "docker_image": "julia:1.13",
+        "run": "julia --startup-file=no {file}",
+        "notes": "JIT compilation dominates the run time of tiny scripts."
+      }
+    ],
+    "browser": null,
+    "notes": "There is no production-ready WebAssembly build of Julia; run it in a container."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+    "homepage": "https://julialang.org/",
+    "spec": "https://docs.julialang.org/en/v1/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+    "https://julialang.org/blog/2012/02/why-we-created-julia/",
+    "https://arxiv.org/abs/1411.1607",
+    "https://docs.julialang.org/en/v1/manual/methods/",
+    "https://github.com/JuliaLang/julia/releases",
+    "https://numfocus.org/blog/julia-co-creators-to-receive-2019-james-h-wilkinson-prize-for-numerical-software"
+  ]
+}
