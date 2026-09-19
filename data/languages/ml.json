@@ -106,7 +106,8 @@
     "kotlin",
     "csharp",
     "python",
-    "lean"
+    "lean",
+    "elm"
   ],
   "traits": {
     "type-inference": {

@@ -11,10 +11,12 @@ import basic from "highlight.js/lib/languages/basic";
 import c from "highlight.js/lib/languages/c";
 import clojure from "highlight.js/lib/languages/clojure";
 import cpp from "highlight.js/lib/languages/cpp";
+import crystal from "highlight.js/lib/languages/crystal";
 import csharp from "highlight.js/lib/languages/csharp";
 import dart from "highlight.js/lib/languages/dart";
 import delphi from "highlight.js/lib/languages/delphi";
 import elixir from "highlight.js/lib/languages/elixir";
+import elm from "highlight.js/lib/languages/elm";
 import erlang from "highlight.js/lib/languages/erlang";
 import fortran from "highlight.js/lib/languages/fortran";
 import fsharp from "highlight.js/lib/languages/fsharp";
@@ -44,6 +46,7 @@ import sml from "highlight.js/lib/languages/sml";
 import sql from "highlight.js/lib/languages/sql";
 import swift from "highlight.js/lib/languages/swift";
 import typescript from "highlight.js/lib/languages/typescript";
+import vbnet from "highlight.js/lib/languages/vbnet";
 
 const GRAMMARS = {
   ada,
@@ -54,11 +57,13 @@ const GRAMMARS = {
   c,
   clojure,
   cpp,
+  crystal,
   csharp,
   dart,
   delphi,
   dylan,
   elixir,
+  elm,
   erlang,
   fortran,
   fsharp,
@@ -93,6 +98,7 @@ const GRAMMARS = {
   swift,
   typescript,
   unison,
+  vbnet,
 };
 // J has no grammar of its own in highlight.js; this covers its lexical skeleton.
 function j(): ReturnType<LanguageFn> {
@@ -293,6 +299,8 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   haskell: "haskell",
   j: "j",
   python: "python",
+  "visual-basic": "vbnet",
+  qbasic: "vbnet",
   applescript: "applescript",
   newtonscript: "javascript",
   lua: "lua",
@@ -315,8 +323,10 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   elixir: "elixir",
   julia: "julia",
   typescript: "typescript",
+  elm: "elm",
   lean: "lean",
   swift: "swift",
+  crystal: "crystal",
   gleam: "rust",
   unison: "unison",
   odin: "odin",

@@ -129,7 +129,8 @@
   "influenced": [
     "zig",
     "gleam",
-    "odin"
+    "odin",
+    "crystal"
   ],
   "traits": {
     "structured-control": {

@@ -1,0 +1,35 @@
+#!/bin/sh
+# qbasic-build -- compile one QBasic / QuickBASIC source file into a headless console program with QB64-PE.
+#
+#   qbasic-build FILE.bas OUT     (the sandbox's compile step; the run step is just OUT)
+#
+# QB64-PE translates BASIC to C++ and builds it with g++, keeping its work files (generated code, qbx.o, settings)
+# inside its own directory. So the prepared tree in /opt/qb64pe, with its runtime objects precompiled when the image
+# was built, is copied to /tmp and used from there: nothing is written outside /tmp and OUT. The copy has no
+# internal/temp/tempfoldersearch.bin, so QB64-PE always uses internal/temp (it would otherwise ask `ps` whether an
+# earlier compiler process still holds that folder).
+#
+# QB64 programs open a graphics window unless the source starts with the $CONSOLE:ONLY metacommand, which QBasic
+# itself would reject. The snippet stays untouched: a three-line main program sets console-only mode, turns on
+# $ERRORLOCATION (so fatal errors such as division by zero report a line too) and $INCLUDEs FILE, so compile and
+# runtime errors name FILE and its own line numbers. Compiler messages go to stdout (the sandbox sends the compile
+# step's stdout to stderr), with QB64-PE's \001 markers removed and its "LINE 3:" (the $INCLUDE line) replaced by
+# the line in FILE.
+[ $# -eq 2 ] || { echo "usage: qbasic-build FILE.bas OUT" >&2; exit 2; }
+[ -f "$1" ] || { echo "qbasic-build: no such file: $1" >&2; exit 2; }
+src=$(realpath "$1")
+out=$(realpath -m "$2")
+case "$src" in *"'"*) echo "qbasic-build: file name may not contain a quote: $src" >&2; exit 2 ;; esac
+
+dir=/tmp/plw-qb64pe
+rm -rf "$dir"
+cp -R --preserve=mode,timestamps /opt/qb64pe "$dir" || exit 1
+printf '%s\n' '$CONSOLE:ONLY' '$ERRORLOCATION:ON' "'\$INCLUDE: '$src'" > "$dir/plw-main.bas"
+cd "$dir" || exit 1
+./qb64pe -x -q -m plw-main.bas -o "$out" > compile.log 2>&1
+rc=$?
+awk '{ gsub(/\001/, "") }
+     match($0, / in line [0-9]+ of .* included$/) { n = substr($0, RSTART + 9) + 0 }
+     n && /^LINE 3:/ { sub(/^LINE 3:/, "LINE " n ":") }
+     { print }' compile.log
+exit $rc

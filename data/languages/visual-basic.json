@@ -1,0 +1,432 @@
+{
+  "id": "visual-basic",
+  "name": "Visual Basic",
+  "aliases": [
+    "VB",
+    "VB6",
+    "VB.NET",
+    "Visual Basic .NET",
+    "Classic Visual Basic"
+  ],
+  "year": 1991,
+  "year_note": "Visual Basic 1.0 for Windows was released in May 1991 at the Comdex/Windows World show in Atlanta, after development from 1989 under the code name Thunder. The classic line ended with Visual Basic 6.0 (1998); Visual Basic .NET, a redesign for the .NET Framework, followed in 2002 and is the language Microsoft now simply calls Visual Basic.",
+  "designers": [
+    "Alan Cooper",
+    "Scott Ferguson",
+    "Adam Rauch"
+  ],
+  "organization": "Microsoft",
+  "country": "United States",
+  "tagline": "Microsoft's event-driven BASIC: draw a form, double-click a button, and write the code that runs when it is clicked.",
+  "summary": "Visual Basic is Microsoft's descendant of BASIC that paired a drag-and-drop form designer with a structured, QuickBASIC-derived language, and made rapid development of Windows GUI applications mainstream. Classic Visual Basic (1991–1998, ending with VB6) built COM-based Windows programs out of forms, controls and event handlers, and lives on as VBA in Microsoft Office. Visual Basic .NET (2002) rebuilt it as a fully object-oriented, garbage-collected language for .NET alongside C#, keeping the case-insensitive, keyword-heavy syntax (If ... Then ... End If, Dim x As Integer); since 2020 Microsoft has maintained it as a stable language rather than evolving it.",
+  "history": "Visual Basic grew out of two projects. In 1988 Alan Cooper showed Bill Gates Tripod, a prototype 'shell construction set' in which users built forms from a palette of controls and linked control events to actions; Microsoft bought it, and Cooper's team delivered it as Ruby. Instead of shipping Ruby as the Windows shell, Microsoft replaced its small command language with a BASIC: the Embedded Basic engine from the Business Languages group, which also maintained QuickBASIC. Under the code name Thunder, with Scott Ferguson as development lead and Adam Rauch as program manager, the combination became Visual Basic 1.0, released at Windows World in Atlanta in May 1991.\n\nA classic VB program was a set of forms whose controls raised events, each handled by a procedure such as Command1_Click, with third-party controls loaded at run time (VBX, later OCX/ActiveX controls). Later versions made forms instantiable objects (2.0, 1992), added the Jet database engine (3.0, 1993), 32-bit programs and class modules (4.0, 1995), and native-code compilation and interfaces (5.0, 1997). Objects were COM objects managed by reference counting. The language also became Visual Basic for Applications, the macro language of Microsoft Office. Visual Basic 6.0 (1998) was the last classic release; Microsoft ended support for its IDE in 2008, though the VB6 runtime still ships with Windows.\n\nVisual Basic .NET (2002) was a redesign for the .NET Framework rather than an upgrade: implementation inheritance, structured exception handling, block scope, garbage collection and a 32-bit Integer, with no backward compatibility with VB6. Microsoft then developed it alongside C#, adding generics (2005), LINQ, XML literals and lambdas (2008) and Async/Await (2012); its compiler, written in Visual Basic, became part of the open-source Roslyn platform. In March 2020 Microsoft said it did not plan to evolve Visual Basic as a language, and its 2023 language strategy commits to a stable design that consumes new .NET features without adding syntax.",
+  "innovations": [
+    "Drag-and-drop form design wired to event-handler procedures, which made rapid application development of Windows GUI programs mainstream",
+    "Custom controls loaded at run time (VBX, then OCX/ActiveX), which created a commercial market for third-party components",
+    "The Variant: one self-describing value that converts between numbers, strings, dates and objects, later the only type in VBScript",
+    "A general-purpose language embedded as the macro language of Microsoft Office and other applications (Visual Basic for Applications)",
+    "XML literals with embedded expressions and axis properties (2008), making XML part of the language's grammar"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "object-oriented",
+    "imperative",
+    "structured",
+    "event-driven",
+    "generic",
+    "reflective",
+    "declarative"
+  ],
+  "family": "basic",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "weak",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Option Strict Off, the default for new projects, allows implicit narrowing conversions (a String assigned to an Integer is converted at run time) and late-bound calls on Object; Option Strict On makes conversions explicit and binding early. Option Infer (VB 2008) infers local variable types. Classic VB's Variant was the type of undeclared variables. Identifiers and keywords are case-insensitive."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Classic VB managed objects through COM reference counting: an object was freed when its last reference went out of scope or was Set to Nothing. VB.NET uses the CLR's generational garbage collector, with Using blocks (VB 2005) for deterministic disposal.",
+  "execution": [
+    "bytecode-vm",
+    "jit"
+  ],
+  "status": "maintained",
+  "latest_version": "Visual Basic 17.13 (Visual Studio 2026 and the .NET 10 SDK)",
+  "file_extensions": [
+    ".vb",
+    ".bas",
+    ".cls",
+    ".frm"
+  ],
+  "color": "#945db7",
+  "primary_parent": "qbasic",
+  "influenced_by": [
+    {
+      "id": "qbasic",
+      "kind": "successor",
+      "weight": "major",
+      "note": "Via QuickBASIC (1985), the compiler QBasic was cut down from: Microsoft replaced Ruby's shell language with a BASIC from the group that maintained QuickBASIC, bringing its structured, line-number-free style (SUB and FUNCTION procedures, block IF, SELECT CASE, DO ... LOOP, TYPE records). Wikipedia calls Visual Basic the successor of QuickBASIC, and Visual Basic for MS-DOS (1992) was the next version of QuickBASIC and BASIC PDS."
+    },
+    {
+      "id": "basic",
+      "kind": "dialect",
+      "weight": "major",
+      "note": "A Microsoft BASIC: Dim, For ... Next, GoSub, type-suffix characters ($, %, &), True = -1 and line-oriented statements."
+    },
+    {
+      "id": "csharp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Visual Basic .NET (2002) was designed with C# for the .NET runtime, and from VB 2010 Microsoft co-evolved the two languages toward parity (generics, LINQ, lambdas, iterators, async). Since 2020 Visual Basic has consumed new C# and .NET features rather than adding syntax."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Ruby (Alan Cooper's 'shell construction set', originally Tripod)",
+      "year": 1988,
+      "note": "The form designer, the palette of controls, the event/method model and dynamically loaded custom controls (VBX)."
+    },
+    {
+      "name": "Embedded Basic (EB)",
+      "year": 1989,
+      "note": "The BASIC language engine written for Microsoft's cancelled Omega database, which became Visual Basic's language engine."
+    },
+    {
+      "name": "Component Object Model (COM)",
+      "year": 1993,
+      "note": "Classic VB's classes and controls were COM objects, with BSTR strings, SAFEARRAY arrays and reference-counted lifetimes."
+    },
+    {
+      "name": ".NET Common Language Runtime",
+      "year": 2002,
+      "note": "Visual Basic .NET adopted the CLR's type system, garbage collection and class library."
+    }
+  ],
+  "influenced": [
+    "csharp"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "If ... Then ... ElseIf ... End If, Select Case with lists, ranges (Case 1 To 5) and comparisons (Case Is > 9), Do ... Loop While/Until, For ... Next and For Each; GoTo remains."
+    },
+    "block-scope": {
+      "level": "core",
+      "since": 2002,
+      "version": "Visual Basic .NET (7.0)",
+      "note": "A variable declared inside If, For, Do, Try or another block is visible only in that block; in classic VB every Dim was visible throughout its procedure."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "Try ... Catch ... Finally with Catch ... When filters since VB.NET (2002). Classic VB's unstructured On Error GoTo / Resume Next with the Err object is still supported."
+    },
+    "generators": {
+      "level": "core",
+      "since": 2012,
+      "version": "Visual Basic 2012 (11.0)",
+      "note": "Iterator functions and properties that Yield values lazily."
+    },
+    "static-typing": {
+      "level": "core",
+      "note": "Declared types are checked at compile time; Option Strict Off relaxes conversions and allows late binding on Object."
+    },
+    "type-inference": {
+      "level": "supported",
+      "since": 2008,
+      "version": "Visual Basic 2008 (9.0)",
+      "note": "Option Infer: Dim x = 5 and For i = 1 To 10 infer local types; lambda parameters and anonymous types are inferred too."
+    },
+    "generics": {
+      "level": "core",
+      "since": 2005,
+      "version": "Visual Basic 2005 (8.0)",
+      "note": "Written with Of: List(Of Integer), Function Max(Of T As IComparable)(...)."
+    },
+    "option-types": {
+      "level": "supported",
+      "since": 2008,
+      "version": "Visual Basic 2008 (9.0)",
+      "note": "Nullable value types (Integer?, i.e. Nullable(Of Integer)) with lifted operators and If(x, fallback); reference types can always be Nothing and are not checked."
+    },
+    "gradual-typing": {
+      "level": "supported",
+      "note": "With Option Strict Off, values typed Object (classic VB's Variant) are late-bound: member calls and overloads are resolved at run time, inside otherwise statically typed code."
+    },
+    "interfaces": {
+      "level": "core",
+      "since": 1997,
+      "version": "Visual Basic 5.0",
+      "note": "Implements; each implementing member names the member it fulfils (Function Area() As Integer Implements IShape.Area). Classic VB offered interface inheritance only."
+    },
+    "classes": {
+      "level": "core",
+      "since": 1995,
+      "version": "Visual Basic 4.0",
+      "note": "Forms became instantiable objects in VB 2.0 (1992) and class modules arrived in 4.0; classic VB was object-based until VB.NET added inheritance."
+    },
+    "inheritance": {
+      "level": "core",
+      "since": 2002,
+      "version": "Visual Basic .NET (7.0)",
+      "note": "Single class inheritance with Inherits, MustInherit / MustOverride, Overridable / Overrides and NotInheritable."
+    },
+    "everything-is-an-object": {
+      "level": "supported",
+      "since": 2002,
+      "version": "Visual Basic .NET (7.0)",
+      "note": "The .NET unified type system: every type, including Integer, derives from Object (value types via boxing), but computation is not message passing."
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "since": 2008,
+      "version": "Visual Basic 2008 (9.0)",
+      "note": "Only extension methods, declared with <Extension()> in a Module, which add methods to existing types; not true mixins."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "since": 1995,
+      "version": "Visual Basic 4.0",
+      "note": "Class modules with Private state behind Property Get/Let/Set procedures; VB.NET Property blocks and Private/Friend/Protected access."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Classic VB projects split code into standard modules (.bas), class modules and forms, and could be compiled into ActiveX DLLs; VB.NET adds namespaces, assemblies, Friend visibility and Module blocks whose members are shared and usable unqualified."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "since": 2005,
+      "version": "Visual Basic 2005 (8.0)",
+      "note": "Operator procedures, including Widening/Narrowing CType conversions and IsTrue/IsFalse."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "since": 2002,
+      "version": "Visual Basic .NET (7.0)",
+      "note": "Delegates with AddressOf; lambdas (Function(x) x * x) since VB 2008, and Sub and multi-line lambdas since VB 2010. Classic VB's AddressOf only passed procedures to Windows API callbacks."
+    },
+    "closures": {
+      "level": "core",
+      "since": 2008,
+      "version": "Visual Basic 2008 (9.0)",
+      "note": "Lambdas capture local variables by reference."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "Const, ReadOnly fields and properties, and (from VB 16.9) consuming init-only properties, but mutability is the default."
+    },
+    "list-comprehensions": {
+      "level": "core",
+      "since": 2008,
+      "version": "Visual Basic 2008 (9.0)",
+      "note": "LINQ query expressions (From ... Where ... Select), with more clauses in VB than in C#: Aggregate, Distinct, Skip, Take, Skip While and Take While."
+    },
+    "lazy-evaluation": {
+      "level": "library",
+      "note": "LINQ operators and Iterator functions use deferred execution; Lazy(Of T) for lazy values."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "since": 2002,
+      "version": "Visual Basic .NET (7.0)",
+      "note": "The CLR's generational collector; classic VB relied on COM reference counting."
+    },
+    "csp-channels": {
+      "level": "library",
+      "since": 2019,
+      "note": "System.Threading.Channels in the .NET standard library (.NET Core 3.0)."
+    },
+    "async-await": {
+      "level": "core",
+      "since": 2012,
+      "version": "Visual Basic 2012 (11.0)",
+      "note": "Async Function / Async Sub and Await, introduced together with C# 5."
+    },
+    "reflection": {
+      "level": "core",
+      "since": 2002,
+      "version": "Visual Basic .NET (7.0)",
+      "note": "System.Reflection and attributes (<Serializable>); late binding and CallByName invoke members by name at run time."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "since": 2005,
+      "version": "Visual Basic 2005 (8.0)",
+      "note": "Edit and Continue, now called Hot Reload in Visual Studio, applies code changes to a program paused in the debugger, and execution resumes with the new code."
+    },
+    "declarative-queries": {
+      "level": "core",
+      "since": 2008,
+      "version": "Visual Basic 2008 (9.0)",
+      "note": "LINQ queries over collections, XML (with XML literals and axis properties) and databases, which providers such as Entity Framework translate to SQL."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "since": 2002,
+      "version": "Visual Basic .NET (7.0)",
+      "note": "System.Text.RegularExpressions; the built-in Like operator matches simpler wildcard patterns (\"VB6\" Like \"VB#\")."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1991,
+      "event": "Visual Basic 1.0 for Windows released at Windows World in Atlanta (May)"
+    },
+    {
+      "year": 1992,
+      "event": "Visual Basic for MS-DOS, and Visual Basic 2.0 with forms as instantiable objects"
+    },
+    {
+      "year": 1993,
+      "event": "Visual Basic 3.0 with the Jet database engine"
+    },
+    {
+      "year": 1995,
+      "event": "Visual Basic 4.0: 32-bit programs, class modules and OCX controls"
+    },
+    {
+      "year": 1997,
+      "event": "Visual Basic 5.0: native-code compilation, user controls and interfaces (Implements)"
+    },
+    {
+      "year": 1998,
+      "event": "Visual Basic 6.0, the last classic release"
+    },
+    {
+      "year": 2002,
+      "event": "Visual Basic .NET (7.0) ships with .NET Framework 1.0, incompatible with VB6"
+    },
+    {
+      "year": 2005,
+      "event": "Visual Basic 2005 (8.0) drops '.NET' from the name: generics, operator overloading, the My namespace, Edit and Continue"
+    },
+    {
+      "year": 2007,
+      "event": "Visual Basic 2008 (9.0) ships with .NET Framework 3.5: LINQ, XML literals, lambdas and local type inference"
+    },
+    {
+      "year": 2008,
+      "event": "Microsoft ends support for the VB6 IDE (April)"
+    },
+    {
+      "year": 2010,
+      "event": "Visual Basic 2010: implicit line continuation, multi-line lambdas and co-evolution with C#"
+    },
+    {
+      "year": 2012,
+      "event": "Visual Basic 2012 (11.0): Async/Await and iterator functions"
+    },
+    {
+      "year": 2015,
+      "event": "Visual Basic 14 with the open-source Roslyn compiler: string interpolation and the ?. operator"
+    },
+    {
+      "year": 2020,
+      "event": "Microsoft announces Visual Basic support on .NET 5 but no plans to evolve the language (March)"
+    },
+    {
+      "year": 2023,
+      "event": "The .NET language strategy commits to a stable Visual Basic that consumes new .NET features without new syntax"
+    }
+  ],
+  "trivia": [
+    "The code name Thunder survived in the classic VB runtime, whose primary internal function was still called ThunderRTMain in VB6.",
+    "Cooper's form designer was code-named Ruby, which has no connection to the later Ruby programming language.",
+    "As in earlier Microsoft BASICs, True is -1 (all bits set), so Not False = True and the logical operators double as bitwise ones.",
+    "Visual Basic's own compiler, part of the Roslyn platform, is written in Visual Basic.",
+    "Visual Basic 6.0 was named the most dreaded language in Stack Overflow's developer surveys of 2016, 2017 and 2018."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Visual Basic 17.13 (.NET 10 SDK)",
+      "code": "Module Program\n    Sub Main()\n        Console.WriteLine(\"Hello, World!\")\n    End Sub\nEnd Module\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "A console program needs a Module with a Sub Main entry point; the System namespace (home of Console) is imported by default. Classic VB built Windows GUI programs with no console window, so a VB6 version would show MsgBox \"Hello, World!\" from Sub Main or a form's Load event, or Debug.Print it to the IDE's Immediate window.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Visual Basic 17.13 (.NET 10 SDK)",
+      "code": "Module Program\n    Function Factorial(n As Integer) As Long\n        If n <= 1 Then Return 1\n        Return n * Factorial(n - 1)\n    End Function\n\n    Sub Main()\n        Console.WriteLine(Factorial(10))\n    End Sub\nEnd Module\n",
+      "expected_output": "3628800\n",
+      "notes": "Parameters are ByVal by default in VB.NET, and Return (with a value) is new in VB.NET. A VB6 version would write Factorial = n * Factorial(n - 1), returning by assignment to the function's name (still legal), and would pass n ByRef unless declared ByVal. VB6's Integer was 16-bit and Long 32-bit; VB.NET widened them to 32 and 64 bits.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Visual Basic 17.13 (.NET 10 SDK)",
+      "code": "Module Program\n    Sub Main()\n        For i = 1 To 15\n            Select Case i Mod 15\n                Case 0\n                    Console.WriteLine(\"FizzBuzz\")\n                Case 3, 6, 9, 12\n                    Console.WriteLine(\"Fizz\")\n                Case 5, 10\n                    Console.WriteLine(\"Buzz\")\n                Case Else\n                    Console.WriteLine(i)\n            End Select\n        Next\n    End Sub\nEnd Module\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Select Case tests one value against lists (Case 3, 6, 9, 12), ranges (Case 1 To 5) or comparisons (Case Is > 9). For i = 1 To 15 declares an Integer i by inference (Option Infer). The loop would be the same in VB6 or QuickBASIC, apart from printing with Debug.Print or to a form.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Visual Basic 17.13 (.NET 10 SDK)",
+      "code": "Module Program\n    Sub Main()\n        Dim squares = Enumerable.Range(1, 10).\n            Where(Function(n) n Mod 2 = 0).\n            Select(Function(n) n * n)\n\n        Console.WriteLine(String.Join(\" \", squares))\n    End Sub\nEnd Module\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Function(n) ... is VB's lambda syntax (VB 2008); a trailing dot continues the statement on the next line. The same pipeline can be written as a query: From n In Enumerable.Range(1, 10) Where n Mod 2 = 0 Select n * n. VB6 had neither lambdas nor LINQ and would use a For loop that concatenates a string.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Visual Basic 17.13 (.NET 10 SDK)",
+      "code": "MustInherit Class Shape\n    Public MustOverride Function Area() As Integer\nEnd Class\n\nClass Rectangle\n    Inherits Shape\n    Public Width, Height As Integer\n\n    Public Overrides Function Area() As Integer\n        Return Width * Height\n    End Function\nEnd Class\n\nClass Triangle\n    Inherits Shape\n    Public Base, Height As Integer\n\n    Public Overrides Function Area() As Integer\n        Return Base * Height \\ 2\n    End Function\nEnd Class\n\nModule Program\n    Sub Main()\n        Dim shapes As Shape() = {New Rectangle With {.Width = 3, .Height = 4},\n                                 New Triangle With {.Base = 10, .Height = 3}}\n        For Each s In shapes\n            Console.WriteLine($\"{s.GetType().Name}: {s.Area()}\")\n        Next\n    End Sub\nEnd Module\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "MustInherit and MustOverride declare an abstract class and method; \\ is integer division. VB has no pattern matching, so dispatch is by virtual method. Classic VB had no implementation inheritance: each class would be its own .cls file with Implements IShape and a Private Function IShape_Area() As Long.",
+      "verified": true
+    },
+    "signature": {
+      "title": "XML literals and LINQ",
+      "concepts": [
+        "list-comprehensions",
+        "declarative-queries"
+      ],
+      "dialect": "Visual Basic 17.13 (.NET 10 SDK)",
+      "code": "Module Program\n    Sub Main()\n        ' XML is part of the grammar: a literal here is an XElement.\n        Dim family =\n            <family name=\"BASIC\">\n                <language year=\"1964\">Dartmouth BASIC</language>\n                <language year=\"1985\">QuickBASIC</language>\n                <language year=\"1991\">Visual Basic</language>\n                <language year=\"2002\">Visual Basic .NET</language>\n            </family>\n\n        ' Axis properties (.<child>, .@attribute) inside a LINQ query,\n        ' building new XML through <%= %> embedded expressions.\n        Dim list = <ul>\n                       <%= From lang In family.<language>\n                           Where CInt(lang.@year) >= 1990\n                           Select <li><%= lang.Value %> (<%= lang.@year %>)</li> %>\n                   </ul>\n\n        Console.WriteLine(list)\n    End Sub\nEnd Module\n",
+      "expected_output": "<ul>\n  <li>Visual Basic (1991)</li>\n  <li>Visual Basic .NET (2002)</li>\n</ul>\n",
+      "notes": "XML literals (VB 2008) are compiled into LINQ to XML objects, and C# never adopted them. family.<language> selects child elements, lang.@year reads an attribute, and <%= ... %> embeds an expression, here a whole query whose results become <li> elements. Classic VB would build the document through the MSXML COM library.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": ".NET SDK (Roslyn Visual Basic compiler via MSBuild)",
+        "version": "10.0 (SDK 10.0.401, runtime 10.0.12; Visual Basic 17.13)",
+        "docker_image": "plw-visual-basic",
+        "dockerfile": "sandbox/visual-basic/Dockerfile",
+        "compile": "vb-run --build {file}",
+        "run": "vb-run --exec",
+        "notes": "dotnet run file.vb does not exist (file-based apps are C#-only), so plw-visual-basic is mcr.microsoft.com/dotnet/sdk:10.0 plus a console project (plw.vbproj, with the defaults of dotnet new console for VB) restored and built at image build time. vb-run --build copies it to /tmp, puts the file in place of its Program.vb and runs dotnet msbuild without restore; --exec runs the built plw.dll. Diagnostics go to stderr and name the user's file (a PathMap does the same for run-time stack traces). Nothing is written outside /tmp: runs also pass with a read-only root filesystem."
+      }
+    ],
+    "browser": null,
+    "notes": "Each snippet takes about 1.3 s in the sandbox, almost all of it the MSBuild build (about 1 s); the program itself runs in about 15 ms. Classic VB6 is Windows-only and closed-source, and its IDE has been unsupported since 2008, so the snippets use VB.NET."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Visual_Basic_(classic)",
+    "homepage": "https://learn.microsoft.com/en-us/dotnet/visual-basic/",
+    "spec": "https://learn.microsoft.com/en-us/dotnet/visual-basic/reference/language-specification/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Visual_Basic_(classic)",
+    "https://en.wikipedia.org/wiki/Visual_Basic_(.NET)",
+    "https://en.wikipedia.org/wiki/QuickBASIC",
+    "https://en.wikipedia.org/wiki/Alan_Cooper_(software_designer)",
+    "https://en.wikipedia.org/wiki/C_Sharp_(programming_language)",
+    "https://en.wikipedia.org/wiki/Comparison_of_Visual_Basic_and_Visual_Basic_.NET",
+    "http://www.forestmoon.com/birthofvb/birthofvb.html",
+    "https://web.archive.org/web/19961101084552/http://www.cooper.com/alan/father_of_vb.html",
+    "https://ecs.syr.edu/faculty/fawcett/handouts/cse775/presentations/BruceMcKinneyPapers/variants.htm",
+    "https://www.informit.com/articles/article.aspx?p=25857&seqNum=4",
+    "https://learn.microsoft.com/en-us/dotnet/visual-basic/getting-started/whats-new",
+    "https://learn.microsoft.com/en-us/dotnet/visual-basic/language-reference/queries/",
+    "https://devblogs.microsoft.com/vbteam/visual-basic-support-planned-for-net-5-0/",
+    "https://devblogs.microsoft.com/dotnet/update-to-the-dotnet-language-strategy/",
+    "https://learn.microsoft.com/en-us/dotnet/visual-basic/getting-started/strategy",
+    "https://learn.microsoft.com/en-us/visualstudio/debugger/edit-and-continue-visual-basic"
+  ]
+}

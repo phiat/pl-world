@@ -1,0 +1,258 @@
+{
+  "id": "qbasic",
+  "name": "QBasic",
+  "aliases": [
+    "QuickBASIC",
+    "Microsoft QuickBASIC",
+    "QB",
+    "QBASIC"
+  ],
+  "year": 1991,
+  "year_note": "QBasic 1.0 shipped with MS-DOS 5.0 in 1991, replacing GW-BASIC. It was an interpreter-only subset of the QuickBASIC 4.5 compiler (1988), by way of the QuickBASIC Interpreter that came with Microsoft Press's Learn BASIC Now (1989). QuickBASIC itself, whose dialect this entry covers, first appeared on 18 August 1985.",
+  "designers": [
+    "Microsoft Languages Division"
+  ],
+  "organization": "Microsoft",
+  "country": "United States",
+  "tagline": "Microsoft's structured BASIC: no line numbers, SUBs and FUNCTIONs, TYPE records, and an IDE that came free with every copy of MS-DOS.",
+  "summary": "QBasic is the interpreter-only edition of Microsoft QuickBASIC that shipped with MS-DOS 5 and 6 and on the Windows 95, 98 and Me discs, replacing GW-BASIC. Its dialect turned line-numbered Microsoft BASIC into a structured language: optional line numbers and named labels, SUB and FUNCTION procedures with parameters and local variables, block IF, SELECT CASE, DO ... LOOP, TYPE records and typed declarations. A full-screen environment with online help and an immediate window made it a first language for a generation of DOS users, and QB64 and FreeBASIC keep the dialect running today.",
+  "history": "Microsoft released QuickBASIC 1.0 on 18 August 1985: a compiler for a dialect loosely based on GW-BASIC in which line numbers became optional and jumps could target named labels. Version 2.0 added an integrated editor, and from 4.0 the environment also contained an interpreter, so programs could be run and debugged without leaving the editor; later versions added multi-line conditionals and loop blocks. Compared with GW-BASIC, QuickBASIC also brought user-defined types, better graphics and disk support, and compilation to .EXE files. QuickBASIC 4.5 (1988) was the last version; the compiler line continued as the BASIC Professional Development System (7.1, 1990) and Visual Basic for MS-DOS (1992).\n\nIn 1989 Microsoft Press bundled the QuickBASIC Interpreter, QuickBASIC 4.5 without the ability to write executable files, with the book Learn BASIC Now. It became QBasic 1.0, which replaced GW-BASIC in MS-DOS 5.0 in 1991. QBasic kept QuickBASIC's language and environment but could not make .EXE files, handled only a single module and limited program size; code typed into its editor was held as P-code and executed on demand. QBasic 1.1 followed with MS-DOS 6, and until MS-DOS 7 the EDIT and HELP commands simply started QBasic in editor-only or help-only mode. Windows 2000 was the first Microsoft system without it.\n\nVisual Basic inherited QuickBASIC's structured dialect. Hobbyists kept QBasic programs alive with FreeBASIC (2004), whose -lang qb mode compiles QuickBASIC code, and QB64 (2007), which translates QuickBASIC to C++ with the aim of full compatibility and has continued since 2022 as QB64 Phoenix Edition.",
+  "innovations": [
+    "Brought structured programming to Microsoft BASIC: optional line numbers and named labels, block IF ... ELSEIF ... END IF, SELECT CASE and DO ... LOOP",
+    "SUB and FUNCTION procedures with parameters, local variables and recursion, in place of GOSUB subroutines that shared global variables",
+    "Added TYPE ... END TYPE records, fixed-length strings and 32-bit LONG integers to Microsoft BASIC",
+    "An integrated editor, interpreter and compiler in one environment (from QuickBASIC 4.0), with an interpreter-only edition bundled free with MS-DOS 5 and 6"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured"
+  ],
+  "family": "basic",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "Every variable has a fixed type, from its suffix (% INTEGER, & LONG, ! SINGLE, # DOUBLE, $ STRING), a DIM ... AS clause or a DEFINT/DEFLNG/DEFSNG/DEFDBL/DEFSTR letter range; otherwise it is SINGLE. Numeric types convert into one another implicitly (rounding when stored as an integer), but assigning a number to a string is an error before the program runs, and DECLARE statements let calls be checked against procedure parameter lists (AS ANY switches the check off). TYPE records are compatible only with the same TYPE."
+  },
+  "memory": "mixed",
+  "memory_note": "Procedure locals live on a stack, which is what makes recursion work; STATIC keeps a procedure's locals between calls. Arrays are fixed at compile time or, as $DYNAMIC arrays, allocated at run time with REDIM and freed with ERASE. Variable-length strings are allocated by the runtime. There are no pointer types.",
+  "execution": [
+    "interpreted",
+    "native-compiled"
+  ],
+  "status": "historical",
+  "latest_version": "QBasic 1.1 (MS-DOS 6, 1993); QuickBASIC 4.5 (1988)",
+  "file_extensions": [
+    ".bas",
+    ".bi"
+  ],
+  "color": "#008080",
+  "primary_parent": "basic",
+  "influenced_by": [
+    {
+      "id": "basic",
+      "kind": "dialect",
+      "weight": "major",
+      "note": "A Microsoft BASIC descended, via GW-BASIC and the BASCOM compiler, from the Dartmouth original: PRINT, INPUT, FOR ... NEXT, GOSUB, READ/DATA and type-suffixed variable names, with line numbers still accepted."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "GW-BASIC",
+      "year": 1983,
+      "note": "Microsoft's line-numbered interpreter for MS-DOS (a twin of IBM BASICA). QuickBASIC was loosely based on it, and QBasic replaced it in MS-DOS 5.0; QBasic loads GW-BASIC programs saved as text, and QBASIC /MBF keeps GW-BASIC's Microsoft Binary Format for floating-point numbers."
+    },
+    {
+      "name": "Microsoft BASIC Compiler (BASCOM)",
+      "year": 1980,
+      "note": "Microsoft's earlier compiler for BASIC-80 programs, which Wikipedia lists with GW-BASIC as QuickBASIC's ancestors."
+    }
+  ],
+  "influenced": [
+    "visual-basic"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "Block IF ... ELSEIF ... END IF, SELECT CASE (with IS and TO ranges), DO WHILE/UNTIL ... LOOP, FOR ... NEXT, WHILE ... WEND and EXIT DO/FOR/SUB/FUNCTION. GOTO, GOSUB and line numbers remain for compatibility with older BASIC."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "SUB and FUNCTION procedures can call themselves; each call gets its own local variables unless the procedure is declared STATIC."
+    },
+    "static-typing": {
+      "level": "core",
+      "note": "Types come from name suffixes, AS clauses and DEFtype ranges and are checked before the program runs."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "Unstructured error trapping: ON ERROR GOTO label jumps to a handler in the module-level code, which inspects ERR and ERL and continues with RESUME, RESUME NEXT or RESUME label; ERROR n raises an error. Events are trapped similarly, with ON TIMER(n) GOSUB, ON KEY(n) GOSUB and related statements."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "QuickBASIC programs can span several separately compiled .BAS modules that share variables through COMMON SHARED and procedures through DECLARE, plus '$INCLUDE files and Quick libraries. QBasic handles a single module only."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "No pointer types or allocation functions, but VARSEG and VARPTR give a variable's segment and offset, and DEF SEG with PEEK and POKE reads and writes any memory address; CALL ABSOLUTE runs machine code."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1985,
+      "event": "QuickBASIC 1.0 released on 18 August: a BASIC compiler with optional line numbers and named labels"
+    },
+    {
+      "year": 1988,
+      "event": "QuickBASIC 4.5, the last QuickBASIC"
+    },
+    {
+      "year": 1989,
+      "event": "Learn BASIC Now bundles the QuickBASIC Interpreter, an interpreter-only QuickBASIC 4.5"
+    },
+    {
+      "year": 1990,
+      "event": "Last release of the BASIC Professional Development System (7.1), QuickBASIC's professional sibling"
+    },
+    {
+      "year": 1991,
+      "event": "QBasic 1.0 replaces GW-BASIC in MS-DOS 5.0"
+    },
+    {
+      "year": 1992,
+      "event": "Visual Basic for MS-DOS succeeds QuickBASIC and BASIC PDS"
+    },
+    {
+      "year": 1993,
+      "event": "QBasic 1.1 ships with MS-DOS 6.0"
+    },
+    {
+      "year": 2000,
+      "event": "Windows 2000 is the first Microsoft system without QBasic"
+    },
+    {
+      "year": 2004,
+      "event": "FreeBASIC, an open-source QuickBASIC-compatible compiler, first released"
+    },
+    {
+      "year": 2007,
+      "event": "QB64 (first called QB32), a QuickBASIC-to-C++ compiler, first released"
+    },
+    {
+      "year": 2022,
+      "event": "QB64 Phoenix Edition carries on QB64 after the original project's sites go offline"
+    }
+  ],
+  "trivia": [
+    "QBasic came with four example programs: GORILLA.BAS (Gorillas), in which two gorillas throw exploding bananas across a city skyline; NIBBLES.BAS (Nibbles), a Snake game; a money manager; and REMLINE.BAS, which removes line numbers from old BASIC programs.",
+    "In MS-DOS 5 and 6, EDIT and HELP were not separate programs: they started QBASIC.EXE with its /EDITOR or /QHELP switch.",
+    "Holding down the left and right Ctrl, Alt and Shift keys while QBasic starts shows an Easter egg that lists 'The Team' of its programmers.",
+    "Bill Gates's foreword to Learn BASIC Now (1989) reported that BASIC was in active use by over four million PC users."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "QBasic 1.1 (QB64-PE 4.6.0)",
+      "code": "PRINT \"Hello, World!\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Most QBasic programs began with CLS to clear the screen. It is left out here because the sandbox captures text rather than a screen, and QB64-PE's console mode turns CLS into terminal escape codes. No END is needed: a program stops after its last statement.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "QBasic 1.1 (QB64-PE 4.6.0)",
+      "code": "DECLARE FUNCTION Factorial& (n AS INTEGER)\n\nPRINT LTRIM$(STR$(Factorial&(10)))\nEND\n\nFUNCTION Factorial& (n AS INTEGER)\n    IF n <= 1 THEN\n        Factorial& = 1\n    ELSE\n        Factorial& = n * Factorial&(n - 1)\n    END IF\nEND FUNCTION\n",
+      "expected_output": "3628800\n",
+      "notes": "A FUNCTION returns its result by assignment to its own name, and the suffix & makes that a 32-bit LONG: 10! overflows a 16-bit INTEGER (%). The QBasic editor writes DECLARE lines like the first one itself when it saves a program; procedures follow the module-level code, after END. PRINT puts a blank before a non-negative number, where a minus sign would go, so LTRIM$(STR$(x)) prints just the digits.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "QBasic 1.1 (QB64-PE 4.6.0)",
+      "code": "DEFINT A-Z\nFOR i = 1 TO 15\n    IF i MOD 15 = 0 THEN\n        PRINT \"FizzBuzz\"\n    ELSEIF i MOD 3 = 0 THEN\n        PRINT \"Fizz\"\n    ELSEIF i MOD 5 = 0 THEN\n        PRINT \"Buzz\"\n    ELSE\n        PRINT LTRIM$(STR$(i))\n    END IF\nNEXT i\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "DEFINT A-Z makes variables without a suffix or AS clause 16-bit INTEGERs instead of the default single-precision SINGLE. A block IF ... ELSEIF ... END IF replaces the IF ... THEN line-number jumps of classic BASIC, and MOD is a built-in operator.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "QBasic 1.1 (QB64-PE 4.6.0)",
+      "code": "DEFINT A-Z\nDECLARE SUB EvenSquares (xs(), ys(), n)\n\nDIM xs(1 TO 10), ys(1 TO 10)\nFOR i = 1 TO 10: xs(i) = i: NEXT i\nEvenSquares xs(), ys(), n\nFOR i = 1 TO n\n    IF i > 1 THEN PRINT \" \";\n    PRINT LTRIM$(STR$(ys(i)));\nNEXT i\nPRINT\nEND\n\nSUB EvenSquares (xs(), ys(), n)\n    n = 0\n    FOR i = LBOUND(xs) TO UBOUND(xs)\n        IF xs(i) MOD 2 = 0 THEN n = n + 1: ys(n) = xs(i) * xs(i)\n    NEXT i\nEND SUB\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "QBasic has no function values or lambdas, so filter and map are loops. The SUB takes whole arrays, written with empty parentheses, and like every argument they are passed by reference, so the SUB fills ys() and returns the count through n; its own i is local. A trailing semicolon keeps PRINT on the same line.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "QBasic 1.1 (QB64-PE 4.6.0)",
+      "code": "CONST RECTANGLE = 1, TRIANGLE = 2\n\nTYPE Shape\n    kind AS INTEGER\n    w AS INTEGER            ' width, or base of a triangle\n    h AS INTEGER\nEND TYPE\n\nDECLARE FUNCTION Area% (s AS Shape)\n\nDIM r AS Shape, t AS Shape\nr.kind = RECTANGLE: r.w = 3: r.h = 4\nt.kind = TRIANGLE: t.w = 10: t.h = 3\nPRINT \"Rectangle:\"; Area%(r)\nPRINT \"Triangle:\"; Area%(t)\nEND\n\nFUNCTION Area% (s AS Shape)\n    SELECT CASE s.kind\n        CASE RECTANGLE: Area% = s.w * s.h\n        CASE TRIANGLE: Area% = (s.w * s.h) \\ 2\n    END SELECT\nEND FUNCTION\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "TYPE ... END TYPE declares a record; a string field needs a fixed length (STRING * n). There are no variants or methods, so a CONST tag records the kind and SELECT CASE dispatches on it. \\ is integer division. The space after each colon is the blank PRINT reserves for the sign of a non-negative number (a trailing space follows the number too).",
+      "verified": true
+    },
+    "signature": {
+      "title": "Structured BASIC without line numbers",
+      "concepts": [
+        "structured-control",
+        "static-typing"
+      ],
+      "dialect": "QBasic 1.1 (QB64-PE 4.6.0)",
+      "code": "DEFINT A-Z\nTYPE Student\n    nam AS STRING * 6\n    score AS INTEGER\nEND TYPE\nDECLARE FUNCTION Grade$ (score)\n\nDIM s AS Student\nDO\n    READ s.nam, s.score\n    IF s.score < 0 THEN EXIT DO\n    PRINT s.nam; Grade$(s.score); s.score\nLOOP\nDATA Ada, 97, Grace, 85, Alan, 72, John, 64, \"\", -1\nEND\n\nFUNCTION Grade$ (score)\n    SELECT CASE score\n        CASE IS >= 90: Grade$ = \"A\"\n        CASE 80 TO 89: Grade$ = \"B\"\n        CASE 70 TO 79: Grade$ = \"C\"\n        CASE ELSE: Grade$ = \"F\"\n    END SELECT\nEND FUNCTION\n",
+      "expected_output": "Ada   A 97 \nGrace B 85 \nAlan  C 72 \nJohn  F 64 \n",
+      "notes": "The QuickBASIC-era leap from line-numbered BASIC: no line numbers or GOTO, a TYPE record, a FUNCTION with its own parameter, SELECT CASE with IS and TO ranges, and a DO ... LOOP left with EXIT DO. READ and DATA survive from Dartmouth BASIC, now reading into record fields. nam is a STRING * 6 field, so READ pads each name with spaces to six characters, which lines up the columns; the score prints with a sign blank before it and a space after.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "QB64 Phoenix Edition",
+        "version": "4.6.0",
+        "docker_image": "plw-qbasic",
+        "dockerfile": "sandbox/qbasic/Dockerfile",
+        "install": "FROM debian:trixie-slim with g++, make and the GL, GLU, X11, xcb, ALSA, PNG, curl and zlib development packages; build https://github.com/QB64-Phoenix-Edition/QB64pe/releases/download/v4.6.0/qb64pe_lnx-4.6.0.tar.gz (sha256 4bc518bb64862d87e085cf6a8870d5ef58f5ed6fbbf27a6400029bbc828e70c5) with make OS=lnx BUILD_QB64=y after applying sandbox/qbasic/headless.patch, then precompile the console-only runtime with two warm-up compiles.",
+        "compile": "qbasic-build {file} {out}",
+        "run": "{out}",
+        "notes": "QB64-PE translates QuickBASIC 4.5 / QBasic 1.1 source to C++ and compiles it with g++ (about half a second per program here). qbasic-build (baked into the image) copies the compiler to /tmp, where it keeps its work files, and compiles a three-line main program ($CONSOLE:ONLY, $ERRORLOCATION:ON, '$INCLUDE: the snippet), so the snippet itself stays plain QBasic while errors still report its own line numbers. headless.patch drops the 'Press enter to continue' prompt at END when stdin is not a terminal, reports an unhandled runtime error on stderr and exits with status 1 instead of looping on a 'Continue?' dialog it cannot show, and makes INPUT at end of input raise error 62 (Input past end of file). QB64-PE formats PRINT output as QBasic does (sign blank and trailing space, .3333333 without a leading zero, 1E+20). Known differences from QBasic 1.1: no DEF FN functions; integer overflow wraps instead of raising Overflow; a quotient printed directly (PRINT 2 / 3) shows double precision instead of single; floating-point division by zero gives INF instead of an error. QB64-PE has no telemetry."
+      },
+      {
+        "name": "FreeBASIC (-lang qb)",
+        "version": "1.10.1",
+        "docker_image": "debian:trixie-slim",
+        "install": "apt-get install -y gcc libc6-dev libncurses-dev libffi-dev; unpack FreeBASIC-1.10.1-ubuntu-22.04-x86_64.tar.gz from sourceforge.net/projects/fbc (the generic linux-x86_64 build needs libtinfo.so.5, which Debian trixie no longer has)",
+        "compile": "fbc -lang qb {file} -x {out}",
+        "run": "{out}",
+        "notes": "Cross-check: five of the six snippets print exactly the same; in the signature, READ pads the STRING * 6 field with NUL bytes instead of spaces. FreeBASIC formats floating-point numbers differently from QBasic (0.3333333 with a leading zero, full double precision for / and SQR, 1e+20 in lower case, and no space after a SINGLE or DOUBLE), and it has no DEF FN either."
+      }
+    ],
+    "browser": {
+      "name": "QBJS",
+      "url": "https://qbjs.org",
+      "notes": "An MIT-licensed QBasic-dialect implementation that translates programs to JavaScript and runs them in the browser, aiming at compatibility with QB64. The snippets were not run there, but its translator (v0.11.3-beta) ignores DEFINT, treats STRING * n fields as ordinary strings, turns unquoted DATA items into JavaScript names and gives \\ a higher precedence than *, so the signature would not run as written. For the genuine article, the Internet Archive runs QBasic 1.1 itself in DOSBox compiled to JavaScript."
+    },
+    "notes": "The sandbox runs QBasic programs as text-mode console programs, so screen-oriented statements behave differently: CLS, COLOR and LOCATE become ANSI escape codes; comma print zones (14 columns in QBasic) shrink to a few spaces, TAB() ignores the current column and POS(0) returns 1, because QB64-PE does not track the output column in console mode; after SCREEN or WIDTH, PRINT output no longer reaches the console. Programs cannot read input: INPUT stops with error 62 and INKEY$ always returns an empty string. All six snippets were verified with QB64-PE 4.6.0, but not in genuine QBasic 1.1."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/QBasic"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/QBasic",
+    "https://en.wikipedia.org/wiki/QuickBASIC",
+    "https://en.wikipedia.org/wiki/Learn_BASIC_Now",
+    "https://web.archive.org/web/20080221054045/http://support.microsoft.com/kb/73084",
+    "https://web.archive.org/web/20101116013923/http://support.microsoft.com/kb/258265",
+    "https://web.archive.org/web/20081007163826/http://www.qbasicnews.com/qboho/qcksub.shtml",
+    "https://en.wikipedia.org/wiki/Visual_Basic_(classic)",
+    "https://en.wikipedia.org/wiki/GW-BASIC",
+    "https://en.wikipedia.org/wiki/Microsoft_BASIC",
+    "https://en.wikipedia.org/wiki/MS-DOS",
+    "https://en.wikipedia.org/wiki/Gorillas_(video_game)",
+    "https://en.wikipedia.org/wiki/Nibbles_(video_game)",
+    "https://en.wikipedia.org/wiki/QB64",
+    "https://en.wikipedia.org/wiki/FreeBASIC",
+    "https://github.com/QB64-Phoenix-Edition/QB64pe",
+    "https://github.com/boxgaming/qbjs",
+    "https://archive.org/details/msdos_qbasic_megapack",
+    "https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml"
+  ]
+}

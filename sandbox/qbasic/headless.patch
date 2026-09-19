@@ -1,0 +1,76 @@
+--- a/internal/c/libqb.cpp
++++ b/internal/c/libqb.cpp
+@@ -1,5 +1,6 @@
+ #include "libqb.h"
+ #include "common.h"
++#include <unistd.h> // pl-world: isatty()
+ 
+ #ifdef QB64_WINDOWS
+ #    include <fcntl.h>
+@@ -13808,6 +13809,20 @@
+                     chr = 13;
+                 qbs_set(key, qbs_new_txt(" "));
+                 key->chr[0] = chr;
++            } else if (!isatty(STDIN_FILENO)) {
++                // pl-world: the end of a redirected stdin (e.g. /dev/null) is final, so clean up as a finished INPUT
++                // does and raise error 62, "Input past end of file", instead of polling forever for keystrokes.
++                write_page->cursor_show = cursor_show_last;
++                sub__freeimage(dest_image, 1);
++                sub__freeimage(dest_image_temp, 1);
++                if (autodisplay_backup == 0) {
++                    autodisplay = -1; // toggle request
++                    while (autodisplay)
++                        Sleep(1);
++                }
++                sub__source(source_backup);
++                error(62);
++                return;
+             } else {
+                 Sleep(10);
+             }
+@@ -20881,9 +20896,12 @@
+                 junk = func__getconsoleinput();
+             } while (junk != 1); // until we have a key down event
+ #else
+-            std::cout << "\nPress enter to continue";
+-            static int32 ignore;
+-            ignore = fgetc(stdin);
++            // pl-world: prompt only when a person is at a terminal; a piped or headless run just ends.
++            if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO)) {
++                std::cout << "\nPress enter to continue";
++                static int32 ignore;
++                ignore = fgetc(stdin);
++            }
+ #endif
+         }
+     }
+--- a/internal/c/parts/gui/gui.cpp
++++ b/internal/c/parts/gui/gui.cpp
+@@ -22,6 +22,7 @@
+ #include <cstdlib>
+ #include <cstring>
+ #include <string>
++#include <unistd.h> // pl-world: isatty()
+ 
+ /// @brief Splits a string delimited by '|' into an array of strings
+ /// @param input The string to be parsed
+@@ -379,6 +380,19 @@
+ /// @param type The type of dialog box (see tinyfd_messageBox)
+ /// @return returns the value returned by tinyfd_messageBox
+ int gui_alert(const char *message, const char *title, const char *type) {
++    // pl-world: with no terminal on stdin nobody can answer the dialog, and tinyfiledialogs' console fallback would ask
++    // again on stdout forever at end of input. Report the error on stderr, minus the "Continue?" question, and stop
++    // the program with exit status 1.
++    if (!isatty(STDIN_FILENO)) {
++        std::string text(message);
++        const std::string question("\nContinue?");
++        if (text.size() >= question.size() && text.compare(text.size() - question.size(), question.size(), question) == 0)
++            text.erase(text.size() - question.size());
++        fflush(stdout);
++        fprintf(stderr, "\nRuntime error: %s\n", text.c_str());
++        fflush(stderr);
++        exit(1);
++    }
+     // It is prudent to also write this to stderr.
+     // This can be helpful when running tests in a GitHub runner environment where the dialog box may not be visible.
+     // TODO: Probably we should adapt this to a timed terminal message box or prompt when running in $CONSOLE:ONLY mode.

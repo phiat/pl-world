@@ -78,7 +78,9 @@
   ],
   "influenced": [
     "perl",
-    "ruby"
+    "ruby",
+    "visual-basic",
+    "qbasic"
   ],
   "traits": {
     "structured-control": {

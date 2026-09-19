@@ -112,7 +112,8 @@
   ],
   "influenced": [
     "csharp",
-    "elixir"
+    "elixir",
+    "elm"
   ],
   "traits": {
     "structured-control": {

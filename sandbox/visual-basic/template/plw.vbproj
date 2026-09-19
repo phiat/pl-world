@@ -1,0 +1,18 @@
+<!-- Template project for sandbox runs: vb-run replaces Program.vb with the user's file. The language settings
+     are the SDK defaults that `dotnet new console` uses for VB (Option Explicit On, Option Strict Off,
+     Option Infer On, Option Compare Binary, and the default project-level Imports). PathMap makes stack
+     traces name the file where the sandbox wrote it (/src) rather than this project's copy in /tmp. -->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace></RootNamespace>
+    <AssemblyName>plw</AssemblyName>
+    <OutputPath>bin/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <UseAppHost>false</UseAppHost>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <PathMap>$(MSBuildProjectDirectory)/=/src/</PathMap>
+  </PropertyGroup>
+</Project>

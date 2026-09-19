@@ -139,7 +139,8 @@
     "java",
     "cpp",
     "lean",
-    "unison"
+    "unison",
+    "elm"
   ],
   "traits": {
     "type-classes": {

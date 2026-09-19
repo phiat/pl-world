@@ -115,6 +115,12 @@
       "kind": "influence",
       "weight": "minor",
       "note": "Rust 1.0's macro hygiene (libsyntax/ext/mtwt.rs) implemented the algorithm of 'Macros that work together' (Flatt, Culpepper, Darais and Findler, JFP 2012), a paper on Racket's macro expander; the Rust bibliography also lists it."
+    },
+    {
+      "id": "elm",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Rust's 2016 diagnostics overhaul said its updated --explain messages 'draw heavy inspiration from the Elm approach'."
     }
   ],
   "influenced_by_external": [
@@ -167,11 +173,6 @@
       "name": "Sather",
       "year": 1990,
       "note": "Cited by Hoare as an influence."
-    },
-    {
-      "name": "Elm",
-      "year": 2012,
-      "note": "Rust's 2016 diagnostics overhaul said its updated --explain messages 'draw heavy inspiration from the Elm approach'."
     }
   ],
   "influenced": [

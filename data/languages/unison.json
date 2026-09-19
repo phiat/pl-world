@@ -72,6 +72,12 @@
       "kind": "influence",
       "weight": "minor",
       "note": "Listed in the bibliography among the languages the team 'looked at and taken inspiration from'."
+    },
+    {
+      "id": "elm",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed in the bibliography, with Smalltalk and Scala, among the languages the team 'looked at and taken inspiration from'; the 2015 prototype's semantic editor was written in Elm."
     }
   ],
   "influenced_by_external": [
@@ -84,11 +90,6 @@
       "name": "Complete and Easy Bidirectional Typechecking for Higher-Rank Polymorphism",
       "year": 2013,
       "note": "The type system is an implementation of Dunfield and Krishnaswami's ICFP 2013 system."
-    },
-    {
-      "name": "Elm",
-      "year": 2012,
-      "note": "Listed among the languages the team took inspiration from; the 2015 prototype's editor was written in Elm."
     }
   ],
   "influenced": [],

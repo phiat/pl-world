@@ -89,7 +89,8 @@
     "fsharp",
     "rust",
     "scala",
-    "gleam"
+    "gleam",
+    "elm"
   ],
   "traits": {
     "structured-control": {

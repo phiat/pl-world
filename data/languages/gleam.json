@@ -88,14 +88,15 @@
       "kind": "influence",
       "weight": "minor",
       "note": "Named, with Elm and Go, as a model for a small and consistent language in the v0.25 announcement."
+    },
+    {
+      "id": "elm",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Named first among its type-system inspirations in the v1.0 announcement ('a type system inspired by languages such as Elm, OCaml, and Rust, so the compiler serves as a programming assistant'), and with Go and Lua as a model of a small, consistent language in v0.25; v0.1 was pitched at fans of the type systems of OCaml, ReasonML and Elm. Like Elm, Gleam has no type classes."
     }
   ],
   "influenced_by_external": [
-    {
-      "name": "Elm",
-      "year": 2012,
-      "note": "Named first among the type-system inspirations at v1.0 and as a model of a small language; like Elm, Gleam rules out type classes."
-    },
     {
       "name": "Alpaca",
       "year": 2016,

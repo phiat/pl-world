@@ -1,0 +1,372 @@
+{
+  "id": "crystal",
+  "name": "Crystal",
+  "aliases": [
+    "Crystal-lang",
+    "Joy (working name)"
+  ],
+  "year": 2014,
+  "year_note": "Ary Borenszweig began the language in June 2011. The project restarted under Manas's GitHub organisation in September 2012, the compiler became self-hosting in November 2013, and the first official release, 0.1.0, came out on 18 June 2014 (announced the next day). Crystal 1.0 followed on 22 March 2021.",
+  "designers": [
+    "Ary Borenszweig",
+    "Juan Wajnerman",
+    "Brian Cardiff"
+  ],
+  "organization": "Manas Technology Solutions",
+  "country": "Argentina",
+  "tagline": "Ruby's syntax compiled to native code, with global type inference, compile-time nil checks and AST macros.",
+  "summary": "Crystal is a statically typed, compiled, object-oriented language whose syntax deliberately follows Ruby's. Global type inference means type annotations are rarely needed, and because nil is an ordinary member of union types (`String?` is `String | Nil`), the compiler rejects unchecked nil values before the program runs. Programs compile to native code through LLVM and use a garbage collector, Go-style fibers and channels, and a compile-time macro system that takes the place of Ruby's run-time metaprogramming.",
+  "history": "Ary Borenszweig started Crystal in June 2011 at Manas Technology Solutions, a software company in Buenos Aires, to find out whether a compiled Ruby-like language was possible. It was called Joy for its first three days. 'At Manas we really like Ruby,' he explained, 'but we feel a bit sad when it's slow ... We wished there was a language like Ruby, only faster and more type safe.' About a year later Juan Wajnerman and Brian Cardiff joined, and the project moved to the manastech organisation (September 2012) and was restarted, keeping only the lexer and parser.\n\nThe first compiler was written in Ruby. At first the language needed no type annotations at all, but compile times grew exponentially, so small concessions such as typed empty arrays (`[] of Int32`) were introduced. On 14 November 2013 a compiler written in Crystal compiled itself, and the Ruby implementation was retired. Version 0.1.0 followed in June 2014, compiling through LLVM and using the Boehm garbage collector. Crystal 0.16 (2016) stopped inferring instance-variable types from every use in the program: they must now be declared or obvious from initialisers, which keeps compile times manageable in large programs.\n\nOpt-in multithreading arrived as a preview in 2019 (0.31), and Crystal 1.0 (22 March 2021) promised that code would keep compiling across every 1.x release. Minor releases now ship every three months. An experimental interpreter (`crystal i`) appeared in 1.3 (2022). Work on multithreading, supported by 84codes, produced the execution contexts of RFC 0002, which the RFC says were inspired by Go and Kotlin; they became the default runtime in 1.21 (July 2026). Crystal is used in production for the truck dashboards of Nikola Motor Company and much of the backend of the Kagi search engine.",
+  "innovations": [
+    "Ruby's syntax and blocks in a statically type-checked language compiled to native code through LLVM",
+    "Global type inference over union types: methods need no annotations and are instantiated for each combination of argument types",
+    "Nil as an ordinary member of union types (`T?` = `T | Nil`), with flow typing that rejects unchecked nil uses at compile time",
+    "An AST macro language with compile-time type introspection in place of Ruby's run-time metaprogramming; `getter`, `property` and `record` are library macros",
+    "Go-style fibers and CSP channels built into a Ruby-like language",
+    "C bindings written in Crystal itself (`lib` and `fun` declarations), with no C glue code"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "object-oriented",
+    "imperative",
+    "concurrent",
+    "generic",
+    "metaprogramming"
+  ],
+  "family": "scripting",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "global",
+    "equivalence": "mixed",
+    "notes": "Class and struct types are nominal, but parameters without type restrictions are duck-typed at compile time: each instantiation of a method is checked against the argument types it actually receives. Since 0.16 (2016), instance, class and global variables need declared or obvious types. Union types such as `Int32 | String` are checked statically and narrowed by flow typing after `if`, `is_a?` and `nil?` checks."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Boehm–Demers–Weiser conservative collector. Classes are reference types on the GC heap, while structs are value types that are copied and usually live on the stack. `Pointer(T)` and `Pointer.malloc` are available for C interop and low-level code.",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "1.21.0",
+  "file_extensions": [
+    ".cr"
+  ],
+  "color": "#000100",
+  "primary_parent": "ruby",
+  "influenced_by": [
+    {
+      "id": "ruby",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Syntax, blocks and `yield`, open classes, modules as mixins and much of the standard-library API come from Ruby. The README's first goal is 'a syntax similar to Ruby (but compatibility with it is not a goal)', and the first compiler was written in Ruby."
+    },
+    {
+      "id": "go",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia. Core developer Julien Portalier: 'The concurrency model has been heavily influenced by Go (CSP)', meaning fibers started with `spawn`, `Channel(T)`, `select` and `WaitGroup`. RFC 0002's execution contexts also take inspiration from Go."
+    },
+    {
+      "id": "kotlin",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "RFC 0002 cites Kotlin's coroutine dispatchers as the model for multiple execution contexts, each with its own threads; they became the default in 1.21 (2026)."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "CSP (Communicating Sequential Processes, Hoare)",
+      "year": 1978,
+      "note": "The concurrency guide says Crystal's channels are 'inspired by CSP'."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "`if`/`unless`/`while`/`until`/`case` are expressions, with Ruby-style suffix `if` and `unless`. Most iteration uses methods that take blocks (`each`, `times`, `upto`)."
+    },
+    "block-scope": {
+      "level": "supported",
+      "note": "As in Ruby, `def`, blocks and procs open new scopes but `if` and `while` bodies do not. A variable assigned in only one branch of an `if` has a nilable type after it."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "`raise`, and `begin`/`rescue`/`else`/`ensure`, where `rescue ex : IO::Error` filters by type. Method bodies and blocks can carry `rescue` directly."
+    },
+    "coroutines": {
+      "level": "core",
+      "note": "Fibers are stackful coroutines started with `spawn`. The scheduler switches between them cooperatively on I/O, channel operations, `sleep` and `Fiber.yield`."
+    },
+    "generators": {
+      "level": "core",
+      "note": "Methods `yield` to blocks, which the compiler inlines, as in Ruby's internal iterators. The `Iterator(T)` module provides external, lazy iteration, and `each` without a block returns one."
+    },
+    "pattern-matching": {
+      "level": "supported",
+      "note": "`case` compares with `===` against values, types (`when Int32`), ranges, regexes and tuple literals with `_` wildcards. `case … in` (0.35, 2020) is checked for exhaustiveness over union types, enums and booleans. There is no destructuring binding of nested values."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Global: locals, method arguments and return types are inferred from use, and a method is compiled separately for each combination of argument types. Since 0.16 (2016), instance, class and global variables need declared or obvious types."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Generic classes, structs and modules (`Array(T)`, `class Box(T)`), and free type variables in method signatures (`def first(xs : Array(T)) forall T`). Each instantiation is compiled separately."
+    },
+    "algebraic-data-types": {
+      "level": "supported",
+      "note": "Union types (`Int32 | String`, `Circle | Square`) are anonymous sums whose run-time type the compiler tracks, and `record` declares immutable product types. There are no declared variant constructors as in ML, so sums are modelled as unions or abstract struct hierarchies."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "`T?` is shorthand for the union `T | Nil`. Calling a method that Nil lacks is a compile-time error until the value is narrowed by `if`, `nil?` or `try`, or forced with `not_nil!`, which raises at run time. Pairs such as `Hash#[]?` (nilable) and `Hash#[]` (raises) are the everyday idiom."
+    },
+    "structural-typing": {
+      "level": "supported",
+      "note": "Parameters without type restrictions accept any type that has the methods the body calls, checked at compile time for each instantiation, much like C++ templates. Declared class and struct types are otherwise nominal."
+    },
+    "interfaces": {
+      "level": "supported",
+      "note": "There is no separate interface construct. Modules and abstract classes declare `abstract def`s (Comparable, Enumerable, Iterator), and the compiler checks that every concrete type implements them."
+    },
+    "classes": {
+      "level": "core",
+      "note": "`class` defines reference types. `struct` defines value types with the same method syntax."
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Single inheritance, with modules as mixins. A struct may inherit only from an abstract struct."
+    },
+    "everything-is-an-object": {
+      "level": "supported",
+      "note": "The reference defines every value, integers, nil and procs included, as an object with a type that responds to methods, and operators are methods (`1.+(2)`). Unlike Ruby, calls are resolved at compile time, and classes can be reopened only in source code, not at run time."
+    },
+    "multiple-dispatch": {
+      "level": "supported",
+      "note": "Overloads are chosen by the types of all arguments. When arguments are union-typed or belong to a class hierarchy, the compiler emits a run-time dispatch over each argument's concrete type."
+    },
+    "traits-mixins": {
+      "level": "core",
+      "note": "Ruby-style modules mixed in with `include` and `extend`. Modules can be generic (`include Comparable(Version)`) and can declare abstract defs."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Instance variables can be reached only through methods, usually generated by the `getter` and `property` macros, and methods can be `private` or `protected`."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "`require` loads files into one global namespace, modules act as namespaces, and there are no export lists, although `private` top-level methods and types are visible only in their own file. Shards is the dependency manager."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Operators are ordinary methods (`def +(other : Vector)`)."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Procs (`->(x : Int32) { x * 2 }`, `->method_name(Int32)`) are values, and a block can be captured as a Proc with `&block`. Proc literal parameters need type annotations."
+    },
+    "closures": {
+      "level": "core",
+      "note": "Blocks and procs capture local variables and `self`."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "Strings, tuples and named tuples are immutable, `record` structs expose only getters, and structs are copied by value. Local variables can always be reassigned."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "`Iterator` chains are lazy (`(1..).each.select(&.even?).first(3)`); evaluation is otherwise strict."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "The Boehm–Demers–Weiser conservative collector. `-Dgc_none` disables it."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "`Pointer(T)`, `pointerof`, `Pointer.malloc` and pointer arithmetic exist for C bindings and low-level code. The reference classes them as unsafe."
+    },
+    "csp-channels": {
+      "level": "core",
+      "note": "Buffered and unbuffered `Channel(T)` with `send`, `receive` and `select`, used between fibers started by `spawn`. Multithreading was an opt-in preview (`-Dpreview_mt`) from 0.31 (2019); since 1.21 (2026) execution contexts are the default runtime."
+    },
+    "macros": {
+      "level": "core",
+      "note": "Macros receive AST nodes and generate code with `{{ … }}` interpolation and `{% for %}`/`{% if %}`, and can inspect types through `@type`. Hooks such as `inherited`, `included` and `method_missing` also run at compile time. `getter`, `property` and `record` are standard-library macros."
+    },
+    "hygienic-macros": {
+      "level": "supported",
+      "note": "Macros are not hygienic by default. `%name` fresh variables (a built-in gensym) give a macro local names that cannot clash with the caller's."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Mostly at compile time: macros can list a type's methods, instance variables, annotations and subclasses. At run time there are `.class`, `is_a?`, `responds_to?` and `typeof`, but no dynamic `send`, `define_method` or `eval`."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "note": "The macro language runs loops and conditionals inside the compiler, and the `run` macro compiles and executes a separate Crystal program during compilation and pastes its output into the code."
+    },
+    "regex-builtin": {
+      "level": "core",
+      "note": "`/…/` regex literals, `=~`, `$~` and `$1`, backed by PCRE2 since 1.8 (2023). 1.21 removed the automatic fallback to the legacy PCRE library."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2011,
+      "event": "Ary Borenszweig starts the language in June as 'Joy', renaming it Crystal three days later"
+    },
+    {
+      "year": 2012,
+      "event": "The project restarts under Manas's manastech GitHub organisation (4 September), keeping only the lexer and parser"
+    },
+    {
+      "year": 2013,
+      "event": "The compiler, rewritten in Crystal, compiles itself (14 November) and the Ruby implementation is retired"
+    },
+    {
+      "year": 2014,
+      "event": "First official release, 0.1.0 (18 June)"
+    },
+    {
+      "year": 2016,
+      "event": "0.16: instance, class and global variables need declared or obvious types"
+    },
+    {
+      "year": 2019,
+      "event": "0.31: opt-in multithreading (`-Dpreview_mt`), overflow-checked integer arithmetic by default, and `/` as float division"
+    },
+    {
+      "year": 2020,
+      "event": "0.35: exhaustive `case … in`"
+    },
+    {
+      "year": 2021,
+      "event": "Crystal 1.0 (22 March) promises backward compatibility across 1.x"
+    },
+    {
+      "year": 2022,
+      "event": "1.3: experimental interpreter, `crystal i`"
+    },
+    {
+      "year": 2026,
+      "event": "1.21 (16 July): execution contexts from RFC 0002 become the default runtime"
+    }
+  ],
+  "trivia": [
+    "The language was called Joy for its first three days in June 2011 before being renamed Crystal.",
+    "When the self-hosted compiler arrived in November 2013, the team reported that the Ruby-written compiler took about 20 seconds to infer the compiler's own types and the Crystal-written one about 2.8 seconds.",
+    "In 2020 Nikola Motor Company said the infotainment, instrument cluster and telematics software built into its trucks was written in Crystal."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Crystal 1.x",
+      "code": "puts \"Hello, World!\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Identical to Ruby. Top-level code is the program's entry point, and `puts` adds the newline. The file is compiled to a native executable before it runs.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Crystal 1.x",
+      "code": "# No type annotations needed: the compiler infers Int32 from the call site.\ndef factorial(n)\n  n <= 1 ? 1 : n * factorial(n - 1)\nend\n\nputs factorial(10)\n",
+      "expected_output": "3628800\n",
+      "notes": "The method is compiled for each argument type it is called with. Integer arithmetic is overflow-checked (since 0.31), so `factorial(13)` raises OverflowError in Int32, while `factorial(20_i64)` works and returns `Int32 | Int64` because the literal `1` is an Int32.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Crystal 1.x",
+      "code": "(1..15).each do |i|\n  puts case {i % 3, i % 5}\n       when {0, 0} then \"FizzBuzz\"\n       when {0, _} then \"Fizz\"\n       when {_, 0} then \"Buzz\"\n       else             i\n       end\nend\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`case` on a tuple literal matches each `when` tuple element by element, with `_` as a wildcard. The `case` is an expression of type `String | Int32`, and `puts` accepts either.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Crystal 1.x",
+      "code": "squares = (1..10).select(&.even?).map { |x| x * x }\nputs squares.join(\" \")\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "`&.even?` is Crystal's short block syntax (Ruby writes `&:even?`). `select` and `map` come from the Enumerable module and build arrays; `(1..10).each.select(...)` would chain lazy iterators instead.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Crystal 1.x",
+      "code": "abstract struct Shape\n  abstract def area : Int32\nend\n\n# `record` is a standard-library macro that writes an immutable struct.\nrecord Rectangle < Shape, width : Int32, height : Int32 do\n  def area : Int32\n    width * height\n  end\nend\n\nrecord Triangle < Shape, base : Int32, height : Int32 do\n  def area : Int32\n    base * height // 2\n  end\nend\n\n[Rectangle.new(3, 4), Triangle.new(10, 3)].each do |shape|\n  puts \"#{shape.class}: #{shape.area}\"\nend\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "`record` generates the constructor and getters. `abstract def` makes the compiler check that every concrete subtype implements `area`. The array literal is inferred as `Array(Shape)`; without the shared parent it would be `Array(Rectangle | Triangle)`, a union type, and the `area` calls would still type-check. `/` on integers returns a Float64 in Crystal, so the triangle uses floor division `//`.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Ruby's syntax, checked at compile time",
+      "concepts": [
+        "type-inference",
+        "option-types",
+        "macros"
+      ],
+      "dialect": "Crystal 1.x",
+      "code": "# Looks like Ruby, but it is compiled: every type is inferred ahead of time.\nborn = {\"Ruby\" => 1995, \"Crystal\" => 2014}\nputs typeof(born)\n\nyear = born[\"Crystal\"]?  # Hash#[]? returns Int32 | Nil, also written Int32?\nputs typeof(year)\n\n# `year + 7` on its own is a compile error: undefined method '+' for Nil.\n# Flow typing: inside `if year`, the compiler knows year is an Int32.\nputs year + 7 if year\n\n# Macros run at compile time and write code: here, two methods.\nmacro shout(*names)\n  {% for name in names %}\n    def {{name.id}}_loud\n      \"{{name.id.upcase}}!\"\n    end\n  {% end %}\nend\n\nshout ruby, crystal\nputs crystal_loud\n",
+      "expected_output": "Hash(String, Int32)\n(Int32 | Nil)\n2021\nCRYSTAL!\n",
+      "notes": "`typeof` reports the compile-time type. Writing `puts year + 7` without the check fails to compile with \"undefined method '+' for Nil (compile-time type is (Int32 | Nil))\". `born[\"Cobol\"]` without the `?` would compile but raise KeyError at run time. `shout` expands inside the compiler into `ruby_loud` and `crystal_loud`, and `{{name.id.upcase}}` is evaluated there too.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Crystal (official Docker image, Alpine)",
+        "version": "1.21.0",
+        "docker_image": "crystallang/crystal:1.21.0-alpine",
+        "compile": "CRYSTAL_CACHE_DIR=/tmp/crystal crystal build --single-module --no-color -o {out} {file}",
+        "run": "{out}",
+        "notes": "The official image: Alpine Linux with Crystal 1.21.0, LLVM 20.1.8 and GCC as the linker driver, targeting x86_64-linux-musl. It works offline as is, so no custom image is needed. A build takes about 1.4 s end to end: `--single-module` emits one LLVM module instead of about 370, which cuts code generation from about 4.3 s to 0.75 s under the sandbox's 2 CPUs, since a fresh container has no object cache to reuse. Debug info stays on, so run-time exceptions report file:line backtraces. `--no-color` keeps ANSI escapes out of compiler errors. CRYSTAL_CACHE_DIR moves the compiler cache from /root/.cache to /tmp, and the build also runs with a read-only root filesystem. Peak compiler memory is about 180 MB."
+      },
+      {
+        "name": "Crystal (crystal run)",
+        "run": "crystal run {file}",
+        "notes": "Compiles to a temporary executable in the cache and runs it in one step, which is convenient locally. The sandbox builds and runs separately so that compile and run times are reported apart."
+      }
+    ],
+    "browser": null,
+    "notes": "play.crystal-lang.org compiles on a server. The compiler can target wasm32-unknown-wasi, but it does not itself run in a browser. The Alpine image is built without the experimental interpreter (`crystal i`)."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+    "homepage": "https://crystal-lang.org/",
+    "spec": "https://crystal-lang.org/reference/syntax_and_semantics/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Crystal_(programming_language)",
+    "https://crystal-lang.org/",
+    "https://github.com/crystal-lang/crystal",
+    "https://manas.tech/blog/2016/04/01/the-story-behind-crystal/",
+    "https://crystal-lang.org/2013/11/14/good-bye-ruby-thursday/",
+    "https://crystal-lang.org/2014/06/19/crystal-0.1.0-released/",
+    "https://crystal-lang.org/2016/05/05/crystal-0.16.0-released/",
+    "https://crystal-lang.org/2019/09/06/parallelism-in-crystal/",
+    "https://crystal-lang.org/2021/03/22/crystal-1.0-what-to-expect/",
+    "https://crystal-lang.org/2026/07/16/1.21.0-released/",
+    "https://crystal-lang.org/releases/",
+    "https://github.com/crystal-lang/crystal/blob/master/doc/changelogs/pre-1.0.md",
+    "https://github.com/crystal-lang/crystal/blob/master/doc/changelogs/v1.3.md",
+    "https://forum.crystal-lang.org/t/crystal-multithreading-support/6622/19",
+    "https://github.com/crystal-lang/rfcs/blob/master/text/0002-execution-contexts.md",
+    "https://crystal-lang.org/reference/latest/guides/concurrency.html",
+    "https://crystal-lang.org/reference/latest/syntax_and_semantics/type_inference.html",
+    "https://crystal-lang.org/reference/latest/syntax_and_semantics/everything_is_an_object.html",
+    "https://crystal-lang.org/reference/latest/syntax_and_semantics/case.html",
+    "https://crystal-lang.org/reference/latest/syntax_and_semantics/overloading.html",
+    "https://crystal-lang.org/reference/latest/syntax_and_semantics/macros/fresh_variables.html",
+    "https://crystal-lang.org/reference/latest/syntax_and_semantics/platform_support.html",
+    "https://crystal-lang.org/api/1.21.0/Crystal/Macros.html",
+    "https://manas.tech/blog/2020/02/11/nikola-motor-company/",
+    "https://hub.docker.com/r/crystallang/crystal",
+    "https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml"
+  ]
+}

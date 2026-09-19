@@ -99,6 +99,12 @@
       "kind": "influence",
       "weight": "major",
       "note": "Hejlsberg's Delphi: native properties ('Delphi was the first product I worked on to natively support properties, and then that got carried over to C#'), events, and bound method pointers that became delegates (via Visual J++), within a component-oriented design."
+    },
+    {
+      "id": "visual-basic",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Properties and events for rapid application development."
     }
   ],
   "influenced_by_external": [
@@ -113,11 +119,6 @@
       "note": "Microsoft Research language whose query and stream features led to LINQ."
     },
     {
-      "name": "Visual Basic",
-      "year": 1991,
-      "note": "Properties and events for rapid application development."
-    },
-    {
       "name": "Modula-3",
       "year": 1988
     }
@@ -130,7 +131,8 @@
     "typescript",
     "object-pascal",
     "dart",
-    "nim"
+    "nim",
+    "visual-basic"
   ],
   "traits": {
     "structured-control": {

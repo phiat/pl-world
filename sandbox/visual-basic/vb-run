@@ -1,0 +1,56 @@
+#!/bin/sh
+# vb-run -- compile and run one Visual Basic (.NET) source file without network access.
+#
+#   vb-run FILE            build and run FILE
+#   vb-run --build FILE    compile only (the sandbox's compile step)
+#   vb-run --exec          run what --build compiled (the sandbox's run step)
+#
+# The .NET SDK only runs single files for C# (`dotnet run app.cs`), so VB needs a project. /opt/plw-vb is a
+# console project (plw.vbproj) that was restored and built at /tmp/plw-vb when the image was built. It is
+# copied back to that path, so the absolute paths recorded in obj/ stay valid and MSBuild can skip the
+# restore; the user's file replaces the template's Program.vb and only CoreCompile does real work. Build
+# diagnostics go to stderr with the /tmp/plw-vb/ prefix stripped, leaving stdout to the program; the
+# project's PathMap makes run-time stack traces name /src/FILE. Nothing is written outside /tmp.
+set -e
+dir=/tmp/plw-vb
+export HOME=/tmp DOTNET_CLI_HOME=/tmp TMPDIR=/tmp \
+  DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1 DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 \
+  DOTNET_GENERATE_ASPNET_CERTIFICATE=false DOTNET_CLI_WORKLOAD_UPDATE_NOTIFY_DISABLE=1 \
+  DOTNET_CLI_UI_LANGUAGE=en MSBUILDTERMINALLOGGER=off NuGetAudit=false
+
+build() {
+  [ -f "$1" ] || { echo "vb-run: no such file: $1" >&2; exit 2; }
+  name=$(basename "$1")
+  case "$name" in *.vb) ;; *) name="$name.vb" ;; esac
+  rm -rf "$dir"
+  cp -a /opt/plw-vb "$dir"
+  rm -f "$dir"/*.vb
+  cp "$1" "$dir/$name"
+  # HOME is a fresh tmpfs, so mark the CLI's first run as done: otherwise every build repeats the
+  # first-use experience, including a workload check that writes under /usr/share/dotnet.
+  mkdir -p "$HOME/.dotnet"
+  for sdk in /usr/share/dotnet/sdk/*/; do
+    v=$(basename "$sdk")
+    touch "$HOME/.dotnet/$v.dotnetFirstUseSentinel" "$HOME/.dotnet/$v.toolpath.sentinel"
+  done
+  cd "$dir"
+  # `dotnet msbuild` rather than `dotnet build`, which forces a summary that repeats every diagnostic.
+  # No shared compiler server or node reuse: each container builds exactly once.
+  rc=0
+  dotnet msbuild -nologo -v:quiet -clp:NoSummary -tl:off -nodeReuse:false \
+    -p:UseSharedCompilation=false >"$dir.log" 2>&1 || rc=$?
+  sed -e "s| \[$dir/plw.vbproj\]\$||" -e "s|$dir/||g" "$dir.log" >&2
+  return $rc
+}
+
+run() {
+  [ -f "$dir/bin/plw.dll" ] || { echo "vb-run: nothing built; run vb-run --build FILE first" >&2; exit 2; }
+  exec dotnet "$dir/bin/plw.dll"
+}
+
+case "$1" in
+  --build) build "$2" ;;
+  --exec) run ;;
+  -*) echo "usage: vb-run [--build] FILE | vb-run --exec" >&2; exit 2 ;;
+  *) build "$1"; run ;;
+esac

@@ -1,0 +1,342 @@
+{
+  "id": "elm",
+  "name": "Elm",
+  "aliases": [],
+  "year": 2012,
+  "year_note": "Evan Czaplicki's Harvard senior thesis, 'Elm: Concurrent FRP for Functional GUIs', is dated 30 March 2012 and came with a working compiler and an online editor; elm-lang.org lists 0.1 as the initial release (April 2012). Elm has not reached 1.0: 0.19.1 (October 2019) was the current release for almost seven years, until 0.19.2 (July 2026).",
+  "designers": [
+    "Evan Czaplicki"
+  ],
+  "country": "United States",
+  "tagline": "A purely functional language for web front ends, known for The Elm Architecture, friendly compiler errors and no runtime exceptions.",
+  "summary": "Elm is a purely functional, statically typed language for building web applications that compiles to JavaScript. Programs follow The Elm Architecture: all state lives in a model, which changes only when a pure update function handles a message, and effects such as HTTP requests are commands that the runtime carries out. Type inference, custom types checked by exhaustive case expressions, and Maybe and Result values in place of null and exceptions back the language's promise of no runtime exceptions in practice, and its compiler is known for friendly, explanatory error messages. Elm code cannot call JavaScript functions directly; it exchanges messages with JavaScript through ports.",
+  "history": "Evan Czaplicki designed Elm for his senior thesis at Harvard, 'Elm: Concurrent FRP for Functional GUIs' (March 2012), advised by Stephen Chong. It began as a functional reactive programming (FRP) language in the line of Fran and Arrowized FRP: programs combined signals, values that change over time such as the mouse position, with lift and foldp, and the thesis defined their meaning by translation to Concurrent ML so that slow computations could run asynchronously without freezing the interface. The compiler was written in Haskell and came with an online editor, and a paper with Chong appeared at PLDI 2013. Czaplicki joined Prezi in May 2013 to work on Elm full-time.\n\nThe releases of 2013–2016 turned the research language into a practical tool: extensible records (0.7), ports for talking to JavaScript (0.11, 2014), the Elm Reactor time-travelling debugger (0.13), a package manager that enforces semantic versioning by diffing package APIs (0.14), error messages rewritten 'for humans' (0.15.1, 2015) and exhaustiveness checking (0.16). Programs settled into a pattern of model, update and view that became known as The Elm Architecture, and Elm 0.17 ('A Farewell to FRP', May 2016) removed signals altogether in favour of commands and subscriptions. The pattern spread beyond Elm: Redux, the JavaScript state library, lists Elm as prior art, its update functions serving 'the same purpose as reducers in Redux'. In January 2016 Czaplicki moved to NoRedInk, which was writing all its new front-end code in Elm, and set up the non-profit Elm Software Foundation.\n\nElm 0.19 (August 2018) added function-level dead code elimination and an --optimize mode, and removed user-defined operators; because packages on package.elm-lang.org are written entirely in Elm, the compiler can drop unused functions across the whole ecosystem. Releases then slowed: 0.19.1 (October 2019) improved syntax error messages, and 0.19.2 (July 2026), a faster compiler with no language changes, was announced as the first of a series of small releases leading to 1.0. Elm's compiler messages influenced Rust's, and its design shaped later languages such as Gleam, Roc and Gren.",
+  "innovations": [
+    "The Elm Architecture: all state in one model, changed only by a pure update function that handles messages, with the view computed from the model; Redux and many other front-end libraries adopted the pattern",
+    "Compiler error messages written as friendly, explanatory prose with hints and suggested fixes (0.15.1 and 0.16, 2015), an approach Rust and other compilers followed",
+    "Managed effects in the browser: pure code returns commands and subscriptions that the runtime performs, and JavaScript is reached through message-passing ports rather than direct calls, which lets Elm promise no runtime exceptions in practice",
+    "A package manager that enforces semantic versioning by comparing each release's API with the previous one (0.14, 2014)",
+    "A time-travelling debugger that records a program's inputs so they can be paused, rewound and replayed (Elm Reactor, 2014; rebuilt in 0.18, 2016, with history import and export)",
+    "Asynchronous functional reactive programming for GUIs (2012): signals whose slow computations run concurrently without blocking the interface"
+  ],
+  "paradigms": [
+    "functional",
+    "declarative",
+    "event-driven"
+  ],
+  "family": "ml",
+  "syntax_family": "ml",
+  "block_style": "indentation",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "global",
+    "equivalence": "mixed",
+    "notes": "Hindley–Milner inference: annotations are optional, though conventional on top-level definitions. Custom types are nominal, while records are structural and extensible (row polymorphism). There are no user-defined type classes, higher-kinded types or implicit conversions; four built-in constrained type variables (number, appendable, comparable, compappend) let operators such as + and < work on several types. Int and Float are JavaScript numbers at run time."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Collected by the JavaScript engine that runs the compiled code; Array, Dict and Set are persistent data structures that share structure between versions.",
+  "execution": [
+    "transpiled",
+    "jit"
+  ],
+  "status": "maintained",
+  "latest_version": "0.19.2 (July 2026)",
+  "file_extensions": [
+    ".elm"
+  ],
+  "color": "#60B5CC",
+  "primary_parent": "haskell",
+  "influenced_by": [
+    {
+      "id": "haskell",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Wikipedia places Elm in the Haskell family. Its syntax is Haskell's (early versions even wrote type annotations with ::), Czaplicki announced the thesis on the Haskell subreddit, and the compiler and tools are written in Haskell. The thesis set Elm against Haskell-embedded FRP libraries, whose laziness 'permits space and time leaks', a problem 'solved by embedding FRP in a strict language', so Elm is strict."
+    },
+    {
+      "id": "ml",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Standard ML is listed by Wikipedia. The thesis defined Elm's semantics by translation to Concurrent ML, an extension of Standard ML, and 0.8 (2013) switched to : for type annotations and :: for cons, 'how it is in SML, OCaml, Coq, and Agda'."
+    },
+    {
+      "id": "ocaml",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia. 0.8 adopted the : and :: convention of SML and OCaml, and Czaplicki described OCaml as having 'the same theoretical and syntactic roots as languages like Haskell and Elm'."
+    },
+    {
+      "id": "fsharp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed by Wikipedia. The pipes |> and <| come from F# ('borrowed from F#, inspired by Unix pipes', says the syntax guide), and 0.13 (2014) replaced Haskell's . with F#'s >> and << for function composition."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Functional reactive programming (Fran, Arrowized FRP)",
+      "year": 1997,
+      "note": "The thesis starts from Elliott and Hudak's Fran (1997), Event-Driven FRP and Arrowized FRP (2002); Elm's signals, lift and foldp came from this line until 0.17 (2016) replaced them with subscriptions."
+    },
+    {
+      "name": "Extensible records with scoped labels (Leijen)",
+      "year": 2005,
+      "note": "Daan Leijen's paper, which the 0.7 release notes (2013) point to for Elm's extensible records."
+    }
+  ],
+  "influenced": [
+    "rust",
+    "gleam",
+    "unison"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "supported",
+      "note": "if … then … else (the else is required) and case are expressions; there are no loop statements, so iteration is recursion or List functions such as map and foldl."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "let … in expressions."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "case over custom types, tuples, lists, records and literals, with destructuring in let and function arguments; there are no guards. Incomplete matches are compile errors since 0.16 (2015)."
+    },
+    "tail-calls": {
+      "level": "supported",
+      "since": 2015,
+      "version": "0.16",
+      "note": "Self-recursive tail calls compile to while loops; other tail calls, including mutual recursion, use the JavaScript stack."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Hindley–Milner; annotations are optional."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Type variables in functions and types: List a, Maybe a, Dict comparable v."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "Custom types (type Shape = Circle Float | Square Float) plus records and tuples; type alias names a record shape."
+    },
+    "type-classes": {
+      "level": "supported",
+      "note": "No user-defined type classes or instances: only the built-in constrained type variables number, appendable, comparable and compappend, which user-defined types cannot join. Hence List.map, Maybe.map and Dict.map are separate functions."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "There is no null or undefined: Maybe a and Result error a are ordinary custom types, and functions that can fail return them (List.head has returned a Maybe since 0.15, 2015)."
+    },
+    "structural-typing": {
+      "level": "core",
+      "since": 2013,
+      "version": "0.7",
+      "note": "Records are typed by their fields, and functions can accept any record that has the fields they use ({ r | name : String }); custom types are nominal."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Opaque types: a module can expose a type without its constructors (exposing (Queue) rather than Queue(..))."
+    },
+    "modules": {
+      "level": "core",
+      "note": "One module per file with explicit exposing lists; published packages have semantic versioning enforced by API diffs (0.14, 2014)."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Anonymous functions (\\x -> x + 1), automatic currying and partial application, and composition with << and >>."
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "core",
+      "note": "All values are immutable; { model | count = 1 } builds an updated copy of a record."
+    },
+    "purity": {
+      "level": "core",
+      "note": "Every function is pure. Effects are values: update returns commands (Cmd msg) and subscriptions (Sub msg) for the runtime to perform, whose results come back as messages."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Provided by the JavaScript engine."
+    },
+    "hot-code-reload": {
+      "level": "library",
+      "note": "Tooling rather than language: elm-hot (2018), used by Parcel and a webpack loader, swaps recompiled code into a running application. Elm Reactor (0.13, 2014) could swap in new code while time-travelling; today's elm reactor recompiles when the page is reloaded."
+    },
+    "significant-whitespace": {
+      "level": "core",
+      "since": 2012,
+      "version": "0.6",
+      "note": "The off-side rule delimits let, case and top-level definitions; 0.6 (December 2012) replaced braces and semicolons with indentation."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "The official elm/regex package wraps JavaScript regular expressions; there is no literal syntax."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2012,
+      "event": "Evan Czaplicki's Harvard thesis, 'Elm: Concurrent FRP for Functional GUIs' (30 March); 0.1 released with an online editor"
+    },
+    {
+      "year": 2012,
+      "event": "0.6 makes indentation significant (December)"
+    },
+    {
+      "year": 2013,
+      "event": "0.7 adds extensible records (January); Czaplicki joins Prezi to work on Elm full-time (May); PLDI paper with Stephen Chong (June)"
+    },
+    {
+      "year": 2014,
+      "event": "0.11 introduces ports (January); 0.13 ships Elm Reactor, a time-travelling debugger (September); 0.14 adds elm-package with enforced semantic versioning (December)"
+    },
+    {
+      "year": 2015,
+      "event": "0.15.1, 'Compiler Errors for Humans' (June); 0.16 adds exhaustiveness checking and tail-call optimization (November)"
+    },
+    {
+      "year": 2016,
+      "event": "Czaplicki joins NoRedInk and starts the Elm Software Foundation (January); 0.17, 'A Farewell to FRP', replaces signals with subscriptions (May); 0.18 rebuilds the debugger (November)"
+    },
+    {
+      "year": 2018,
+      "event": "0.19: function-level dead code elimination and --optimize; user-defined operators removed (August)"
+    },
+    {
+      "year": 2019,
+      "event": "0.19.1 improves syntax error messages (October)"
+    },
+    {
+      "year": 2026,
+      "event": "0.19.2, a faster compiler, begins the road to Elm 1.0 (July)"
+    }
+  ],
+  "trivia": [
+    "The home page cites NoRedInk, which after more than 300,000 lines of Elm 'still have not had to scramble to fix a confusing runtime exception in production'.",
+    "Redux's documentation lists Elm as prior art: 'Elm “updaters” serve the same purpose as reducers in Redux.'",
+    "0.15 (2015) changed List.head and List.tail to return a Maybe, calling the old crashing versions 'historical relics' inherited from 'older languages in the tradition of Elm'.",
+    "Elm Reactor's time-travelling debugger thanked Bret Victor, whose talk 'Inventing on Principle' 'offered valuable insight into what the debugging experience should be like'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Elm 0.19.2 (elm/core 1.0.5)",
+      "code": "port module Main exposing (main)\n\n\nport print : String -> Cmd msg\n\n\nmain : Program () () Never\nmain =\n    Platform.worker\n        { init = \\_ -> ( (), print output )\n        , update = \\_ model -> ( model, Cmd.none )\n        , subscriptions = \\_ -> Sub.none\n        }\n\n\noutput : String\noutput =\n    \"Hello, World!\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Elm has no print function or console: a program is a value of type Program, and all input and output goes through the runtime. This one is a headless Platform.worker in a port module. Its init returns a command that sends the string output out through the port print, and the JavaScript host that started the program prints whatever arrives (Node.js here, with the sandbox's small host script). Program () () Never means no flags, an empty model and no messages. Every snippet here starts with the same thirteen lines. In a browser, main = Html.text \"Hello, World!\" (from elm/html) would put the text on the page.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Elm 0.19.2 (elm/core 1.0.5)",
+      "code": "port module Main exposing (main)\n\n\nport print : String -> Cmd msg\n\n\nmain : Program () () Never\nmain =\n    Platform.worker\n        { init = \\_ -> ( (), print output )\n        , update = \\_ model -> ( model, Cmd.none )\n        , subscriptions = \\_ -> Sub.none\n        }\n\n\nfactorial : Int -> Int\nfactorial n =\n    if n <= 1 then\n        1\n\n    else\n        n * factorial (n - 1)\n\n\noutput : String\noutput =\n    String.fromInt (factorial 10)\n",
+      "expected_output": "3628800\n",
+      "notes": "if is an expression, so the else branch is required and both branches must have the same type. Int compiles to a JavaScript number: elm/core guarantees Int arithmetic only from -2^31 to 2^31 - 1, results stay exact up to 2^53 in practice, and there is no built-in big integer. Since 0.16 the compiler turns self-recursive tail calls into while loops; this version is not tail-recursive, so it uses the stack.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Elm 0.19.2 (elm/core 1.0.5)",
+      "code": "port module Main exposing (main)\n\n\nport print : String -> Cmd msg\n\n\nmain : Program () () Never\nmain =\n    Platform.worker\n        { init = \\_ -> ( (), print output )\n        , update = \\_ model -> ( model, Cmd.none )\n        , subscriptions = \\_ -> Sub.none\n        }\n\n\nfizzBuzz : Int -> String\nfizzBuzz n =\n    case ( modBy 3 n, modBy 5 n ) of\n        ( 0, 0 ) ->\n            \"FizzBuzz\"\n\n        ( 0, _ ) ->\n            \"Fizz\"\n\n        ( _, 0 ) ->\n            \"Buzz\"\n\n        _ ->\n            String.fromInt n\n\n\noutput : String\noutput =\n    List.range 1 15\n        |> List.map fizzBuzz\n        |> String.join \"\\n\"\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "There are no loops: List.range builds the list, List.map applies fizzBuzz, and |> (from F#) passes each result to the next step. case matches a tuple of both remainders and must be exhaustive, so the final _ branch is required. modBy is the modulo function; there is no % operator.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Elm 0.19.2 (elm/core 1.0.5)",
+      "code": "port module Main exposing (main)\n\n\nport print : String -> Cmd msg\n\n\nmain : Program () () Never\nmain =\n    Platform.worker\n        { init = \\_ -> ( (), print output )\n        , update = \\_ model -> ( model, Cmd.none )\n        , subscriptions = \\_ -> Sub.none\n        }\n\n\noutput : String\noutput =\n    List.range 1 10\n        |> List.filter (\\n -> modBy 2 n == 0)\n        |> List.map (\\n -> n * n)\n        |> List.map String.fromInt\n        |> String.join \" \"\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "\\n -> ... is an anonymous function. List functions take the list last, so partial applications such as List.map String.fromInt slot into a |> pipeline. Without type classes there is no generic map: List.map, Array.map and Maybe.map are separate functions.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Elm 0.19.2 (elm/core 1.0.5)",
+      "code": "port module Main exposing (main)\n\n\nport print : String -> Cmd msg\n\n\nmain : Program () () Never\nmain =\n    Platform.worker\n        { init = \\_ -> ( (), print output )\n        , update = \\_ model -> ( model, Cmd.none )\n        , subscriptions = \\_ -> Sub.none\n        }\n\n\ntype Shape\n    = Rectangle { width : Int, height : Int }\n    | Triangle { base : Int, height : Int }\n\n\narea : Shape -> Int\narea shape =\n    case shape of\n        Rectangle { width, height } ->\n            width * height\n\n        Triangle { base, height } ->\n            base * height // 2\n\n\noutput : String\noutput =\n    String.join \"\\n\"\n        [ \"Rectangle: \" ++ String.fromInt (area (Rectangle { width = 3, height = 4 }))\n        , \"Triangle: \" ++ String.fromInt (area (Triangle { base = 10, height = 3 }))\n        ]\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "A custom type lists its variants; here each carries a record, and case destructures the fields by name. The case must cover every variant: add a Circle to Shape and area stops compiling until it handles one. // is integer division.",
+      "verified": true
+    },
+    "signature": {
+      "title": "The Elm Architecture: messages, a pure update and no runtime exceptions",
+      "concepts": [
+        "algebraic-data-types",
+        "pattern-matching",
+        "option-types",
+        "purity",
+        "immutability"
+      ],
+      "dialect": "Elm 0.19.2 (elm/core 1.0.5)",
+      "code": "port module Main exposing (main)\n\n\nport print : String -> Cmd msg\n\n\nmain : Program () () Never\nmain =\n    Platform.worker\n        { init = \\_ -> ( (), print output )\n        , update = \\_ model -> ( model, Cmd.none )\n        , subscriptions = \\_ -> Sub.none\n        }\n\n\ntype Msg\n    = Deposit Int\n    | Withdraw String -- raw text from an input field\n\n\ntype alias Model =\n    { balance : Int, errors : List String }\n\n\n{-| The Elm Architecture: the Model changes only here, in a pure function.\n-}\nupdate : Msg -> Model -> Model\nupdate msg model =\n    case msg of\n        Deposit amount ->\n            { model | balance = model.balance + amount }\n\n        Withdraw text ->\n            case withdraw text model.balance of\n                Ok balance ->\n                    { model | balance = balance }\n\n                Err problem ->\n                    { model | errors = model.errors ++ [ problem ] }\n\n\nwithdraw : String -> Int -> Result String Int\nwithdraw text balance =\n    -- No null, no exceptions: String.toInt returns a Maybe, and failure is a Result.\n    case String.toInt text of\n        Nothing ->\n            Err (\"Not a number: \" ++ text)\n\n        Just amount ->\n            if amount > balance then\n                Err (\"Insufficient funds for \" ++ text)\n\n            else\n                Ok (balance - amount)\n\n\nview : Model -> String\nview model =\n    String.join \"\\n\" (model.errors ++ [ \"Balance: \" ++ String.fromInt model.balance ])\n\n\noutput : String\noutput =\n    [ Deposit 100, Withdraw \"30\", Withdraw \"ten\", Withdraw \"500\" ]\n        |> List.foldl update { balance = 0, errors = [] }\n        |> view\n",
+      "expected_output": "Not a number: ten\nInsufficient funds for 500\nBalance: 70\n",
+      "notes": "Msg lists everything that can happen and Model holds all the state. update, a pure function, is the only place the state changes; it has exactly the type Browser.sandbox expects, where the runtime would call it for each click or keystroke and render view as HTML. Here List.foldl replays four messages through it, much as Elm's debugger replays a recorded session. withdraw cannot fail silently: String.toInt returns a Maybe Int because there is no null, and withdraw returns a Result that update must unpack. Deleting any branch, such as Nothing, is a compile error ('This `case` does not have branches for all possibilities'), which is how the compiler keeps the promise of no runtime exceptions. { model | balance = balance } builds a new record rather than mutating the old one.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Elm compiler (elm make) with Node.js",
+        "version": "0.19.2 (elm/core 1.0.5, elm/json 1.1.4; Node.js 24.21.0 LTS)",
+        "docker_image": "plw-elm",
+        "dockerfile": "sandbox/elm/Dockerfile",
+        "compile": "elm-run --build {file}",
+        "run": "elm-run --exec",
+        "notes": "plw-elm is node:24.21.0-alpine3.24 plus the official statically linked elm 0.19.2 Linux binary, pinned by SHA-256, and a template application whose packages (elm/core, elm/json, elm/parser, elm/random, elm/regex and elm/time) are downloaded and built into its own ELM_HOME when the image is built, since sandbox runs have no network for package.elm-lang.org. elm-run --build copies that 1.6 MB project to /tmp, saves the file as the module its header names and runs elm make, which prints its error report on stderr only if compilation fails. elm-run --exec runs the compiled JavaScript in Node.js with a small host script that starts the program without flags and prints every value it sends through an outgoing port, one per line (strings as they are, anything else as JSON); Debug.log also writes to stdout. Several messages sent at once with Cmd.batch are not guaranteed to arrive in order, so the snippets send one string. A snippet takes about 0.25 s in all: 70–90 ms to compile and about 65 ms to run in Node.js."
+      }
+    ],
+    "browser": null,
+    "notes": "Elm programs normally run in a browser (Browser.sandbox, element, document or application); the sandbox runs them as headless Platform.worker programs in Node.js instead, talking to JavaScript through ports. The official online editor (elm-lang.org/try) and Ellie compile on a server and run the output in the page; there is no in-browser compiler. Elm 0.19.2 (July 2026) has no language changes, and all six snippets give the same output with it."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+    "homepage": "https://elm-lang.org/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Elm_(programming_language)",
+    "https://elm-lang.org/assets/papers/concurrent-frp.pdf",
+    "https://people.seas.harvard.edu/~chong/abstracts/CzaplickiC13.html",
+    "https://elm-lang.org/",
+    "https://elm-lang.org/news",
+    "https://elm-lang.org/news/0.6",
+    "https://elm-lang.org/news/0.7",
+    "https://elm-lang.org/news/0.8",
+    "https://elm-lang.org/news/0.11",
+    "https://elm-lang.org/news/0.13",
+    "https://elm-lang.org/news/0.14",
+    "https://elm-lang.org/news/0.15",
+    "https://elm-lang.org/news/elm-and-prezi",
+    "https://elm-lang.org/news/package-manager",
+    "https://elm-lang.org/news/interactive-programming",
+    "https://elm-lang.org/news/time-travel-made-easy",
+    "https://elm-lang.org/news/compiler-errors-for-humans",
+    "https://elm-lang.org/news/compilers-as-assistants",
+    "https://elm-lang.org/news/new-adventures-for-elm",
+    "https://elm-lang.org/news/farewell-to-frp",
+    "https://elm-lang.org/news/the-perfect-bug-report",
+    "https://elm-lang.org/news/small-assets-without-the-headache",
+    "https://elm-lang.org/news/the-syntax-cliff",
+    "https://elm-lang.org/news/faster-builds",
+    "https://elm-lang.org/docs/syntax",
+    "https://guide.elm-lang.org/types/reading_types.html",
+    "https://package.elm-lang.org/packages/elm/core/1.0.5/Basics",
+    "https://package.elm-lang.org/packages/elm/core/1.0.5/Platform",
+    "https://github.com/elm/compiler/releases",
+    "https://github.com/elm/compiler/blob/master/docs/upgrade-instructions/0.19.0.md",
+    "https://github.com/evancz/elm-architecture-tutorial",
+    "https://github.com/klazuka/elm-hot",
+    "https://redux.js.org/understanding/history-and-design/prior-art",
+    "https://blog.rust-lang.org/2016/08/10/Shape-of-errors-to-come/",
+    "https://github.com/elm/elm-lang.org/blob/master/editor/src/Ui/Editor.elm",
+    "https://github.com/ellie-app/ellie",
+    "https://gleam.run/news/gleam-version-1/",
+    "https://www.unison-lang.org/docs/usage-topics/bibliography/"
+  ]
+}

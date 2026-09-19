@@ -1,0 +1,50 @@
+#!/bin/sh
+# elm-run -- compile one Elm program and run it with Node.js, without network access.
+#
+#   elm-run FILE            compile FILE with elm make, then run it
+#   elm-run --build FILE    compile only (the sandbox's compile step)
+#   elm-run --exec          run what --build compiled (the sandbox's run step)
+#
+# /opt/plw-elm is an application project whose packages (elm/core, elm/json, elm/parser, elm/random,
+# elm/regex, elm/time) were downloaded from package.elm-lang.org and built when the image was built, into
+# its own ELM_HOME. --build copies it to /tmp, installs FILE as the module its header names (src/Main.elm
+# for `port module Main exposing (main)`) and runs elm make, which prints nothing on success and its error
+# report on stderr on failure. --exec starts the compiled program with host.cjs, which prints whatever the
+# program sends out through its ports. Nothing is written outside /tmp.
+set -e
+dir=/tmp/plw-elm
+export HOME=/tmp ELM_HOME="$dir/elm-home"
+
+build() {
+  [ -f "$1" ] || { echo "elm-run: no such file: $1" >&2; exit 2; }
+  rm -rf "$dir"
+  cp -a /opt/plw-elm "$dir"
+  rm -f "$dir/src/Main.elm"
+  name=$(sed -n -E 's/^(port +|effect +)?module +([A-Z][A-Za-z0-9_]*(\.[A-Z][A-Za-z0-9_]*)*).*/\2/p' "$1" | head -n 1)
+  name=${name:-Main}
+  src="src/$(echo "$name" | tr . /).elm"
+  mkdir -p "$dir/$(dirname "$src")"
+  cp "$1" "$dir/$src"
+  cd "$dir"
+  # Off a terminal, elm make's progress messages ("Compiling ...") run into the first line of its report.
+  if ! elm make "$src" --output="$dir/main.js" > "$dir/make.log" 2>&1; then
+    esc=$(printf '\033')
+    sed -E -e "s/$esc\[[0-9;]*m//g" \
+      -e '1s/^((Compiling( \.\.\.| \([0-9]+\))|Verifying dependencies \([0-9]+\/[0-9]+\)|Dependencies ready!) *)+//' \
+      "$dir/make.log" >&2
+    exit 1
+  fi
+  echo "$name" > "$dir/module"
+}
+
+run() {
+  [ -f "$dir/main.js" ] || { echo "elm-run: nothing built; run elm-run --build FILE first" >&2; exit 2; }
+  exec node /usr/local/lib/elm-run/host.cjs "$dir/main.js" "$(cat "$dir/module")"
+}
+
+case "$1" in
+  --build) build "$2" ;;
+  --exec) run ;;
+  -* | "") echo "usage: elm-run [--build] FILE | elm-run --exec" >&2; exit 2 ;;
+  *) build "$1"; run ;;
+esac
