@@ -86,7 +86,8 @@
     "clu",
     "c",
     "ada",
-    "dylan"
+    "dylan",
+    "matlab"
   ],
   "traits": {
     "structured-control": {

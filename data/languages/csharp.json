@@ -132,7 +132,9 @@
     "object-pascal",
     "dart",
     "nim",
-    "visual-basic"
+    "visual-basic",
+    "d",
+    "powershell"
   ],
   "traits": {
     "structured-control": {

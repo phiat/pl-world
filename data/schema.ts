@@ -35,6 +35,7 @@ export const LANGUAGE_IDS = [
   "ada",
   "objective-c",
   "common-lisp",
+  "matlab",
   "cpp",
   "miranda",
   "object-pascal",
@@ -62,9 +63,11 @@ export const LANGUAGE_IDS = [
   "racket",
   "ocaml",
   "csharp",
+  "d",
   "scala",
   // 2005–today: modern
   "fsharp",
+  "powershell",
   "clojure",
   "nim",
   "go",
@@ -82,6 +85,7 @@ export const LANGUAGE_IDS = [
   "odin",
   "gleam",
   "unison",
+  "v",
   "mojo",
 ] as const;
 

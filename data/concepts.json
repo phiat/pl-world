@@ -789,6 +789,7 @@
       "note": "Iverson's notation, published 1962."
     },
     "popularized_by": [
+      "matlab",
       "r",
       "julia"
     ]

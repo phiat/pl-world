@@ -80,7 +80,8 @@
     "perl",
     "ruby",
     "visual-basic",
-    "qbasic"
+    "qbasic",
+    "d"
   ],
   "traits": {
     "structured-control": {

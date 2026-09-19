@@ -1,0 +1,455 @@
+{
+  "id": "d",
+  "name": "D",
+  "aliases": [
+    "dlang",
+    "D2",
+    "Mars"
+  ],
+  "year": 2001,
+  "year_note": "Walter Bright began designing the language, then called Mars, in November 1999. The draft specification and the digitalmars.D newsgroup appeared on 12 August 2001, and the first compiler, DMD 0.00, on 8 December 2001. D 1.0 followed in January 2007, and the incompatible D2, today simply 'D', from June 2007.",
+  "designers": [
+    "Walter Bright",
+    "Andrei Alexandrescu"
+  ],
+  "organization": "Digital Mars (D Language Foundation since 2015)",
+  "country": "United States",
+  "tagline": "C++ re-engineered: a native systems language with a GC by default, code that runs at compile time, and lazy ranges.",
+  "summary": "D is a statically typed, natively compiled systems language that began as a re-engineering of C++ by Walter Bright, author of the Zortech C++ compiler. It keeps C's syntax and ABI and C++'s value types and templates, and adds garbage collection by default, bounds-checked slices, modules, Java-style classes and interfaces, and built-in unit tests and contracts. Its signature is metaprogramming written as ordinary code (compile-time function execution, `static if` and string mixins), together with lazy ranges chained through uniform function call syntax.",
+  "history": "Walter Bright had written C and C++ compilers since the early 1980s, most notably Zortech C++ (later Symantec C++), plus a Java compiler for Symantec. When Symantec left the compiler business in 1999 he founded Digital Mars and began a language he called Mars; friends kept calling it 'D', and the name stuck. The first DMD compiler, built on his existing C++ back end, was released on 8 December 2001. Templates (2002), `foreach` (2003), `static if` (2005) and scope guards followed before DMD 1.00 in January 2007, and within weeks D 1.005 and 1.006 added string mixins and compile-time function execution.\n\nAndrei Alexandrescu, known for C++ template metaprogramming, began meeting Bright in 2005 and joined the design effort in 2007. Their work became D2 (first release June 2007), which broke compatibility with D1 and over the next two years added transitive `const` and `immutable`, checked `pure` and `nothrow` functions, real closures, thread-local globals by default, and Alexandrescu's ranges, around which the Phobos standard library was rebuilt. The D1/D2 split and the rival Tango standard library divided the community for years. D1 was discontinued at the end of 2012, and Alexandrescu's book 'The D Programming Language' (2010) became the reference for D2.\n\nDevelopment moved to GitHub in 2011. The front end was relicensed under the Boost license in 2014 and ported from C++ to D in 2015, and the Symantec-derived back end followed onto Boost in 2017. The nonprofit D Language Foundation was set up in 2015 to steward the language. Three compilers share the DMD front end: DMD itself, LDC (LLVM back end, since 2009) and GDC, which became part of GCC with GCC 9 in 2019.",
+  "innovations": [
+    "Compile-time function execution (CTFE, 2007): ordinary functions run inside the compiler wherever a constant is needed, instead of a separate template metalanguage",
+    "`static if` (2005): introspection-driven conditional compilation inside templates, the model for the 2012 C++ `static if` proposal whose scoped successor became C++17's `if constexpr`",
+    "String and template mixins that compile generated code in place, covering the jobs of the C preprocessor",
+    "Ranges (2009): a lazy iteration protocol offered as a replacement for C++ iterator pairs, composed into pipelines through uniform function call syntax (UFCS)",
+    "`scope(exit)`, `scope(success)` and `scope(failure)` statements, turning the C++ ScopeGuard idiom into syntax",
+    "`unittest` blocks, contracts and Ddoc documentation comments built into the language and the reference compiler",
+    "Transitive `const` and `immutable`, compiler-checked `pure`, `nothrow`, `@safe` and `@nogc` attributes, and thread-local globals by default"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "imperative",
+    "procedural",
+    "object-oriented",
+    "functional",
+    "generic",
+    "metaprogramming",
+    "concurrent"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Stronger than C: implicit narrowing conversions and array-to-pointer decay are rejected, and @safe code cannot use unchecked casts or pointer arithmetic, which @system code still allows. `auto` infers local and return types. Templates are checked per instantiation, so generic code is structurally ('duck') typed at compile time."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "A conservative mark-and-sweep GC backs `new`, array appends and closures, but it is optional in practice: `@nogc` code is checked not to allocate from it, structs have deterministic destructors (RAII), malloc/free come from core.stdc, and -betterC drops the runtime entirely.",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "2.113.0 (August 2026)",
+  "file_extensions": [
+    ".d",
+    ".di"
+  ],
+  "color": "#ba595e",
+  "primary_parent": "cpp",
+  "influenced_by": [
+    {
+      "id": "cpp",
+      "kind": "influence",
+      "weight": "major",
+      "note": "D began as a re-engineering of C++ by the author of the Zortech C++ compiler. It keeps C++'s value types with user-defined copy semantics, templates, operator overloading, vtable dispatch, protection levels and exceptions, and drops the preprocessor, header files, multiple inheritance of implementation and separate namespaces (HOPL IV)."
+    },
+    {
+      "id": "c",
+      "kind": "influence",
+      "weight": "major",
+      "note": "C's syntax, types and ABI. C libraries are called with no glue code, and a construct valid in both languages must mean the same in D or fail to compile, so C can be ported by rote. ImportC (2.098, 2021) compiles C source files directly."
+    },
+    {
+      "id": "java",
+      "kind": "influence",
+      "weight": "major",
+      "note": "HOPL IV: reference-type classes rooted in Object, single inheritance of implementation with multiple inheritance of interfaces, implicit dereferencing of object references and Unicode strings came from Java. Writing Symantec's Java compiler also convinced Bright to build in garbage collection."
+    },
+    {
+      "id": "eiffel",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Contract programming (`in` and `out` contracts and class invariants), which D's overview credits to Bertrand Meyer, Eiffel's designer. Wikipedia cites Alexandrescu's 'The D Programming Language' (2010, p. 314)."
+    },
+    {
+      "id": "csharp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed in Wikipedia's infobox and lead, with no specific feature attributed. HOPL IV does not name C# as an influence."
+    },
+    {
+      "id": "python",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed in Wikipedia's infobox and lead. The D 1.0 overview addressed programmers who split programs between Ruby or Python and C++, promising that D had 'many of the productivity features of Ruby and Python'."
+    },
+    {
+      "id": "ruby",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed in Wikipedia's infobox and lead. The D 1.0 overview addressed programmers who split programs between Ruby or Python and C++, promising that D had 'many of the productivity features of Ruby and Python'."
+    },
+    {
+      "id": "basic",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Bright (Hacker News, 2022): after looking at BASIC again he decided D 'had to make strings as easy to do as BASIC did', hence strings as length-carrying arrays rather than C's zero-terminated ones. Listed in Wikipedia's infobox."
+    },
+    {
+      "id": "ada",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "HOPL IV: underscores in numeric literals (1_000_000) are 'a feature borrowed from Ada'."
+    },
+    {
+      "id": "rust",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Ownership and borrowing checks for @live functions (DMD 2.092, 2020, still experimental) follow the model 'recently popularized by the Rust programming language' (Bright, 'Ownership and Borrowing in D', 2019)."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "ScopeGuard (C++ idiom)",
+      "year": 2000,
+      "note": "Alexandrescu and Petru Marginean's Dr. Dobb's article on exception-safe code. Bright singled out scope guards when he and Alexandrescu first met in 2005, and D made them statements: scope(exit), scope(success) and scope(failure) (HOPL IV)."
+    }
+  ],
+  "influenced": [
+    "swift",
+    "cpp"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if, while, do, for, foreach and switch, including switch on strings; implicit case fallthrough is an error (`goto case` makes it explicit), and `final switch` must cover every enum member."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "`scope(exit)`, `scope(success)` and `scope(failure)` run code when the enclosing scope is left. A local declaration may not shadow another local."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "No guaranteed tail-call elimination."
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "try/catch/finally over two hierarchies: Exception for recoverable errors and Error for failed asserts, contracts and bounds checks. `nothrow` functions are checked not to throw Exceptions."
+    },
+    "coroutines": {
+      "level": "library",
+      "note": "druntime's core.thread.Fiber provides stackful coroutines, and vibe.d's asynchronous I/O is built on them; there is no coroutine syntax."
+    },
+    "generators": {
+      "level": "core",
+      "note": "Ranges (empty/front/popFront) are Phobos's lazy iteration protocol, and `foreach` accepts them as well as opApply for internal iteration. std.concurrency.Generator adds yield-style generators on top of fibers."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Local: `auto` variables and return types, foreach element types, lambda parameters and template arguments are inferred; function parameters are otherwise explicit. Attributes such as pure and @safe are inferred for templates."
+    },
+    "generics": {
+      "level": "core",
+      "since": 2002,
+      "version": "DMD 0.40",
+      "note": "Templates take type, value, alias and variadic parameters, can be constrained (`if (isInputRange!R)`, D2, 2008) and branch with `static if`; function templates are instantiated as f!T or by argument deduction."
+    },
+    "algebraic-data-types": {
+      "level": "library",
+      "since": 2021,
+      "version": "Phobos 2.097",
+      "note": "std.sumtype's SumType is a tagged union dispatched with `match!`; structs and std.typecons.Tuple are the product types. The language itself has only untagged unions."
+    },
+    "option-types": {
+      "level": "library",
+      "note": "std.typecons.Nullable; class references and pointers can be null, so there is no null safety."
+    },
+    "structural-typing": {
+      "level": "supported",
+      "note": "Templates are duck-typed at compile time: a range is any type with empty, front and popFront, checked by traits such as isInputRange. Classes, structs and interfaces are otherwise nominal."
+    },
+    "ownership": {
+      "level": "supported",
+      "since": 2020,
+      "version": "DMD 2.092",
+      "note": "Experimental: functions marked @live get Rust-style ownership and borrowing checks on pointers, behind -preview=dip1021. `scope` and `return` parameter annotations (DIP1000) limit escaping references in @safe code."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Java-style interfaces, which may also carry static and final methods; a class implements any number of them."
+    },
+    "classes": {
+      "level": "core",
+      "note": "Classes are reference types on the GC heap with a single root, Object. Structs are value types with constructors, destructors and copy semantics but no inheritance."
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Single inheritance of implementation and multiple inheritance of interfaces; `override` is mandatory. `alias this` gives structs subtyping without inheritance."
+    },
+    "traits-mixins": {
+      "level": "core",
+      "note": "Template mixins (`mixin template`) paste parameterized declarations into a class, struct or scope; string mixins do the same with generated code."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "`private` means private to the module rather than the class (D's replacement for C++ `friend`); `package` and `protected` add other levels."
+    },
+    "modules": {
+      "level": "core",
+      "note": "One module per file, with selective, renamed, static and scoped imports, and no preprocessor or header files; .di interface files can be generated for closed-source libraries."
+    },
+    "design-by-contract": {
+      "level": "core",
+      "note": "`in` and `out` contracts on functions and `invariant` blocks on classes and structs, combined across overrides as in Eiffel. The expression form `in (x > 0)` dates from 2.081 (2018). Contracts are compiled out by -release; `unittest` blocks sit alongside."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "D2 overloads operators through templated members such as opBinary!\"+\", opIndex, opSlice, opCmp and opDispatch (D1 used named functions like opAdd)."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Function pointers and delegates (a function pointer plus a context pointer); `x => x * x` lambdas since 2.058 (2012), `delegate (int x) { ... }` literals before that. A function can also be passed as a compile-time alias parameter (map!f), which inlines it."
+    },
+    "closures": {
+      "level": "core",
+      "since": 2007,
+      "version": "D 2.007",
+      "note": "A delegate captures its enclosing frame, which D2 moves to the GC heap when it may outlive the call; in D1 the frame died with the function. `scope` delegates avoid the allocation."
+    },
+    "immutability": {
+      "level": "supported",
+      "since": 2007,
+      "version": "D 2.000",
+      "note": "Transitive `const` and `immutable` qualifiers (immutable data can be shared between threads without locks), but declarations are mutable by default."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "`lazy` parameters are evaluated only when the callee uses them (std.exception.enforce builds its message this way), and ranges are lazy and may be infinite (iota, recurrence, cycle). Evaluation is otherwise strict."
+    },
+    "purity": {
+      "level": "supported",
+      "since": 2008,
+      "version": "D 2.022",
+      "note": "Opt-in `pure` attribute: the compiler rejects access to global mutable state and I/O. 'Weakly pure' functions may still mutate their arguments, and purity is inferred for templates and lambdas."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Conservative mark-and-sweep collector behind `new`, array appends and closures; `@nogc` code is checked not to allocate from it."
+    },
+    "reference-counting": {
+      "level": "library",
+      "note": "std.typecons.RefCounted and SafeRefCounted, built on struct copy constructors and destructors."
+    },
+    "pointers": {
+      "level": "core",
+      "note": "Raw pointers and pointer arithmetic as in C, restricted to @system and @trusted code. Slices (pointer plus length) replace most pointer use, and malloc/free are available from core.stdc.stdlib."
+    },
+    "actors": {
+      "level": "library",
+      "note": "std.concurrency: `spawn` starts a thread, and `send`/`receive` exchange typed messages through per-thread mailboxes. Globals are thread-local by default, and `shared` marks data that may cross threads."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Compile-time introspection is central (`__traits`, `is` expressions, std.traits, user-defined attributes) and drives code generation. Run-time reflection is limited to TypeInfo and ClassInfo."
+    },
+    "compile-time-execution": {
+      "level": "core",
+      "since": 2007,
+      "version": "D 1.006",
+      "note": "CTFE runs a large subset of ordinary D in the compiler wherever a constant is required (enum, static if, static assert, template arguments), and mixin() compiles the strings it returns. D has no syntactic macros by design."
+    },
+    "array-programming": {
+      "level": "supported",
+      "note": "Array operations on slices apply element-wise with no loop (`c[] = a[] * b[] + 1`); there is no rank polymorphism."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "std.regex, whose ctRegex! turns a pattern into specialized matching code at compile time. No regex literals."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1999,
+      "event": "Walter Bright founds Digital Mars and starts designing a language he calls Mars"
+    },
+    {
+      "year": 2001,
+      "event": "Draft specification published (August); first compiler, DMD 0.00, released on 8 December"
+    },
+    {
+      "year": 2002,
+      "event": "Front-end source released (April); templates arrive in DMD 0.40 (September)"
+    },
+    {
+      "year": 2005,
+      "event": "`static if` added in DMD 0.124"
+    },
+    {
+      "year": 2007,
+      "event": "DMD 1.00 (January); string mixins (1.005) and compile-time function execution (1.006) follow in February"
+    },
+    {
+      "year": 2007,
+      "event": "DMD 2.000 opens D2 (June) as Andrei Alexandrescu joins the design; D1 is frozen for stability"
+    },
+    {
+      "year": 2009,
+      "event": "Ranges reshape Phobos around std.range and std.algorithm; first release of LDC, the LLVM-based compiler"
+    },
+    {
+      "year": 2010,
+      "event": "Alexandrescu's 'The D Programming Language' published, marking D2's stabilization"
+    },
+    {
+      "year": 2012,
+      "event": "Uniform function call syntax and `=>` lambdas (2.058–2.059); D1 discontinued on 31 December"
+    },
+    {
+      "year": 2015,
+      "event": "D Language Foundation founded; DMD's front end ported from C++ to D (2.069)"
+    },
+    {
+      "year": 2017,
+      "event": "Back end relicensed under Boost, making the whole reference compiler open source"
+    },
+    {
+      "year": 2019,
+      "event": "GCC 9.1 ships GDC, the D front end merged into GCC in October 2018"
+    },
+    {
+      "year": 2021,
+      "event": "std.sumtype joins Phobos (2.097) and ImportC lets the compiler read C source (2.098)"
+    }
+  ],
+  "trivia": [
+    "Bright called the language Mars, after his company Digital Mars, but friends kept calling it 'D' and the name stuck.",
+    "`static if` went from a newsgroup post asking for easier metaprogramming (4 May 2005) to a shipped feature in DMD 0.124 about two weeks later.",
+    "Comparison operators are non-associative, so `a < b < c` is a syntax error: D refuses both C's reading and Python's rather than silently change code pasted from C.",
+    "Apple's Swift blog (2014) says Swift 'borrows a clever feature from the D language': __FILE__ and __LINE__ used as default arguments expand to the caller's location."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "D 2.113 (LDC 1.43)",
+      "code": "import std.stdio;\n\nvoid main()\n{\n    writeln(\"Hello, World!\");\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "`import std.stdio` brings in Phobos's I/O module, and `writeln` prints its arguments followed by a newline. The file is compiled to a native executable before it runs.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "D 2.113 (LDC 1.43)",
+      "code": "import std.stdio;\n\n// The `in` contract rejects arguments whose factorial would overflow a ulong.\nulong factorial(uint n) pure nothrow @safe\nin (n <= 20)\n{\n    return n <= 1 ? 1 : n * factorial(n - 1);\n}\n\nvoid main()\n{\n    writeln(factorial(10));\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "`in (n <= 20)` is an expression-form precondition (2.081, 2018). Contracts stay on unless compiled with -release, so factorial(21) stops with an AssertError instead of silently overflowing. `pure nothrow @safe` are checked promises: no global state, no exceptions, no unsafe pointer operations.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "D 2.113 (LDC 1.43)",
+      "code": "import std.stdio;\n\nvoid main()\n{\n    foreach (i; 1 .. 16)\n    {\n        if (i % 15 == 0)\n            writeln(\"FizzBuzz\");\n        else if (i % 3 == 0)\n            writeln(\"Fizz\");\n        else if (i % 5 == 0)\n            writeln(\"Buzz\");\n        else\n            writeln(i);\n    }\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`foreach (i; 1 .. 16)` walks a half-open interval with the type of `i` inferred, and `writeln` formats any value, so the integer needs no conversion. The braces follow the Allman style of the standard library.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "D 2.113 (LDC 1.43)",
+      "code": "import std.algorithm : filter, map;\nimport std.range : iota;\nimport std.stdio : writefln;\n\nvoid main()\n{\n    // A lazy range pipeline chained with UFCS: x.f!(args) means f!(args)(x).\n    iota(1, 11)\n        .filter!(x => x % 2 == 0)\n        .map!(x => x * x)\n        .writefln!\"%(%s %)\";\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "`iota(1, 11)` is the lazy range 1 to 10. `filter!` and `map!` take their lambdas as compile-time template arguments (the `!`), so they can be inlined, and no intermediate array is built: elements flow through the pipeline as `writefln` pulls them. Uniform function call syntax (2.059, 2012) lets f(x, a) be written x.f(a). The format string is a template argument too, checked at compile time, and `%(%s %)` prints each element of a range separated by spaces.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "D 2.113 (LDC 1.43)",
+      "code": "import std.stdio;\n\nabstract class Shape\n{\n    abstract string name() const;\n    abstract int area() const;\n}\n\nclass Rectangle : Shape\n{\n    int width, height;\n    this(int width, int height) { this.width = width; this.height = height; }\n    override string name() const { return \"Rectangle\"; }\n    override int area() const { return width * height; }\n}\n\nclass Triangle : Shape\n{\n    int base, height;\n    this(int base, int height) { this.base = base; this.height = height; }\n    override string name() const { return \"Triangle\"; }\n    override int area() const { return base * height / 2; }\n}\n\nvoid main()\n{\n    Shape[] shapes = [new Rectangle(3, 4), new Triangle(10, 3)];\n    foreach (s; shapes)\n        writefln(\"%s: %d\", s.name, s.area);\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Classes are reference types with single inheritance, allocated with `new` on the GC heap, and `override` is mandatory. An array literal takes its elements' common base class as its type, which is why this uses an abstract class: with an `interface` the literal would be typed Object[]. Structs are value types without inheritance, and std.sumtype (2021) offers a tagged-union alternative with `match!`. `s.name` calls a method without parentheses.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Compile-time D: CTFE, static if and mixins",
+      "concepts": [
+        "compile-time-execution",
+        "generics"
+      ],
+      "dialect": "D 2.113 (LDC 1.43)",
+      "code": "import std.algorithm, std.array, std.range, std.stdio;\n\n// Ordinary D code that builds declarations as a string...\nstring fields(string[] names...)\n{\n    return names.map!(n => \"int \" ~ n ~ \";\").join;\n}\n\n// ...run by the compiler (CTFE) and compiled in place (mixin).\nstruct Vec2 { mixin(fields(\"x\", \"y\")); }\nstruct Vec3 { mixin(fields(\"x\", \"y\", \"z\")); }\n\n// A template that branches on its type argument at compile time.\nint total(T)(T v)\n{\n    static if (__traits(hasMember, T, \"z\")) return v.x + v.y + v.z;\n    else return v.x + v.y;\n}\n\n// A lazy range pipeline run during compilation: the binary holds only the result.\nenum primes = iota(2, 30).filter!(n => iota(2, n).all!(d => n % d != 0)).array;\nstatic assert(primes.length == 10);\n\nvoid main()\n{\n    scope (exit) writeln(\"done\"); // runs however main is left\n    writeln(total(Vec2(1, 2)), \" \", total(Vec3(1, 2, 3)), \" \", primes);\n}\n",
+      "expected_output": "3 6 [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]\ndone\n",
+      "notes": "`fields` is ordinary code, but inside `mixin(...)` the compiler runs it with its CTFE interpreter (1.006, 2007) and compiles the string it returns, `int x;int y;`, as declarations (string mixins, 1.005). `static if` (2005) keeps only the branch whose condition holds, so `total!Vec2` never mentions `z`; `__traits(hasMember, ...)` is compile-time introspection. `enum primes` makes the whole range pipeline run during compilation, and `static assert` checks the result before the program exists. `scope (exit)` runs its statement however the scope is left, so 'done' prints last.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "LDC (official release)",
+        "version": "1.43.0",
+        "docker_image": "plw-d",
+        "dockerfile": "sandbox/d/Dockerfile",
+        "install": "apt-get install -y gcc libc6-dev && curl -fsSL https://github.com/ldc-developers/ldc/releases/download/v1.43.0/ldc2-1.43.0-linux-x86_64.tar.xz | tar -xJ -C /opt/ldc --strip-components=1",
+        "compile": "ldc2 -g -of={out} {file}",
+        "run": "{out}",
+        "notes": "There is no maintained official Docker image (dlang2/ldc-ubuntu stopped at LDC 1.26 in 2021). plw-d is debian:trixie-slim plus the official, sha256-checked LDC 1.43.0 tarball: the DMD 2.113.0 front end, druntime and Phobos on LLVM 22.1.8, with Debian's gcc as the linker driver and the 32-bit runtime removed. Unoptimized builds with `-g` (about 50 ms extra, for file:line backtraces on run-time errors) take about 0.15 s for plain programs and 0.35 s for range-heavy ones, or 0.3–0.5 s per snippet end to end in the sandbox. The compiler keeps no cache and writes only the object file and executable next to the source, so it also runs with a read-only root filesystem."
+      },
+      {
+        "name": "DMD (reference compiler)",
+        "version": "2.113.0",
+        "install": "curl -fsSLO https://downloads.dlang.org/releases/2.x/2.113.0/dmd.2.113.0.linux.tar.xz && tar -xJf dmd.2.113.0.linux.tar.xz",
+        "compile": "dmd -g -of={out} {file}",
+        "run": "{out}",
+        "notes": "All six snippets were also verified with DMD 2.113.0 from the release tarball (GPG signature checked against the D keyring), run inside plw-d. DMD compiles them in about 0.1–0.2 s with its own back end; LDC and GDC optimize better."
+      }
+    ],
+    "browser": null,
+    "notes": "run.dlang.io, the official online editor, compiles on a server. LDC 1.43 can target WebAssembly with druntime and Phobos (WASI and Emscripten), but no D compiler runs in the browser. GDC, part of GCC since GCC 9, is a third implementation (not tested here)."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/D_(programming_language)",
+    "homepage": "https://dlang.org/",
+    "spec": "https://dlang.org/spec/spec.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/D_(programming_language)",
+    "https://doi.org/10.1145/3386323",
+    "https://erdani.org/research/hopl.pdf",
+    "https://digitalmars.com/d/1.0/changelog1.html",
+    "https://digitalmars.com/d/1.0/changelog2.html",
+    "https://digitalmars.com/d/1.0/changelog.html",
+    "https://digitalmars.com/d/1.0/overview.html",
+    "https://dlang.org/overview.html",
+    "https://dlang.org/changelog/",
+    "https://dlang.org/changelog/2.007.html",
+    "https://dlang.org/changelog/2.022.html",
+    "https://dlang.org/changelog/2.058.html",
+    "https://dlang.org/changelog/2.059.html",
+    "https://dlang.org/changelog/2.069.0.html",
+    "https://dlang.org/changelog/2.081.0.html",
+    "https://dlang.org/changelog/2.092.0.html",
+    "https://dlang.org/changelog/2.097.0.html",
+    "https://dlang.org/changelog/2.098.0.html",
+    "https://dlang.org/spec/ob.html",
+    "https://blog.dlang.org/archive/2019/07/15/ownership-and-borrowing-in-d/",
+    "https://news.ycombinator.com/item?id=33846139",
+    "https://developer.apple.com/swift/blog/?id=15",
+    "https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3329.pdf",
+    "https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4461.html",
+    "https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0292r2.html",
+    "https://gcc.gnu.org/gcc-9/changes.html",
+    "https://github.com/ldc-developers/ldc/releases/tag/v1.43.0",
+    "https://downloads.dlang.org/releases/2.x/2.113.0/"
+  ]
+}

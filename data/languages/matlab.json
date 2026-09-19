@@ -1,0 +1,383 @@
+{
+  "id": "matlab",
+  "name": "MATLAB",
+  "aliases": [
+    "Matrix Laboratory",
+    "Matlab",
+    "Classic MATLAB",
+    "PC-MATLAB"
+  ],
+  "year": 1984,
+  "year_note": "Cleve Moler wrote the original MATLAB in Fortran at the University of New Mexico around 1978: an interactive matrix calculator built on about a dozen LINPACK and EISPACK subroutines, with 71 reserved words and functions and no way to define new ones short of recompiling. This 'Classic MATLAB' was shown publicly at the Naval Postgraduate School in February 1979, used in Moler's Stanford course that winter, and documented in a 1981 Users' Guide. The programming language dates from 1984, when Jack Little and Steve Bangert's C rewrite, PC-MATLAB, added M-file scripts and functions, graphics and toolboxes; it debuted at the IEEE Conference on Decision and Control in Las Vegas in December, the week after MathWorks was incorporated.",
+  "designers": [
+    "Cleve Moler",
+    "Jack Little",
+    "Steve Bangert"
+  ],
+  "organization": "MathWorks",
+  "country": "United States",
+  "tagline": "The matrix laboratory: every value is an array, operators work on whole arrays, and x = A\\b solves a linear system.",
+  "summary": "MATLAB (Matrix Laboratory) is a proprietary, dynamically typed language and numeric computing environment from MathWorks in which the basic value is the array: a scalar is a 1-by-1 matrix, text is a row of characters, and arithmetic, comparisons and most functions apply to whole arrays at once. Its compact notation for linear algebra, with the colon operator for ranges and slices, matrix operators beside element-wise ones (* and .*), and backslash for solving linear systems, made it a standard tool of engineering and science, extended by domain toolboxes and the Simulink modelling environment. Code lives in .m script and function files run by a JIT-compiling engine; GNU Octave is a largely compatible free implementation.",
+  "history": "In the 1970s Cleve Moler, a numerical analyst at the University of New Mexico and co-author of the LINPACK and EISPACK Fortran libraries, wanted his students to use them without the edit-compile-link cycle of batch Fortran. He learned parsing from Niklaus Wirth's Algorithms + Data Structures = Programs (1976) and wrote MATLAB in Fortran as a dialect of Wirth's teaching language PL/0, with the matrix, a complex matrix, as its only data type. Classic MATLAB was a calculator rather than a programming language, but it already had the backslash operator for solving linear systems and the colon operator for ranges and submatrices. Moler gave copies away to universities. At Stanford in 1979 it caught on with control and signal-processing students, and through one of them Jack Little, a Stanford-trained control engineer, began using it in his consulting work.\n\nIn 1983 Little proposed a commercial MATLAB for the IBM PC. With Steve Bangert he rewrote it in C, replacing the single Fortran USER hook with scripts and functions stored in .m files, adding MEX files for compiled C and Fortran, graphics, ^ in place of ** with a new element-wise .^, ~= in place of <>, elseif and break, and case-sensitive names. Little, Moler and Bangert incorporated MathWorks on 7 December 1984, and PC-MATLAB debuted the following week at the IEEE Conference on Decision and Control; Nick Trefethen of MIT made the first purchase early in 1985. Toolboxes for control (1985) and signal processing (1987), built-in ODE solvers (1987), sparse matrices and Simulink (1992) spread it through engineering departments and industry.\n\nMATLAB 5 (1996) added cell arrays, structures, multidimensional arrays and objects; function handles followed in 1999, LAPACK replaced LINPACK and EISPACK in MATLAB 6 (2000), and MATLAB 7 (2004) added integer and logical types. classdef classes arrived in R2008a, a trace-based JIT execution engine replaced the interpreter in 2015, and R2016b brought string arrays, implicit expansion and local functions in scripts. MathWorks ships two releases a year and in 2020 reported more than four million users. GNU Octave (1993) and RunMat are dialects that run much MATLAB code, Scilab drew on it, and Julia adopted its array notation.",
+  "innovations": [
+    "An interactive matrix laboratory: a language whose one original data type was the matrix, giving direct access to LINPACK and EISPACK without writing Fortran",
+    "Backslash as matrix left division: x = A\\b solves A*x = b by elimination instead of forming the inverse",
+    "The colon operator for ranges and slices (a:d:b, A(:,3), A(:)), with 1-based indexing as in Algol, Fortran and linear algebra",
+    "Paired matrix and element-wise operators (* and .*, / and ./, ^ and .^), so linear algebra and array arithmetic share one notation",
+    "Toolboxes: libraries of .m files and compiled MEX functions for control, signal processing, image processing and other fields, which made one numerical language common across engineering disciplines",
+    "Plotting from the interactive session, which Moler and Little list with backslash and high-quality numerical algorithms as MATLAB's distinguishing features from the beginning"
+  ],
+  "paradigms": [
+    "array",
+    "multi-paradigm",
+    "imperative",
+    "procedural",
+    "object-oriented",
+    "functional"
+  ],
+  "family": "array",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Every value is an array of some class (double by default; also single, int8 to uint64, logical, char, cell, struct, string, function_handle and classdef objects), and there are no declarations. Conversions are implicit and lenient: 'a' + 1 is 98, logical and char values take part in arithmetic, and an integer mixed with a double gives an integer, rounded and saturated (int8(100) + 100 is 127). arguments blocks (R2019b) check the sizes and classes of function arguments at run time."
+  },
+  "memory": "reference-counting",
+  "memory_note": "Programs never free memory. Arrays, structs, cell arrays and value-class objects have value semantics with copy-on-write: passing or assigning them copies nothing until one side is modified, so a function cannot change its caller's data. Handle objects are shared references that MATLAB destroys, calling their delete method, as soon as no workspace refers to them, including cycles that nothing outside refers to; weak handles (R2024b) do not keep an object alive.",
+  "execution": [
+    "jit",
+    "interpreted"
+  ],
+  "status": "active",
+  "latest_version": "R2026a (MATLAB 26.1)",
+  "file_extensions": [
+    ".m",
+    ".mlx",
+    ".p"
+  ],
+  "color": "#e16737",
+  "primary_parent": "fortran",
+  "influenced_by": [
+    {
+      "id": "fortran",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Classic MATLAB was a Fortran program wrapped around the Fortran LINPACK and EISPACK libraries, written so that students need not write Fortran themselves. Moler and Little name Fortran II and Algol 60 as its most important precursors, and MATLAB arrays are 1-based and stored column by column, as in Fortran. Fortran's Wikipedia infobox lists MATLAB among the languages it influenced."
+    },
+    {
+      "id": "algol60",
+      "kind": "influence",
+      "weight": "major",
+      "note": "'Algol provided the formal structure and, through Wirth's Pascal and PL/0, the parsing techniques' (Moler and Little). EISPACK itself was translated from the Algol 60 procedures of Wilkinson and Reinsch's Handbook for Automatic Computation."
+    },
+    {
+      "id": "pascal",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Moler based the first MATLAB on PL/0, the teaching subset of Pascal in Wirth's Algorithms + Data Structures = Programs (1976): 'the syntax of the original MATLAB is that of PL/0'. Classic MATLAB's quoted strings also resembled Pascal's (and Fortran 77's)."
+    },
+    {
+      "id": "apl",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Like APL and Speakeasy, Classic MATLAB was an interactive terminal language with arrays as the principal data type, though Moler and Little say it resembled APL only 'to a lesser extent'. MATLAB's support for empty matrices of every size followed Carl de Boor's analysis, which drew on work done for APL."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Speakeasy",
+      "year": 1964,
+      "note": "Stanley Cohen's interactive matrix language at Argonne National Laboratory, itself inspired by APL. Moler and Little write that MATLAB 'in some ways' resembled it, and Moler named it with APL, LINPACK, EISPACK and PL/0 as MATLAB's predecessors; unlike Speakeasy, which ran only on IBM time-sharing systems, MATLAB was written to be portable."
+    },
+    {
+      "name": "PL/0",
+      "year": 1976,
+      "note": "Wirth's miniature language from Algorithms + Data Structures = Programs, whose only data type was the integer. Moler wrote the first MATLAB as a dialect of PL/0 whose only data type was the matrix, following Wirth's syntax diagrams and recursive-descent parser."
+    },
+    {
+      "name": "LINPACK",
+      "year": 1979,
+      "note": "Fortran package for linear equations by Jack Dongarra, Jim Bunch, Cleve Moler and Pete Stewart (Users' Guide 1979); Classic MATLAB called 8 of its subroutines, and C translations served until MATLAB 6 adopted LAPACK in 2000."
+    },
+    {
+      "name": "EISPACK",
+      "year": 1971,
+      "note": "Argonne's Fortran eigenvalue package, translated from the Algol 60 procedures of J. H. Wilkinson and his colleagues; Classic MATLAB used 5 of its subroutines."
+    }
+  ],
+  "influenced": [
+    "julia"
+  ],
+  "traits": {
+    "array-programming": {
+      "level": "core",
+      "note": "Every value is an array (a scalar is 1-by-1). Arithmetic, comparisons and most functions work element-wise or along a dimension; logical masks select and assign elements; and since R2016b operands of compatible sizes expand implicitly, so a column plus a row gives a matrix."
+    },
+    "structured-control": {
+      "level": "core",
+      "note": "if/elseif/else, for (over the columns of any array), while, switch/case/otherwise (cases match numbers, strings or cell arrays of values), break, continue and return, all closed by end; there is no goto. PC-MATLAB added elseif and break to Classic MATLAB's for, while and if."
+    },
+    "block-scope": {
+      "level": "supported",
+      "note": "Scope is per function workspace, not per block: a variable assigned inside if or for stays visible afterwards, and a script runs in its caller's workspace. Nested functions can read and change their parent function's variables."
+    },
+    "recursion": {
+      "level": "supported",
+      "note": "Functions can call themselves, but there is no tail-call elimination, and array operations or loops are the usual style."
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "try/catch blocks and error() with message identifiers; MException objects (R2007b) carry the identifier, message and stack and support throw, rethrow and addCause."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "since": 1999,
+      "note": "Function handles (@sin) and anonymous functions (@(x) x.^2) are values that can be stored and passed to arrayfun, cellfun and 'function functions' such as ode45, fzero and integral; before 1999 those took function names as strings."
+    },
+    "closures": {
+      "level": "supported",
+      "note": "An anonymous function captures the current values of the variables it uses when it is created (a snapshot, not a live binding); a handle to a nested function shares its parent function's live workspace."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "Arrays, structs, cell arrays and value-class objects have copy-on-write value semantics, so a function cannot modify its caller's data; handle objects are the mutable exception, and variables can always be reassigned."
+    },
+    "classes": {
+      "level": "supported",
+      "since": 1996,
+      "version": "MATLAB 5",
+      "note": "MATLAB 5 introduced objects defined in @-folders; classdef files (R2008a) define value or handle classes with properties, methods, events and listeners, and access control."
+    },
+    "inheritance": {
+      "level": "supported",
+      "note": "classdef Sub < Base1 & Base2 allows multiple inheritance; classes deriving from handle have reference semantics."
+    },
+    "interfaces": {
+      "level": "supported",
+      "note": "Abstract classes with Abstract methods and properties serve as interfaces; there is no separate interface construct."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "Access attributes on properties and methods (private, protected, or a list of classes) and dependent properties hide a class's representation."
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "note": "Mixin classes through multiple inheritance; MATLAB supplies several in the matlab.mixin namespace, such as matlab.mixin.Copyable (R2011a) and matlab.mixin.CustomDisplay."
+    },
+    "operator-overloading": {
+      "level": "supported",
+      "note": "A class overloads operators by defining methods with their function names: plus, minus, times (.*), mtimes (*), mldivide (\\), eq, and subsref/subsasgn for indexing."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "Each function or class lives in its own .m file, found through the search path; namespace folders (+name, formerly called packages) group them and import brings names into scope. There are no module files or export lists."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "eval and feval, str2func and func2str, dynamic field names (s.(name)), fieldnames, isa, exist and which, and class metadata through metaclass and ?ClassName."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Memory is reclaimed automatically; handle objects are destroyed when no workspace refers to them, including unreferenced cycles."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "note": "A running session picks up edited function files on their next call, and when a classdef file changes MATLAB updates existing objects of the class to the new definition without clear classes or a restart."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "regexp, regexpi and regexprep are built-in functions; there is no literal syntax."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1978,
+      "event": "Cleve Moler writes the first MATLAB, an interactive matrix calculator in Fortran, at the University of New Mexico"
+    },
+    {
+      "year": 1979,
+      "event": "Classic MATLAB shown at the Naval Postgraduate School and used in Moler's numerical analysis course at Stanford"
+    },
+    {
+      "year": 1981,
+      "event": "First MATLAB Users' Guide: 71 reserved words and functions"
+    },
+    {
+      "year": 1984,
+      "event": "MathWorks incorporated on 7 December; PC-MATLAB, rewritten in C by Jack Little and Steve Bangert, debuts at the IEEE Conference on Decision and Control"
+    },
+    {
+      "year": 1985,
+      "event": "First sale, to Nick Trefethen at MIT; Control System Toolbox"
+    },
+    {
+      "year": 1986,
+      "event": "Pro-MATLAB for Unix workstations"
+    },
+    {
+      "year": 1987,
+      "event": "Signal Processing Toolbox, built-in ODE solvers and a Macintosh version"
+    },
+    {
+      "year": 1992,
+      "event": "MATLAB 4 adds sparse matrices; Simulink introduced"
+    },
+    {
+      "year": 1995,
+      "event": "First MATLAB compiler, by Stephen C. Johnson, released"
+    },
+    {
+      "year": 1996,
+      "event": "MATLAB 5: cell arrays, structures, multidimensional arrays and objects"
+    },
+    {
+      "year": 1999,
+      "event": "Function handles"
+    },
+    {
+      "year": 2000,
+      "event": "MATLAB 6 replaces LINPACK and EISPACK with LAPACK and introduces the desktop"
+    },
+    {
+      "year": 2004,
+      "event": "MATLAB 7: integer and logical types; Parallel Computing Toolbox"
+    },
+    {
+      "year": 2008,
+      "event": "R2008a: classdef object-oriented programming"
+    },
+    {
+      "year": 2015,
+      "event": "A trace-based JIT execution engine replaces the interpreter"
+    },
+    {
+      "year": 2016,
+      "event": "Live Editor; R2016b adds string arrays, implicit expansion and local functions in scripts"
+    },
+    {
+      "year": 2019,
+      "event": "R2019b: arguments blocks for function argument validation"
+    },
+    {
+      "year": 2024,
+      "event": "R2024a allows local functions anywhere in a script"
+    }
+  ],
+  "trivia": [
+    "Classic MATLAB answered the why command with a random reply such as 'WHY NOT?' or 'INSUFFICIENT DATA TO ANSWER.'; today's why makes up sentences such as 'Some old and nearly bald mathematician suggested it.'",
+    "The statement x = A\\b has come to stand for MATLAB itself: MathWorks has given away T-shirts printed with it at conferences.",
+    "For portability Classic MATLAB translated all input into its own 52-character internal code, which is why it printed variable names in upper case.",
+    "The MathWorks logo is a solution of a partial differential equation, the L-shaped membrane; an early contour-plot version appeared in Moler's 1965 PhD dissertation."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "MATLAB R2016b+ (GNU Octave 11.3.0)",
+      "code": "disp('Hello, World!')\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "A file of plain statements is a script. disp shows a value without its name; a statement not ended by a semicolon echoes its result (x = 5 displays x and its value), which is why MATLAB lines usually end with ;. fprintf('Hello, World!\\n') is the C-style alternative.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "MATLAB R2016b+ (GNU Octave 11.3.0)",
+      "code": "fprintf('%d\\n', fact(10));\n\n% A local function, placed after the script code\nfunction r = fact(n)\n    if n <= 1\n        r = 1;\n    else\n        r = n * fact(n - 1);\n    end\nend\n",
+      "expected_output": "3628800\n",
+      "notes": "fact is a local function, which MATLAB R2016b to R2023b require at the end of a script (R2024a allows them anywhere). A function returns whatever its output variable r holds when it ends; return takes no value. Numbers are doubles by default, which hold 10! exactly. The everyday spellings are prod(1:10) and the built-in factorial(10); the name fact avoids shadowing that built-in.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "MATLAB R2016b+ (GNU Octave 11.3.0)",
+      "code": "for i = 1:15\n    if mod(i, 15) == 0\n        disp('FizzBuzz')\n    elseif mod(i, 3) == 0\n        disp('Fizz')\n    elseif mod(i, 5) == 0\n        disp('Buzz')\n    else\n        fprintf('%d\\n', i);\n    end\nend\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "for i = 1:15 walks the row vector 1:15 (a for loop takes the columns of any array), mod is a function rather than an operator, and every block closes with end. disp prints the words; fprintf('%d\\n', i) prints a number the same way in MATLAB and Octave, whose disp formats numbers differently. A loop-free version starts from c = arrayfun(@num2str, 1:15, 'UniformOutput', false) and overwrites cells through masks such as c(mod(1:15, 3) == 0) = {'Fizz'}.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "MATLAB R2016b+ (GNU Octave 11.3.0)",
+      "code": "xs = 1:10;\nisEven = @(x) mod(x, 2) == 0;    % an anonymous function; it works on whole arrays too\nys = xs(isEven(xs)) .^ 2;        % filter with a logical mask, then square element-wise\ndisp(strjoin(arrayfun(@num2str, ys, 'UniformOutput', false)))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "isEven(xs) returns a logical array, and indexing with it keeps the elements where it is true: that is MATLAB's filter. .^ then squares every element at once, with no map needed. For printing, arrayfun maps the function handle @num2str over the array into a cell array of character vectors and strjoin joins them with spaces. Current MATLAB would write disp(join(string(ys))) with string arrays, which Octave does not implement.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "MATLAB R2016b+ (GNU Octave 11.3.0)",
+      "code": "% A 1-by-2 struct array: every element has the same fields\nshapes = struct('kind', {'Rectangle', 'Triangle'}, 'dims', {[3 4], [10 3]});\nfor s = shapes\n    fprintf('%s: %d\\n', s.kind, area(s));\nend\n\nfunction a = area(s)\n    switch s.kind\n        case 'Rectangle'\n            a = prod(s.dims);        % width * height\n        case 'Triangle'\n            a = prod(s.dims) / 2;    % base * height / 2\n    end\nend\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Passing cell arrays to struct builds a 1-by-2 struct array, and for s = shapes visits one element at a time. switch compares character vectors directly. MATLAB's own classes, classdef Rectangle < Shape with properties and methods blocks, must each live in a file of their own, which a single script cannot hold (Octave supports classdef files too). Inside this script the local function area takes precedence over MATLAB's plotting function of the same name.",
+      "verified": true
+    },
+    "signature": {
+      "title": "x = A\\b: whole-array arithmetic",
+      "concepts": [
+        "array-programming"
+      ],
+      "dialect": "MATLAB R2016b+ (GNU Octave 11.3.0)",
+      "code": "% Solve A*x = b with backslash: Gaussian elimination, no inverse, no loops\nA = [2 1 -1; -3 -1 2; -2 1 2];\nb = [8; -11; -3];\nx = A \\ b;\nfprintf('x = %g %g %g\\n', x);\n\n% * is the matrix product, .* multiplies element by element\nn = 1:4;                   % the colon operator makes a row vector\nT = n' * n;                % column times row: a 4-by-4 multiplication table\nfprintf('%2d %2d %2d %2d\\n', T);\nfprintf('n.*n = %s\\n', mat2str(n .* n));\n\n% Whole-array arithmetic, end indexing and logical masks replace loops\nt = 0:0.5:3;               % start:step:stop\ny = t.^2 - 2*t;\nfprintf('last two: %s\\n', mat2str(y(end-1:end)));\nfprintf('negative at t = %s\\n', mat2str(t(y < 0)));\ny(y < 0) = 0;              % assign through the mask\nfprintf('clamped: %s\\n', mat2str(y));\n",
+      "expected_output": "x = 2 3 -1\n 1  2  3  4\n 2  4  6  8\n 3  6  9 12\n 4  8 12 16\nn.*n = [1 4 9 16]\nlast two: [1.25 3]\nnegative at t = [0.5 1 1.5]\nclamped: [0 0 0 0 0 1.25 3]\n",
+      "notes": "A \\ b solves the system by Gaussian elimination (an LU factorization, for a general square matrix like this one) without forming inv(A); its solution is 2, 3, -1. n' * n multiplies a column by a row, the outer product, while n .* n multiplies element by element. fprintf consumes a matrix column by column, which prints T row by row only because T is symmetric. 0:0.5:3 is a range, y(end-1:end) counts from the end, t(y < 0) selects through a logical mask and y(y < 0) = 0 assigns through one, and mat2str prints an array in MATLAB syntax.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "GNU Octave",
+        "version": "11.3.0",
+        "docker_image": "gnuoctave/octave:11.3.0",
+        "compile": "awk '/^[ \\t]*function([^A-Za-z0-9_]|$)/ { f = 1 } { print (f ? \"\" : $0) > \"{out}.m\"; print (f ? $0 : (NR == 1 ? \"1;\" : \"\")) > \"local_functions.m\" }' {file}",
+        "run": "octave-cli --norc --no-history --quiet --no-window-system --eval 'source local_functions.m; {out}'",
+        "notes": "The official GNU Octave image (Ubuntu 26.04, OpenBLAS), used as is: it works offline, and a snippet takes about 0.2 s including container start, although the image is about 4 GB. Octave defines a script's functions only when execution reaches them, so a MATLAB script that calls local functions defined at its end fails as it stands. The compile step therefore splits the file with awk: from the first top-level function line onward it goes to local_functions.m, after a leading 1; so that Octave reads it as a script rather than a function file, and the script code goes to prog.m. Both files are padded with blank lines so that error messages keep the snippet's own line numbers. The run step sources the functions, then runs the script. This follows the R2016b to R2023b rule that local functions come last; script code placed between functions, as R2024a allows, would run too early. --no-history stops Octave writing ~/.local/share/octave/history on exit (tested with a read-only root filesystem), --norc skips startup files and --no-window-system disables graphics."
+      },
+      {
+        "name": "MATLAB",
+        "version": "R2026a",
+        "run": "matlab -batch main",
+        "notes": "MathWorks' proprietary reference implementation for Windows, macOS and Linux. It needs a license, so the sandbox cannot run it and none of the snippets were run on it. matlab -batch runs a script, function or statement without the desktop and exits when it finishes. MATLAB Online runs it in a browser on MathWorks' servers."
+      }
+    ],
+    "browser": {
+      "name": "RunMat",
+      "url": "https://runmat.com/sandbox",
+      "notes": "An Apache-2.0 runtime for MATLAB-syntax code, written in Rust, whose browser sandbox runs a WebAssembly build. It is an independent reimplementation, so behaviour can differ from MATLAB and Octave; the snippets were not tested there. Octave Online and MATLAB Online also run in a browser, but on servers."
+    },
+    "notes": "The snippets are written as MATLAB and run on GNU Octave, which aims at MATLAB compatibility but is not identical. Octave has no string class (double quotes make a char vector with backslash escapes) and lacks functions such as compose, join, contains, table and dictionary, so the snippets use character vectors, cell arrays, fprintf and mat2str, whose output is the same in both. Octave also accepts syntax that MATLAB rejects, including # comments, endif/endfor/endfunction, printf, != and the ++ and += operators; the snippets avoid all of it."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/MATLAB",
+    "homepage": "https://www.mathworks.com/products/matlab.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/MATLAB",
+    "https://doi.org/10.1145/3386331",
+    "https://www.mathworks.com/company/technical-articles/a-brief-history-of-matlab.html",
+    "https://blogs.mathworks.com/cleve/2015/06/15/algol-60-pl0-and-matlab/",
+    "https://en.wikipedia.org/wiki/Speakeasy_(computational_environment)",
+    "https://en.wikipedia.org/wiki/PL/0",
+    "https://en.wikipedia.org/wiki/Fortran",
+    "https://en.wikipedia.org/wiki/APL_(programming_language)",
+    "https://en.wikipedia.org/wiki/Julia_(programming_language)",
+    "https://julialang.org/blog/2012/02/why-we-created-julia/",
+    "https://www.mathworks.com/help/matlab/matlab_prog/local-functions-in-scripts.html",
+    "https://www.mathworks.com/help/matlab/ref/arguments.html",
+    "https://www.mathworks.com/help/matlab/ref/classdef.html",
+    "https://www.mathworks.com/help/matlab/ref/mexception.html",
+    "https://www.mathworks.com/help/matlab/ref/string.html",
+    "https://www.mathworks.com/help/matlab/ref/function_handle.html",
+    "https://www.mathworks.com/help/matlab/matlab_prog/nested-functions.html",
+    "https://www.mathworks.com/help/matlab/matlab_prog/avoid-unnecessary-copies-of-data.html",
+    "https://www.mathworks.com/help/matlab/matlab_oop/handle-class-destructors.html",
+    "https://www.mathworks.com/help/matlab/matlab_oop/weak-reference-handles.html",
+    "https://www.mathworks.com/help/matlab/matlab_oop/modifying-and-reloading-classes.html",
+    "https://www.mathworks.com/help/matlab/ref/matlab.mixin.copyable-class.html",
+    "https://www.mathworks.com/help/matlab/release-notes.html",
+    "https://en.wikipedia.org/wiki/GNU_Octave",
+    "https://octave.org/news.html",
+    "https://docs.octave.org/latest/Script-Files.html",
+    "https://hub.docker.com/r/gnuoctave/octave",
+    "https://github.com/runmat-org/runmat",
+    "https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml"
+  ]
+}

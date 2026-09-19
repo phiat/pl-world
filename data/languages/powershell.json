@@ -1,0 +1,379 @@
+{
+  "id": "powershell",
+  "name": "PowerShell",
+  "aliases": [
+    "pwsh",
+    "Windows PowerShell",
+    "PowerShell Core",
+    "Monad",
+    "MSH (Microsoft Shell)"
+  ],
+  "year": 2006,
+  "year_note": "Jeffrey Snover's 'Monad Manifesto' (dated 8 August 2002) set out the design, and Microsoft first showed the shell, code-named Monad (also Microsoft Shell, MSH), at its Professional Developers Conference in October 2003. Public betas followed from 17 June 2005; Monad was renamed Windows PowerShell on 25 April 2006, and version 1.0 was released to the web on 14 November 2006. Windows PowerShell 5.1 (2016) was the last version for the .NET Framework: the open-source, cross-platform PowerShell Core 6.0 (January 2018) runs on .NET Core, and from 7.0 (2020) the product is simply PowerShell.",
+  "designers": [
+    "Jeffrey Snover",
+    "Bruce Payette",
+    "James Truher"
+  ],
+  "organization": "Microsoft",
+  "country": "United States",
+  "tagline": "Microsoft's object-pipeline shell: Verb-Noun cmdlets pass typed .NET objects, not text, from one command to the next.",
+  "summary": "PowerShell is Microsoft's command shell and scripting language for task automation and configuration management. Its commands, called cmdlets, are named Verb-Noun (Get-Process, Sort-Object) and pass .NET objects rather than text down the pipeline, so each stage filters, sorts and groups by typed properties instead of parsing columns of output. Designed by Jeffrey Snover, Bruce Payette and James Truher from Snover's 2002 'Monad Manifesto', it shipped for Windows in 2006 and has been open source and cross-platform on .NET since 2016.",
+  "history": "PowerShell grew out of Kermit, a Microsoft project to port the KornShell to Windows so that Intel could run its automation scripts there. When Intel moved to Linux instead, program manager Jeffrey Snover concluded that Unix tools could not simply be carried over: Unix treats everything as text, while Windows exposes its management through APIs that return structured data. His 'Monad Manifesto' (August 2002) proposed a .NET shell that pipes objects instead of 'unstructured text', whose commands ('Cmdlets') are .NET classes named by a verb and a noun, with one shared parser giving every command the consistency of VMS DCL and AS/400's CL. Its language would take 'the functions and syntax of the POSIX Shell model' as a starting point and extend them to 'provide a glide path to C#'; Bruce Payette, a co-designer of the language, later wrote that its core grammar is the POSIX 1003.2 grammar of the Korn shell. Monad was shown at the Professional Developers Conference in October 2003, went to public beta in June 2005, was renamed Windows PowerShell in April 2006 and was released as 1.0, with 129 cmdlets, in November 2006.\n\nExchange Server 2007 built its management tools on it, running PowerShell commands behind its GUI through the hosting API. Version 2.0 (2009, part of Windows 7) added remoting over WS-Management, background jobs, modules, advanced functions (cmdlets written in script), try/catch/finally and the ISE editor. 3.0 (2012) rebuilt the engine on the Dynamic Language Runtime, compiling scripts to .NET expression trees, and loaded modules automatically; 4.0 (2013) added Desired State Configuration, a declarative description of how a machine should be configured; and 5.0 (2016) added class and enum definitions.\n\nOn 18 August 2016 Microsoft released PowerShell as open source under the MIT License and ported it to macOS and Linux. The port, PowerShell Core, reached 6.0 in January 2018 on .NET Core, while Windows PowerShell stopped at 5.1. PowerShell 7.0 (March 2020) dropped 'Core' from the name and added ForEach-Object -Parallel, the ?: ternary operator, && and || pipeline chains and the ?? null-coalescing operator. Releases now track .NET's: 7.6 (March 2026), the current long-term-support release, runs on .NET 10. In 2025 the PowerShell team stopped publishing its own container images in favour of the .NET team's SDK images, which include PowerShell.",
+  "innovations": [
+    "An object pipeline in a shell: commands pass .NET objects rather than text, so later stages filter, sort and group by typed properties without parsing output (the Monad Manifesto, 2002)",
+    "Cmdlets: commands written as .NET classes (and, from 2.0, as advanced functions in script) whose parameters the shell itself parses, validates and binds, so every command shares one syntax and the common parameters, and commands that change state support -WhatIf and -Confirm",
+    "Verb-Noun command names drawn from a published list of approved verbs (Get-Verb), which makes commands guessable and discoverable through Get-Command and Get-Help",
+    "Pipeline input bound to parameters by type or by property name, so any object that has the right property can feed a command",
+    "Providers that expose the file system, registry, certificate store, environment variables and the shell's own variables and functions as drives, navigated with the same commands",
+    "A hosting API that embeds the engine in applications, so products such as Exchange Server 2007 build their management GUIs on the same commands administrators script",
+    "Remoting (2.0): run commands and scripts on many machines at once and get objects back, serialized by value"
+  ],
+  "paradigms": [
+    "scripting",
+    "imperative",
+    "procedural",
+    "object-oriented",
+    "functional",
+    "reflective"
+  ],
+  "family": "scripting",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Every value is a .NET object and keeps its .NET type. Variables, parameters and class members can be constrained with a type literal ([int] $n), which converts each value assigned and throws when it cannot. Operators convert implicitly, directed by the left operand: '5' + 3 is '53' but 5 + '3' is 8, '10' -lt 9 compares as strings, and integer arithmetic that overflows [int] silently becomes [double]. Wikipedia's infobox calls the typing strong and safe, as no value is ever reinterpreted in memory; by the implicit-conversion measure used here it is weak. Cmdlets bind pipeline objects to parameters by type or by property name, much like duck typing, and parameters can carry validation attributes ([ValidateRange(1, 10)]) checked when the command is called."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "The .NET runtime's generational garbage collector. Objects travel down a pipeline by reference, never as copies or text; remoting serializes them by value.",
+  "execution": [
+    "interpreted",
+    "jit"
+  ],
+  "status": "active",
+  "latest_version": "7.6.6 (8 September 2026); 7.6, on .NET 10, is the current long-term-support release",
+  "file_extensions": [
+    ".ps1",
+    ".psm1",
+    ".psd1"
+  ],
+  "color": "#012456",
+  "primary_parent": "sh",
+  "influenced_by": [
+    {
+      "id": "sh",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Snover's Monad Manifesto (2002) took 'the functions and syntax of the POSIX Shell model (flow control, faulting handling, variables, function definition, scoping, IO redirection, etc) as a starting point', and Bruce Payette wrote that 'the core PowerShell language is based on the POSIX 1003.2 grammar for the Korn shell': commands and arguments separated by spaces, | pipelines, $variables, > redirection and word operators (-eq, -lt) like those of test. Microsoft's abandoned Windows port of the KornShell, code-named Kermit, preceded Monad."
+    },
+    {
+      "id": "csharp",
+      "kind": "influence",
+      "weight": "major",
+      "note": "The same manifesto set out to extend the shell syntax to 'provide a glide path to C#': .NET type literals ([int], [System.IO.Path]), :: for static members, method calls with parentheses, try/catch/finally (2.0) and C#-style class definitions (5.0). Cmdlets themselves are .NET classes, usually written in C#."
+    },
+    {
+      "id": "perl",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Ars Technica's tour of the 2005 Monad beta found the language 'structurally ... a great deal like Perl', Don Jones's history of PowerShell names Perl among its influences, and Perl's Wikipedia infobox lists PowerShell among the languages it influenced. As in Perl, every variable starts with $, the current item is $_, and regular-expression matching is an operator that fills a match variable."
+    },
+    {
+      "id": "sql",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Ars Technica (2005) found features inherited 'from Bash and SQL', and SQL's Wikipedia infobox lists PowerShell among the languages it influenced. Where-Object, Sort-Object, Group-Object and Select-Object correspond to SQL's WHERE, ORDER BY, GROUP BY and SELECT."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "KornShell",
+      "year": 1983,
+      "note": "The POSIX 1003.2 shell grammar that Payette names as the core of PowerShell's is that of ksh; Kermit, Microsoft's unfinished Windows port of ksh for Intel, led to Monad."
+    },
+    {
+      "name": "DIGITAL Command Language (VMS)",
+      "note": "Snover credited 'the unsung super engineers behind VMS/DCL and AS400/CL'; the Monad Manifesto singles out their common command parser, which gave every command the same syntax, the model for cmdlets' shared parameter binding."
+    },
+    {
+      "name": "Control Language (IBM System/38, AS/400)",
+      "note": "The other system with a common command parser named in the Monad Manifesto, alongside VMS DCL."
+    },
+    {
+      "name": "Tcl/Tk",
+      "year": 1988,
+      "note": "Snover: 'Tcl/TK had a huge influence on me and thus on PowerShell': an embeddable scripting language, the model for PowerShell's hosting API, with quick GUIs layered on top. The Monad Manifesto builds on John Ousterhout's paper 'Scripting: Higher Level Programming for the 21st Century'."
+    },
+    {
+      "name": "Puppet",
+      "year": 2005,
+      "note": "Listed among PowerShell's influences in Wikipedia's infobox; a declarative configuration-management tool, like Desired State Configuration (4.0, 2013)."
+    },
+    {
+      "name": "Chef",
+      "year": 2009,
+      "note": "Listed among PowerShell's influences in Wikipedia's infobox; a configuration-management tool, like Desired State Configuration (4.0, 2013)."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if/elseif/else, for, foreach, while, do … while / do … until and labelled break/continue, plus a switch statement that tests a value, or loops over a whole collection, against constants, wildcard or regex patterns (-Wildcard, -Regex) or script-block conditions, running every clause that matches. PowerShell 7.0 added the ?: ternary operator and the && / || pipeline chains."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "try/catch/finally since 2.0 (1.0 had only trap), catching .NET exception types, several per catch clause. Errors are ErrorRecord objects of two kinds: terminating errors unwind like exceptions, while non-terminating ones are written to the error stream and the command carries on, unless -ErrorAction Stop or $ErrorActionPreference = 'Stop' makes them terminating."
+    },
+    "generators": {
+      "level": "supported",
+      "note": "No yield: every function streams its output, and a pipeline runs its stages interleaved, one object at a time (a function's begin, process and end blocks run once, once per input object, and once at the end). A consumer that stops early stops its producer too: an endless while loop piped to Select-Object -First 3 produces only three values."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Script blocks ({ param($x) $x * 2 }) are values that can be stored, passed and invoked with & or .Invoke(); they are what Where-Object, ForEach-Object and calculated properties take as arguments. A named function is available as a value through ${function:Name}."
+    },
+    "closures": {
+      "level": "supported",
+      "note": "Scoping is dynamic: scripts, functions and script blocks get a new child scope of whatever scope calls them (if and foreach blocks create none), so a script block sees the caller's $x when it runs. .GetNewClosure() snapshots the current variables into a new dynamic module; state kept there must be updated as $script:name."
+    },
+    "gradual-typing": {
+      "level": "supported",
+      "note": "Type constraints are optional on variables, parameters and class members ([int] $n) and are enforced at run time by conversion: assigning 'abc' to an [int] variable throws. Classes (5.0) are checked more strictly when the script is parsed: a method that does not return a value on every path stops the whole script from running."
+    },
+    "generics": {
+      "level": "supported",
+      "note": "Uses .NET generic types ([System.Collections.Generic.List[int]]::new()) and, since 7.3, calls generic methods with explicit type arguments; PowerShell classes and functions cannot declare type parameters."
+    },
+    "interfaces": {
+      "level": "supported",
+      "since": 2016,
+      "version": "PowerShell 5.0",
+      "note": "A class can implement .NET interfaces (class Version : System.IComparable), but PowerShell has no syntax for declaring one."
+    },
+    "classes": {
+      "level": "supported",
+      "since": 2016,
+      "version": "PowerShell 5.0",
+      "note": "class and enum definitions with typed properties, constructors, static and hidden members; hidden only keeps a member out of Get-Member and tab completion, and there is no private. Unlike functions, methods declare an output type and emit only what they return. Everyday scripts still build objects from hashtables ([pscustomobject]@{ … }) or with Add-Member."
+    },
+    "inheritance": {
+      "level": "supported",
+      "since": 2016,
+      "version": "PowerShell 5.0",
+      "note": "Single inheritance from a PowerShell class or any unsealed .NET class, with base-constructor calls (: base(…)) and method overriding; there are no abstract members."
+    },
+    "everything-is-an-object": {
+      "level": "supported",
+      "note": "Every value is a .NET object, wrapped in a PSObject that can carry extra members; even the lines read from a text file are System.String objects with properties such as Length. Computation is method calls and cmdlets, not message passing."
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "note": "The Extended Type System adds members to existing .NET types (Update-TypeData, types.ps1xml files) or to single objects (Add-Member): script properties, script methods, aliases and default display sets. There is no trait composition for classes."
+    },
+    "modules": {
+      "level": "core",
+      "since": 2009,
+      "version": "PowerShell 2.0",
+      "note": "Script modules (.psm1) with manifests (.psd1), private state and Export-ModuleMember; since 3.0 a module is loaded automatically the first time one of its commands is used, and modules are shared through the PowerShell Gallery. 1.0 had only dot-sourcing and compiled snap-ins."
+    },
+    "operator-overloading": {
+      "level": "supported",
+      "since": 2016,
+      "version": "PowerShell 5.0",
+      "note": "Operators call a type's .NET operator methods, so a class can define static [Vector] op_Addition([Vector] $a, [Vector] $b); -eq and -lt use Equals and IComparable."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "Only for variables (Set-Variable -Option ReadOnly or Constant); arrays, hashtables and objects are mutable, apart from immutable .NET types such as strings."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "The .NET runtime's collector."
+    },
+    "reflection": {
+      "level": "core",
+      "note": "Get-Member lists any object's properties and methods, .GetType() and .PSObject expose its type and members, Get-Command and Get-Help describe every command, and since 3.0 a script block's syntax tree is available as .Ast, with a public parser API."
+    },
+    "array-programming": {
+      "level": "supported",
+      "note": "Some operators work on whole arrays: a comparison or matching operator with an array on its left filters it (1..10 -gt 7 gives 8 9 10; -like, -match and -replace likewise), and member-access enumeration (3.0) maps a property or method over a collection ($files.Name). Arithmetic is not element-wise: @(1, 2) * 2 repeats the array."
+    },
+    "declarative-queries": {
+      "level": "supported",
+      "note": "The object pipeline reads like a query: Where-Object, Sort-Object, Group-Object and Select-Object correspond to SQL's WHERE, ORDER BY, GROUP BY and SELECT and address properties by name, though the stages run in the order written. -Filter and -Query parameters hand a predicate to the data source, such as WQL for WMI/CIM queries."
+    },
+    "regex-builtin": {
+      "level": "core",
+      "note": "-match, -replace and -split take .NET regular expressions, case-insensitive by default (-cmatch and friends are case-sensitive); -match fills $Matches with the captures, switch -Regex dispatches on patterns, and Select-String searches files like grep."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2002,
+      "event": "Jeffrey Snover's Monad Manifesto (8 August) proposes a shell that pipes .NET objects"
+    },
+    {
+      "year": 2003,
+      "event": "Monad shown publicly at Microsoft's Professional Developers Conference (October)"
+    },
+    {
+      "year": 2005,
+      "event": "First public Monad beta (17 June)"
+    },
+    {
+      "year": 2006,
+      "event": "Renamed Windows PowerShell (25 April); version 1.0 released (14 November) with 129 cmdlets"
+    },
+    {
+      "year": 2009,
+      "event": "PowerShell 2.0 in Windows 7: remoting, background jobs, modules, advanced functions and try/catch"
+    },
+    {
+      "year": 2012,
+      "event": "PowerShell 3.0: engine rebuilt on the Dynamic Language Runtime, automatic module loading"
+    },
+    {
+      "year": 2013,
+      "event": "PowerShell 4.0 adds Desired State Configuration"
+    },
+    {
+      "year": 2016,
+      "event": "PowerShell 5.0 adds classes and enums (February); open-sourced under the MIT License and ported to Linux and macOS (18 August); 5.1 is the last Windows PowerShell"
+    },
+    {
+      "year": 2018,
+      "event": "PowerShell Core 6.0, the first cross-platform release, on .NET Core (January)"
+    },
+    {
+      "year": 2020,
+      "event": "PowerShell 7.0 (March): ForEach-Object -Parallel, ternary and pipeline-chain operators, null coalescing"
+    },
+    {
+      "year": 2025,
+      "event": "The PowerShell team hands its container images over to the .NET SDK images"
+    },
+    {
+      "year": 2026,
+      "event": "PowerShell 7.6, a long-term-support release on .NET 10 (March)"
+    }
+  ],
+  "trivia": [
+    "The name Monad comes from Leibniz's Monadology: monads are 'the fundamental unit of existence that aggregates into compounds to implement a purpose', which the manifesto took as a picture of composable management.",
+    "The Monad Manifesto called the Unix habit of scraping command output 'prayer based parsing': 'when you parse the text and pray that you got it right'.",
+    "In 2012 Jeffrey Snover, Bruce Payette and James Truher received USENIX's LISA Outstanding Achievement Award for PowerShell.",
+    "Windows 10 build 14971 (November 2016) made PowerShell, in place of Command Prompt, the command shell offered by File Explorer.",
+    "Nushell (2019), a shell written in Rust, names 'the structured data approach of PowerShell' among its inspirations."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "PowerShell 7.6",
+      "code": "# A value left on the pipeline is written to the output: no print needed.\n'Hello, World!'\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Any value a statement leaves on the pipeline goes to the output stream, and whatever reaches the end of the pipeline is formatted and printed, so a bare string is a complete program. Write-Output 'Hello, World!' says the same thing explicitly. Write-Host writes to the console instead of the pipeline (since 5.0 through the information stream), so its text cannot be piped on or assigned. Single-quoted strings are literal; double-quoted ones expand $variables and backtick escapes such as `n, the backtick being PowerShell's escape character.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "PowerShell 7.6",
+      "code": "function Get-Factorial([int] $n) {\n    if ($n -le 1) { return 1 }\n    $n * (Get-Factorial ($n - 1))\n}\n\nGet-Factorial 10\n",
+      "expected_output": "3628800\n",
+      "notes": "Functions are named Verb-Noun like cmdlets (Get is an approved verb; Get-Verb lists them all) and are called like commands, with arguments separated by spaces: Get-Factorial 10, not Get-Factorial(10), and Get-Factorial(1, 2) would pass one array. The parentheses in (Get-Factorial ($n - 1)) switch back to expression mode. Comparisons are word operators (-le, -eq), as in test, because < and > mean redirection. A function returns everything its statements output, not just the value after return (return 1 outputs 1 and leaves), so the product on the last line is the result. [int] converts the argument when it is bound; an [int] product that overflows becomes a [double], so 21! prints as 5.10909421717094E+19.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "PowerShell 7.6",
+      "code": "# switch loops over a collection by itself; $_ is the current element.\nswitch (1..15) {\n    { $_ % 15 -eq 0 } { 'FizzBuzz'; continue }\n    { $_ % 3 -eq 0 }  { 'Fizz'; continue }\n    { $_ % 5 -eq 0 }  { 'Buzz'; continue }\n    default           { $_ }\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Given a collection, switch runs once per element with $_ bound to it. A clause's condition can be a value, a wildcard or regular-expression pattern (with -Wildcard or -Regex) or, as here, a script block that returns true or false. Every clause that matches runs, so continue moves on to the next element; break would end the whole switch, not just the clause. default runs when nothing matched. 1..15 is the range operator, which builds an array of [int].",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "PowerShell 7.6",
+      "code": "# Script blocks { } are the lambdas; $_ is the object currently in the pipeline.\n$squares = 1..10 | Where-Object { $_ % 2 -eq 0 } | ForEach-Object { $_ * $_ }\n$squares -join ' '\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Where-Object and ForEach-Object take script blocks, PowerShell's anonymous functions, and run them once per object with $_ (also called $PSItem) bound to it. Assigning a pipeline to a variable collects its output into an array, and the -join operator (2.0) concatenates it; \"$squares\" would also join with spaces, the default of the $OFS separator. Collections also have .Where() and .ForEach() methods (4.0) that skip the pipeline: (1..10).Where({ $_ % 2 -eq 0 }).ForEach({ $_ * $_ }) -join ' '.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "PowerShell 7.6 (classes, 5.0+)",
+      "code": "class Shape {\n    [int] Area() { throw 'Area is not implemented' }   # no abstract keyword\n}\n\nclass Rectangle : Shape {\n    [int] $Width\n    [int] $Height\n    Rectangle([int] $width, [int] $height) { $this.Width = $width; $this.Height = $height }\n    [int] Area() { return $this.Width * $this.Height }\n}\n\nclass Triangle : Shape {\n    [int] $Base\n    [int] $Height\n    Triangle([int] $base, [int] $height) { $this.Base = $base; $this.Height = $height }\n    [int] Area() { return $this.Base * $this.Height / 2 }\n}\n\n[Shape[]] $shapes = [Rectangle]::new(3, 4), [Triangle]::new(10, 3)\nforeach ($shape in $shapes) {\n    '{0}: {1}' -f $shape.GetType().Name, $shape.Area()\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Classes arrived in PowerShell 5.0 (2016) with C#-like syntax. There is no abstract keyword and no way to declare an interface (a class can implement .NET ones), so Shape's Area throws and the subclasses override it; the loop calls Area through the [Shape[]] array. Unlike functions, methods must declare an output type and emit only what they return. Dividing integers with / gives an [int] only when the division is exact (7 / 2 is the [double] 3.5), and converting to [int] rounds to the nearest even number rather than truncating. GetType().Name reads the class name back through .NET reflection. Before classes, the idiom was a [pscustomobject] given a ScriptMethod with Add-Member.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Objects, not text, down the pipeline",
+      "concepts": [
+        "declarative-queries",
+        "everything-is-an-object"
+      ],
+      "dialect": "PowerShell 7.6",
+      "code": "# Commands pass .NET objects down the pipeline, not lines of text, so each stage\n# filters, sorts and groups by property name, and Year stays an [int] throughout.\nfunction Get-Shell {    # Verb-Noun, like every cmdlet; it emits six objects\n    [pscustomobject]@{ Name = 'Thompson shell'; Year = 1971; Pipes = 'text' }\n    [pscustomobject]@{ Name = 'Bourne shell';   Year = 1979; Pipes = 'text' }\n    [pscustomobject]@{ Name = 'KornShell';      Year = 1983; Pipes = 'text' }\n    [pscustomobject]@{ Name = 'Bash';           Year = 1989; Pipes = 'text' }\n    [pscustomobject]@{ Name = 'PowerShell';     Year = 2006; Pipes = 'objects' }\n    [pscustomobject]@{ Name = 'Nushell';        Year = 2019; Pipes = 'tables' }\n}\n\nGet-Shell | Where-Object Year -gt 1980 | Sort-Object Year -Descending |\n    Select-Object -First 3 | ForEach-Object { '{0} ({1})' -f $_.Name, $_.Year }\n\nGet-Shell | Group-Object Pipes | ForEach-Object {\n    '{0,-7} {1}' -f $_.Name, ($_.Group.Name -join ', ')    # .Group holds the objects\n}\n\n$years = Get-Shell | Measure-Object Year -Minimum -Maximum\n'{0} shells, {1} years apart' -f $years.Count, ($years.Maximum - $years.Minimum)\n",
+      "expected_output": "Nushell (2019)\nPowerShell (2006)\nBash (1989)\nobjects PowerShell\ntables  Nushell\ntext    Thompson shell, Bourne shell, KornShell, Bash\n6 shells, 48 years apart\n",
+      "notes": "Get-Shell writes six objects to the pipeline, each cast from a hashtable to [pscustomobject] with typed properties. Where-Object Year -gt 1980 (the simplified syntax of 3.0) compares numbers because Year is an [int]; Sort-Object and Select-Object -First take properties and counts, not column positions. Group-Object returns GroupInfo objects (Name, Count and the Group of original objects) sorted by name, and $_.Group.Name collects the Name of every object in a group by member-access enumeration (3.0). Measure-Object computes Count, Minimum and Maximum of a property. The Monad Manifesto (2002) introduced the idea with Get-EventLog application | Group source | Select -first 5 | Format-Table; the Bourne shell's word-frequency pipeline has to turn uniq -c's text back into numbers for sort -rn. The lines are built with -f (.NET String.Format) because the default table view depends on the console's width.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "PowerShell (pwsh), Microsoft's self-contained Linux release",
+        "version": "7.6.6 (on .NET 10.0.12)",
+        "docker_image": "plw-powershell",
+        "dockerfile": "sandbox/powershell/Dockerfile",
+        "run": "pwsh -NoLogo -NoProfile -NonInteractive -File {file}",
+        "notes": "Microsoft's ReadyToRun-compiled release tarball (SHA-256 pinned) on mcr.microsoft.com/dotnet/runtime-deps:10.0.12-noble. The image opts out of telemetry and update checks, sets NO_COLOR so error messages carry no ANSI colour codes, moves pwsh's XDG cache, config and data directories off /root (pwsh aborts at startup under a read-only root otherwise) and bakes in a startup JIT profile recorded by a warm-up run, which cuts about 200 ms from every cold start. All six snippets also pass with a read-only root filesystem."
+      },
+      {
+        "name": "PowerShell in the .NET SDK image",
+        "version": "7.6.6 (.NET SDK 10.0.401)",
+        "docker_image": "mcr.microsoft.com/dotnet/sdk:10.0.401-noble",
+        "run": "HOME=/tmp POWERSHELL_TELEMETRY_OPTOUT=1 pwsh -NoLogo -NoProfile -NonInteractive -File {file}",
+        "notes": "Microsoft's supported way to run PowerShell in a container since 2025, when the PowerShell team stopped publishing mcr.microsoft.com/powershell images (7.5 was the last). All six snippets print the same output there, but pwsh is installed as a .NET global tool whose assemblies are not precompiled, so the whole engine is JIT-compiled at each start and a run takes 150-250 ms longer, from a 917 MB image; HOME=/tmp is needed under a read-only root."
+      }
+    ],
+    "browser": null,
+    "notes": "Snippets run on Microsoft's own Linux build of PowerShell 7.6.6, the current long-term-support release. Run one at a time, a snippet takes about 0.3-0.45 s end to end (274-432 ms measured), roughly 170 ms of it container startup and the rest pwsh starting up; there is no separate compile step. The engine parses a script and compiles it to .NET expression trees, which an interpreter adapted from the Dynamic Language Runtime executes; a script block that runs 32 times is compiled to IL for the JIT, while scripts of more than 300 statements stay interpreted."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/PowerShell",
+    "homepage": "https://learn.microsoft.com/en-us/powershell/",
+    "spec": "https://learn.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-01"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/PowerShell",
+    "https://www.jsnover.com/Docs/MonadManifesto.pdf",
+    "https://devblogs.microsoft.com/powershell/powershell-and-wpf-wtf/",
+    "https://arstechnica.com/information-technology/2005/10/msh/",
+    "https://evrone.com/blog/jeffrey-snover-interview",
+    "https://www.usenix.org/system/files/login/articles/1304_reports_lisa12.pdf",
+    "https://www.infoq.com/news/2012/03/PowerShell-3",
+    "https://en.wikipedia.org/wiki/Perl",
+    "https://en.wikipedia.org/wiki/SQL",
+    "https://learn.microsoft.com/en-us/powershell/scripting/install/powershell-support-lifecycle",
+    "https://learn.microsoft.com/en-us/powershell/scripting/install/powershell-in-docker",
+    "https://github.com/PowerShell/Announcements/issues/75",
+    "https://github.com/PowerShell/PowerShell/releases/tag/v7.6.0",
+    "https://github.com/PowerShell/PowerShell/releases/tag/v7.6.6",
+    "https://github.com/PowerShell/PowerShell/blob/v7.6.6/src/System.Management.Automation/engine/parser/Compiler.cs",
+    "https://github.com/PowerShell/PowerShell/blob/v7.6.6/src/System.Management.Automation/engine/interpreter/LightCompiler.cs",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_classes",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_classes_methods",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_scopes",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_switch",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_simplified_syntax",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_member-access_enumeration",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_calling_generic_methods",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/group-object",
+    "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/write-host",
+    "https://www.nushell.sh/blog/2019-08-23-introducing-nushell.html",
+    "https://github.com/nushell/nushell"
+  ]
+}

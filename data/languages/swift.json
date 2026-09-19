@@ -96,21 +96,22 @@
       "kind": "influence",
       "weight": "minor",
       "note": "Named by Lattner among Swift's sources of ideas."
-    }
-  ],
-  "influenced_by_external": [
+    },
     {
-      "name": "D",
-      "year": 2001,
-      "note": "Listed as an influence in Wikipedia's infobox."
+      "id": "d",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Apple's Swift blog ('Building assert() in Swift, Part 2', 2014): Swift 'borrows a clever feature from the D language': __FILE__ and __LINE__ (now #file and #line) used as default arguments expand to the caller's location, which is how assert() reports where it was called."
     }
   ],
+  "influenced_by_external": [],
   "influenced": [
     "rust",
     "php",
     "dart",
     "mojo",
-    "lean"
+    "lean",
+    "v"
   ],
   "traits": {
     "structured-control": {
@@ -378,6 +379,7 @@
     "https://www.nondot.org/sabre/",
     "https://developer.apple.com/videos/play/wwdc2015/408/",
     "https://github.com/swiftlang/swift/releases",
-    "https://en.wikipedia.org/wiki/PHP"
+    "https://en.wikipedia.org/wiki/PHP",
+    "https://developer.apple.com/swift/blog/?id=15"
   ]
 }

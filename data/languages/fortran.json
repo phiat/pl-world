@@ -70,7 +70,8 @@
   "influenced": [
     "algol60",
     "basic",
-    "c"
+    "c",
+    "matlab"
   ],
   "traits": {
     "structured-control": {

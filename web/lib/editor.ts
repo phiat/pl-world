@@ -16,7 +16,7 @@ import {
   syntaxHighlighting,
 } from "@codemirror/language";
 import { tagHighlighter, tags as t } from "@lezer/highlight";
-import { LEAN, LOGO, ODIN, UNISON } from "./keywords.ts";
+import { LEAN, LOGO, ODIN, UNISON, V } from "./keywords.ts";
 
 export type EditorHandle = {
   setReadOnly(readOnly: boolean): void;
@@ -320,6 +320,27 @@ const odinMode = () =>
     }))
   );
 
+// V: the clike factory with V's words, plus hooks for @[attributes], $if-style compile-time code and `c` runes.
+const vMode = () =>
+  import("@codemirror/legacy-modes/mode/clike").then((m) =>
+    legacy(m.clike({
+      name: "v",
+      keywords: words(V.keywords),
+      types: words(V.types),
+      builtin: words(V.builtins),
+      atoms: words(V.literals),
+      blockKeywords: words("if else for match fn struct enum interface union defer unsafe lock rlock select"),
+      isOperatorChar: /[+\-*&%=<>!?|\/^~]/,
+      isIdentifierChar: /[\w_\xa1-\uffff]/,
+      indentStatements: false,
+      hooks: {
+        "@": (s: StringStream) => (s.match(/^\[[^\]]*\]/) || s.eatWhile(/[\w_]/), "meta"),
+        "$": (s: StringStream) => (s.eatWhile(/[\w_]/), "meta"),
+        "`": (s: StringStream) => (s.skipTo("`") ? s.next() : s.skipToEnd(), "string"),
+      },
+    }))
+  );
+
 // Modes per language. Close relatives stand in where CodeMirror has no mode of its own:
 // the ALGOL family (Oberon, Object Pascal) uses Pascal, Ada uses VHDL (itself derived from Ada), Prolog uses
 // Erlang (whose syntax came from Prolog), Elixir uses Ruby, Zig and Gleam use Rust, AWK uses Perl, B uses C and
@@ -348,6 +369,7 @@ const MODES: Record<string, () => Promise<Extension>> = {
   sh: () => import("@codemirror/legacy-modes/mode/shell").then((m) => legacy(m.shell)),
   ada: () => import("@codemirror/legacy-modes/mode/vhdl").then((m) => legacy(m.vhdl)),
   "common-lisp": () => import("@codemirror/legacy-modes/mode/commonlisp").then((m) => legacy(m.commonLisp)),
+  matlab: () => import("@codemirror/legacy-modes/mode/octave").then((m) => legacy(m.octave)),
   "objective-c": () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.objectiveC)),
   cpp: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.cpp)),
   "object-pascal": () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
@@ -375,8 +397,10 @@ const MODES: Record<string, () => Promise<Extension>> = {
   racket: () => import("@codemirror/legacy-modes/mode/scheme").then((m) => legacy(m.scheme)),
   ocaml: () => import("@codemirror/legacy-modes/mode/mllike").then((m) => legacy(m.oCaml)),
   csharp: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.csharp)),
+  d: () => import("@codemirror/legacy-modes/mode/d").then((m) => legacy(m.d)),
   scala: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.scala)),
   fsharp: () => import("@codemirror/legacy-modes/mode/mllike").then((m) => legacy(m.fSharp)),
+  powershell: () => import("@codemirror/legacy-modes/mode/powershell").then((m) => legacy(m.powerShell)),
   clojure: () => import("@codemirror/legacy-modes/mode/clojure").then((m) => legacy(m.clojure)),
   nim: () => pythonWith(NIM_KEYWORDS),
   go: () => import("@codemirror/legacy-modes/mode/go").then((m) => legacy(m.go)),
@@ -394,6 +418,7 @@ const MODES: Record<string, () => Promise<Extension>> = {
   odin: odinMode,
   gleam: () => import("@codemirror/legacy-modes/mode/rust").then((m) => legacy(m.rust)),
   unison: () => Promise.resolve(legacy(unisonParser as StreamParser<unknown>)),
+  v: vMode,
   mojo: () => pythonWith(MOJO_KEYWORDS),
 };
 

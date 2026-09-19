@@ -2,7 +2,7 @@
 // Only the grammars below are bundled (the full highlight.js build carries ~190 and weighs ~1 MB).
 import hljs from "highlight.js/lib/core";
 import type { LanguageFn } from "highlight.js";
-import { LEAN, LOGO, ODIN, UNISON } from "./keywords.ts";
+import { LEAN, LOGO, ODIN, UNISON, V } from "./keywords.ts";
 import ada from "highlight.js/lib/languages/ada";
 import applescript from "highlight.js/lib/languages/applescript";
 import awk from "highlight.js/lib/languages/awk";
@@ -13,6 +13,7 @@ import clojure from "highlight.js/lib/languages/clojure";
 import cpp from "highlight.js/lib/languages/cpp";
 import crystal from "highlight.js/lib/languages/crystal";
 import csharp from "highlight.js/lib/languages/csharp";
+import d from "highlight.js/lib/languages/d";
 import dart from "highlight.js/lib/languages/dart";
 import delphi from "highlight.js/lib/languages/delphi";
 import elixir from "highlight.js/lib/languages/elixir";
@@ -29,11 +30,13 @@ import kotlin from "highlight.js/lib/languages/kotlin";
 import lisp from "highlight.js/lib/languages/lisp";
 import livecodeserver from "highlight.js/lib/languages/livecodeserver";
 import lua from "highlight.js/lib/languages/lua";
+import matlab from "highlight.js/lib/languages/matlab";
 import nim from "highlight.js/lib/languages/nim";
 import objectivec from "highlight.js/lib/languages/objectivec";
 import ocaml from "highlight.js/lib/languages/ocaml";
 import perl from "highlight.js/lib/languages/perl";
 import php from "highlight.js/lib/languages/php";
+import powershell from "highlight.js/lib/languages/powershell";
 import prolog from "highlight.js/lib/languages/prolog";
 import python from "highlight.js/lib/languages/python";
 import r from "highlight.js/lib/languages/r";
@@ -59,6 +62,7 @@ const GRAMMARS = {
   cpp,
   crystal,
   csharp,
+  d,
   dart,
   delphi,
   dylan,
@@ -80,11 +84,13 @@ const GRAMMARS = {
   nim,
   j,
   lua,
+  matlab,
   objectivec,
   ocaml,
   odin,
   perl,
   php,
+  powershell,
   prolog,
   python,
   r,
@@ -98,6 +104,7 @@ const GRAMMARS = {
   swift,
   typescript,
   unison,
+  v: vlang,
   vbnet,
 };
 // J has no grammar of its own in highlight.js; this covers its lexical skeleton.
@@ -210,6 +217,29 @@ function logo(): ReturnType<LanguageFn> {
 
 // Odin has no highlight.js grammar. Go leaves proc/when/using/distinct, the sized types, #directives and $T unstyled,
 // and C's preprocessor rule swallows `#soa[]T` to the end of the line.
+// V: Go-like, with its own words, '…' and "…" strings with ${} interpolation, `c` runes, @[attributes] and $if.
+function vlang(): ReturnType<LanguageFn> {
+  const interpolation = { scope: "subst", begin: /\$\{/, end: /\}/ };
+  return {
+    name: "V",
+    keywords: { keyword: V.keywords, type: V.types, literal: V.literals, built_in: V.builtins },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.COMMENT(/\/\*/, /\*\//, { contains: ["self"] }), // block comments nest
+      { scope: "string", begin: /[rc]?'/, end: /'/, contains: [hljs.BACKSLASH_ESCAPE, interpolation] },
+      { scope: "string", begin: /[rc]?"/, end: /"/, contains: [hljs.BACKSLASH_ESCAPE, interpolation] },
+      { scope: "string", begin: /`(?:\\.|[^`\\])+`/ }, // runes
+      { scope: "meta", begin: /@\[/, end: /\]/ }, // attributes
+      { scope: "meta", begin: /\$[A-Za-z_]\w*|@[A-Z_]+\b/ }, // compile time: $if $for @FILE @LINE
+      { scope: "title.function", begin: /(?<=\bfn\s+(?:\([^)]*\)\s*)?)[A-Za-z_]\w*/ },
+      { scope: "title.class", begin: /(?<=\b(?:struct|enum|interface|union|type)\s+)[A-Z]\w*/ },
+      { scope: "operator", begin: /:=|<-|\.\.\.?|[?!](?=[\s,)]|$)/ },
+      { begin: /\.[A-Za-z_]\w*/ }, // members stay plain: s.int() is a method, not the int type
+      { scope: "number", begin: /\b(?:0[xbo][0-9A-Fa-f_]+|\d[\d_]*(?:\.\d[\d_]*)?(?:[eE][+-]?\d+)?)\b/ },
+    ],
+  };
+}
+
 function odin(): ReturnType<LanguageFn> {
   return {
     name: "Odin",
@@ -289,6 +319,7 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   ada: "ada",
   "objective-c": "objectivec",
   "common-lisp": "lisp",
+  matlab: "matlab",
   dylan: "dylan",
   cpp: "cpp",
   "object-pascal": "delphi",
@@ -312,8 +343,10 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   racket: "scheme",
   ocaml: "ocaml",
   csharp: "csharp",
+  d: "d",
   scala: "scala",
   fsharp: "fsharp",
+  powershell: "powershell",
   clojure: "clojure",
   nim: "nim",
   go: "go",
@@ -330,6 +363,7 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   gleam: "rust",
   unison: "unison",
   odin: "odin",
+  v: "v",
   mojo: "python",
 };
 

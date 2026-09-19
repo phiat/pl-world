@@ -130,7 +130,8 @@
     "zig",
     "gleam",
     "odin",
-    "crystal"
+    "crystal",
+    "v"
   ],
   "traits": {
     "structured-control": {

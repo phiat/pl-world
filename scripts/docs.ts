@@ -1,5 +1,6 @@
 // Keep the counts quoted in the Markdown docs in step with the data. Each one is wrapped in HTML comments,
-// e.g. <!--languages-->68<!--/-->, which GitHub doesn't render; this script rewrites what sits between them.
+// e.g. <!--languages-->68<!--/-->, which GitHub doesn't render; this script rewrites what sits between them. deno.json
+// sets proseWrap to "preserve", so a count that changes width never reflows its paragraph.
 //   deno run -A scripts/docs.ts            # rewrite stale counts (build:db runs this)
 //   deno run -A scripts/docs.ts --check    # exit 1 if any count is stale (CI)
 import { loadWorld } from "../data/world.ts";
@@ -24,6 +25,8 @@ for await (const d of Deno.readDir(new URL("sandbox/", root))) {
 
 const VALUES: Record<string, string | number> = {
   languages: languages.length,
+  // Rounded down to the ten, for the README and the repo description: "70+" changes only every tenth language.
+  "languages-rounded": `${Math.floor(languages.length / 10) * 10}+`,
   concepts: concepts.length,
   tasks: tasks.length,
   span: `${at(byYear[0])} to ${at(byYear.at(-1)!)}`,
@@ -58,6 +61,12 @@ for (const doc of DOCS) {
   });
   const opened = text.match(/<!--[\w-]+-->/g)?.length ?? 0;
   if (opened !== seen) broken.push(`${doc}: ${opened - seen} marker(s) without a matching <!--/-->`);
+  // A line that starts with <!-- opens an HTML block, which splits the paragraph on GitHub.
+  text.split("\n").forEach((line, i) => {
+    if (/^\s*(?:[-*+>]\s+|\d+\.\s+)?<!--/.test(line)) {
+      broken.push(`${doc}:${i + 1}: a marker starts the line, so Markdown reads it as HTML; put a word before it`);
+    }
+  });
   if (next !== text) changed.set(doc, next);
 }
 

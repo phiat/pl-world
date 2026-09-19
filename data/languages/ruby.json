@@ -49,7 +49,7 @@
     { "id": "dylan", "kind": "influence", "weight": "minor", "note": "Ola Bini: Ruby 'draws primarily on features from Perl, Smalltalk, Python, Lisp, Dylan, and CLU'; no specific borrowed feature is documented." }
   ],
   "influenced_by_external": [],
-  "influenced": ["elixir", "julia", "swift", "rust", "clojure", "dart", "crystal"],
+  "influenced": ["elixir", "julia", "swift", "rust", "clojure", "dart", "crystal", "d"],
   "traits": {
     "structured-control": { "level": "core", "note": "`if`/`unless`/`while`/`until`/`case` are expressions; Perl-style statement modifiers (`x if y`)." },
     "block-scope": { "level": "supported", "note": "def, class, module and blocks open new scopes, but if/while bodies do not." },

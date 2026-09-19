@@ -46,7 +46,7 @@
   "influenced_by_external": [
     { "name": "sed", "year": 1974, "note": "s/// substitution and the regex-driven line-editing model." }
   ],
-  "influenced": ["php", "python", "ruby", "javascript", "julia"],
+  "influenced": ["php", "python", "ruby", "javascript", "julia", "powershell"],
   "traits": {
     "structured-control": { "level": "core", "note": "Also statement modifiers (`print if $x`, `... for @list`) and `unless`/`until`." },
     "block-scope": { "level": "core", "since": 1994, "version": "Perl 5", "note": "Lexical `my` variables; earlier versions had only dynamically scoped `local`." },

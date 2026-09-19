@@ -50,12 +50,13 @@
     {"id": "bcpl", "kind": "influence", "weight": "minor", "note": "The // line comment."},
     {"id": "ada", "kind": "influence", "weight": "minor", "note": "Generics and exceptions informed the design of templates and exception handling."},
     {"id": "clu", "kind": "influence", "weight": "minor", "note": "Parameterized types and exception handling."},
-    {"id": "ml", "kind": "influence", "weight": "minor", "note": "Exception handling."}
+    {"id": "ml", "kind": "influence", "weight": "minor", "note": "Exception handling."},
+    {"id": "d", "kind": "influence", "weight": "minor", "note": "C++17's `if constexpr` descends from D's `static if`: N3329 (2012), by Walter Bright, Herb Sutter and Andrei Alexandrescu, proposed `static if` using 'D's definition as a starting point'; after it was rejected, N4461 'Static if resurrected' (2015) and P0128/P0292R2 (2016) adopted a scoped form for C++17."}
   ],
   "influenced_by_external": [
     {"name": "Mesa", "year": 1976, "note": "Listed among C++'s influences (exceptions and modularity)."}
   ],
-  "influenced": ["java", "csharp", "rust", "python", "perl", "php", "lua", "ruby", "zig", "dart", "nim", "mojo"],
+  "influenced": ["java", "csharp", "rust", "python", "perl", "php", "lua", "ruby", "zig", "dart", "nim", "mojo", "d"],
   "traits": {
     "structured-control": {"level": "core"},
     "block-scope": {"level": "core"},
@@ -183,6 +184,9 @@
   "sources": [
     "https://en.wikipedia.org/wiki/C%2B%2B",
     "https://www.stroustrup.com/hopl2.pdf",
-    "https://en.wikipedia.org/wiki/Cfront"
+    "https://en.wikipedia.org/wiki/Cfront",
+    "https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2012/n3329.pdf",
+    "https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4461.html",
+    "https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0292r2.html"
   ]
 }

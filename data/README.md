@@ -6,7 +6,7 @@ Source-of-truth data for the PL World explorer. JSON files are hand-editable and
 | File | What |
 | --- | --- |
 | `schema.ts` | zod schema + TS types for everything below (the contract) |
-| `languages/<id>.json` | one file per language (<!--languages-->72<!--/--> ids, listed in `LANGUAGE_IDS` in `schema.ts`) |
+| `languages/<id>.json` | one file per language (<!--languages-->76<!--/--> ids, listed in `LANGUAGE_IDS` in `schema.ts`) |
 | `concepts.json` | <!--concepts-->56<!--/--> concepts ("genes"): origin language/year and popularizers |
 | `tasks.json` | <!--tasks-->6<!--/--> comparison tasks every language implements (the "windows") |
 
@@ -71,7 +71,8 @@ swift #F05138, zig #ec915c, awk #c30e9b, object-pascal null (#C9A227), oberon nu
 racket #3c5caa, nim #ffc200, dart #00B4AB, gleam #ffaff3, hypertalk null (#8FB339), applescript #101F1F,
 newtonscript null (#8a6f4d), mojo #ff4c1f, dylan #6c616e, logo null (#2e7d32), sh #89e051, lean null (#1b998b),
 odin #60AFFE, unison null (#ff4756), elm #60B5CC,
-crystal #000100, visual-basic #945db7, qbasic #008080`
+crystal #000100, visual-basic #945db7, qbasic #008080,
+matlab #e16737, d #ba595e, powershell #012456, v #4f87c4`
 
 **Validate** with `deno task validate <id> [<id>...]` until it reports 0 errors.
 

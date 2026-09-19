@@ -128,7 +128,8 @@
     "java",
     "python",
     "ruby",
-    "nim"
+    "nim",
+    "d"
   ],
   "traits": {
     "structured-control": {

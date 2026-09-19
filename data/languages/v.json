@@ -1,0 +1,354 @@
+{
+  "id": "v",
+  "name": "V",
+  "aliases": [
+    "vlang"
+  ],
+  "year": 2019,
+  "year_note": "Wikipedia dates V's creation to early 2019. By February 2019 the vlang.io site was online, describing Medvednikov's Volt client as built with V and promising an open-source release 'in mid 2019'. The GitHub release v0.0.12 is dated 20 June 2019, and the source code was pushed to the public repository on 22 June 2019 ('V 0.0.12 open-source release'). There is no 1.0 yet: releases are numbered 0.x, and the website calls the current series '0.5 beta'.",
+  "designers": [
+    "Alexander Medvednikov"
+  ],
+  "tagline": "Go-like simplicity with stricter defaults: immutable by default, no null, option/result and sum types, compiled via C in milliseconds.",
+  "summary": "V is a statically typed, compiled language that closely follows Go's syntax and small feature set while adding stricter defaults: variables and arguments are immutable unless marked `mut`, there is no null and no global state, and errors are option (`?T`) and result (`!T`) values that must be handled. The compiler translates a whole program into human-readable C, which the bundled TinyCC turns into an executable in a fraction of a second; GCC or Clang produce optimised builds. Memory is managed by the Boehm garbage collector by default, with experimental compile-time 'autofree' and a manual mode as alternatives. It is developed in the open by Medvednikov and several hundred contributors and has not yet reached 1.0.",
+  "history": "Alexander Medvednikov created V to write Volt, a small native desktop client for messaging services such as Slack and Discord, and at first the language shared the product's name; it became V after its .v file extension. According to the project FAQ the first compiler was written in Go; by the public release V compiled itself, through C. The vlang.io website was online by February 2019, promising an open-source release 'in mid 2019' and advertising compilation of more than a million lines per second per CPU core, a 400 KB compiler 'with zero dependencies', memory management without garbage collection or reference counting, and automatic translation of entire C and C++ projects to V. The source code was published on GitHub on 22 June 2019 as V 0.0.12.\n\nEarly reviews found a gap between these claims and the alpha. Xe Iaso's 'V is for Vaporware' (June 2019) reported that the compiler rejected a function of more than 50,000 statements, that a hello-world program leaked memory, and that, as far as the reviewer could tell, every feature on the site's front-page list was either a work in progress or absent from the repository; the site itself marked several of them, such as direct machine-code generation, as '[wip]'. Hackaday's July 2019 review found that compile-time memory management handled only basic cases, which Medvednikov acknowledged was not yet secure enough, while also noting the project's rapid pace of development.\n\nV 0.2 (December 2020) introduced `-autofree`, in which the compiler inserts `free` calls, and said it would become the default in 0.3. Instead, from June 2022 programs used the Boehm garbage collector by default, and autofree remains an experimental option whose production readiness is a goal on the 1.0 roadmap. V 0.3 (June 2022) split options (`?T`) from results (`!T`), added closures and released C2V, a C-to-V translator demonstrated on DOOM. V 0.4 (July 2023) renamed the thread-launching `go` to `spawn`, reserving `go` for experimental coroutines, and V 0.5 (December 2025) followed with about 3,700 fixes. V 0.5.2 (July 2026) added an opt-in, Rust-inspired ownership checker and a concurrent garbage collector translated from Go's runtime. Software written in V includes the compiler itself, the Vinix operating system, the Gitly code-hosting service, the Ved editor and Volt, and in 2025 V entered the TIOBE index.",
+  "innovations": [
+    "Go-style syntax with stricter safety defaults: immutable variables, arguments and struct fields unless marked `mut`, no null outside `unsafe`, no global variables without a compiler flag, and no variable shadowing",
+    "Option (`?T`) and result (`!T`) types in the syntax, handled with `or { }` blocks that bind `err`, or propagated with a trailing `?` or `!`",
+    "Whole-program compilation to human-readable C, with a bundled TinyCC for sub-second development builds and GCC or Clang for optimised `-prod` builds",
+    "Memory management chosen per build: the Boehm GC by default, experimental compile-time `-autofree`, manual `-gc none` and arena `-prealloc`",
+    "A built-in ORM: `sql db { select from User where age > 18 }` blocks are type-checked by the compiler and generate SQL for SQLite, MySQL or PostgreSQL",
+    "Serialisers generated at compile time (`$for field in T.fields`) instead of runtime reflection, as in the built-in JSON module",
+    "Hot code reloading of functions marked `@[live]` (`v -live`)"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "imperative",
+    "procedural",
+    "structured",
+    "functional",
+    "concurrent",
+    "generic"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "mixed",
+    "notes": "Structs, sum types and enums are nominal, but interfaces are satisfied structurally by any type with the required methods (and fields), as in Go. `:=` infers local variable types and generic calls infer their type arguments. Numbers are promoted implicitly only to wider types that keep the sign, or to floats (an `int` to `i64` or `f64`, but not to `u32`); other conversions need an explicit cast."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "By default programs use the Boehm–Demers–Weiser conservative collector (`-gc boehm`), and V keeps values on the stack when their address does not escape. `-autofree` makes the compiler insert `free` calls for most objects, leaving the rest to the GC; the docs still ask users to avoid it until it stabilises. `-gc none` gives manual management with `free()`, `-prealloc` uses an arena for short-lived batch programs, and 0.5.2 added an experimental concurrent collector translated from Go's (`-gc vgc`, which needs GCC or Clang rather than the bundled TinyCC) and an opt-in ownership checker (`-ownership`).",
+  "execution": [
+    "native-compiled",
+    "transpiled"
+  ],
+  "status": "active",
+  "latest_version": "0.5.2 (July 2026)",
+  "file_extensions": [
+    ".v",
+    ".vsh"
+  ],
+  "color": "#4f87c4",
+  "primary_parent": "go",
+  "influenced_by": [
+    {
+      "id": "go",
+      "kind": "influence",
+      "weight": "major",
+      "note": "The documentation opens with 'It's similar to Go', and vlang.io's comparison page lists what V 'improves upon' in Go. V keeps Go's function and method-receiver syntax, structs with embedding, implicitly satisfied interfaces, `for` as the only loop, `defer`, `:=`, channels with `select`, and a `go`-style statement for concurrency (`spawn`)."
+    },
+    {
+      "id": "oberon",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named first after Go in the documentation's introduction ('influenced by Oberon, Rust, Swift, Kotlin, and Python') and listed in Wikipedia's infobox. Neither says which features came from it."
+    },
+    {
+      "id": "rust",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named in the documentation's list of influences. vlang.io's comparison table credits Rust with the safety features V set out to combine with Go's simplicity (immutability, no null, option types, freedom from data races), and the opt-in `-ownership` checker (0.5.2) is described as 'inspired by Rust'."
+    },
+    {
+      "id": "swift",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named in the documentation's list of influences and in Wikipedia's infobox, without specific features."
+    },
+    {
+      "id": "kotlin",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named in the documentation's list of influences and in Wikipedia's infobox, without specific features."
+    },
+    {
+      "id": "python",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named in the documentation's list of influences and in Wikipedia's infobox, without specific features."
+    },
+    {
+      "id": "c",
+      "kind": "platform",
+      "weight": "minor",
+      "note": "V's main backend emits human-readable C for TinyCC, GCC, Clang or MSVC, and C functions are called directly as `C.name` after `#include`. Wikipedia's C infobox lists V among the languages C influenced."
+    }
+  ],
+  "influenced_by_external": [],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "`for` is the only loop keyword (`for i in 0 .. n`, `for x in xs`, `for cond { }`, bare `for { }`), with labelled `break` and `continue`. `if` and `match` are expressions."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Redeclaring a name in an inner scope is an error, because V forbids shadowing. Since V 0.5 a `defer` runs at the end of its enclosing block, and `defer(fn)` keeps the old function-level behaviour."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "coroutines": {
+      "level": "supported",
+      "since": 2023,
+      "version": "V 0.4",
+      "note": "Experimental: with `-use-coroutines` (Linux and macOS), `go f()` starts a coroutine scheduled by the bundled photon library. Without the flag `go`, like `spawn`, starts an OS thread. V 0.5.2 adds a separate experimental `goroutines` module with a scheduler translated from Go's runtime."
+    },
+    "generators": {
+      "level": "supported",
+      "note": "There is no `yield`, but any struct with a `next() ?T` method can drive a `for x in it` loop, returning `none` to stop."
+    },
+    "pattern-matching": {
+      "level": "supported",
+      "note": "`match` works on values, ranges (`1...5`), enums and sum-type variants, and a sum-type value is smart-cast inside each branch. Matches on enums and sum types must be exhaustive or end in `else`. There is no destructuring or nested pattern syntax."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Local only: `x := expr`, and the type arguments of generic calls are inferred from their arguments."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Generic functions, structs and interfaces with square-bracket parameters (`fn max[T](a T, b T) T`, `struct Stack[T]`). There are no constraints yet; they are on the 1.0 roadmap."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "Sum types (`type Shape = Rectangle | Triangle`) whose variants are ordinary types, tested with `is` and `match`; structs are the product types. Enums carry no payloads."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "`?T` holds a value or `none`, and `!T` a value or an error. Both must be handled with an `or { }` block (which binds `err`), unwrapped with `if x := f() { }`, or propagated with a trailing `?` or `!`. References cannot be null outside `unsafe { nil }`. There are no exceptions: `panic` aborts the program. Options and results became separate types in V 0.3 (2022)."
+    },
+    "structural-typing": {
+      "level": "core",
+      "note": "Only for interfaces: a type implements an interface by having its methods and fields, as in Go. An optional `implements` clause on a struct documents the intent and has the compiler check it."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Interfaces declare methods and may also require fields. `is` checks a value's concrete type and smart-casts it."
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "note": "Struct embedding promotes the embedded struct's fields and methods, as in Go, and interfaces can embed other interfaces. There is no inheritance."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Encapsulation is per module: declarations are private unless marked `pub`, and struct fields are private and immutable unless placed under `pub:`, `mut:` or `pub mut:`."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Every directory is a module, and only `pub` declarations are visible to importers. Packages are installed from the central vpm registry with `v install`."
+    },
+    "operator-overloading": {
+      "level": "supported",
+      "note": "Structs can define `+ - * / % ** < ==` and, since 0.5.2, indexing (`[]`, `[]=`). The other comparisons and compound assignments such as `+=` are derived automatically. The docs call operator overloading contrary to V's philosophy but keep it for mathematical and graphics code."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Functions are values and can be written as anonymous `fn (x int) int { ... }` literals. Array methods such as `filter`, `map`, `any` and `sort` take an expression over the implicit `it` (or `a`/`b`), and V 0.5 added short `|x| x * x` lambdas for arguments to higher-order functions."
+    },
+    "closures": {
+      "level": "core",
+      "since": 2022,
+      "version": "V 0.3",
+      "note": "Anonymous functions must list the variables they capture (`fn [x] () { ... }`), and they capture copies: `fn [mut x]` makes only the closure's copy mutable."
+    },
+    "immutability": {
+      "level": "core",
+      "note": "Variables, function arguments and struct fields are immutable unless declared `mut`, and mutation is marked at the call site (`f(mut x)`). Strings are immutable. Because there are no globals, the docs note that a function's result depends only on its arguments unless it does I/O, though V 'is not a purely functional language'."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "since": 2022,
+      "version": "V 0.3",
+      "note": "The Boehm–Demers–Weiser conservative collector has been the default since June 2022, when 'programs built with the V compiler no longer leak memory by default'. `-gc none` turns it off, and 0.5.2 adds an experimental concurrent collector translated from Go's (`-gc vgc`)."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "References (`&T`) cannot be null in safe code. Raw pointers (`voidptr`, `&u8`), pointer arithmetic and `unsafe { nil }` need `unsafe` blocks, and `-gc none` builds free memory manually."
+    },
+    "ownership": {
+      "level": "supported",
+      "since": 2026,
+      "version": "V 0.5.2",
+      "note": "Experimental and opt-in (`-ownership`): a checker 'inspired by Rust' reports use-after-move and borrow conflicts, with `&` borrows and explicit lifetimes (`&^a T`). For now it tracks only strings created with `.to_owned()`."
+    },
+    "csp-channels": {
+      "level": "core",
+      "note": "Typed channels (`chan int{cap: 10}`), `<-`, `select` and `close()` are built in, and `spawn f()` starts a thread whose result can be collected with `wait()`. Data shared between threads is declared `shared` and accessed inside `lock` or `rlock` blocks."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Mostly at compile time: `$for` over `T.fields`, `T.methods`, `.attributes` and `.variants` generates code for each member (the built-in JSON encoder works this way). At run time `typeof()` and `type_name()` give type names, but there is no general runtime reflection API."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "note": "Compile-time `$if` conditions, `$for` loops over fields and methods, `$embed_file`, `$tmpl` templates, `$env`, `$d` defines and `$compile_error`. The compiler does not run ordinary functions at compile time."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "note": "With `v -live`, functions marked `@[live]` are compiled into a shared library that is rebuilt and reloaded whenever the source changes, while the program keeps its state."
+    },
+    "declarative-queries": {
+      "level": "supported",
+      "note": "The built-in ORM's `sql db { select from User where age > 18 }` blocks are type-checked against V structs and generate SQL through the built-in SQLite, MySQL and PostgreSQL drivers."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "The `regex` module is V's own engine, written in V and not PCRE-compatible. There are no regex literals, but raw strings (`r'\\d+'`) avoid double escaping."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2019,
+      "event": "vlang.io announces V (by February) with an open-source release promised for mid-2019; the source is published on GitHub as V 0.0.12 (22 June)"
+    },
+    {
+      "year": 2020,
+      "event": "V 0.2 (22 December), the first major release: experimental `-autofree`, channels and locks, `shared` data, struct embedding"
+    },
+    {
+      "year": 2022,
+      "event": "The Boehm GC becomes the default (June); V 0.3 (30 June) separates options `?T` from results `!T`, adds closures and ships the C2V translator"
+    },
+    {
+      "year": 2023,
+      "event": "V 0.4 (1 July): `spawn` starts OS threads and `go` is reserved for experimental coroutines"
+    },
+    {
+      "year": 2025,
+      "event": "V enters the TIOBE index; V 0.5 (31 December) brings about 3,700 fixes, `|x|` lambdas and block-scoped `defer`"
+    },
+    {
+      "year": 2026,
+      "event": "V 0.5.2 (12 July): opt-in `-ownership` checking, a concurrent GC translated from Go's (`-gc vgc`), the `**` operator and an experimental V2 backend (`-v2`)"
+    }
+  ],
+  "trivia": [
+    "The language shares its name with Volt, the messaging client it was written for: the source files already used the .v extension, and Medvednikov 'didn't want to mess up git history' by renaming it.",
+    "The FAQ asks that the language be called 'V', not 'Vlang' or 'V-Lang', and suggests 'vlang' only as a search term, as with 'golang'.",
+    "The .v extension clashes with Verilog and Coq; the FAQ calls this unfortunate but says V 'will not change its extension'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "V 0.5",
+      "code": "fn main() {\n\tprintln('Hello, World!')\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "vfmt prefers single-quoted strings, though double quotes work too. A one-file program may leave out `fn main()` entirely: V's own examples/hello_world.v is the single line `println('Hello, World!')`.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "V 0.5",
+      "code": "fn factorial(n u64) u64 {\n\tif n <= 1 {\n\t\treturn 1\n\t}\n\treturn n * factorial(n - 1)\n}\n\nfn main() {\n\tprintln(factorial(10))\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "V's `int` is always 32 bits for now (an architecture-dependent size is on the roadmap), so `u64` gives the result room to grow. Parameters are immutable, so `n` cannot be reassigned inside the function.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "V 0.5",
+      "code": "fn main() {\n\tfor i in 1 .. 16 {\n\t\tprintln(match true {\n\t\t\ti % 15 == 0 { 'FizzBuzz' }\n\t\t\ti % 3 == 0 { 'Fizz' }\n\t\t\ti % 5 == 0 { 'Buzz' }\n\t\t\telse { i.str() }\n\t\t})\n\t}\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`match true` with boolean conditions replaces an if/else-if chain, the same form as V's own examples/fizz_buzz.v. `match` is an expression, so its value goes straight to `println`. The range `1 .. 16` excludes its upper bound.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "V 0.5",
+      "code": "fn main() {\n\tnums := []int{len: 10, init: index + 1} // [1, 2, ..., 10]\n\tsquares := nums.filter(it % 2 == 0).map(it * it)\n\tprintln(squares.map(it.str()).join(' '))\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "`filter` and `map` are built-in array methods that take an expression over the implicit `it`, and the compiler expands them into loops. V 0.5 also accepts short lambdas such as `.map(|x| x * x)`. `println(squares)` alone would print `[4, 16, 36, 64, 100]`.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "V 0.5",
+      "code": "struct Rectangle {\n\twidth  int\n\theight int\n}\n\nstruct Triangle {\n\tbase   int\n\theight int\n}\n\n// A sum type: a Shape is exactly one of these structs.\ntype Shape = Rectangle | Triangle\n\nfn (s Shape) area() int {\n\t// `match` must cover every variant; inside a branch `s` is smart-cast.\n\treturn match s {\n\t\tRectangle { s.width * s.height }\n\t\tTriangle { s.base * s.height / 2 }\n\t}\n}\n\nfn main() {\n\tshapes := [Shape(Rectangle{3, 4}), Triangle{10, 3}]\n\tfor s in shapes {\n\t\tprintln('${s.type_name()}: ${s.area()}')\n\t}\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Unlike Go, V has sum types. Casting the first element to `Shape` fixes the array's type, so the `Triangle` is wrapped automatically. Leaving a variant out of the `match` is a compile error. For open-ended polymorphism V also has Go-style interfaces, which types satisfy implicitly by having the right methods.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Errors as values: `!T`, `?T` and `or` blocks",
+      "concepts": [
+        "option-types",
+        "immutability"
+      ],
+      "dialect": "V 0.5",
+      "code": "import strconv\n\n// `!int` is a result: an int, or an error the caller must handle.\nfn parse_age(s string) !int {\n\tn := strconv.atoi(s)! // a trailing `!` passes the error up\n\tif n > 150 {\n\t\treturn error('${n} is out of range')\n\t}\n\treturn n\n}\n\n// `?string` is an option: a string or `none`. There is no null.\nfn nickname(name string) ?string {\n\treturn if name == 'Robert' { 'Bob' } else { none }\n}\n\nfn main() {\n\tmut total := 0 // immutable unless declared `mut`\n\tfor s in ['42', 'abc', '200', '7'] {\n\t\ttotal += parse_age(s) or {\n\t\t\tprintln('skipped ${s}: ${err}')\n\t\t\tcontinue\n\t\t}\n\t}\n\tprintln('total: ${total}')\n\tprintln(nickname('Robert') or { 'no nickname' })\n\tprintln(nickname('Alice') or { 'no nickname' })\n}\n",
+      "expected_output": "skipped abc: strconv.atoi: parsing \"abc\": invalid radix 10 character\nskipped 200: 200 is out of range\ntotal: 49\nBob\nno nickname\n",
+      "notes": "The compiler rejects any call to `parse_age` or `nickname` whose result is not handled. An `or { }` block either supplies a fallback value or leaves (`continue`, `return`, `panic`), and inside it `err` holds the error. A trailing `!` (or `?` for options) propagates it to the caller instead. Without `mut`, `total += ...` would not compile, and function arguments such as `s` can never be reassigned. There are no exceptions or null pointers to fall back on. The first message comes from `strconv.atoi` in V 0.5.2's standard library.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "V (official release, bundled TinyCC)",
+        "version": "0.5.2",
+        "docker_image": "plw-v",
+        "dockerfile": "sandbox/v/Dockerfile",
+        "install": "apt-get install -y libc6-dev && curl -fsSL -o v.zip https://github.com/vlang/v/releases/download/0.5.2/v_linux.zip && unzip v.zip -d /opt",
+        "compile": "v -o {out} {file}",
+        "run": "{out}",
+        "notes": "There is no pinnable official image: thevlang/vlang has only rolling tags. plw-v is debian:trixie-slim plus the official, sha256-checked 0.5.2 Linux zip and libc6-dev. The zip bundles TinyCC 0.9.28rc and a prebuilt Boehm GC (libgc.a), so a default build needs no GCC or Clang. `v` turns the program and the parts of vlib it uses into one C file, and TinyCC compiles and links it in about 60–170 ms, or about 0.2–0.4 s per snippet including container start. A build therefore has no object cache to pre-warm. `v` never checks for updates or phones home; only explicit `v install`/`v up` go online. HOME and VMODULES point into /tmp, where the module cache and the generated C (/tmp/v_0) go, so builds also work on a read-only root filesystem. Optimised builds (`-prod`) and `-gc vgc` need GCC or Clang, which the image leaves out."
+      },
+      {
+        "name": "V (v run)",
+        "run": "v run {file}",
+        "notes": "Compiles to a temporary executable and runs it in one step. The sandbox compiles and runs separately so the two phases are timed apart."
+      }
+    ],
+    "browser": null,
+    "notes": "The official playground (play.vlang.io) compiles on a server. V also has JavaScript (`-b js`) and WebAssembly (`-b wasm`) backends, but the current compiler does not run in a browser. The in-browser 'V WASM Playground' linked from the V 0.2 announcement embeds a 0.1.29-era compiler (2020) that predates today's syntax, such as `!T` results, `spawn` and `index`."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/V_(programming_language)",
+    "homepage": "https://vlang.io/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/V_(programming_language)",
+    "https://docs.vlang.io/introduction.html",
+    "https://github.com/vlang/v/blob/master/doc/docs.md",
+    "https://github.com/vlang/v/wiki/FAQ",
+    "https://vlang.io/compare",
+    "https://web.archive.org/web/20190225154211/https://vlang.io/",
+    "https://github.com/vlang/v/releases/tag/v0.0.12",
+    "https://github.com/vlang/v/commit/d32e538073",
+    "https://xeiaso.net/blog/v-vaporware-2019-06-23/",
+    "https://hackaday.com/2019/07/23/the-v-programming-language-vain-or-virtuous/",
+    "https://github.com/vlang/v/discussions/7474",
+    "https://github.com/vlang/v/releases/tag/0.3",
+    "https://github.com/vlang/v/releases/tag/0.4",
+    "https://github.com/vlang/v/releases/tag/0.5",
+    "https://github.com/vlang/v/releases/tag/0.5.2",
+    "https://github.com/vlang/v/blob/master/ROADMAP.md",
+    "https://github.com/vlang/v/blob/master/doc/ownership.md",
+    "https://github.com/vlang/vinix",
+    "https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml"
+  ]
+}

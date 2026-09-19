@@ -30,6 +30,7 @@
     "deploy": "deno task --cwd web build && npx --yes wrangler@4 deploy"
   },
   "fmt": {
-    "lineWidth": 120
+    "lineWidth": 120,
+    "proseWrap": "preserve"
   }
 }

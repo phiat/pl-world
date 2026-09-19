@@ -67,7 +67,8 @@
   "influenced": [
     "cpp",
     "python",
-    "j"
+    "j",
+    "matlab"
   ],
   "traits": {
     "array-programming": {

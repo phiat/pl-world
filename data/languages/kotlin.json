@@ -102,7 +102,7 @@
       "note": "Listed by Wikipedia; another pragmatic statically typed JVM language."
     }
   ],
-  "influenced": ["crystal"],
+  "influenced": ["crystal", "v"],
   "traits": {
     "structured-control": {
       "level": "core",

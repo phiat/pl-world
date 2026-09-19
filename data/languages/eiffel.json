@@ -100,7 +100,8 @@
     "java",
     "ruby",
     "scala",
-    "racket"
+    "racket",
+    "d"
   ],
   "traits": {
     "structured-control": {

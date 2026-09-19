@@ -54,7 +54,7 @@
     { "name": "Modula-3", "year": 1988, "note": "Origin of Python's exception syntax and semantics, per van Rossum." },
     { "name": "Icon", "year": 1977, "note": "Generators (PEP 255)." }
   ],
-  "influenced": ["ruby", "javascript", "go", "fsharp", "julia", "swift", "nim", "mojo"],
+  "influenced": ["ruby", "javascript", "go", "fsharp", "julia", "swift", "nim", "mojo", "d", "v"],
   "traits": {
     "structured-control": { "level": "core", "note": "Loops also take an `else` clause; there is no goto." },
     "block-scope": { "level": "supported", "note": "Scopes are per function, class and comprehension, not per block; nested functions are lexically scoped (LEGB rule)." },

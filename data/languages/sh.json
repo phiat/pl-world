@@ -100,7 +100,8 @@
   ],
   "influenced": [
     "perl",
-    "julia"
+    "julia",
+    "powershell"
   ],
   "traits": {
     "structured-control": {

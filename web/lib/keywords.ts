@@ -49,3 +49,15 @@ export const UNISON = {
     "typeLink unique use where with",
   literals: "true false",
 };
+
+export const V = {
+  // The keyword appendix of V's documentation, less the literals.
+  keywords: "as asm assert atomic break const continue defer else enum fn for go goto if implements import in " +
+    "interface is isreftype lock match module mut or pub return rlock select shared sizeof spawn static struct " +
+    "type typeof union unsafe volatile __global __offsetof",
+  types: "bool string rune i8 i16 i32 int i64 isize u8 u16 u32 u64 usize f32 f64 voidptr byteptr charptr byte " +
+    "any thread chan map",
+  // `it` (in map/filter/any/all) and `err` (in or { } blocks) are implicit variables.
+  builtins: "print println eprint eprintln exit panic dump error error_with_code it err",
+  literals: "true false none nil",
+};

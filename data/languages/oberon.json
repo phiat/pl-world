@@ -83,7 +83,8 @@
     "go",
     "java",
     "nim",
-    "odin"
+    "odin",
+    "v"
   ],
   "traits": {
     "structured-control": {

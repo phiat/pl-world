@@ -182,7 +182,9 @@
     "nim",
     "gleam",
     "mojo",
-    "lean"
+    "lean",
+    "d",
+    "v"
   ],
   "traits": {
     "structured-control": {

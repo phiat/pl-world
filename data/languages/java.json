@@ -51,7 +51,7 @@
     { "name": "Mesa", "year": 1976 },
     { "name": "Modula-3", "year": 1988 }
   ],
-  "influenced": ["csharp", "scala", "kotlin", "clojure", "javascript", "php", "typescript", "dart"],
+  "influenced": ["csharp", "scala", "kotlin", "clojure", "javascript", "php", "typescript", "dart", "d"],
   "traits": {
     "structured-control": {"level": "core"},
     "block-scope": {"level": "core"},

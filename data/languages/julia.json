@@ -45,10 +45,10 @@
     { "id": "lua", "kind": "influence", "weight": "minor" },
     { "id": "c", "kind": "influence", "weight": "minor", "note": "'The speed of C' was the performance target; ccall calls C libraries without glue code." },
     { "id": "dylan", "kind": "influence", "weight": "minor", "note": "Multiple dispatch with a conventional, non-S-expression syntax; Karpinski: 'the closest language to the mainstream to have this is Dylan.'" },
-    { "id": "sh", "kind": "influence", "weight": "minor", "note": "Backtick command literals: the manual says Julia 'borrows backtick notation for commands from the shell, Perl, and Ruby', and 'Why We Created Julia' (2012) asked for a language 'as good at gluing programs together as the shell'." }
+    { "id": "sh", "kind": "influence", "weight": "minor", "note": "Backtick command literals: the manual says Julia 'borrows backtick notation for commands from the shell, Perl, and Ruby', and 'Why We Created Julia' (2012) asked for a language 'as good at gluing programs together as the shell'." },
+    { "id": "matlab", "kind": "influence", "weight": "major", "note": "'Obvious, familiar mathematical notation like Matlab' (Why We Created Julia, 2012): array syntax, 1-based indexing and end-terminated blocks." }
   ],
   "influenced_by_external": [
-    { "name": "MATLAB", "year": 1984, "note": "'Obvious, familiar mathematical notation like Matlab': array syntax, 1-based indexing and end-terminated blocks." },
     { "name": "Mathematica", "year": 1988 },
     { "name": "Fortress" }
   ],

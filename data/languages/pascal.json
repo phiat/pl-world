@@ -89,7 +89,8 @@
     "newtonscript",
     "hypertalk",
     "dylan",
-    "odin"
+    "odin",
+    "matlab"
   ],
   "traits": {
     "structured-control": {
