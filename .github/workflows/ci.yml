@@ -20,6 +20,8 @@ jobs:
         run: deno task validate
       - name: Format and lint (scripts, runner, schema)
         run: deno fmt --check scripts runner data/*.ts && deno lint scripts runner data
+      - name: Generate dist/ (the web app type-imports world.json and genealogy.json)
+        run: deno task build:db && deno task build:layout
       - name: Install web dependencies
         run: deno install
         working-directory: web
