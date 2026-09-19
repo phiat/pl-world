@@ -1,0 +1,231 @@
+{
+  "id": "hypertalk",
+  "name": "HyperTalk",
+  "aliases": [
+    "HyperCard Script Language"
+  ],
+  "year": 1987,
+  "year_note": "Dan Winkler began HyperTalk in 1986, while HyperCard was still called WildCard; it shipped with HyperCard 1.0, released on 11 August 1987 at Macworld Expo in Boston and bundled free with new Macs.",
+  "designers": [
+    "Dan Winkler"
+  ],
+  "organization": "Apple Computer",
+  "country": "United States",
+  "tagline": "HyperCard's English-like scripting language: on mouseUp handlers, chunk expressions and messages that climb the stack.",
+  "summary": "HyperTalk is the scripting language of Apple's HyperCard, written for non-programmers (\"authors\") who built interactive stacks of cards on the Macintosh. Scripts belong to buttons, fields, cards, backgrounds and stacks as handlers for messages such as mouseUp; a message the target does not handle passes up to the card, background, stack, Home stack and finally HyperCard itself. Its typeless, English-like syntax (put 5 * 4 into theResult, the second word of line 3 of field 1) shipped free on every new Mac, spawned the xTalk family, and influenced AppleScript and the event handlers of JavaScript's DOM.",
+  "history": "Bill Atkinson began HyperCard at Apple in March 1985 under the name WildCard, as a \"software erector set\" that combined a card-based flat-file database with graphics and navigation. Dan Winkler started work on its scripting language in 1986, and HyperCard 1.0 with HyperTalk was released on 11 August 1987 at Macworld Expo in Boston, bundled with new Macs and sold for $49 to existing owners. The audience was beginners: HyperTalk programmers were called authors, and the syntax put English word order (put … into …) over a logical structure similar to Pascal's.\n\nHyperCard 2.0 (1990), led by Kevin Calhoun, compiled handlers to machine code on the fly, added a debugger and extended the language. Native-code plug-ins, XCMDs and XFCNs, let developers add commands and functions that scripts call like handlers. As clones appeared, Apple formed a HyperTalk Standards Committee to keep dialects compatible. The clones' languages, SuperTalk (SuperCard, 1989) and MetaTalk (MetaCard, later Revolution and LiveCode), became known as xTalks; AppleScript (1993) took up the English-like syntax, and HyperCard inspired the event model of JavaScript's first DOM in Netscape 2. HyperCard received its last update, 2.4.1, in 1998 and was withdrawn from sale in March 2004.",
+  "innovations": [
+    "Chunk expressions: text read and written by char, word, item and line, nested and with ordinals (put \"x\" into the second word of line 3 of field 1)",
+    "A message-passing hierarchy of on-screen objects (button, card, background, stack, Home, HyperCard): unhandled messages travel up it, `pass` forwards one and `send` redirects one",
+    "Event handlers named for user actions (on mouseUp, on openCard), which inspired the event model of Netscape's JavaScript DOM (onclick, onmouseup)",
+    "English-like, typeless scripting for end users, shipped free with every new Macintosh from 1987 and the template for the xTalk languages and AppleScript",
+    "XCMDs and XFCNs: native-code external commands and functions called exactly like HyperTalk handlers"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "event-driven",
+    "scripting"
+  ],
+  "family": "scripting",
+  "syntax_family": "english-like",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "untyped",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "Every value is text. Numbers, booleans (\"true\") and lists (comma-separated items, words, lines) are strings that each operator reads as it needs, so the string \"3\" times 5 is 15 and \"3\" & 5 is \"35\". Local variables need no declaration (globals are declared with `global`) and come into existence on first `put`. An error arises only when text cannot be read as the required kind."
+  },
+  "memory": "stack",
+  "memory_note": "No pointers, references or user-created objects: values are strings copied on assignment, local variables last for one handler call and globals until HyperCard quits. Persistent data lives in the fields and properties of the stack file, which HyperCard writes to disk as soon as a change is complete.",
+  "execution": [
+    "interpreted",
+    "jit"
+  ],
+  "status": "historical",
+  "latest_version": "HyperCard 2.4.1 (1998)",
+  "file_extensions": [
+    ".hypertalk"
+  ],
+  "color": "#8FB339",
+  "primary_parent": "pascal",
+  "influenced_by": [
+    {
+      "id": "pascal",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Wikipedia names Pascal as the model for HyperTalk's logical structure: procedures (message handlers) and functions with parameter lists and `return`, if/then/else, and counted loops (repeat with i = 1 to n, Pascal's for i := 1 to n), spelled in English keywords with `end` closing each block."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Natural language (English)",
+      "note": "The other influence Wikipedia lists: English word order (put 5 * 4 into theResult), ordinals (the third word), optional articles, and synonyms such as fld and field."
+    }
+  ],
+  "influenced": [
+    "applescript",
+    "newtonscript",
+    "javascript"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if/then/else on one line or as a block closed by end if, and repeat forever, repeat N times, repeat while/until and repeat with i = a [down] to b, with exit repeat and next repeat; there is no goto."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Handlers and functions can call themselves; the depth is bounded by HyperCard's limit on pending handlers."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "No namespaces or export lists. Shared handlers go higher in the message path (a background, stack or Home stack script), and `start using stack` (HyperCard 2.x) inserts a library stack's script between the current stack and Home."
+    },
+    "reflection": {
+      "level": "core",
+      "note": "`do` runs a string as statements, `value()` evaluates a string as an expression, `send` delivers a computed message, and every object's script is a property that can be read and set; `the target` and `me` name the objects a message is passing through."
+    },
+    "hot-code-reload": {
+      "level": "core",
+      "note": "There is no separate build or run mode: a script can be edited at any time in the running stack and the change applies at once, and `set the script of` replaces an object's handlers at run time."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1985,
+      "event": "Bill Atkinson begins HyperCard at Apple under the name WildCard"
+    },
+    {
+      "year": 1986,
+      "event": "Dan Winkler begins work on HyperTalk; WildCard is renamed HyperCard"
+    },
+    {
+      "year": 1987,
+      "event": "HyperCard 1.0 with HyperTalk released at Macworld Expo Boston (11 August), free with new Macs"
+    },
+    {
+      "year": 1988,
+      "event": "Apple publishes the HyperCard Script Language Guide: The HyperTalk Language (Addison-Wesley)"
+    },
+    {
+      "year": 1989,
+      "event": "SuperCard, the first HyperCard clone, ships with the HyperTalk-based SuperTalk"
+    },
+    {
+      "year": 1990,
+      "event": "HyperCard 2.0 compiles handlers on the fly and adds a script debugger"
+    },
+    {
+      "year": 1993,
+      "event": "AppleScript, influenced by HyperTalk, ships with System 7.1.1"
+    },
+    {
+      "year": 1995,
+      "event": "HyperCard inspires the event model of the Netscape 2 DOM, designed alongside Brendan Eich's JavaScript"
+    },
+    {
+      "year": 1998,
+      "event": "HyperCard 2.4.1, the final release"
+    },
+    {
+      "year": 2004,
+      "event": "Apple withdraws HyperCard from sale (March)"
+    },
+    {
+      "year": 2021,
+      "event": "LiveCode, the xTalk descended from MetaCard, ends its GPL Community Edition after 9.6.3 (31 August)"
+    }
+  ],
+  "trivia": [
+    "HyperCard was developed as WildCard and renamed for trademark reasons, but its creator code stayed WILD.",
+    "Early Claris releases of HyperCard shipped with authoring disabled; typing \"magic\" into the Message Box turned the player back into the full authoring environment.",
+    "Ward Cunningham has traced the idea of the wiki to a HyperCard stack he wrote in the late 1980s.",
+    "The original version of the adventure game Myst (1993) was built in HyperCard."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "HyperTalk (HyperCard 2.x subset), run on LiveCode Server 9.6.3",
+      "code": "on mouseUp\n  put \"Hello, World!\" & return\nend mouseUp\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "The runner makes the file the script of a button and clicks it, so code lives in an `on mouseUp` handler, as it would in a HyperCard button. `put` with no destination writes to the Message Box in HyperCard and to stdout on LiveCode Server; `& return` ends the line (HyperCard's return constant is ASCII 13, LiveCode's a line feed).",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "HyperTalk (HyperCard 2.x subset), run on LiveCode Server 9.6.3",
+      "code": "on mouseUp\n  put factorial(10) & return\nend mouseUp\n\nfunction factorial n\n  if n <= 1 then return 1\n  return n * factorial(n - 1)\nend factorial\n",
+      "expected_output": "3628800\n",
+      "notes": "`function` defines a function handler, called with parentheses; `on` defines a message handler, called like a command. Numbers are text that arithmetic operators convert as needed.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "HyperTalk (HyperCard 2.x subset), run on LiveCode Server 9.6.3",
+      "code": "on mouseUp\n  repeat with i = 1 to 15\n    if i mod 15 = 0 then put \"FizzBuzz\" & return\n    else if i mod 3 = 0 then put \"Fizz\" & return\n    else if i mod 5 = 0 then put \"Buzz\" & return\n    else put i & return\n  end repeat\nend mouseUp\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "A one-line `if … then` may be followed by `else` on the next line, which chains into else-if. In HyperCard each `put` would replace the one-line Message Box; a real stack would collect the lines in a field (put i & return after card field 1).",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "HyperTalk (HyperCard 2.x subset), run on LiveCode Server 9.6.3",
+      "code": "-- No first-class functions: a handler is passed by name and\n-- called through value(), which evaluates a string as HyperTalk.\non mouseUp\n  put \"1 2 3 4 5 6 7 8 9 10\" into numbers\n  put mapWords(\"square\", filterWords(\"isEven\", numbers)) & return\nend mouseUp\n\nfunction filterWords fn, theList\n  put empty into kept\n  repeat with i = 1 to the number of words in theList\n    get word i of theList\n    if value(fn & \"(\" & it & \")\") then put it & space after kept\n  end repeat\n  return kept\nend filterWords\n\nfunction mapWords fn, theList\n  put empty into mapped\n  repeat with i = 1 to the number of words in theList\n    put value(fn & \"(\" & word i of theList & \")\") & space after mapped\n  end repeat\n  delete last char of mapped\n  return mapped\nend mapWords\n\nfunction isEven n\n  return n mod 2 = 0\nend isEven\n\nfunction square n\n  return n * n\nend square\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "HyperTalk has no first-class functions, closures or arrays. A list is a string (here, words separated by spaces), and a handler is passed by name and invoked with value(), which evaluates a string as an expression; `do` and `send` give the same late binding for commands. `put empty into` matters: an unassigned variable read as a value yields its own name.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "HyperTalk (HyperCard 2.x subset), run on LiveCode Server 9.6.3",
+      "code": "-- No classes or records: a shape is a line of items whose first item\n-- names the message that computes its area, and send delivers it.\non mouseUp\n  put \"Rectangle,3,4\" & return & \"Triangle,10,3\" into shapes\n  repeat with i = 1 to the number of lines in shapes\n    get line i of shapes\n    send item 1 of it && item 2 to 3 of it to me\n    put item 1 of it & \": \" & the result & return\n  end repeat\nend mouseUp\n\non Rectangle theWidth, theHeight\n  return theWidth * theHeight\nend Rectangle\n\non Triangle theBase, theHeight\n  return theBase * theHeight div 2\nend Triangle\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "No classes, records or user-defined objects: HyperCard's objects are fixed kinds (buttons, fields, cards, backgrounds, stacks). A shape is a line of comma-separated items, and `send` turns its first item into a message to `me` (the button), so the Rectangle and Triangle handlers act as methods. A message handler's `return` value arrives in `the result`; `div` is integer division.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Chunk expressions",
+      "concepts": [],
+      "dialect": "HyperTalk (HyperCard 2.x subset), run on LiveCode Server 9.6.3",
+      "code": "-- Chunk expressions: address text the way you'd describe it, then\n-- write into any chunk as easily as you read from one.\non mouseUp\n  put \"HyperCard shipped in August 1987\" into theText\n  put return & \"Dan Winkler wrote its scripting language\" after theText\n  put the last word of line 1 of theText & return\n  get line 2 of theText\n  put the second word of it & return\n  put char 1 to 5 of the first word of theText & return\n  put the number of words in theText & return\n  put \"HyperTalk\" into word 4 to 6 of line 2 of theText\n  put \"Apple's \" before theText\n  put theText & return\nend mouseUp\n",
+      "expected_output": "1987\nWinkler\nHyper\n11\nApple's HyperCard shipped in August 1987\nDan Winkler wrote HyperTalk\n",
+      "notes": "Chunks (char, word, item, line) nest, take ordinals (first to tenth, middle, last, any) and ranges (word 4 to 6), and work as destinations for put into/before/after and delete, so text is edited in place without index arithmetic. `get` stores its value in the implicit variable `it`.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "LiveCode Community Server",
+        "version": "9.6.3",
+        "docker_image": "plw-hypertalk",
+        "dockerfile": "sandbox/hypertalk/Dockerfile",
+        "run": "hypertalk-run {file}",
+        "notes": "The GPLv3 command-line engine of LiveCode (a descendant of MetaCard), from the Internet Archive's mirror of the official build, pinned by SHA-256. hypertalk-run creates a stack with one card and a button, makes the source file the button's script and sends it mouseUp; unhandled messages pass to the card, the stack and a Home stack. Compile and run-time errors go to stderr as FILE:ROW:COL: message with exit status 1. HyperCard's ¬ line continuation is accepted."
+      }
+    ],
+    "browser": {
+      "name": "HyperCard Simulator",
+      "url": "https://hcsimulator.com/",
+      "notes": "A reimplementation of HyperCard that runs in the browser (Hypervariety Custom Software, 2022): it imports classic stacks and interprets HyperTalk in JavaScript. Interactive only, with no stdout."
+    },
+    "notes": "HyperCard ran only on the classic Mac OS (and, as HyperCard IIGS, the Apple IIGS) and has no headless mode, so snippets run on LiveCode Server, whose xTalk accepts the HyperTalk used here. Differences from HyperCard: `put` with no destination writes to stdout instead of the Message Box; `return` is a line feed rather than ASCII 13; LiveCode reserves more words (property names such as width cannot be parameter names); and LiveCode adds try/catch, arrays, regular expressions and much else that HyperCard lacked. WyldCard, a Java HyperCard clone, documents no headless or stdout mode and was not used."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/HyperTalk",
+    "homepage": "https://web.archive.org/web/19980509055957/http://www.apple.com:80/hypercard/index.html",
+    "spec": "https://archive.org/details/hypercardscriptl0000unse_j5x1"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/HyperTalk",
+    "https://en.wikipedia.org/wiki/HyperCard",
+    "https://en.wikipedia.org/wiki/AppleScript",
+    "https://en.wikipedia.org/wiki/SuperCard",
+    "https://en.wikipedia.org/wiki/LiveCode",
+    "https://doi.org/10.1145/3386327",
+    "https://www.wirfs-brock.com/allen/jshopl.pdf",
+    "http://www.jaedworks.com/hypercard/scripts/hypertalk-bnf.html",
+    "https://cancel.fm/stuff/share/HyperCard_Script_Language_Guide_1.pdf",
+    "https://www.mactech.com/articles/mactech/Vol.07/07.09/CompileIt!2.0/index.html",
+    "https://archive.org/details/live-code-community-server-for-linux-all-versions",
+    "https://github.com/defano/wyldcard",
+    "https://hcsimulator.com/"
+  ]
+}

@@ -1,8 +1,9 @@
 # PL World
 
-An explorable museum of 58 programming languages, from Fortran (1957) to Zig and Gleam (2016). It covers where each
-language came from (lineage), what it is made of (traits as genes), and how it feels: the same six programs side by
-side, all runnable on real toolchains in sandboxed containers. See [DESIGN.md](DESIGN.md) for the full design.
+An explorable museum of 63 programming languages, from Fortran (1957) to Mojo (2023). It covers where each language came
+from (lineage), what it is made of (traits as genes), and how it feels: the same six programs side by side, runnable on
+real toolchains in sandboxed containers (all but AppleScript, which exists only on macOS). See [DESIGN.md](DESIGN.md)
+for the full design.
 
 ![The River: seventy years of languages by family, tracing C's ancestors and descendants while "lexical closures" is selected](docs/screenshots/river.png)
 
@@ -13,7 +14,7 @@ side, all runnable on real toolchains in sandboxed containers. See [DESIGN.md](D
 | ![Family tree: every language hanging from its primary parent on a time axis, tracing Java](docs/screenshots/family-tree.png)                                | ![Pedigree of Python: three generations of ancestors and two of descendants](docs/screenshots/pedigree.png)                            |
 | **Genealogy:** the family tree by primary parent                                                                                                             | **Pedigree:** ancestors and descendants of one language, with the reasons                                                              |
 | ![Genome: the language by concept matrix sorted by similarity to Haskell, with convergent-evolution pairs](docs/screenshots/genome.png)                      | ![Concept page for actors: origin, popularizers, adoption curve and the Erlang and Elixir snippets](docs/screenshots/concept-page.png) |
-| **Genome:** 58 languages × 55 concepts, and languages that converged independently                                                                           | **Concept page:** where an idea came from, how it spread, and code built around it                                                     |
+| **Genome:** 63 languages × 55 concepts, and languages that converged independently                                                                           | **Concept page:** where an idea came from, how it spread, and code built around it                                                     |
 
 ## Run it locally
 
@@ -35,7 +36,7 @@ works without the runner. Its Run buttons then report that the runner is down.
 | `/tree`                          | **Genealogy**: the family tree (each language under its primary parent, on a time axis), the influence web (all 262 lineage links, `?view=web`) and pedigrees (`?of=python`): three generations of ancestors, two of descendants, and the notes on each link. |
 | `/lang/:id`                      | **Language page**: trait DNA, runnable snippets for each task, history, innovations, parents/children, closest languages by traits, milestones.                                                                                                               |
 | `/compare?l=c,lisp,apl&t=shapes` | **Rosetta Desk**: up to six period-skinned code windows, editable (CodeMirror, Ctrl/⌘+Enter to run) and runnable, plus a trait diff.                                                                                                                          |
-| `/genome?sort=sim&to=rust`       | **Genome**: a 58 × 55 language × concept matrix and convergent-evolution pairs.                                                                                                                                                                               |
+| `/genome?sort=sim&to=rust`       | **Genome**: a 63 × 55 language × concept matrix and convergent-evolution pairs.                                                                                                                                                                               |
 | `/concepts`                      | **Concepts**: all 55 concepts by category, each with its origin, carrier count and an adoption sparkline.                                                                                                                                                     |
 | `/concept/:id`                   | **Concept page**: origin and popularizers, an adoption curve (carriers per year by level), the River with only carriers lit, every carrier with the year it took the idea up, snippets built around it and concepts it is often found with.                   |
 

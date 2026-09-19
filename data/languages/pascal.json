@@ -85,7 +85,10 @@
     "csharp",
     "go",
     "object-pascal",
-    "nim"
+    "nim",
+    "newtonscript",
+    "hypertalk",
+    "dylan"
   ],
   "traits": {
     "structured-control": {

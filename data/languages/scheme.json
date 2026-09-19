@@ -47,7 +47,7 @@
     { "name": "MacLisp", "note": "Host language of the first Scheme interpreter and source of much of its vocabulary." },
     { "name": "Lambda calculus (Alonzo Church)", "note": "The 'extended lambda calculus' of the original memo's title." }
   ],
-  "influenced": ["common-lisp", "clojure", "haskell", "javascript", "lua", "python", "r", "ruby", "rust", "scala", "racket"],
+  "influenced": ["common-lisp", "clojure", "haskell", "javascript", "lua", "python", "r", "ruby", "rust", "scala", "racket", "dylan"],
   "traits": {
     "structured-control": { "level": "core", "note": "if, cond, case, when/unless and do; loops are usually named-let recursion." },
     "block-scope": { "level": "core", "note": "Lexical scope everywhere: let, let*, letrec and internal defines." },

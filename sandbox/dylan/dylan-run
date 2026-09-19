@@ -1,0 +1,196 @@
+#!/bin/sh
+# dylan-run -- compile and run one Dylan source file with Open Dylan, without network access.
+#
+#   dylan-run FILE            build and run FILE
+#   dylan-run --build FILE    compile only (the sandbox's compile step)
+#   dylan-run --exec          run what --build compiled (the sandbox's run step)
+#   dylan-run --prepare       image build time: create and pre-build the template project
+#
+# Open Dylan compiles libraries, not files: a program needs a LID project file, a library and module
+# definition, and source files that start with a `Module:` header. Like the Dylan Playground
+# (play.opendylan.org), dylan-run treats FILE as the body of a module named `main` whose definition
+# imports the playground's set of standard modules (see write_project below). A file may instead start
+# with its own header block (e.g. `Module: hello`); the generated module then takes that name.
+#
+# /opt/plw-dylan is a project whose libraries (dylan, common-dylan, io, strings, system, ...) were
+# compiled into its _build directory when the image was built. It is copied to /tmp with timestamps
+# intact, so a run only compiles the user's library (~0.5 s). Compiler progress lines are dropped,
+# warnings go to stderr with line numbers mapped back to FILE, and nothing is written outside /tmp.
+set -e
+template=/opt/plw-dylan
+dir=/tmp/plw-dylan
+export HOME=/tmp XDG_CONFIG_HOME=/tmp/.config XDG_CACHE_HOME=/tmp/.cache
+
+# write_project DIR MODULE: the LID file, library/module definitions and prelude.
+write_project() {
+  cat > "$1/main.lid" <<EOF
+Library: main
+Files: library.dylan
+       prelude.dylan
+       main.dylan
+EOF
+  # The Dylan Playground's imports, all of which ship with Open Dylan.
+  cat > "$1/library.dylan" <<EOF
+Module: dylan-user
+
+define library main
+  use dylan, import: { dylan-extensions };
+  use common-dylan,
+    import: { byte-vector, common-dylan, machine-words, simple-random, simple-timers,
+              simple-profiling, transcendentals };
+  use generic-arithmetic;
+  use big-integers;             // for side effect only: big-+, big-* etc. return bignums
+  use hash-algorithms;
+  use json;
+  use io, import: { format, format-out, print, pprint, standard-io, streams };
+  use logging;
+  use regular-expressions;
+  use strings;
+  use system, import: { date, locators };
+  use testworks;
+end library;
+
+define module plw-prelude
+  use common-dylan;
+  use dylan-extensions, import: { \\last-handler-definer };
+  use standard-io;
+  use streams;
+end module;
+
+define module $2
+  use byte-vector;
+  use common-dylan;
+  use machine-words;
+  use simple-random;
+  use simple-timers;
+  use simple-profiling;
+  use transcendentals;
+  use dylan-extensions;
+  use date;
+  use locators;
+  use format;
+  use format-out;
+  use print;
+  use pprint;
+  use standard-io;
+  use streams;
+  use generic-arithmetic,
+    prefix: "big-",
+    rename: { \$maximum-integer => \$maximum-big-int,
+              \$minimum-integer => \$minimum-big-int,
+              <integer> => <big-int> };
+  use hash-algorithms;
+  use json;
+  use logging;
+  use regular-expressions;
+  use strings;
+  use testworks;
+end module;
+EOF
+  # Open Dylan does not flush buffered output when a program dies from an unhandled error, so
+  # anything printed before the error would be lost. This last handler flushes, then declines.
+  cat > "$1/prelude.dylan" <<'EOF'
+Module: plw-prelude
+
+define last-handler <serious-condition>
+  = method (condition :: <serious-condition>, next-handler :: <function>)
+      force-output(*standard-output*);
+      next-handler()
+    end;
+EOF
+}
+
+# Compiler output minus progress lines. Positions in main.dylan are shifted back by the number of
+# header lines dylan-run added ($2), both in "main.dylan:L.C-L.C:" and in numbered context lines.
+filter() {
+  awk -v path="$dir/main.dylan" -v name="$1" -v off="$2" '
+    function shift(n) { n -= off; return n < 1 ? 1 : n }
+    /^(Open Dylan [0-9]|Opened project |Processing library |Loading namespace |Updating definitions |Computing (data|code) models |Checking bindings |Performing type analysis |Optimizing library |Generating code |Linking object files |Saving database |Build of .* completed|Linking main$|Building targets: )/ { next }
+    /^Exiting with return code / { next }
+    {
+      line = $0
+      if (index(line, path ":") == 1) {
+        rest = substr(line, length(path) + 2)
+        if (match(rest, /^[0-9]+/)) {
+          l1 = substr(rest, 1, RLENGTH); rest = substr(rest, RLENGTH + 1)
+          tail = rest; l2 = ""
+          if (match(rest, /^\.[0-9]+-[0-9]+\./)) {
+            c1 = substr(rest, 2, RSTART + RLENGTH - 2)
+            split(c1, parts, "-"); l2 = parts[2]; sub(/\.$/, "", l2)
+            tail = substr(rest, RLENGTH + 1)
+            line = name ":" shift(l1) "." parts[1] "-" shift(l2) "." tail
+          } else {
+            line = name ":" shift(l1) tail
+          }
+          ctx = 1
+        }
+      } else if (ctx && match(line, /^ *[0-9]+  /)) {
+        n = line; sub(/^ */, "", n); sub(/ .*/, "", n)
+        pad = substr(line, 1, index(line, n) - 1)
+        line = pad shift(n) substr(line, index(line, n) + length(n))
+      } else if (line == "") {
+        ctx = 0
+      }
+      gsub(path, name, line)
+      if (length(line) > 200) line = substr(line, 1, 200) "..."
+      if (line != "" || started) print line
+      if (line != "") started = 1
+    }'
+}
+
+prepare() {
+  rm -rf "$template"
+  mkdir -p "$template"
+  write_project "$template" main
+  printf 'Module: main\n\nformat-out("ready\\n");\n' > "$template/main.dylan"
+  cd "$template"
+  dylan-compiler -build main.lid
+  test "$(_build/bin/main)" = ready
+  # Keep the compiled libraries, but not the template program itself.
+  rm -rf main.hdp _build/build/main _build/bin/main _build/bin/main.dbg _build/lib/libmain.so \
+    _build/lib/libmain.so.dbg _build/lib/main.mkf _build/databases/main.ddb _build/profiles
+  find _build -name '*.dbg' -delete
+}
+
+build() {
+  [ -f "$1" ] || { echo "dylan-run: no such file: $1" >&2; exit 2; }
+  rm -rf "$dir"
+  cp -a "$template" "$dir"
+  # Use the file's own Module: header if it has a header block; otherwise add `Module: main`.
+  module=$(awk 'NR == 1 && !/^[A-Za-z][-A-Za-z0-9]*:/ { exit }
+                /^[ \t\r]*$/ { exit }
+                tolower($0) ~ /^module:/ { sub(/^[^:]*:[ \t]*/, ""); sub(/[ \t\r]+$/, ""); print; exit }' "$1")
+  if [ -n "$module" ]; then
+    added=0
+    cp "$1" "$dir/main.dylan"
+  elif head -n 1 "$1" | grep -Eq '^[A-Za-z][-A-Za-z0-9]*:'; then
+    module=main added=1
+    { echo 'Module: main'; cat "$1"; } > "$dir/main.dylan"
+  else
+    module=main added=2
+    { printf 'Module: main\n\n'; cat "$1"; } > "$dir/main.dylan"
+  fi
+  write_project "$dir" "$module"
+  cd "$dir"
+  set +e
+  dylan-compiler -build main.lid > compile.log 2>&1
+  rc=$?
+  set -e
+  filter "$1" "$added" < compile.log | cat -s >&2
+  # Serious warnings (e.g. an undefined binding) fail the build, like a compile error.
+  [ "$rc" -eq 0 ] || exit "$rc"
+  [ -x _build/bin/main ] || exit 1
+}
+
+run() {
+  [ -x "$dir/_build/bin/main" ] || { echo "dylan-run: nothing built; run dylan-run --build FILE first" >&2; exit 2; }
+  exec "$dir/_build/bin/main"
+}
+
+case "$1" in
+  --prepare) prepare ;;
+  --build) build "$2" ;;
+  --exec) run ;;
+  -*) echo "usage: dylan-run [--build] FILE | dylan-run --exec" >&2; exit 2 ;;
+  *) build "$1"; run ;;
+esac

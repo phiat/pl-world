@@ -85,7 +85,8 @@
     "scheme",
     "clu",
     "c",
-    "ada"
+    "ada",
+    "dylan"
   ],
   "traits": {
     "structured-control": {

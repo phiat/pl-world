@@ -1,0 +1,13 @@
+#!/bin/sh
+# hypertalk-run FILE -- run FILE as the script of a HyperCard-style button, then click it.
+#
+# The LiveCode Server engine runs click.lc, which puts FILE into the script of button "Run" on the first
+# card of a new stack and sends it mouseUp. `put` with no destination (HyperCard's Message Box) writes to
+# stdout; errors go to stderr as FILE:ROW:COL: message, with exit status 1.
+[ $# -eq 1 ] && [ -f "$1" ] || { echo "usage: hypertalk-run FILE" >&2; exit 2; }
+case "$1" in
+  /*) PLW_HT_FILE=$1 ;;
+  *) PLW_HT_FILE=$PWD/$1 ;;
+esac
+export PLW_HT_FILE
+exec /opt/livecode/livecode-community-server /opt/plw-hypertalk/click.lc

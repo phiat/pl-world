@@ -108,7 +108,8 @@
   "influenced": [
     "rust",
     "php",
-    "dart"
+    "dart",
+    "mojo"
   ],
   "traits": {
     "structured-control": {

@@ -14,6 +14,8 @@ export type CodeWindowProps = {
   html: string;
   expected: string;
   verified: boolean;
+  /** The sandbox has a toolchain for it (false for languages that only run on their own platform). */
+  runnable: boolean;
   toolchain: string;
   /** Show the Fortran/COBOL card-column ruler. */
   ruler?: boolean;
@@ -64,6 +66,7 @@ export default function CodeWindow(p: CodeWindowProps) {
   const open = editing || edited;
 
   async function start() {
+    if (!p.runnable) return;
     abort.current?.abort();
     const ctl = new AbortController();
     abort.current = ctl;
@@ -204,7 +207,13 @@ export default function CodeWindow(p: CodeWindowProps) {
             Reset
           </button>
         )}
-        <button type="button" class="run" onClick={start} disabled={run.state === "running"}>
+        <button
+          type="button"
+          class="run"
+          onClick={start}
+          disabled={!p.runnable || run.state === "running"}
+          title={p.runnable ? undefined : `No sandbox toolchain: runs with ${p.toolchain}`}
+        >
           {run.state === "running" ? "…" : "▶ Run"}
         </button>
       </div>
@@ -222,6 +231,7 @@ export default function CodeWindow(p: CodeWindowProps) {
       <div class="win-foot">
         {p.dialect} · {p.toolchain}
         {edited ? " · edited" : p.verified ? " · ✓ verified" : " · unverified"}
+        {!p.runnable && " · not runnable here"}
       </div>
     </article>
   );

@@ -1,0 +1,369 @@
+{
+  "id": "dylan",
+  "name": "Dylan",
+  "aliases": [
+    "Infix Dylan",
+    "Prefix Dylan",
+    "Ralph (code name)"
+  ],
+  "year": 1992,
+  "year_note": "Designed at Apple's Cambridge, Massachusetts lab from the late 1980s; the first manual, 'Dylan: an object-oriented dynamic language' (April 1992), used a Lisp-style prefix syntax. The ALGOL-like infix syntax replaced it in 1993–94, and 'The Dylan Reference Manual' (1996) is the definitive specification.",
+  "designers": [
+    "Andrew Shalit",
+    "David A. Moon",
+    "Jeffrey Piazza",
+    "Glenn S. Burke",
+    "Robert Cassels",
+    "John Hotchkiss",
+    "Jeremy A. Jones",
+    "Oliver Steele",
+    "Gail Zacharias",
+    "Michael Kahl"
+  ],
+  "organization": "Apple Computer (Apple Cambridge, Advanced Technology Group), with Harlequin and Carnegie Mellon University",
+  "country": "United States",
+  "tagline": "Apple's dynamic language: CLOS-style multiple dispatch and hygienic macros in an ALGOL-like syntax, designed to compile efficiently.",
+  "summary": "Dylan is a dynamic, object-oriented language created in the early 1990s by Apple Computer's Cambridge lab, with Harlequin and Carnegie Mellon University as partners. It keeps a Lisp core, in which every value is an object and functions are first class, and organizes behaviour around a CLOS-derived system of generic functions with multiple dispatch, written since 1994 in an ALGOL-like infix syntax extended by hygienic pattern-based macros. Optional type declarations and 'sealing' let compilers turn this dynamic model into efficient native code. Apple dropped Dylan in 1995, but Harlequin's compiler survives as the open-source Open Dylan, and the C3 class linearization devised for Dylan became Python's method resolution order.",
+  "history": "Dylan came from Apple's Advanced Technology Group in Cambridge, Massachusetts, the lab that grew out of Coral Software, maker of Macintosh Common Lisp. Under Ike Nassi the group set out in the late 1980s to design a dynamic language with the power of Lisp and Smalltalk but the performance needed for commercial applications, first as the systems language for the Newton PDA. The first manual (April 1992) described a Lisp-style prefix syntax; the primary designers included Andrew Shalit, David Moon (a co-designer of Common Lisp and CLOS), Jeffrey Piazza and Oliver Steele. Dylan was not ready in time for the Newton, which shipped with C and Walter Smith's NewtonScript, and the project was retargeted at the Macintosh.\n\nIn 1993 Harlequin (DylanWorks) and Carnegie Mellon's Gwydion project, led by Scott Fahlman, joined as implementers and co-designers. With CMU arguing for it, the group replaced the prefix syntax in 1993–94 with an infix one designed by Mike Kahl, who modelled it on Pascal, hoping to win over C and Pascal programmers. Apple cancelled the project in 1995 and released what existed as the Apple Dylan Technology Release. 'The Dylan Reference Manual' by Andrew Shalit, with David Moon and Orca Starbuck, was published in 1996, the year Kim Barrett, Bob Cassels, Paul Haahr, David Moon, Keith Playford and P. Tucker Withington presented the C3 superclass linearization for Dylan at OOPSLA; Python 2.3 adopted C3 as its method resolution order in 2003.\n\nHarlequin built a native compiler (DFMC), an IDE, the DUIM GUI toolkit and the Memory Pool System garbage collector, and sold Harlequin Dylan for Windows. In 1999 its Dylan group became Functional Objects, which renamed the product Functional Developer and open-sourced it in 2004 as Open Dylan. CMU's Dylan-to-C compiler, d2c, was maintained by volunteers as Gwydion Dylan until about 2012, when the community concentrated on Open Dylan. Open Dylan adopted C3 in 2012, made an LLVM back end its default in 2020, and still issues releases for Linux, macOS, FreeBSD and Windows.",
+  "innovations": [
+    "Carried CLOS-style generic functions and multiple dispatch into a language with conventional, ALGOL-like syntax, where even + and element access are generic functions",
+    "Sealing: declarations (sealed classes and generic functions, define sealed domain) that close parts of a dynamic program so the compiler can resolve dispatch and inline at compile time",
+    "The C3 superclass linearization (Barrett et al., OOPSLA 1996), later adopted as the method resolution order of Python 2.3 and Raku",
+    "Hygienic, pattern-based rewrite-rule macros for a non-S-expression syntax, from which core forms such as for, case and the define ... definers are built",
+    "Separating the unit of compilation (library) from the namespace (module), with imports, exports, renaming and prefixes declared at module level",
+    "Limited, singleton and union types (limited(<integer>, min: 0), singleton(#f), type-union) that serve both as declarations and as method specializers"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "object-oriented",
+    "functional",
+    "procedural",
+    "generic",
+    "reflective",
+    "metaprogramming"
+  ],
+  "family": "lisp",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "nominal",
+    "notes": "Every value is an instance of a class. Optional type declarations on variables, slots, parameters and results are checked at run time, draw compile-time warnings when a mismatch is provable, and drive method dispatch. Besides classes, types include singletons, unions and limited types such as limited(<vector>, of: <integer>); Open Dylan's false-or(<string>) is the idiom for an optional value. Wikipedia describes the typing as gradual. The language defines no inference, but Open Dylan's optimizer infers types to resolve dispatch statically."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Open Dylan uses the Boehm–Demers–Weiser conservative collector on 64-bit platforms and macOS, and the Memory Pool System, first written for Harlequin's Dylan, with its 32-bit x86 HARP back end.",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "maintained",
+  "latest_version": "Open Dylan 2026.2",
+  "file_extensions": [
+    ".dylan",
+    ".lid",
+    ".dyl",
+    ".intr"
+  ],
+  "color": "#6c616e",
+  "primary_parent": "common-lisp",
+  "influenced_by": [
+    {
+      "id": "common-lisp",
+      "kind": "influence",
+      "weight": "major",
+      "note": "The object system derives from CLOS: classes with multiple inheritance, generic functions with multiple dispatch and next-method, keyword arguments, and a condition system with restarts. The designers came mostly from the Common Lisp community, including CLOS co-designer David Moon and the Macintosh Common Lisp group."
+    },
+    {
+      "id": "scheme",
+      "kind": "influence",
+      "weight": "major",
+      "note": "A small, lexically scoped core with first-class functions and closures in a single namespace; the original prefix syntax was Scheme-like."
+    },
+    {
+      "id": "pascal",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Mike Kahl modelled the 1990s infix syntax on Pascal, per Oliver Steele: keyword-terminated blocks and := for assignment."
+    },
+    {
+      "id": "algol60",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Wikipedia lists ALGOL as an influence on the infix syntax."
+    },
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Apple asked for a language with 'all the programmer power and convenience of Lisp and Smalltalk'; as in Smalltalk, every value is an object and slots are reached only through accessor functions."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "EuLisp",
+      "year": 1990,
+      "note": "Listed as an influence by Wikipedia; Keith Playford, Harlequin's first Dylan hire, had worked on EuLisp."
+    },
+    {
+      "name": "Macintosh Common Lisp",
+      "year": 1987,
+      "note": "Coral Software's Lisp became Apple's; its developers designed Dylan, and Apple Dylan's environment was written in it."
+    }
+  ],
+  "influenced": [
+    "python",
+    "ruby",
+    "r",
+    "julia",
+    "newtonscript"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if/elseif, unless, case, select, while, until and the for iteration macro; all are expressions."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Lexical scope throughout; let introduces bindings for the rest of the enclosing body, and block creates a new scope."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "A condition system derived from Common Lisp's: signal and error, handlers that run without unwinding (let handler), block ... exception clauses that do unwind, restarts, and cleanup clauses."
+    },
+    "tail-calls": {
+      "level": "supported",
+      "note": "The DRM encourages but does not require implementations to optimize tail calls."
+    },
+    "continuations": {
+      "level": "supported",
+      "note": "Escape-only: block (exit) ... end binds exit to a first-class function that returns from the block; there is no re-entrant call/cc."
+    },
+    "gradual-typing": {
+      "level": "supported",
+      "note": "Declarations are optional and always checked where present, at run time, with compile-time warnings for provable mismatches; there is no separate static type checker."
+    },
+    "generics": {
+      "level": "supported",
+      "note": "Limited collection types such as limited(<vector>, of: <integer>) parameterize element types; there are no user-defined type parameters."
+    },
+    "classes": {
+      "level": "core",
+      "note": "define class declares slots with init keywords and default values; getter and setter functions are generated, and instances are created with make."
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Multiple inheritance; Open Dylan orders superclasses with the C3 linearization since 2012.1."
+    },
+    "everything-is-an-object": {
+      "level": "core",
+      "note": "Numbers, characters, functions and classes are all instances of classes under <object>; computation is generic function calls rather than message sends."
+    },
+    "multiple-dispatch": {
+      "level": "core",
+      "note": "Every method belongs to a generic function and is selected by the classes (or singleton values) of all required arguments; next-method() calls the next most specific method."
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "note": "Mixin classes through multiple inheritance, as in CLOS."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "Encapsulation belongs to modules, not classes: a module can export a class and its protocol while keeping slot accessors private."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Libraries are units of compilation and modules are namespaces, with use, import, exclude, rename, prefix and export clauses."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Infix operators call generic functions (a + b calls \\+), so adding a method to \\+ or \\= extends them to new classes."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "method (x) ... end is an anonymous function; curry, rcurry, compose and conjoin combine functions."
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "define constant and constant slots; literal constants may not be modified, but let bindings and most collections are mutable."
+    },
+    "garbage-collection": {
+      "level": "core"
+    },
+    "pointers": {
+      "level": "library",
+      "note": "Open Dylan's C-FFI library provides typed C pointers (<C-pointer> classes, pointer-value) for calling C."
+    },
+    "macros": {
+      "level": "core",
+      "note": "define macro with pattern-matching rewrite rules; statement, function and definition (define ...) macros, and much of the core syntax, such as for and case, is itself defined by macros."
+    },
+    "hygienic-macros": {
+      "level": "core",
+      "note": "Names introduced by a macro expansion cannot capture or be captured by names at the call site; ?=name deliberately refers to a name at the call site."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "object-class, instance?, subtype?, all-superclasses, generic-function-methods, function-specializers and applicable-method?; methods can be created and added to generic functions at run time with add-method. There is no eval."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "note": "The Open Dylan IDE (Windows) compiles definitions typed into the debugger's interaction pane and loads them into the paused, running application, which can redefine parts of it."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "Open Dylan's regular-expressions library."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1992,
+      "event": "First manual, 'Dylan: an object-oriented dynamic language', published by Apple (prefix syntax)"
+    },
+    {
+      "year": 1993,
+      "event": "Harlequin (DylanWorks) and CMU's Gwydion project join the design and begin implementations"
+    },
+    {
+      "year": 1994,
+      "event": "Infix syntax replaces the prefix syntax; Dylan Interim Reference Manual"
+    },
+    {
+      "year": 1995,
+      "event": "Apple cancels Dylan and releases the Apple Dylan Technology Release"
+    },
+    {
+      "year": 1996,
+      "event": "The Dylan Reference Manual published; C3 superclass linearization presented at OOPSLA"
+    },
+    {
+      "year": 1998,
+      "event": "Harlequin Dylan 1.1 announced at OOPSLA; volunteers take over CMU's Gwydion Dylan"
+    },
+    {
+      "year": 1999,
+      "event": "Harlequin's Dylan group becomes Functional Objects (Functional Developer)"
+    },
+    {
+      "year": 2003,
+      "event": "Python 2.3 adopts Dylan's C3 linearization as its method resolution order"
+    },
+    {
+      "year": 2004,
+      "event": "Functional Developer open-sourced as Open Dylan"
+    },
+    {
+      "year": 2012,
+      "event": "Open Dylan 2012.1 switches to C3 linearization; Gwydion Dylan retired in favour of Open Dylan"
+    },
+    {
+      "year": 2020,
+      "event": "LLVM becomes Open Dylan's default back end (2020.1)"
+    },
+    {
+      "year": 2026,
+      "event": "Open Dylan 2026.2 adds a native port to Apple silicon macOS"
+    }
+  ],
+  "trivia": [
+    "The name is a portmanteau of 'dynamic' and 'language'. According to Owen Linzmayer's 'Apple Confidential', the project's code name was Ralph, after Ralph Ellison, author of 'Invisible Man'.",
+    "Oliver Steele had implemented a C-like, brace-based syntax for Dylan, but dropped it when Apple hired Mike Kahl, whose Pascal-like infix syntax was adopted.",
+    "Harlequin bootstrapped its Dylan work by turning LispWorks into a Dylan emulator with macros, reader macros and the CLOS metaobject protocol, before writing a compiler in Dylan itself.",
+    "The Memory Pool System garbage collector, now an independent Ravenbrook product, was originally written for Harlequin's Dylan.",
+    "Angle brackets in <integer> or <point> are an ordinary part of the name, a convention for classes; identifiers may also contain characters such as ?, ! and *, as in even? or n!."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Open Dylan 2026.2",
+      "code": "format-out(\"Hello, World!\\n\");\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "There is no main function: a library's top-level forms run in order when it is initialized. format-out comes from Open Dylan's io library, since the DRM defines no I/O. A standalone program also needs a library and module definition and a LID project file, and each source file begins with a header such as Module: hello; like the Dylan Playground, the sandbox supplies these (see runtime notes).",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Open Dylan 2026.2",
+      "code": "define function factorial (n :: <integer>) => (n! :: <integer>)\n  if (n <= 1)\n    1\n  else\n    n * factorial(n - 1)\n  end if\nend function factorial;\n\nformat-out(\"%d\\n\", factorial(10));\n",
+      "expected_output": "3628800\n",
+      "notes": "n! is an ordinary identifier naming the result. define function (an Open Dylan extension) defines a plain function; DRM code writes define method, which also creates a generic function. Open Dylan's <integer> is a 62-bit tagged integer, so factorial(20) signals an overflow error instead of wrapping; the generic-arithmetic and big-integers libraries provide bignums.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Open Dylan 2026.2",
+      "code": "for (i from 1 to 15)\n  format-out(\"%s\\n\",\n             case\n               modulo(i, 15) = 0 => \"FizzBuzz\";\n               modulo(i, 3) = 0  => \"Fizz\";\n               modulo(i, 5) = 0  => \"Buzz\";\n               otherwise         => integer-to-string(i);\n             end case)\nend for;\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "case evaluates its tests in order and yields the value of the first true branch; otherwise is the default. = tests equality and := assigns. The %s directive takes a string, hence integer-to-string (from common-dylan).",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Open Dylan 2026.2",
+      "code": "let numbers = range(from: 1, to: 10);\nlet squares = map(method (x) x * x end, choose(even?, numbers));\n\nformat-out(\"%s\\n\", join(map(integer-to-string, squares), \" \"));\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "method (x) x * x end is an anonymous function. range, choose (filter) and map are core Dylan collection functions that work on any sequence; join and integer-to-string come from Open Dylan's common-dylan library.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Open Dylan 2026.2",
+      "code": "define abstract class <shape> (<object>) end class;\n\ndefine class <rectangle> (<shape>)\n  constant slot width :: <integer>, required-init-keyword: width:;\n  constant slot height :: <integer>, required-init-keyword: height:;\nend class;\n\ndefine class <triangle> (<shape>)\n  constant slot base :: <integer>, required-init-keyword: base:;\n  constant slot height :: <integer>, required-init-keyword: height:;\nend class;\n\n// Generic functions hold the behaviour; each method specializes on a class.\ndefine generic area (shape :: <shape>) => (area :: <integer>);\ndefine method area (r :: <rectangle>) => (area :: <integer>) r.width * r.height end;\ndefine method area (t :: <triangle>) => (area :: <integer>) floor/(t.base * t.height, 2) end;\n\ndefine generic name (shape :: <shape>) => (name :: <string>);\ndefine method name (r :: <rectangle>) => (name :: <string>) \"Rectangle\" end;\ndefine method name (t :: <triangle>) => (name :: <string>) \"Triangle\" end;\n\nfor (shape in list(make(<rectangle>, width: 3, height: 4),\n                   make(<triangle>, base: 10, height: 3)))\n  format-out(\"%s: %d\\n\", shape.name, area(shape))\nend for;\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Classes hold only slots; behaviour lives in generic functions whose methods specialize on classes. Slot accessors are generic functions too, so the height slots of both classes add methods to a single height function, and r.width is just width(r). floor/ returns two values, the quotient and the remainder; the declared single result keeps the quotient.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Generic functions that dispatch on every argument",
+      "concepts": [
+        "multiple-dispatch"
+      ],
+      "dialect": "Open Dylan 2026.2",
+      "code": "define abstract class <thing> (<object>)\n  constant slot name :: <string>, required-init-keyword: name:;\nend class;\ndefine class <asteroid> (<thing>) end class;\ndefine class <ship> (<thing>) end class;\n\n// One generic function; Dylan picks the method from the classes of BOTH arguments.\ndefine generic collide (a :: <thing>, b :: <thing>) => (outcome :: <string>);\n\ndefine method collide (a :: <thing>, b :: <thing>) => (outcome :: <string>)\n  \"they bounce apart\"\nend method;\ndefine method collide (a :: <asteroid>, b :: <ship>) => (outcome :: <string>)\n  \"the ship is destroyed\"\nend method;\ndefine method collide (a :: <ship>, b :: <asteroid>) => (outcome :: <string>)\n  collide(b, a)                               // same outcome, arguments swapped\nend method;\ndefine method collide (a :: <ship>, b :: <ship>) => (outcome :: <string>)\n  concatenate(next-method(), \", then dock\")   // extend the <thing>, <thing> method\nend method;\n\nlet things = list(make(<asteroid>, name: \"asteroid\"), make(<ship>, name: \"ship\"));\nfor (a in things)\n  for (b in things)\n    format-out(\"%s hits %s: %s\\n\", a.name, b.name, collide(a, b))\n  end for\nend for;\n",
+      "expected_output": "asteroid hits asteroid: they bounce apart\nasteroid hits ship: the ship is destroyed\nship hits asteroid: the ship is destroyed\nship hits ship: they bounce apart, then dock\n",
+      "notes": "collide's methods belong to the generic function, not to either class, and the most specific method is chosen from the classes of both arguments: the asteroid–asteroid pair falls back to the <thing>, <thing> method. next-method() calls the next most specific applicable method, as in CLOS. Adding a new kind of thing only needs new methods, not changes to existing classes. This is the CLOS model in ALGOL-like syntax that Julia's designers point to as the closest mainstream precedent for their multiple dispatch.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Open Dylan",
+        "version": "2026.2 (LLVM back end; bundled Clang 22.1.8 and BDW GC)",
+        "docker_image": "plw-dylan",
+        "dockerfile": "sandbox/dylan/Dockerfile",
+        "install": "Unpack https://github.com/dylan-lang/opendylan/releases/download/v2026.2.0/opendylan-2026.2-x86_64-linux.tar.bz2 (sha256 d917efed6d82aae3a31746eee0a46e8095a898d183d730ad8198961b5efa2197) and put its bin/ on PATH; linking also needs libc6-dev, libgcc-14-dev and binutils.",
+        "compile": "dylan-run --build {file}",
+        "run": "dylan-run --exec",
+        "notes": "Open Dylan compiles libraries rather than files. dylan-run (baked into the image) treats the file, as the Dylan Playground does, as the body of a module named main whose definition uses common-dylan, dylan-extensions, the io modules (format, format-out, print, pprint, standard-io, streams), strings, regular-expressions, json, logging, hash-algorithms, testworks, system's date and locators, and generic-arithmetic with a big- prefix; a file that starts with its own header such as Module: hello names the module instead. It writes a LID file and library.dylan into a copy of a template project whose libraries were compiled into _build when the image was built, so dylan-compiler -build only compiles the user's library (about 0.5 s), then runs _build/bin/main. Compiler progress lines are filtered out, warning positions are mapped back to the user's file, and serious warnings such as undefined bindings fail the compile step. A small prelude flushes standard output before an unhandled error ends the program."
+      }
+    ],
+    "browser": null,
+    "notes": "No in-browser implementation exists. The official Dylan Playground (play.opendylan.org) compiles and runs code on a server with the same implicit module definition. Open Dylan also targets macOS, FreeBSD and Windows; its HARP native back end remains for 32-bit x86. CMU's d2c (Gwydion Dylan) and the Marlais interpreter are unmaintained."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Dylan_(programming_language)",
+    "homepage": "https://opendylan.org/",
+    "spec": "https://opendylan.org/books/drm/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Dylan_(programming_language)",
+    "https://en.wikipedia.org/wiki/History_of_the_Dylan_programming_language",
+    "https://opendylan.org/history/index.html",
+    "https://opendylan.org/history/apple-dylan/apple-cambridge.html",
+    "https://opendylan.org/books/drm/Background_and_Goals",
+    "https://opendylan.org/books/drm/Iteration",
+    "https://opendylan.org/books/drm/Sealing",
+    "https://opendylan.org/proposals/dep-0003-c3-linearization.html",
+    "https://opendylan.org/release-notes/2020.1.html",
+    "https://opendylan.org/getting-started-ide/debug.html",
+    "https://doi.org/10.1145/236337.236343",
+    "https://docs.python.org/3/howto/mro.html",
+    "https://increment.com/programming-languages/goldilocks-language-history-of-julia/",
+    "http://people.csail.mit.edu/gregs/ll1-discuss-archive-html/msg00196.html",
+    "https://play.opendylan.org/",
+    "https://github.com/dylan-lang/opendylan/releases/tag/v2026.2.0"
+  ]
+}

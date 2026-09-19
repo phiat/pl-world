@@ -29,7 +29,7 @@ dist/pl.db      ──► FTS5 search, ad-hoc queries                           
 - **Why a separate runner service:** the web app never touches Docker. The runner can live on a different host, be
   scaled independently, and have the only privileged access.
 - **Data pipeline:** `data/languages/*.json` (edited by hand/PR) → `deno task validate` → `deno task build:db` →
-  `dist/`. The app loads `world.json` at startup; SQLite is for search and exploration queries. 58 languages ≈ a few
+  `dist/`. The app loads `world.json` at startup; SQLite is for search and exploration queries. 63 languages ≈ a few
   hundred KB, so everything fits in memory.
 
 ## 2. Data model (see `data/schema.ts`)
@@ -40,7 +40,7 @@ dist/pl.db      ──► FTS5 search, ad-hoc queries                           
 | **Lineage edge**     | parent → child with `kind` (influence · successor · dialect · superset · platform) and `weight` (major/minor); `primary_parent` gives a clean spanning tree                                              |
 | **Concept ("gene")** | 55 of them across control · types · abstraction · functional · memory · concurrency · metaprogramming · paradigm · syntax, each with an origin (language or external precursor) and popularizers         |
 | **Trait**            | language × concept → `core` / `supported` / `library` + `since`/`version` — so we know _when_ Java got lambdas                                                                                           |
-| **Task / Snippet**   | 6 shared tasks (hello, factorial, fizzbuzz, map&filter, shapes, signature) × 58 languages, each with `expected_output` and `verified`; signature snippets tag the concepts they demonstrate (`concepts`) |
+| **Task / Snippet**   | 6 shared tasks (hello, factorial, fizzbuzz, map&filter, shapes, signature) × 63 languages, each with `expected_output` and `verified`; signature snippets tag the concepts they demonstrate (`concepts`) |
 | **Runtime**          | the toolchain + Docker image that actually ran the snippets, and an optional in-browser engine                                                                                                           |
 
 ## 3. Views
@@ -136,7 +136,7 @@ The centrepiece: a desktop of code windows.
 
 ### 3.5 Genome — traits as genetics (`/genome`)
 
-- **Trait matrix:** 58 languages × 55 concepts, as a heat grid. Sort by year, family or trait similarity. Clicking a
+- **Trait matrix:** 63 languages × 55 concepts, as a heat grid. Sort by year, family or trait similarity. Clicking a
   column opens that concept.
 - **Phenotype vs genealogy:** cluster the languages by trait similarity (Jaccard or cosine over the trait vectors) and
   draw that dendrogram _next to_ the declared-lineage tree. Where they disagree you get **convergent evolution**: Rust
@@ -206,31 +206,32 @@ docker run --rm --network none --read-only --tmpfs /tmp:size=64m,exec \
 
 ## 5. Frontend stack
 
-| Concern      | Choice                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Framework    | Fresh 2 (Vite plugin, Preact islands, SSR routes)                                                                                                                                                                                                                                                                                                                                                                                      |
-| Graph layout | elkjs (layered DAG), d3-hierarchy (tree/radial), d3-zoom for pan/zoom                                                                                                                                                                                                                                                                                                                                                                  |
-| Rendering    | SVG for up to ~200 nodes (accessible and stylable); canvas only if needed                                                                                                                                                                                                                                                                                                                                                              |
-| Code editor  | CodeMirror 6 + `@codemirror/legacy-modes`: 56 of 58 languages get a mode (all but BCPL and CLU, which stay plain). Close relatives stand in where CodeMirror has none: ALGOL family (incl. Oberon, Object Pascal) → Pascal, Ada → VHDL, Prolog → Erlang, Elixir → Ruby, Zig and Gleam → Rust, AWK → Perl, Nim → Python with Nim keywords. J has a small hand-written mode (and highlight.js grammar). PHP uses `@codemirror/lang-php`. |
-| Charts       | Observable Plot (adoption curves, trait space)                                                                                                                                                                                                                                                                                                                                                                                         |
-| Search       | SQLite FTS5 via `node:sqlite` on the server                                                                                                                                                                                                                                                                                                                                                                                            |
-| Fonts        | a serif for history prose, a mono for code, APL-capable mono (APL385/BQN386) for APL windows                                                                                                                                                                                                                                                                                                                                           |
+| Concern      | Choice                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework    | Fresh 2 (Vite plugin, Preact islands, SSR routes)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Graph layout | elkjs (layered DAG), d3-hierarchy (tree/radial), d3-zoom for pan/zoom                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Rendering    | SVG for up to ~200 nodes (accessible and stylable); canvas only if needed                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Code editor  | CodeMirror 6 + `@codemirror/legacy-modes`: 61 of 63 languages get a mode (all but BCPL and CLU, which stay plain). Close relatives stand in where CodeMirror has none: ALGOL family (incl. Oberon, Object Pascal) → Pascal, Ada → VHDL, Prolog → Erlang, Elixir → Ruby, Zig and Gleam → Rust, AWK → Perl, NewtonScript → JavaScript, Nim and Mojo → Python with their own keywords. J and the xTalks (HyperTalk, AppleScript) have small hand-written modes; J and Dylan have hand-written highlight.js grammars. PHP uses `@codemirror/lang-php`. |
+| Charts       | Observable Plot (adoption curves, trait space)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Search       | SQLite FTS5 via `node:sqlite` on the server                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Fonts        | a serif for history prose, a mono for code, APL-capable mono (APL385/BQN386) for APL windows                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 ## 6. Roadmap
 
-1. **Data** ✅ 58 languages, 55 concepts, 283 lineage edges (21 "cross-pollination": a newer language feeding a later
-   version of an older one, e.g. Kotlin → PHP 8, drawn separately), 348 snippets. 29 custom images in
-   `sandbox/<id>/Dockerfile` (ALGOL 60 via MARST, Simula via Cim, LISP 1.5, BCPL, B, CLU, Self, Miranda…). Static UI
-   prototype: `design/prototype/` (`deno task prototype`).
+1. **Data** ✅ 63 languages, 55 concepts, 310 lineage edges (22 "cross-pollination": a newer language feeding a later
+   version of an older one, e.g. Kotlin → PHP 8, drawn separately), 378 snippets (AppleScript's 6 stay unverified: it
+   exists only on macOS). 33 custom images in `sandbox/<id>/Dockerfile` (ALGOL 60 via MARST, Simula via Cim, LISP 1.5,
+   BCPL, B, CLU, Self, Miranda, HyperTalk via LiveCode Server…). Static UI prototype: `design/prototype/`
+   (`deno task prototype`).
 2. **Skeleton app** ✅ Fresh 2 scaffold, world loader, language pages, River island, Genome matrix (SSR SVG), 404 page.
 3. **Rosetta Desk** ✅ period-skinned windows, a CodeMirror 6 editor (`web/lib/editor.ts`), a language switcher, Run all
    and a trait diff. The editor loads only on the first Edit. Its tokens reuse the `hljs-*` classes, so period skins
    style it with no extra CSS. The editor supplies Tab/Shift-Tab with the snippet's own indent step, and Ctrl/⌘+Enter
    runs.
-4. **Runner** ✅ local runner with SSE streaming. `deno task verify` passes 348/348 snippets on real toolchains. CI
-   verifies the languages a pull request touches.
+4. **Runner** ✅ local runner with SSE streaming. `deno task verify` passes 372/372 runnable snippets on real
+   toolchains. CI verifies the languages a pull request touches.
 5. **Genealogy + Genome** ✅ `/tree` has three views. The family tree is a time-scaled dendrogram by primary parent. Its
-   rows are an in-order walk, so no connector crosses a label. The influence web lays out all 262 non-retro edges top to
+   rows are an in-order walk, so no connector crosses a label. The influence web lays out all 288 non-retro edges top to
    bottom, using ELK `layered` at build time (`scripts/build-layout.ts`, so no elkjs in the app). Pedigrees show three
    generations up and two down, direct links include minor ones, and the edge notes are listed below the chart. The
    Genome matrix is also done. Still to do: phenotype vs genealogy.
@@ -251,7 +252,7 @@ Zig (Debug builds) and Go (pre-warmed build cache) take under 1 s.
 - Hosting: **decided: read-only on Cloudflare Workers** (`deno task deploy`); code windows show recorded output and
   point to the repo for live runs. A public runner later needs gVisor, a non-root user, a read-only rootfs, quotas and
   abuse controls (§4).
-- Scope growth: 58 → 100+? Added so far: AWK, Object Pascal, Oberon, J, Racket, Nim, Dart, Gleam. Candidates: PL/I,
-  SNOBOL, Plankalkül, Logo, Icon, Crystal, Elm, Idris, Koka, Mojo, Visual Basic, MATLAB/Octave, Bash. See "Adding a
-  language" in `data/README.md`.
+- Scope growth: 63 → 100+? Added so far: AWK, Object Pascal, Oberon, J, Racket, Nim, Dart, Gleam, HyperTalk,
+  AppleScript, NewtonScript, Dylan, Mojo. Candidates: PL/I, SNOBOL, Plankalkül, Logo, Icon, Crystal, Elm, Idris, Koka,
+  Visual Basic, MATLAB/Octave, Bash. See "Adding a language" in `data/README.md`.
 - Should edited code and saved comparisons be shareable accounts-free (URL only) or persisted?

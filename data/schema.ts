@@ -39,14 +39,18 @@ export const LANGUAGE_IDS = [
   "eiffel",
   "erlang",
   "self",
+  "hypertalk",
   "oberon",
   "perl",
   "haskell",
   "j",
   // 1991–2004: the internet era
   "python",
+  "dylan",
   "lua",
   "r",
+  "applescript",
+  "newtonscript",
   "java",
   "javascript",
   "ruby",
@@ -69,6 +73,7 @@ export const LANGUAGE_IDS = [
   "swift",
   "zig",
   "gleam",
+  "mojo",
 ] as const;
 
 export const LanguageId = z.enum(LANGUAGE_IDS);

@@ -179,7 +179,8 @@
     "zig",
     "php",
     "nim",
-    "gleam"
+    "gleam",
+    "mojo"
   ],
   "traits": {
     "structured-control": {

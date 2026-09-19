@@ -68,14 +68,68 @@ const jParser: StreamParser<unknown> = {
   },
 };
 
-// Nim reads like Python with its own keywords.
+// The xTalks (HyperTalk, AppleScript) have no CodeMirror mode, and VB's `'` comments would swallow every `'s`.
+// `--` comments, strings, numbers and English keywords; AppleScript adds nestable `(* … *)` and `#` comments
+// and `|barred identifiers|`.
+const xTalk = (words: string, apple: boolean): StreamParser<{ depth: number }> => {
+  const keywords = new Set(words.split(" "));
+  return {
+    name: apple ? "applescript" : "hypertalk",
+    startState: () => ({ depth: 0 }),
+    token(stream, state) {
+      if (state.depth > 0) {
+        while (!stream.eol()) {
+          if (stream.match("(*")) state.depth++;
+          else if (stream.match("*)")) {
+            if (--state.depth === 0) break;
+          } else stream.next();
+        }
+        return "comment";
+      }
+      if (stream.eatSpace()) return null;
+      if (stream.match("--") || (apple && stream.match(/^#(?!!)/))) {
+        stream.skipToEnd();
+        return "comment";
+      }
+      if (apple && stream.match("(*")) {
+        state.depth = 1;
+        return "comment";
+      }
+      if (stream.match(apple ? /^"(?:[^"\\]|\\.)*"?/ : /^"[^"]*"?/)) return "string";
+      if (apple && stream.match(/^\|[^|]*\|?/)) return "variableName";
+      if (stream.match(/^\d+(?:\.\d+)?(?:e[+-]?\d+)?/i)) return "number";
+      if (stream.match(/^[A-Za-z_]\w*/)) {
+        return keywords.has(stream.current().toLowerCase()) ? "keyword" : "variableName";
+      }
+      stream.next();
+      return null;
+    },
+  };
+};
+const XTALK_WORDS = "on end function if then else repeat with while until for times exit next return pass send to " +
+  "me it the of in is not and or put into after before get set div mod contains global local";
+const hyperTalkParser = xTalk(`${XTALK_WORDS} do value item items word words char chars line lines number`, false);
+const appleScriptParser = xTalk(
+  `${XTALK_WORDS} tell script property my its try error considering ignoring using terms from given as a an ` +
+    "every whose where thru through first last some class record list true false missing log copy count",
+  true,
+);
+
+// Nim and Mojo read like Python with keywords of their own.
 const NIM_KEYWORDS = ("proc func let var const type object enum tuple ref ptr macro template iterator method " +
   "converter case of when discard distinct mod div shl shr xor nil block static defer concept do export include " +
   "mixin bind addr cast using").split(" ");
+const MOJO_KEYWORDS = "var struct trait comptime mut imm ref out deinit raises where".split(" ");
+// mkPython is exported by the mode but missing from its type declarations.
+const pythonWith = (keywords: string[]) =>
+  import("@codemirror/legacy-modes/mode/python").then((m) =>
+    legacy((m as unknown as { mkPython(conf: object): StreamParser<unknown> }).mkPython({ extra_keywords: keywords }))
+  );
 
 // Modes per language. Close relatives stand in where CodeMirror has no mode of its own:
 // the ALGOL family (Oberon, Object Pascal) uses Pascal, Ada uses VHDL (itself derived from Ada), Prolog uses
-// Erlang (whose syntax came from Prolog), Elixir uses Ruby, Zig and Gleam use Rust, AWK uses Perl, B uses C.
+// Erlang (whose syntax came from Prolog), Elixir uses Ruby, Zig and Gleam use Rust, AWK uses Perl, B uses C and
+// NewtonScript uses JavaScript.
 const MODES: Record<string, () => Promise<Extension>> = {
   fortran: () => import("@codemirror/legacy-modes/mode/fortran").then((m) => legacy(m.fortran)),
   algol60: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
@@ -106,9 +160,13 @@ const MODES: Record<string, () => Promise<Extension>> = {
   erlang: () => import("@codemirror/legacy-modes/mode/erlang").then((m) => legacy(m.erlang)),
   perl: () => import("@codemirror/legacy-modes/mode/perl").then((m) => legacy(m.perl)),
   oberon: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
+  hypertalk: () => Promise.resolve(legacy(hyperTalkParser as StreamParser<unknown>)),
   self: () => import("@codemirror/legacy-modes/mode/smalltalk").then((m) => legacy(m.smalltalk)),
   haskell: () => import("@codemirror/legacy-modes/mode/haskell").then((m) => legacy(m.haskell)),
   j: () => Promise.resolve(legacy(jParser)),
+  dylan: () => import("@codemirror/legacy-modes/mode/dylan").then((m) => legacy(m.dylan)),
+  applescript: () => Promise.resolve(legacy(appleScriptParser as StreamParser<unknown>)),
+  newtonscript: () => import("@codemirror/legacy-modes/mode/javascript").then((m) => legacy(m.javascript)),
   python: () => import("@codemirror/legacy-modes/mode/python").then((m) => legacy(m.python)),
   lua: () => import("@codemirror/legacy-modes/mode/lua").then((m) => legacy(m.lua)),
   r: () => import("@codemirror/legacy-modes/mode/r").then((m) => legacy(m.r)),
@@ -122,13 +180,7 @@ const MODES: Record<string, () => Promise<Extension>> = {
   scala: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.scala)),
   fsharp: () => import("@codemirror/legacy-modes/mode/mllike").then((m) => legacy(m.fSharp)),
   clojure: () => import("@codemirror/legacy-modes/mode/clojure").then((m) => legacy(m.clojure)),
-  // mkPython is exported by the mode but missing from its type declarations.
-  nim: () =>
-    import("@codemirror/legacy-modes/mode/python").then((m) =>
-      legacy(
-        (m as unknown as { mkPython(conf: object): StreamParser<unknown> }).mkPython({ extra_keywords: NIM_KEYWORDS }),
-      )
-    ),
+  nim: () => pythonWith(NIM_KEYWORDS),
   go: () => import("@codemirror/legacy-modes/mode/go").then((m) => legacy(m.go)),
   kotlin: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.kotlin)),
   dart: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.dart)),
@@ -139,6 +191,7 @@ const MODES: Record<string, () => Promise<Extension>> = {
   swift: () => import("@codemirror/legacy-modes/mode/swift").then((m) => legacy(m.swift)),
   zig: () => import("@codemirror/legacy-modes/mode/rust").then((m) => legacy(m.rust)),
   gleam: () => import("@codemirror/legacy-modes/mode/rust").then((m) => legacy(m.rust)),
+  mojo: () => pythonWith(MOJO_KEYWORDS),
 };
 
 /** The snippet's own indent step: a tab if it uses tabs, else the smallest increase between lines. */

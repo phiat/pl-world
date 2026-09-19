@@ -50,11 +50,10 @@
     { "id": "c", "kind": "influence", "weight": "minor", "note": "JavaScript 1.0's statement syntax was modelled directly on C." },
     { "id": "perl", "kind": "influence", "weight": "minor", "note": "Regular-expression syntax and semantics, and the push/pop/shift/unshift/splice array methods (JavaScript 1.2)." },
     { "id": "python", "kind": "influence", "weight": "minor", "note": "slice/concat methods (JavaScript 1.2); later iterators, generators and destructuring." },
-    { "id": "awk", "kind": "influence", "weight": "minor", "note": "The function declaration syntax (Eich: \"'function', eight letters, I was influenced by AWK\") and the for-in statement." }
+    { "id": "awk", "kind": "influence", "weight": "minor", "note": "The function declaration syntax (Eich: \"'function', eight letters, I was influenced by AWK\") and the for-in statement." },
+    { "id": "hypertalk", "kind": "influence", "weight": "minor", "note": "HyperCard inspired the event model of the original Netscape 2 DOM (onclick, onmouseover handlers); before designing Mocha, Eich had studied 'easy to use' languages including HyperTalk (Wirfs-Brock & Eich, HOPL 2020)." }
   ],
-  "influenced_by_external": [
-    { "name": "HyperTalk (HyperCard)", "year": 1987, "note": "Inspired the event-handler model of the original Netscape DOM (onclick and friends)." }
-  ],
+  "influenced_by_external": [],
   "influenced": ["typescript", "php", "kotlin", "dart", "gleam"],
   "traits": {
     "structured-control": { "level": "core" },

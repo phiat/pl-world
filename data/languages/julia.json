@@ -37,21 +37,21 @@
   "primary_parent": "lisp",
   "influenced_by": [
     { "id": "lisp", "kind": "influence", "weight": "major", "note": "'Homoiconic, with true macros like Lisp'; the original parser was written in FemtoLisp, a Scheme dialect." },
-    { "id": "common-lisp", "kind": "influence", "weight": "minor", "note": "CLOS generic functions (and Dylan) are the multiple-dispatch systems Julia's designers measured their own use of dispatch against." },
+    { "id": "common-lisp", "kind": "influence", "weight": "minor", "note": "CLOS generic functions are the multiple-dispatch system Julia's designers measured their own use of dispatch against." },
     { "id": "python", "kind": "influence", "weight": "minor", "note": "'As usable for general programming as Python'." },
     { "id": "r", "kind": "influence", "weight": "minor", "note": "'As easy for statistics as R'." },
     { "id": "ruby", "kind": "influence", "weight": "minor", "note": "'The dynamism of Ruby'." },
     { "id": "perl", "kind": "influence", "weight": "minor", "note": "'As natural for string processing as Perl'." },
     { "id": "lua", "kind": "influence", "weight": "minor" },
-    { "id": "c", "kind": "influence", "weight": "minor", "note": "'The speed of C' was the performance target; ccall calls C libraries without glue code." }
+    { "id": "c", "kind": "influence", "weight": "minor", "note": "'The speed of C' was the performance target; ccall calls C libraries without glue code." },
+    { "id": "dylan", "kind": "influence", "weight": "minor", "note": "Multiple dispatch with a conventional, non-S-expression syntax; Karpinski: 'the closest language to the mainstream to have this is Dylan.'" }
   ],
   "influenced_by_external": [
     { "name": "MATLAB", "year": 1984, "note": "'Obvious, familiar mathematical notation like Matlab': array syntax, 1-based indexing and end-terminated blocks." },
-    { "name": "Dylan", "year": 1992, "note": "Multiple dispatch with a conventional, non-S-expression syntax." },
     { "name": "Mathematica", "year": 1988 },
     { "name": "Fortress" }
   ],
-  "influenced": [],
+  "influenced": ["mojo"],
   "traits": {
     "structured-control": { "level": "core" },
     "block-scope": { "level": "core", "note": "function, let, for/while and comprehensions introduce local scopes; if and begin blocks do not." },
@@ -168,6 +168,7 @@
     "https://arxiv.org/abs/1411.1607",
     "https://docs.julialang.org/en/v1/manual/methods/",
     "https://github.com/JuliaLang/julia/releases",
-    "https://numfocus.org/blog/julia-co-creators-to-receive-2019-james-h-wilkinson-prize-for-numerical-software"
+    "https://numfocus.org/blog/julia-co-creators-to-receive-2019-james-h-wilkinson-prize-for-numerical-software",
+    "https://increment.com/programming-languages/goldilocks-language-history-of-julia/"
   ]
 }

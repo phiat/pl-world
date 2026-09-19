@@ -37,11 +37,11 @@
   "influenced_by": [
     { "id": "scheme", "kind": "influence", "weight": "major", "note": "R began as a small Scheme-like interpreter (after SICP); lexical scoping and closures distinguish it from S." },
     { "id": "lisp", "kind": "influence", "weight": "minor", "note": "'R began as an experiment in trying to use the methods of Lisp implementors' (Ihaka); code is manipulable as language objects." },
-    { "id": "common-lisp", "kind": "influence", "weight": "minor", "note": "Calling handlers and restarts in the condition system are based on Common Lisp's." }
+    { "id": "common-lisp", "kind": "influence", "weight": "minor", "note": "Calling handlers and restarts in the condition system are based on Common Lisp's." },
+    { "id": "dylan", "kind": "influence", "weight": "minor", "note": "R's documentation: 'Calling handlers are based on Common Lisp and Dylan.'" }
   ],
   "influenced_by_external": [
-    { "name": "S", "year": 1976, "note": "Bell Labs statistics language by John Chambers, Rick Becker and Allan Wilks; R adopted its syntax, and most S code runs unaltered in R." },
-    { "name": "Dylan", "year": 1992, "note": "Calling handlers in the condition system are based on Common Lisp and Dylan." }
+    { "name": "S", "year": 1976, "note": "Bell Labs statistics language by John Chambers, Rick Becker and Allan Wilks; R adopted its syntax, and most S code runs unaltered in R." }
   ],
   "influenced": ["julia"],
   "traits": {

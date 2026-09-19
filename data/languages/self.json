@@ -65,7 +65,9 @@
   "influenced": [
     "javascript",
     "lua",
-    "dart"
+    "dart",
+    "newtonscript",
+    "applescript"
   ],
   "traits": {
     "structured-control": {

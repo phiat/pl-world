@@ -109,7 +109,9 @@
     "ada",
     "cobol",
     "object-pascal",
-    "dart"
+    "dart",
+    "newtonscript",
+    "dylan"
   ],
   "traits": {
     "structured-control": {

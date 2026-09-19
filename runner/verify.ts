@@ -17,6 +17,11 @@ type Row = { lang: string; task: string; ok: boolean; why?: string; ms?: number 
 const jobs: Promise<Row>[] = [];
 for (const l of languages) {
   if (ids.length && !ids.includes(l.id)) continue;
+  // Languages that only run on their own platform (AppleScript on macOS) have nothing to verify here.
+  if (!l.runtime.toolchains.some((t) => t.docker_image)) {
+    console.log(`- ${l.id.padEnd(12)} no sandbox toolchain (${l.runtime.strategy}); snippets stay unverified`);
+    continue;
+  }
   for (const [task, s] of Object.entries(l.snippets)) {
     if (args.task && task !== args.task) continue;
     const image = sandbox.plan(l.id, s.code).image;

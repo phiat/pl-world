@@ -1,0 +1,253 @@
+{
+  "id": "newtonscript",
+  "name": "NewtonScript",
+  "aliases": [],
+  "year": 1993,
+  "year_note": "Walter Smith joined the Newton group in 1988, while it was still choosing a language; NewtonScript then evolved alongside the Newton's view system and object store and became public with the MessagePad and the Newton Toolkit in August 1993. Version 2.0 is documented in Apple's 1996 manual for Newton OS 2.0.",
+  "designers": [
+    "Walter R. Smith"
+  ],
+  "organization": "Apple Computer",
+  "country": "United States",
+  "tagline": "The Apple Newton's language: prototype frames that inherit along two paths, _proto for defaults kept in ROM and _parent for the view tree.",
+  "summary": "NewtonScript is a dynamically typed, prototype-based object-oriented language that Apple created to program the Newton MessagePad and other Newton PDAs. Its objects are frames, sets of named slots that inherit through two links: _proto, which refines a shared template that can stay in ROM, and _parent, which points to the enclosing object in the view hierarchy. Programs were written in a Pascal-like syntax, compiled to bytecode by the Newton Toolkit on a desktop computer and interpreted on the device.",
+  "history": "Walter R. Smith joined Apple's Newton group in 1988, while the team was choosing a language for the device, a period he later called the 'language thrash'. Evaluations pointed at Smalltalk, Eiffel, Trellis/Owl or C++, Self impressed the team with its 'audacious simplicity', and Apple's own Dylan was for a time intended for the Newton but was not mature in time. Instead NewtonScript evolved alongside the Newton's view system and persistent object store, with Smith as its principal designer and implementor. The low-level system was written in C++; NewtonScript was used for applications and much of the user-interface toolkit, and shipped with the MessagePad in August 1993.\n\nSmith adapted Self's parent slots but fixed them to two prioritized links: _proto for prototype inheritance and _parent for container inheritance, the latter inspired in part by HyperCard's message path. Assigning to a slot inherited through _proto creates a new slot in the receiver rather than changing the prototype, so the system's user-interface protos could stay in ROM while applications stored only their differences in the MessagePad's 640 KB of RAM. Unlike Self, reading a variable never runs a method, and the syntax was Pascal-like rather than Smalltalk-like. NewtonScript 2.0, documented in Apple's 1996 manual for Newton OS 2.0, added native-code functions, int and array declarations and a hierarchy of class symbols.\n\nApple discontinued the Newton in 1998, which ended NewtonScript's mainstream use. Its prototype model with differential inheritance is one of the acknowledged inspirations of the Io language. Makoto Nukui's open-source NEWT/0 interpreter, begun in 2003 and later extended by Paul Guyot, Matthias Melcher and others from the Newton community, runs NewtonScript programs on modern systems.",
+  "innovations": [
+    "Double inheritance: frames inherit along a _proto (refinement) chain and a _parent (containment) chain, searched in a fixed comb-like order",
+    "Copy-on-write assignment to slots inherited through _proto, so prototypes can live in ROM and objects store only their differences",
+    "Container inheritance as scoping: a view's slots act as shared variables for all of its subviews",
+    "A prototype-based language as the application language of a commercial platform, whose user-interface toolkit is a library of protos that programs refine",
+    "Hierarchical class symbols ('|rectangle.square| is a subclass of 'rectangle) as lightweight semantic types for data"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "prototype-based",
+    "imperative",
+    "event-driven"
+  ],
+  "family": "smalltalk",
+  "syntax_family": "algol",
+  "block_style": "begin-end",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Types belong to objects ('latent typing'). Every object has a class, and frames can carry a class symbol as a semantic type. NewtonScript 2.0 added optional int and array declarations for locals and parameters, to help the native compiler."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Garbage collection runs automatically when the frame heap runs out of memory. Prototypes and code usually stay in ROM or on a storage card, so an object in RAM holds only the slots that differ from its prototype.",
+  "execution": [
+    "bytecode-vm",
+    "native-compiled"
+  ],
+  "status": "historical",
+  "latest_version": "NewtonScript 2.0 (Newton OS 2.x)",
+  "file_extensions": [
+    ".newt"
+  ],
+  "color": "#8a6f4d",
+  "primary_parent": "self",
+  "influenced_by": [
+    {
+      "id": "self",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Smith: 'SELF was one of the primary influences'. Its parent slots became NewtonScript's _proto and _parent, fixed at two links with a set priority."
+    },
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Apple's manual: NewtonScript 'is based on principles first used in Smalltalk and LISP'; like Smalltalk, it represents all data as objects."
+    },
+    {
+      "id": "lisp",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named in the same sentence of Apple's manual; symbols, first-class function objects and automatic garbage collection."
+    },
+    {
+      "id": "hypertalk",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Smith: container (_parent) inheritance 'was inspired in part by HyperCard', whose unhandled messages travel up from button to card, background and stack."
+    },
+    {
+      "id": "pascal",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Syntax: Smith described it as 'Pascal-like (or, to give credit where due, Algol-like)', with begin/end, := and for ... to ... do."
+    },
+    {
+      "id": "dylan",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed as an influence by Wikipedia. Apple's Dylan was being developed in parallel and was for a time intended for the Newton; no specific borrowed feature is documented."
+    }
+  ],
+  "influenced_by_external": [],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if/then/else, for, foreach, while, repeat/until and loop with break are all expressions that return values."
+    },
+    "block-scope": {
+      "level": "supported",
+      "note": "Locals are scoped to the whole function: begin ... end only groups expressions. Nested functions are lexically scoped."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "try ... onexception with Throw and Rethrow. Exception symbols such as |evt.ex.fr.intrp| form a hierarchy, and a handler also catches the subexceptions of its symbol."
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Object-based double inheritance through _proto and _parent slots; inherited:Message() calls the prototype's version of a method. A class-based style (instances with a _parent link to a 'class' frame) is a documented convention, not a language feature."
+    },
+    "everything-is-an-object": {
+      "level": "supported",
+      "note": "All data are objects with a class, but only frames can receive messages, and control flow is built-in syntax rather than message sends."
+    },
+    "prototypes": {
+      "level": "core",
+      "note": "A _proto slot names the frame to inherit from. Assigning to an inherited slot creates a new slot in the receiver, so prototypes in ROM are never modified."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "Frame slots are public; Apple's manual shows closures that hide state as the way to build abstract data types."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "func(...) creates a function object that can be stored in slots, arrays and soups; call f with (args) invokes it."
+    },
+    "closures": {
+      "level": "core",
+      "note": "A function object saves its lexical environment (the locals and parameters of enclosing functions) and its message environment (self)."
+    },
+    "list-comprehensions": {
+      "level": "supported",
+      "note": "foreach ... collect builds a new array from one expression per element: a map with no filter clause."
+    },
+    "garbage-collection": {
+      "level": "core"
+    },
+    "reflection": {
+      "level": "core",
+      "note": "Frames can be enumerated with foreach and changed at run time (GetSlot, RemoveSlot, HasSlot, the exists operator); ClassOf and IsInstance inspect types, Perform sends a message chosen at run time, and Compile turns a string into a function."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1988,
+      "event": "Walter Smith joins Apple's Newton group during its language evaluations (the 'language thrash')"
+    },
+    {
+      "year": 1993,
+      "event": "NewtonScript ships with the MessagePad and the Newton Toolkit"
+    },
+    {
+      "year": 1995,
+      "event": "Smith presents 'Using a Prototype-based Language for User Interface' at OOPSLA '95"
+    },
+    {
+      "year": 1996,
+      "event": "Newton OS 2.0 brings NewtonScript 2.0: native functions, int and array declarations, class-symbol subclasses"
+    },
+    {
+      "year": 1998,
+      "event": "Apple discontinues the Newton platform"
+    },
+    {
+      "year": 2003,
+      "event": "Makoto Nukui starts NEWT/0, an open-source NewtonScript interpreter"
+    }
+  ],
+  "trivia": [
+    "Smith wrote that, unlike in Self, reading a variable in NewtonScript never runs a method, because he 'was just being conservative with space, time, and implementation complexity'.",
+    "Apple's manual warns that :Message1() and :Message2() on consecutive lines without a semicolon send Message2 to whatever Message1 returns."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "NewtonScript 2.0",
+      "code": "Print(\"Hello, World!\\n\");\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "A Newton had no standard output: during development, Print sent an object's printed form to the Newton Toolkit's Inspector window on the desktop, with strings shown in quotes. NEWT/0's Print writes a string to stdout unchanged and adds no newline.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "NewtonScript 2.0",
+      "code": "// A method is a function stored in a frame slot. :Factorial(...)\n// sends the message to self, the frame that received the first send.\nlocal calc := {\n    Factorial: func(n)\n        if n <= 1 then 1 else n * :Factorial(n - 1)\n};\n\nPrint(calc:Factorial(10) & \"\\n\");\n",
+      "expected_output": "3628800\n",
+      "notes": "A function body is a single expression, and if ... then ... else returns a value. :Factorial(n - 1) is short for self:Factorial(n - 1). The & operator converts the number to a string before concatenating. Newton integers were 30-bit (up to 536870911), which is enough for 10!.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "NewtonScript 2.0",
+      "code": "// if ... then ... else is an expression, so it can be an argument.\nfor i := 1 to 15 do\n    Print((if i mod 15 = 0 then \"FizzBuzz\"\n           else if i mod 3 = 0 then \"Fizz\"\n           else if i mod 5 = 0 then \"Buzz\"\n           else i) & \"\\n\");\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "mod is the remainder operator and = is equality. The parentheses keep & \"\\n\" from binding only to the last else branch.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "NewtonScript 2.0",
+      "code": "// keep: a filter built from foreach; test can be any function object.\nlocal keep := func(items, test)\nbegin\n    local kept := [];\n    foreach x in items do\n        if call test with (x) then AddArraySlot(kept, x);\n    kept\nend;\n\nlocal nums := [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\nlocal divisor := 2;\nlocal isEven := func(n) n mod divisor = 0;    // a closure over divisor\nlocal squares := foreach x in call keep with (nums, isEven) collect x * x;\n\nforeach i, x in squares do\n    Print((if i > 0 then \" \" else \"\") & x);\nPrint(\"\\n\");\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "There is no built-in filter, so keep is written with foreach and AddArraySlot. Function objects stored in variables are invoked with call ... with (...), because name(...) always calls a global function. foreach ... collect returns a new array, and foreach i, x gives the index as well as the element.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "NewtonScript 2.0",
+      "code": "// No classes: frames inherit slots through _proto. Shared protos (on a\n// Newton, often in ROM) hold behaviour; each shape holds only its data.\nlocal protoShape := {\n    Describe: func() Print(name & \": \" & :Area() & \"\\n\")\n};\nlocal protoRectangle := {_proto: protoShape, name: \"Rectangle\",\n    Area: func() width * height};\nlocal protoTriangle := {_proto: protoShape, name: \"Triangle\",\n    Area: func() base * height div 2};\n\nlocal shapes := [\n    {_proto: protoRectangle, width: 3, height: 4},\n    {_proto: protoTriangle, base: 10, height: 3}\n];\nforeach s in shapes do s:Describe();\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Each shape is a frame with a _proto slot; name, Area and Describe are found by searching the proto chain. Inside a method, a bare name such as width is looked up as a local, then as a global, then in the receiver's proto and parent chains, while :Area() sends a message to self. div is integer division. The protoSomething names follow the Newton system protos, such as protoFloater.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Double inheritance: _proto and _parent",
+      "concepts": [
+        "prototypes",
+        "inheritance"
+      ],
+      "dialect": "NewtonScript 2.0",
+      "code": "// Frames inherit along two chains: _proto for shared defaults (on a\n// Newton, templates in ROM) and _parent for the enclosing view.\nlocal protoButton := {\n    label: \"Button\",\n    clicks: 0,\n    Click: func()\n    begin\n        clicks := clicks + 1;   // found via _proto: a new slot in self\n        total := total + 1;     // found via _parent: set in the parent\n        Print(label && \"clicks:\" && clicks & \", app total:\" && total & \"\\n\");\n    end\n};\nlocal app := {total: 0};\nlocal ok := {_proto: protoButton, _parent: app, label: \"OK\"};\nlocal cancel := {_proto: protoButton, _parent: app, label: \"Cancel\"};\n\nok:Click();\nok:Click();\ncancel:Click();\nPrint(\"protoButton.clicks:\" && protoButton.clicks & \"\\n\");\n",
+      "expected_output": "OK clicks: 1, app total: 1\nOK clicks: 2, app total: 2\nCancel clicks: 1, app total: 3\nprotoButton.clicks: 0\n",
+      "notes": "clicks is found in the _proto frame, so assigning to it creates a new clicks slot in the button itself and the prototype keeps 0; that is what let Newton system protos stay in ROM. total is found through _parent, so assignment updates the shared parent frame, the way views share variables through the view hierarchy. The _proto chain is searched before the _parent chain. && concatenates with a space; & without one.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "NEWT/0",
+        "version": "0.1.4 (git cb7482c)",
+        "docker_image": "plw-newtonscript",
+        "install": "FROM debian:bookworm-slim; install gcc make bison flex; build github.com/gnue/NEWT0 at commit cb7482c4908f2e0ce86c93faf6a5b3997d958143 with CPPFLAGS=-D_GNU_SOURCE ./configure --prefix=/opt/newt0 && make && make test && make install; copy bin/newt and lib/newt0 into a slim runtime image",
+        "dockerfile": "sandbox/newtonscript/Dockerfile",
+        "run": "newt --newton {file}",
+        "notes": "--newton (alias --nos2) makes the parser reject NEWT/0's own syntax extensions, so snippets stay Newton OS 2.0 compatible. -D_GNU_SOURCE is the only patch: it declares strcasestr, which StrPos calls; without it the returned pointer is truncated on 64-bit hosts. NEWT/0 compiles each script to NewtonScript bytecode and interprets it; its integers are 62-bit on 64-bit hosts rather than the Newton's 30-bit."
+      }
+    ],
+    "browser": null,
+    "notes": "The original toolchain, the Newton Toolkit on a Mac or Windows PC, compiled code for a Newton device or the Einstein emulator, both of which need an Apple ROM. NEWT/0 is a standalone reimplementation of the language and core built-in functions with no view system or soups."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/NewtonScript",
+    "spec": "https://web.archive.org/web/20150124193723/https://manuals.info.apple.com/MANUALS/1000/MA1508/en_US/NewtonScriptProgramLanguage.PDF"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/NewtonScript",
+    "https://web.archive.org/web/20150124193723/https://manuals.info.apple.com/MANUALS/1000/MA1508/en_US/NewtonScriptProgramLanguage.PDF",
+    "https://web.archive.org/web/20100311070259/http://waltersmith.us/wp-content/uploads/2005/12/Self-intro.htm",
+    "https://web.archive.org/web/20080903111832/http://waltersmith.us/wp-content/uploads/2005/12/OOPSLA95.pdf",
+    "https://en.wikipedia.org/wiki/Apple_Newton",
+    "https://en.wikipedia.org/wiki/Newton_OS",
+    "https://en.wikipedia.org/wiki/Dylan_(programming_language)",
+    "https://en.wikipedia.org/wiki/Io_(programming_language)",
+    "https://github.com/gnue/NEWT0"
+  ]
+}

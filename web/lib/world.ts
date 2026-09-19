@@ -88,9 +88,13 @@ export const convergentPairs = (() => {
   return pairs.sort((x, y) => y.sim - x.sim).slice(0, 8);
 })();
 
+/** The toolchain the sandbox runner uses, if any: some languages only run on their original platform (AppleScript). */
+export const sandboxToolchain = (l: Language) => l.runtime.toolchains.find((t) => t.docker_image);
+
 export const stats = {
   languages: languages.length,
   concepts: concepts.length,
   snippets: languages.reduce((n, l) => n + Object.keys(l.snippets).length, 0),
+  runnable: languages.filter(sandboxToolchain).reduce((n, l) => n + Object.keys(l.snippets).length, 0),
   verified: languages.reduce((n, l) => n + Object.values(l.snippets).filter((s) => s.verified).length, 0),
 };

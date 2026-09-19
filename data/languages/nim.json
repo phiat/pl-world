@@ -137,7 +137,7 @@
       "note": "Listed by Wikipedia; its 'pointer-free programming' motivated the destructor and move-semantics design behind ARC/ORC."
     }
   ],
-  "influenced": [],
+  "influenced": ["mojo"],
   "traits": {
     "structured-control": {
       "level": "core",

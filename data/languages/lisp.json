@@ -89,7 +89,8 @@
     "scala",
     "smalltalk",
     "swift",
-    "nim"
+    "nim",
+    "newtonscript"
   ],
   "traits": {
     "structured-control": {

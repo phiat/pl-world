@@ -1,0 +1,387 @@
+{
+  "id": "mojo",
+  "name": "Mojo",
+  "aliases": [
+    "Mojo🔥"
+  ],
+  "year": 2023,
+  "year_note": "Work on the compiler began at Modular in 2022 (its first patch, a lexer, landed on 27 September 2022). Mojo was announced on 2 May 2023 with a hosted Playground; a local SDK followed for Linux on 7 September 2023 (v0.2.1) and for macOS on 19 October 2023. Mojo 1.0 was released on 11 August 2026.",
+  "designers": [
+    "Chris Lattner"
+  ],
+  "organization": "Modular Inc.",
+  "country": "United States",
+  "tagline": "Python syntax over an MLIR-based systems core: compile-time parameters, SIMD types and ownership for CPUs, GPUs and accelerators.",
+  "summary": "Mojo is a statically typed, compiled systems programming language from Modular that adopts Python's syntax while taking its semantics from Rust, Swift and C++: value-semantic structs, traits, and ownership expressed through argument conventions. Its centrepiece is a compile-time parameter system (square-bracket parameters, code evaluated by the compiler with `comptime`, and SIMD vector types beneath every number) used to write portable high-performance kernels for CPUs, GPUs and other accelerators. It is built directly on the MLIR compiler framework and interoperates with CPython in both directions.",
+  "history": "Chris Lattner, who created LLVM, Clang and Swift and started MLIR at Google, co-founded Modular with Tim Davis in 2022 to build AI infrastructure; at Google he had also led Swift for TensorFlow, an unsuccessful attempt to make Swift a replacement for Python in machine learning. Mojo grew out of the need to write the kernels behind Modular's inference engine (MAX) for many kinds of hardware: the first compiler patch landed in September 2022, and by late 2022 a prototype of its parameter system produced matrix-multiplication code matching vendor BLAS libraries on a range of CPUs. Modular announced Mojo on 2 May 2023 with a browser-based Playground and described its long-term goal as becoming a superset of Python, citing the team's experience of moving Objective-C code to Swift; Jeremy Howard of fast.ai called it \"syntax sugar for MLIR\", as Swift was for LLVM.\n\nThe language changed quickly and often incompatibly. `let` was removed in 2024, the standard library was open-sourced under Apache 2.0 in March 2024, and the argument conventions went from `borrowed`/`inout`/`owned` to `read`/`mut`/`var` (2024–25) and, in 1.0, `imm`. Version 25.4 (June 2025) added Python-style comprehensions, AMD GPU support and calls from Python into Mojo; 26.2 (March 2026) made `def` the standard function keyword, with the stricter semantics of the deprecated `fn`, and replaced `@parameter if`/`for` with `comptime if`/`for`. Classes, dynamic typing and full Python compatibility were deferred to a later roadmap phase, which now says Mojo \"may or may not evolve into a full superset of Python\".\n\nMojo 1.0 shipped on 11 August 2026 with semantic versioning and stability guarantees for the core language, and on 18 August the compiler and tooling were open-sourced under the Apache 2.0 licence with LLVM exceptions. Qualcomm had agreed to acquire Modular in June 2026. Mojo 1.1 (September 2026) removed the last legacy spellings (`fn`, `alias`, `@parameter if`/`for`).",
+  "innovations": [
+    "Built on MLIR rather than directly on LLVM, so one language targets CPUs, GPUs and other accelerators and can express MLIR operations itself ('syntax sugar for MLIR')",
+    "A unified compile-time parameter system: square-bracket type and value parameters, ordinary functions run by an in-compiler interpreter (`comptime`), `comptime if`/`for`, and `where` constraints checked before instantiation",
+    "SIMD[dtype, width] as the foundation of the numeric types: every scalar, Int included, is a one-lane SIMD vector",
+    "Python syntax (def, indentation, comprehensions, dunder methods) on top of Rust-style ownership expressed through named argument conventions (imm, mut, var, out, deinit) and the ^ transfer sigil",
+    "As-soon-as-possible destruction: values are destroyed right after their last use rather than at the end of their scope",
+    "Two-way interoperability with CPython: import Python modules into Mojo, and export Mojo functions and types as Python extension modules"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "imperative",
+    "functional",
+    "generic",
+    "metaprogramming"
+  ],
+  "family": "scripting",
+  "syntax_family": "offside",
+  "block_style": "indentation",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Argument and return types must be annotated; `var` declarations infer theirs from the initializer. Trait conformance is declared, never structural. Numeric types are fixed-width and are not converted implicitly (Int is Scalar[DType.int]). Values reached through Python interop are PythonObjects, typed dynamically by CPython."
+  },
+  "memory": "ownership",
+  "memory_note": "Every value has one owner and is destroyed as soon as possible after its last use; a lifetime checker tracks references (origins) and enforces exclusive mutable access. There is no garbage collector or implicit reference counting: ArcPointer gives opt-in shared ownership, and Pointer with alloc()/dealloc() gives manual control.",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "1.1.0 (September 2026)",
+  "file_extensions": [
+    ".mojo"
+  ],
+  "color": "#ff4c1f",
+  "primary_parent": "python",
+  "influenced_by": [
+    {
+      "id": "python",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Syntax (def, indentation, comprehensions, dunder methods, exceptions), naming and CPython interop. Mojo was announced as aiming to become a Python superset; it is not source-compatible, and the roadmap now calls a full superset optional."
+    },
+    {
+      "id": "swift",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Same designer (Chris Lattner), and named in both the 2023 'Why Mojo' document and the current vision among the languages Mojo draws on. Like Swift it is built around value-semantic structs, started with `inout` argument conventions (now `mut`), and plays the part for MLIR that Swift, 'syntax sugar for LLVM', played for LLVM."
+    },
+    {
+      "id": "rust",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Ownership, borrow-checked references and lifetimes (origins), traits with default methods, and naming conventions; named in the vision document and the manual."
+    },
+    {
+      "id": "cpp",
+      "kind": "influence",
+      "weight": "major",
+      "note": "The parameter system is described as taking 'the ideas behind C++ templates (compile-time polymorphism and specialization)'; comptime evaluation is likened to constexpr."
+    },
+    {
+      "id": "zig",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named in the vision document as a source for metaprogramming; Mojo adopted the same `comptime` keyword in 2025."
+    },
+    {
+      "id": "c",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed in Wikipedia's infobox; Mojo calls C through an FFI and exports C-ABI functions (abi(\"C\"))."
+    },
+    {
+      "id": "julia",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named, with Rust, Swift, Zig and Nim, among the languages whose lessons Mojo benefits from in the 2023 'Why Mojo' document."
+    },
+    {
+      "id": "nim",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Named in the 2023 'Why Mojo' document among the languages whose lessons Mojo benefits from."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "MLIR",
+      "year": 2019,
+      "note": "The compiler infrastructure Lattner started at Google; Mojo's KGEN compiler is built on MLIR Core and can express MLIR operations directly."
+    },
+    {
+      "name": "CUDA",
+      "year": 2007,
+      "note": "The vision document cites kernel programming systems (CUDA, CUTLASS) as inspiration for Mojo's kernel-writing model."
+    },
+    {
+      "name": "Cython",
+      "year": 2007,
+      "note": "The 2023 'Why Mojo' document compares Mojo with earlier Python supersets, Pyrex and Cython; Wikipedia lists Cython as an influence."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "Python-style if/elif/else, while and for…in; `comptime if` and `comptime for` select or unroll code at compile time."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Every variable is declared with `var` and scoped to its block, unlike Python's function scope; implicit declaration by assignment became an error in 1.1."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "`raises`, raise and try/except/else/finally, compiled as alternate return values rather than stack unwinding (so they also work in GPU kernels); typed errors (`raises MyError`) since 26.1. Functions are non-raising unless declared `raises`."
+    },
+    "generators": {
+      "level": "supported",
+      "note": "Python-style iterator protocol (__iter__/__next__) behind for…in, plus iter and itertools; there is no `yield`."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Local: `var` bindings, parameters inferred from arguments and `Some[Trait]`; function signatures are explicit."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Square-bracket parameters take types and compile-time values (List[T], SIMD[dtype, width], Array[T, n]) and are specialised per instantiation, with trait bounds, `where` clauses and conditional conformance."
+    },
+    "algebraic-data-types": {
+      "level": "library",
+      "note": "Variant[A, B, …] in std.utils is a tagged union, tested with isa[T]() and read with v[T]; native enums and pattern matching are on the roadmap."
+    },
+    "type-classes": {
+      "level": "core",
+      "note": "Traits constrain parameterized code and are resolved at compile time, with default methods, required comptime members and conditional conformance; conformance is declared on the struct itself (no retroactive conformance)."
+    },
+    "option-types": {
+      "level": "library",
+      "note": "Optional[T] from the standard library prelude; ordinary values and references cannot be null."
+    },
+    "gradual-typing": {
+      "level": "supported",
+      "note": "Only at the Python boundary: PythonObject values are dispatched dynamically through CPython inside statically typed code. Untyped Python-style Mojo code is a future roadmap phase."
+    },
+    "ownership": {
+      "level": "core",
+      "note": "One owner per value; arguments are immutable references by default (`imm`), `mut` for mutable references and `var` to take ownership, with `^` transferring a value and ending its variable's lifetime. A lifetime checker tracks origins and forbids aliasing a `mut` argument."
+    },
+    "interfaces": {
+      "level": "core",
+      "note": "Traits, conformed to explicitly; dispatch is static, since dynamic trait objects (existentials) are not yet available."
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "note": "Default method implementations in traits are mixed into every conforming struct; conflicting defaults must be resolved by hand."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "Structs bundle fields and methods, but there is no access control yet: privacy is an underscore convention, and `private` members are a roadmap item."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Every .mojo file is a module; a directory with __init__.mojo is a package, which can be precompiled to a .mojoc file."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Python-style dunder methods (__add__, __eq__, __getitem__ and their reversed and in-place forms) on structs."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Functions are values with `def(...) -> T` types; `lambda` expressions since 1.0 (2026)."
+    },
+    "closures": {
+      "level": "core",
+      "note": "Nested functions and lambdas capture outer values through an explicit capture list, e.g. `{imm x, mut y, var z^}`, which fixes whether each is read, mutated, copied or moved. These unified closures (1.0 beta, 2026) replaced the older @parameter-decorated closures."
+    },
+    "list-comprehensions": {
+      "level": "core",
+      "since": 2025,
+      "version": "Mojo 25.4",
+      "note": "Python-style list, dict and set comprehensions."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "Arguments are immutable by default (`imm`), but variables are mutable; there are no immutable run-time bindings since `let` was removed in 2024 (`comptime` names are compile-time constants)."
+    },
+    "lazy-evaluation": {
+      "level": "library",
+      "note": "Evaluation is strict; std.iter and std.itertools provide lazy iterator adapters."
+    },
+    "reference-counting": {
+      "level": "library",
+      "note": "ArcPointer, an atomically reference-counted pointer in std.memory, for opt-in shared ownership."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "Pointer[T, origin] (unified with UnsafePointer in 1.0) carries its origin for the lifetime checker, with unsafety marked on individual operations such as unsafe_write(); alloc() and dealloc() manage heap memory. Used mainly for FFI and data structures."
+    },
+    "async-await": {
+      "level": "supported",
+      "note": "`async def` and `await` exist and compile to coroutines, but the model is unfinished: the public coroutine and task APIs were made private in 1.1, and first-class async is a roadmap item."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Compile-time only: reflect[T] exposes a struct's name, fields and field types to parameterized code; dynamic reflection is planned."
+    },
+    "compile-time-execution": {
+      "level": "core",
+      "note": "The compiler interprets ordinary Mojo functions to compute `comptime` values and parameters, including heap-allocating code; `comptime for` unrolls loops and `comptime if` removes dead branches."
+    },
+    "array-programming": {
+      "level": "supported",
+      "note": "SIMD[dtype, width] vectors apply arithmetic elementwise with reductions, and std.algorithm provides vectorize and map; tensors and layouts come from the MAX libraries."
+    },
+    "significant-whitespace": {
+      "level": "core",
+      "note": "Python's off-side rule: a colon and indentation delimit blocks."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2022,
+      "event": "First Mojo compiler patch, a lexer (27 September); a parameter-system prototype matches vendor BLAS on CPU matrix multiplication"
+    },
+    {
+      "year": 2023,
+      "event": "Announced at Modular's launch with a hosted Mojo Playground (2 May)"
+    },
+    {
+      "year": 2023,
+      "event": "First local SDK, v0.2.1 for Linux (7 September); macOS follows in October"
+    },
+    {
+      "year": 2024,
+      "event": "Standard library open-sourced under Apache 2.0 (v24.2, March)"
+    },
+    {
+      "year": 2024,
+      "event": "v24.6: `inout` and `borrowed` become `mut` and `read`; new `out` convention"
+    },
+    {
+      "year": 2025,
+      "event": "v25.4: comprehensions, AMD GPU support and calling Mojo from Python"
+    },
+    {
+      "year": 2026,
+      "event": "v26.2: `def` replaces `fn` as the single function keyword; `comptime if` and `comptime for`"
+    },
+    {
+      "year": 2026,
+      "event": "Qualcomm agrees to acquire Modular (June)"
+    },
+    {
+      "year": 2026,
+      "event": "Mojo 1.0 (11 August); compiler open-sourced under Apache 2.0 with LLVM exceptions (18 August)"
+    },
+    {
+      "year": 2026,
+      "event": "Mojo 1.1 removes the legacy `fn`, `alias` and `@parameter if`/`for` spellings (17 September)"
+    }
+  ],
+  "trivia": [
+    "In the week of its first compiler patch (September 2022) the team chose square brackets rather than angle brackets for generics, for consistency with Python and to avoid the less-than ambiguity.",
+    "Until version 26.2 (March 2026) Mojo source files could use the fire emoji as their extension (hello.🔥), and package files the package emoji (📦).",
+    "Modular's FAQ explains the name: mojo means 'a magical charm' or 'magical powers'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Mojo 1.1",
+      "code": "def main():\n    print(\"Hello, World!\")\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Every program needs a `main()` entry point: unlike Python, a .mojo file cannot contain top-level statements. `def` has been Mojo's only function keyword since 26.2; earlier code often used `fn`.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Mojo 1.1",
+      "code": "def factorial(n: Int) -> Int:\n    return 1 if n <= 1 else n * factorial(n - 1)\n\n\ndef main():\n    print(factorial(10))\n",
+      "expected_output": "3628800\n",
+      "notes": "Argument and return types are required. Int is a fixed-width 64-bit machine integer (an alias for Scalar[DType.int]), not Python's arbitrary-precision int: factorial(21) silently wraps to a negative number.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Mojo 1.1",
+      "code": "def main():\n    for i in range(1, 16):\n        if i % 15 == 0:\n            print(\"FizzBuzz\")\n        elif i % 3 == 0:\n            print(\"Fizz\")\n        elif i % 5 == 0:\n            print(\"Buzz\")\n        else:\n            print(i)\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "Reads exactly like Python, but it is compiled ahead of time to native code, and `i` is a statically typed Int.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Mojo 1.1",
+      "code": "def main():\n    var squares = [x * x for x in range(1, 11) if x % 2 == 0]\n    print(\" \".join(squares))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "A Python-style list comprehension (supported since 25.4) builds a List[Int], and String.join takes any list (as a Span) of Writable values. Lambdas exist since 1.0 (`lambda (x: Int) -> Int: x * x`), but comprehensions are the idiomatic form, as in Python.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Mojo 1.1",
+      "code": "trait Shape:\n    def area(self) -> Int: ...\n    def name(self) -> String: ...\n\n\n@fieldwise_init\nstruct Rectangle(Shape):\n    var width: Int\n    var height: Int\n\n    def area(self) -> Int:\n        return self.width * self.height\n\n    def name(self) -> String:\n        return \"Rectangle\"\n\n\n@fieldwise_init\nstruct Triangle(Shape):\n    var base: Int\n    var height: Int\n\n    def area(self) -> Int:\n        return self.base * self.height // 2\n\n    def name(self) -> String:\n        return \"Triangle\"\n\n\ndef describe(shape: Some[Shape]):\n    print(shape.name() + \":\", shape.area())\n\n\ndef main():\n    describe(Rectangle(3, 4))\n    describe(Triangle(10, 3))\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Structs declare their traits explicitly, and @fieldwise_init generates the constructor. `Some[Shape]` is shorthand for a compile-time type parameter `[S: Shape]`, so describe() is specialised for each struct (static dispatch). Mojo has no classes, inheritance or dynamic trait objects yet; a mixed list of shapes would need Variant[Rectangle, Triangle].",
+      "verified": true
+    },
+    "signature": {
+      "title": "Compile-time parameters and SIMD",
+      "concepts": [
+        "compile-time-execution",
+        "generics",
+        "array-programming"
+      ],
+      "dialect": "Mojo 1.1",
+      "code": "def fib(n: Int) -> Int:\n    return n if n < 2 else fib(n - 1) + fib(n - 2)\n\n\n# [brackets] hold compile-time parameters; (parens) hold run-time arguments.\ndef dot[dt: DType, w: SIMDLength, //](a: SIMD[dt, w], b: SIMD[dt, w]) -> Scalar[dt]:\n    return (a * b).reduce_add()  # one vector multiply, then a horizontal sum\n\n\ndef power[n: Int](x: SIMD[DType.float32, 4]) -> SIMD[DType.float32, 4]:\n    var acc = SIMD[DType.float32, 4](1)\n    comptime for _ in range(n):  # unrolled by the compiler: no loop at run time\n        acc *= x\n    return acc\n\n\ndef main():\n    comptime F = fib(20)  # ordinary Mojo code, evaluated by the compiler\n    var v = SIMD[DType.float32, 4](1, 2, 3, 4)\n    print(power[3](v), dot(v, v))\n    var w = SIMD[DType.int16, 8](1, 2, 3, 4, 5, 6, 7, 8)\n    print(dot(w, w), F)  # the same dot(), specialised for 8 x int16\n",
+      "expected_output": "[1.0, 8.0, 27.0, 64.0] 30.0\n204 6765\n",
+      "notes": "Square brackets hold parameters, which the compiler must know; parentheses hold run-time arguments. `dot` infers its element type and width (the `//` marks infer-only parameters), so the same source is compiled once for 4 x float32 and once for 8 x int16. `comptime for` unrolls power[3]() into three vector multiplies, and fib(20) runs inside the compiler's interpreter, so the program only prints a constant. Older code spells these `alias F = fib(20)` (before 25.7) and `@parameter for` (before 26.2); both spellings were removed in 1.1.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Mojo (mojo-compiler, PyPI)",
+        "version": "1.1.0",
+        "docker_image": "plw-mojo",
+        "dockerfile": "sandbox/mojo/Dockerfile",
+        "install": "pip install mojo-compiler==1.1.0",
+        "compile": "mojo build -o {out} {file}",
+        "run": "{out}",
+        "notes": "plw-mojo is python:3.14-slim (Debian 13) with the mojo-compiler 1.1.0 wheel from PyPI (the compiler and standard library, without the LSP and debugger of the full `mojo` package) and gcc, which Mojo uses as its linker driver on Linux. Telemetry is disabled (MODULAR_TELEMETRY_ENABLED=false) and HOME=/tmp keeps the compile cache in the tmpfs. In the sandbox (2 CPUs) `mojo build` takes about 1.7–2.2 s per snippet at under 200 MB of memory, and the binaries run in milliseconds; `mojo run {file}` compiles and runs in one step in about the same time. It also works with a read-only root filesystem as a non-root user. The compiler requires an x86-64-v3 (AVX2) or ARM64 host CPU."
+      }
+    ],
+    "browser": null,
+    "notes": "The compiler targets native code and GPUs and does not run in the browser. Modular's 2023 Mojo Playground compiled code on hosted JupyterHub servers."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+    "homepage": "https://mojolang.org/",
+    "spec": "https://mojolang.org/docs/reference/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Mojo_(programming_language)",
+    "https://en.wikipedia.org/wiki/Chris_Lattner",
+    "https://mojolang.org/docs/vision/",
+    "https://mojolang.org/docs/roadmap/",
+    "https://mojolang.org/docs/faq/",
+    "https://mojolang.org/docs/manual/",
+    "https://mojolang.org/docs/requirements/",
+    "https://mojolang.org/releases/",
+    "https://mojolang.org/releases/v0.26.2/",
+    "https://mojolang.org/releases/v1.0.0/",
+    "https://mojolang.org/releases/v1.1.0/",
+    "https://github.com/modular/modular/blob/main/Mojo/docs/site/releases/2022-09.md",
+    "https://github.com/modular/modular/blob/main/Mojo/docs/site/releases/v0.2.1.md",
+    "https://github.com/modular/modular/blob/main/Mojo/docs/site/releases/v0.24.6.md",
+    "https://github.com/modular/modular/blob/main/Mojo/docs/site/releases/v0.25.4.md",
+    "https://github.com/modular/modular/blob/main/Mojo/docs/site/releases/v0.25.5.md",
+    "https://www.modular.com/blog/a-unified-extensible-platform-to-superpower-your-ai",
+    "https://www.fast.ai/posts/2023-05-03-mojo-launch.html",
+    "https://web.archive.org/web/2023/https://docs.modular.com/mojo/why-mojo.html",
+    "https://www.modular.com/blog/the-path-to-mojo-1-0",
+    "https://www.modular.com/blog/mojo-open-source",
+    "https://pypi.org/project/mojo-compiler/"
+  ]
+}

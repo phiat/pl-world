@@ -83,7 +83,7 @@
       "note": "Listed by Wikipedia; Zig's first compiler targeted LLVM, and its arbitrary-width integers mirror LLVM's iN types."
     }
   ],
-  "influenced": [],
+  "influenced": ["mojo"],
   "traits": {
     "structured-control": {
       "level": "core",

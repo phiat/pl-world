@@ -46,15 +46,15 @@
     { "id": "cpp", "kind": "influence", "weight": "minor" },
     { "id": "ml", "kind": "influence", "weight": "minor" },
     { "id": "ada", "kind": "influence", "weight": "minor" },
-    { "id": "apl", "kind": "influence", "weight": "minor" }
+    { "id": "apl", "kind": "influence", "weight": "minor" },
+    { "id": "dylan", "kind": "influence", "weight": "minor", "note": "The C3 method resolution order adopted in Python 2.3 comes from 'A Monotonic Superclass Linearization for Dylan' (Barrett et al., OOPSLA 1996)." }
   ],
   "influenced_by_external": [
     { "name": "ABC", "year": 1987, "note": "Van Rossum worked on ABC at CWI; Python took its indentation-based grouping, very-high-level data types and interactive use." },
     { "name": "Modula-3", "year": 1988, "note": "Origin of Python's exception syntax and semantics, per van Rossum." },
-    { "name": "Icon", "year": 1977, "note": "Generators (PEP 255)." },
-    { "name": "Dylan", "year": 1992, "note": "The C3 method resolution order adopted in Python 2.3." }
+    { "name": "Icon", "year": 1977, "note": "Generators (PEP 255)." }
   ],
-  "influenced": ["ruby", "javascript", "go", "fsharp", "julia", "swift", "nim"],
+  "influenced": ["ruby", "javascript", "go", "fsharp", "julia", "swift", "nim", "mojo"],
   "traits": {
     "structured-control": { "level": "core", "note": "Loops also take an `else` clause; there is no goto." },
     "block-scope": { "level": "supported", "note": "Scopes are per function, class and comprehension, not per block; nested functions are lexically scoped (LEGB rule)." },
@@ -180,6 +180,7 @@
     "https://python-history.blogspot.com/2009/04/origins-of-pythons-functional-features.html",
     "https://docs.python.org/3/whatsnew/2.0.html",
     "https://peps.python.org/pep-0255/",
-    "https://docs.python.org/3/howto/mro.html"
+    "https://docs.python.org/3/howto/mro.html",
+    "https://doi.org/10.1145/236337.236343"
   ]
 }

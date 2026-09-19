@@ -48,7 +48,7 @@
     { "name": "Flavors", "year": 1980, "note": "Lisp Machine object system with mixins and method combination; an ancestor of CLOS." },
     { "name": "CommonLoops", "note": "Xerox PARC object system; with New Flavors, the basis of CLOS." }
   ],
-  "influenced": ["clojure", "julia", "r"],
+  "influenced": ["clojure", "julia", "r", "dylan"],
   "traits": {
     "structured-control": { "level": "core", "note": "if, cond, case, when/unless, plus do, dolist, dotimes and the LOOP macro." },
     "block-scope": { "level": "core", "note": "Lexical scope by default; special (dynamic) variables are declared explicitly." },

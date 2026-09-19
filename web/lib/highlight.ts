@@ -3,6 +3,7 @@
 import hljs from "highlight.js/lib/core";
 import type { LanguageFn } from "highlight.js";
 import ada from "highlight.js/lib/languages/ada";
+import applescript from "highlight.js/lib/languages/applescript";
 import awk from "highlight.js/lib/languages/awk";
 import basic from "highlight.js/lib/languages/basic";
 import c from "highlight.js/lib/languages/c";
@@ -22,6 +23,7 @@ import javascript from "highlight.js/lib/languages/javascript";
 import julia from "highlight.js/lib/languages/julia";
 import kotlin from "highlight.js/lib/languages/kotlin";
 import lisp from "highlight.js/lib/languages/lisp";
+import livecodeserver from "highlight.js/lib/languages/livecodeserver";
 import lua from "highlight.js/lib/languages/lua";
 import nim from "highlight.js/lib/languages/nim";
 import objectivec from "highlight.js/lib/languages/objectivec";
@@ -43,6 +45,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 
 const GRAMMARS = {
   ada,
+  applescript,
   awk,
   basic,
   c,
@@ -51,6 +54,7 @@ const GRAMMARS = {
   csharp,
   dart,
   delphi,
+  dylan,
   elixir,
   erlang,
   fortran,
@@ -62,6 +66,7 @@ const GRAMMARS = {
   julia,
   kotlin,
   lisp,
+  livecodeserver,
   nim,
   j,
   lua,
@@ -100,6 +105,37 @@ function j(): ReturnType<LanguageFn> {
   };
 }
 
+// Dylan has no highlight.js grammar, and the near relatives break on it: Julia and Ruby read `#t` / `#key` as
+// comments, Delphi reads macro braces as comments.
+function dylan(): ReturnType<LanguageFn> {
+  return {
+    name: "Dylan",
+    case_insensitive: true,
+    keywords: {
+      $pattern: /[a-z][-a-z0-9!?*]*/,
+      keyword: "define end method function generic class slot constant variable macro library module domain " +
+        "let local handler if elseif else unless case select otherwise for from to below above by in while " +
+        "until finally block exception cleanup afterwards begin use import export create exclude rename prefix " +
+        "sealed open abstract concrete primary free inherited virtual each-subclass instance required " +
+        "required-init-keyword init-keyword init-value init-function setter inline not-inline",
+    },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.C_BLOCK_COMMENT_MODE,
+      { scope: "meta", begin: /^(?:module|synopsis|author|copyright|license|library|files):/, end: /$/ },
+      { scope: "string", begin: /"/, end: /"/, contains: [hljs.BACKSLASH_ESCAPE] },
+      { scope: "string", begin: /'/, end: /'/, contains: [hljs.BACKSLASH_ESCAPE] },
+      { scope: "symbol", begin: /#"/, end: /"/ },
+      { scope: "literal", begin: /#(?:t|f|next|rest|key|all-keys)\b/ },
+      { scope: "variable", begin: /\?[=@]?[a-z][-a-z0-9!?*]*(?::[a-z]+)?/ },
+      { scope: "symbol", begin: /[a-z][-a-z0-9!?*&=]*:(?!:)/ },
+      { scope: "title.class", begin: /<[-a-z0-9!?*&$%@^~=+\/]+>/ },
+      { scope: "variable.constant", begin: /\$[-a-z0-9!?*]+/ },
+      { scope: "number", begin: /(?<![-a-z0-9])[0-9]+(?:\.[0-9]+)?(?:[ed][+-]?[0-9]+)?/ },
+    ],
+  };
+}
+
 for (const [name, grammar] of Object.entries(GRAMMARS)) hljs.registerLanguage(name, grammar as LanguageFn);
 
 /** Language id → highlight.js grammar (a close relative where the language has none of its own). */
@@ -113,6 +149,7 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   c: "c",
   smalltalk: "smalltalk",
   self: "smalltalk",
+  hypertalk: "livecodeserver",
   prolog: "prolog",
   ml: "sml",
   awk: "awk",
@@ -121,6 +158,7 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   ada: "ada",
   "objective-c": "objectivec",
   "common-lisp": "lisp",
+  dylan: "dylan",
   cpp: "cpp",
   "object-pascal": "delphi",
   miranda: "haskell",
@@ -130,6 +168,8 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   haskell: "haskell",
   j: "j",
   python: "python",
+  applescript: "applescript",
+  newtonscript: "javascript",
   lua: "lua",
   r: "r",
   java: "java",
@@ -152,6 +192,7 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   typescript: "typescript",
   swift: "swift",
   gleam: "rust",
+  mojo: "python",
 };
 
 const escape = (s: string) =>

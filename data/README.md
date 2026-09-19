@@ -6,7 +6,7 @@ Source-of-truth data for the PL World explorer. JSON files are hand-editable and
 | File | What |
 | --- | --- |
 | `schema.ts` | zod schema + TS types for everything below (the contract) |
-| `languages/<id>.json` | one file per language (58 ids, listed in `LANGUAGE_IDS` in `schema.ts`) |
+| `languages/<id>.json` | one file per language (63 ids, listed in `LANGUAGE_IDS` in `schema.ts`) |
 | `concepts.json` | 55 concepts ("genes"): origin language/year and popularizers |
 | `tasks.json` | 6 comparison tasks every language implements (the "windows") |
 
@@ -68,7 +68,8 @@ python #3572A5, lua #000080, r #198CE7, java #b07219, javascript #f1e05a, ruby #
 php #4F5D95, ocaml #ef7a08, csharp #7355dd, scala #c22d40, fsharp #b845fc, clojure #db5855,
 go #00ADD8, rust #dea584, kotlin #A97BFF, elixir #6e4a7e, julia #a270ba, typescript #3178c6,
 swift #F05138, zig #ec915c, awk #c30e9b, object-pascal null (#C9A227), oberon null (#6b8cae), j #9EEDFF,
-racket #3c5caa, nim #ffc200, dart #00B4AB, gleam #ffaff3`
+racket #3c5caa, nim #ffc200, dart #00B4AB, gleam #ffaff3, hypertalk null (#8FB339), applescript #101F1F,
+newtonscript null (#8a6f4d), mojo #ff4c1f, dylan #6c616e`
 
 **Validate** with `deno task validate <id> [<id>...]` until it reports 0 errors.
 
@@ -77,7 +78,9 @@ racket #3c5caa, nim #ffc200, dart #00B4AB, gleam #ffaff3`
 1. Add the id to `LANGUAGE_IDS` in `schema.ts` (grouped by era) and write `languages/<id>.json`.
 2. Toolchain: prefer a pinned official image. Otherwise add `sandbox/<id>/Dockerfile` (image `plw-<id>`, set
    `dockerfile` in the toolchain). Snippets run offline (`--network none`), so bake dependencies into the image, and
-   write only under `/src` and `/tmp`.
+   write only under `/src` and `/tmp`. With no Linux implementation at all (AppleScript), list the real toolchain
+   without a `docker_image` and set `runtime.strategy` to `unavailable`: verify skips it, its snippets stay unverified,
+   and the site disables Run for its windows.
 3. `deno task images <id>`, then `deno task verify <id> --write` sets `verified` from real runs.
 4. Reciprocate lineage: add the id to each parent's `influenced` (and children's `influenced_by`), then run
    `deno task validate` with no ids for the cross-reference report.

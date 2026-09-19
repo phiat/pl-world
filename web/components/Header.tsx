@@ -11,7 +11,7 @@ const VIEWS = [
 export function Header(
   { path, stats, languages }: {
     path: string;
-    stats: { languages: number; concepts: number; snippets: number; verified: number };
+    stats: { languages: number; concepts: number; runnable: number };
     languages: { id: string; name: string; year: number; aliases: string[] }[];
   },
 ) {
@@ -23,7 +23,7 @@ export function Header(
         <b>
           <span>PL</span>World
         </b>
-        <small>{stats.languages} languages · {stats.concepts} concepts · {stats.snippets} runnable snippets</small>
+        <small>{stats.languages} languages · {stats.concepts} concepts · {stats.runnable} runnable snippets</small>
       </a>
       <nav aria-label="Views">
         {VIEWS.map(([href, label]) => (

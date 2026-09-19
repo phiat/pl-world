@@ -1,0 +1,67 @@
+#!/opt/livecode/livecode-community-server
+-- click.lc: run a HyperTalk button script on the LiveCode Server engine (see hypertalk-run).
+--
+-- The file named by $PLW_HT_FILE becomes the script of button "Run" on card 1 of a new stack, and the
+-- button is "clicked": sent mouseUp. Messages it doesn't handle pass up the message path (card, stack,
+-- then this server script, which plays HyperCard's Home stack). `put` with no destination writes to
+-- stdout. Compile and run-time errors are printed to stderr as FILE:ROW:COL: message, then exit 1.
+global gPlwName
+set the errorMode to "stderr"
+set the outputTextEncoding to "utf-8"
+set the outputLineEndings to "lf"
+
+put $PLW_HT_FILE into tPath
+set the itemDelimiter to "/"
+put the last item of tPath into gPlwName
+set the itemDelimiter to comma
+
+put url ("binfile:" & tPath) into tBytes
+if the result is not empty then
+  write "hypertalk-run: cannot read " & tPath & ": " & the result & return to stderr
+  quit 2
+end if
+put textDecode(tBytes, "utf-8") into tScript
+-- Accept CRLF or classic-Mac CR line endings, and HyperCard's ¬ (Option-Return) line continuation,
+-- which the engine spells as a trailing backslash.
+replace numToChar(13) & numToChar(10) with return in tScript
+replace numToChar(13) with return in tScript
+put replaceText(tScript, numToCodepoint(172) & "[ \t]*\n", "\" & return) into tScript
+
+if not matchText(tScript, "(?im)^[ \t]*on[ \t]+mouseUp\b") then
+  write gPlwName & ": no 'on mouseUp' handler; the runner clicks the button, sending it mouseUp" & return to stderr
+  quit 1
+end if
+
+create stack "PL World"
+set the defaultStack to "PL World"
+create button "Run"
+set the script of button "Run" to tScript
+if the result is not empty then
+  plwReport the result, the scriptParsingErrors
+  quit 1
+end if
+
+try
+  send "mouseUp" to button "Run"
+catch tError
+  plwReport tError, the scriptExecutionErrors
+  quit 1
+end try
+quit 0
+
+-- Each error line is "code,row,col[,hint]"; line <code> of pMessages is its text. A line with code 353
+-- names the object whose script failed; everything after it is this driver's own `send`.
+on plwReport pErrors, pMessages
+  global gPlwName
+  repeat for each line tLine in pErrors
+    if item 1 of tLine is not an integer then
+      write gPlwName & ": " & tLine & return to stderr
+    else if item 1 of tLine is 353 then
+      exit repeat
+    else
+      put line (item 1 of tLine) of pMessages into tText
+      if item 4 of tLine is not empty then put " (" & item 4 to -1 of tLine & ")" after tText
+      write gPlwName & ":" & item 2 of tLine & ":" & item 3 of tLine & ": " & tText & return to stderr
+    end if
+  end repeat
+end plwReport
