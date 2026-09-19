@@ -57,12 +57,10 @@ const root = new URL("../", import.meta.url);
 const browser = await chromium.launch();
 try {
   for (const s of shots) {
-    // The social card is the 1280 px desktop layout scaled to 1200 × 630: at 1200 px the header wraps.
     // Playwright's stock Chromium User-Agent gets the same Google Fonts subsets as visitors (a custom one gets a
     // single TTF whose glyphs differ, e.g. ✓).
     const page = await browser.newPage({
-      viewport: s.og ? { width: 1280, height: 672 } : { width: 1280, height: 800 },
-      deviceScaleFactor: s.og ? 1200 / 1280 : 1,
+      viewport: s.og ? { width: 1200, height: 630 } : { width: 1280, height: 800 },
       colorScheme: s.dark ? "dark" : "light",
     });
     await page.goto(new URL(s.path, base).href, { waitUntil: "networkidle" });

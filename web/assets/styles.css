@@ -107,6 +107,7 @@ input {
   align-items: center;
   gap: 10px 22px;
   padding-block: 10px;
+  container-type: inline-size;
 }
 .brand {
   display: flex;
@@ -154,16 +155,40 @@ nav a[aria-current="page"] {
   background: var(--ink);
   color: var(--paper);
 }
+/* Flex lines break on the basis, so the search box counts as 150 px when the bar decides whether to wrap, then
+   grows to 240 px. */
 .find {
+  flex: 1 1 150px;
+  max-width: 240px;
   margin-left: auto;
   position: relative;
 }
 .find input {
-  width: min(240px, 60vw);
+  width: 100%;
   padding: 6px 10px;
   border: 1px solid var(--rule);
   border-radius: 6px;
   background: var(--paper);
+}
+/* Too narrow for brand, stats, views and search on one row (~1020 px): put the stats under the name, and below
+   ~900 px tighten the views too. Under ~860 px even that won't fit, and the bar wraps as usual. */
+@container (860px <= width <= 1040px) {
+  .brand {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .brand b {
+    line-height: 1.2;
+  }
+  .brand small {
+    font-size: 12px;
+  }
+}
+@container (860px <= width < 910px) {
+  nav a {
+    padding-inline: 10px;
+  }
 }
 
 /* ── shared bits ─────────────────────────────────────── */
