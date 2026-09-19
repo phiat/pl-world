@@ -1,0 +1,294 @@
+{
+  "id": "icon",
+  "name": "Icon",
+  "aliases": [
+    "SNOBOL5 (working name)",
+    "Icon 9",
+    "Jcon"
+  ],
+  "year": 1977,
+  "year_note": "Ralph Griswold began designing Icon at the University of Arizona in 1977, the year Wikipedia and the Griswolds' HOPL-II history give ('conceived in 1977'). The first overview report, by Griswold, David Hanson and John T. (Tim) Korb, is dated December 1978, and Version 1 was distributed to other sites from early 1979, which is why the Icon Project's home page says Icon was 'first released in 1979'.",
+  "designers": [
+    "Ralph Griswold",
+    "David Hanson",
+    "Tim Korb"
+  ],
+  "organization": "University of Arizona",
+  "country": "United States",
+  "tagline": "SNOBOL's structured successor: expressions succeed, fail or generate many results, and goal-directed backtracking finds the ones that work.",
+  "summary": "Icon is a very high-level language for processing strings and structures, created by Ralph Griswold's group at the University of Arizona as the successor to SNOBOL4. There are no Boolean tests: every expression either succeeds, producing a result, or fails, and an expression may be a generator that produces a sequence of results on demand. Evaluation is goal-directed, so when part of an expression fails Icon backtracks into the most recent generator for another value, and control structures such as if, while and every act on success and failure. String scanning (subject ? expr, with tab, upto, many and find) replaced SNOBOL's pattern sublanguage with ordinary expressions, and Icon's generators were a model for Python's.",
+  "history": "Ralph Griswold, a designer of SNOBOL at Bell Labs, moved to the University of Arizona in 1971 as its first professor of computer science. With National Science Foundation support he first recast SNOBOL4's success and failure in conventional control structures as SL5 ('SNOBOL Language 5', with David Hanson), but found the result unsatisfying. In 1977 he began a new successor, called SNOBOL5 at first, that took its philosophy from SNOBOL4 and its syntax from SL5 but replaced SL5's very general procedure mechanism with simple suspension and resumption. After Irving, bard and TL ('The Language') had been considered, it was named Icon, before the word came to mean a picture on a screen. Griswold, Hanson and Tim Korb described it in a December 1978 overview, and Version 1, written in Ratfor and compiling Icon programs to Fortran for portability, was distributed free for DEC-10 and CDC Cyber systems from 1979.\n\nCary Coutant and Steve Wampler's C implementation for UNIX on the PDP-11, three to five times faster than the portable system, became Version 3 (1980), and Icon developed on UNIX from then on. Version 4 (1981) added an interpreter alongside the compiler, and Version 5 (late 1981) introduced co-expressions, mutual evaluation and the e1 ? e2 scanning operator in place of `scan e1 using e2`. Ralph and Madge Griswold's The Icon Programming Language (Prentice-Hall, 1983) described Version 5, their The Implementation of the Icon Programming Language (1986) the implementation of Version 6, and later editions of the language book Version 8 (1990) and Version 9.3 (1996). Version 9 (1994) added built-in graphics, covered by Graphics Programming in Icon (1998) with Clinton Jeffery and Gregg Townsend. Icon ran on machines from the Amiga, Atari ST and Macintosh to MS-DOS, OS/2, VMS and IBM mainframes, and all of it was placed in the public domain.\n\nGriswold retired in 1995 and died in 2006. Gregg Townsend maintains the Unix implementation: Version 9.5 (2010) removed the unmaintained optimizing compiler and moved co-expression context switching onto POSIX threads, 9.5.1 (2013) was the last formal release, and later fixes, most recently 9.5.25a in September 2025, are published only on GitHub. The project calls development frozen but the language in active use. Icon's ideas travelled further than the language: PEP 255 names Icon as a model for Python's generators (2001); Clinton Jeffery's object-oriented preprocessor Idol (1990) grew into Unicon, the 'Unified Extended Dialect of Icon'; Jcon (1999) reimplemented Icon on the Java VM; and Laurence Tratt's Converge adopted Icon-style expression evaluation.",
+  "innovations": [
+    "Goal-directed evaluation: every expression succeeds with a result or fails, and control structures test success rather than true/false, so `while line := read()` stops at end of file and a comparison such as `x < y` either produces y or fails",
+    "Generators as a pervasive language mechanism: any expression may produce a sequence of results (`1 to 10`, `!list`, `find(s1, s2)`, `e1 | e2`), failure backtracks into the most recent one, `every` drives a generator to exhaustion and `suspend` turns a procedure into one; PEP 255 cites Icon as a model for Python's generators",
+    "String scanning: `subject ? expr` sets up a scanning environment (&subject and a cursor, &pos) in which ordinary procedures such as tab, move, upto, many, find and match advance through the string, replacing SNOBOL4's separate pattern sublanguage with the expression language itself",
+    "Co-expressions (Version 5, 1981): first-class, resumable evaluation contexts created with `create expr` and resumed with `@`, giving coroutines and generators that can be passed around",
+    "Reversible effects: `x <- e` and the scanning procedures tab and move undo their changes if the enclosing expression later fails (data backtracking)",
+    "Chained comparisons that fall out of the semantics: a successful comparison returns its right operand, so `a < b < c` works as written",
+    "Csets (character sets) as a built-in type, and string positions that lie between characters and may count from the right (`s[-3:0]` is the last three characters)"
+  ],
+  "paradigms": [
+    "procedural",
+    "structured",
+    "imperative"
+  ],
+  "family": "scripting",
+  "syntax_family": "algol",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "Values carry types (null, integer of arbitrary precision, real, string, cset, list, table, set, record, procedure, co-expression, file); variables have none and need no declaration (undeclared ones are local). Operators convert between strings, csets and numbers as needed (\"3\" + 4 is 7, 3 || 4 is \"34\"), but an impossible conversion is a run-time error (\"a\" + 1: numeric expected), and structures are never converted. There is no Boolean type: tests succeed or fail, and /x and \\x check whether x is &null. Record fields are looked up by name at run time, so s.height works for any record type with a height field."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Automatic from the start. Strings and structures are allocated in separate regions that a marking, compacting garbage collector reclaims; collect() forces a collection and &collections, &regions and &storage report on memory. Strings are immutable values, so substrings share storage.",
+  "execution": [
+    "bytecode-vm"
+  ],
+  "status": "maintained",
+  "latest_version": "9.5.25a (2025)",
+  "file_extensions": [
+    ".icn"
+  ],
+  "color": "#a0522d",
+  "primary_parent": "snobol",
+  "influenced_by": [
+    {
+      "id": "snobol",
+      "kind": "successor",
+      "weight": "major",
+      "note": "Griswold's successor to SNOBOL4 (working name SNOBOL5), by way of SL5: it keeps SNOBOL4's success and failure and the backtracking of its pattern matching, recast as goal-directed evaluation of ordinary expressions and string scanning. The Icon Project calls it 'a modern successor to SNOBOL4'."
+    },
+    {
+      "id": "algol60",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Wikipedia lists ALGOL among Icon's influences: SL5 and Icon replaced SNOBOL4's labelled gotos with ALGOL-style structured control (if-then-else, while-do, case, procedures with local variables)."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "SL5",
+      "note": "'SNOBOL Language 5', Griswold and Hanson's intermediate language at Arizona (described in SIGPLAN Notices, April 1977). Icon took its syntax and most of its features, but not its generalized procedures, which gave way to generators with suspend."
+    }
+  ],
+  "influenced": [
+    "python"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if-then-else, case, while, until, repeat and every are expressions driven by success and failure rather than Boolean values; `if` produces a value, and break and next leave or continue loops."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "generators": {
+      "level": "core",
+      "note": "The heart of the language: `to`, `!`, `|`, find, upto and user procedures that `suspend` all generate results on demand, `every` iterates over them, and failure backtracks into them. Limitation (`e \\ 3`) and repeated alternation (`|e`) control them."
+    },
+    "coroutines": {
+      "level": "core",
+      "since": 1981,
+      "version": "Icon 5",
+      "note": "Co-expressions: `create e` captures an expression with copies of the current locals, `@c` resumes it for its next result, and `^c` refreshes it; transmission (`x @ c`) passes values between co-expressions. Since 9.5 the switch between co-expressions uses POSIX threads."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Procedures and built-in functions are values that can be assigned, stored and passed (`p := square; p(3)`), and proc(\"name\") looks one up by name, but there are no anonymous or nested procedures; `create` is the nearest thing to a lambda."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "Files are translated separately into ucode (icont -c) and combined with `link`, which is how the Icon Program Library is used; all globals share one namespace, with no export control."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "type(), image(), name(), args(), proc() and variable() inspect values, procedures and variables; string invocation calls a procedure by name (\"write\"(\"hi\")), with `invocable` keeping otherwise unused procedures linked; &trace and display() report on the running program."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Separate string and block regions reclaimed by a marking, compacting collector."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "Icon's own answer is string scanning. The Icon Program Library's regexp module (Robert J. Alexander, 1996) adds Unix-style regular expressions whose ReMatch and ReFind generate match positions and work inside scanning."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1977,
+      "event": "Griswold begins designing a successor to SNOBOL4 and SL5 at the University of Arizona, at first called SNOBOL5"
+    },
+    {
+      "year": 1978,
+      "event": "'The Icon Programming Language: An Overview' (TR 78-3, December) by Griswold, Hanson and Korb"
+    },
+    {
+      "year": 1979,
+      "event": "Version 1, written in Ratfor and compiling to Fortran, distributed free for DEC-10 and CDC Cyber systems; first Icon Newsletter"
+    },
+    {
+      "year": 1980,
+      "event": "Version 2, then Version 3: Cary Coutant and Steve Wampler's C implementation for UNIX on the PDP-11"
+    },
+    {
+      "year": 1981,
+      "event": "Version 4 adds an interpreter; Version 5 brings co-expressions and the e1 ? e2 scanning operator; 'Generators in Icon' in ACM TOPLAS"
+    },
+    {
+      "year": 1983,
+      "event": "The Icon Programming Language by Ralph and Madge Griswold (Prentice-Hall), describing Version 5"
+    },
+    {
+      "year": 1986,
+      "event": "The Implementation of the Icon Programming Language (Princeton University Press)"
+    },
+    {
+      "year": 1990,
+      "event": "Version 8 and the second edition of the Icon book; Clinton Jeffery's Idol adds objects to Icon, later the core of Unicon"
+    },
+    {
+      "year": 1993,
+      "event": "Ralph and Madge Griswold present the history of Icon at HOPL-II"
+    },
+    {
+      "year": 1994,
+      "event": "Version 9 adds built-in graphics"
+    },
+    {
+      "year": 1996,
+      "event": "Third edition of the Icon book, describing Version 9.3"
+    },
+    {
+      "year": 1999,
+      "event": "Jcon, an implementation of Icon for the Java VM"
+    },
+    {
+      "year": 2001,
+      "event": "PEP 255 brings generators to Python 2.2, citing Icon"
+    },
+    {
+      "year": 2010,
+      "event": "Version 9.5.0 drops the old optimizing compiler and runs co-expressions on POSIX threads"
+    },
+    {
+      "year": 2013,
+      "event": "Version 9.5.1, the last formal release; maintenance continues on GitHub"
+    },
+    {
+      "year": 2025,
+      "event": "Version 9.5.25a (7 September), with fixes for GCC 15 and C23"
+    }
+  ],
+  "trivia": [
+    "The name is not an acronym. The Icon FAQ says the word 'iconoclastic' was mentioned when it was chosen, and that it predates the use of 'icon' for small pictures on a screen, which still leads people to think Icon is for drawing icons.",
+    "Icon Newsletter #2 (1979) reported that the portable, Fortran-based Version 1.3 ran about twice as fast as the portable SIL implementation of SNOBOL4, but only a third as fast as SITBOL.",
+    "Icon has no Boolean type, which Laurence Tratt singled out: `if c then …` succeeds when c is &null, because &null is a value. The idiomatic tests are /c (c is null) and \\c (it is not).",
+    "PEP 255 considered Icon's `return expr`, which both ends a generator and delivers one last value, and chose to use `yield` alone for delivering values.",
+    "After retiring, Griswold turned to the mathematics of weaving. The Icon Program Library still ships more than fifty of his weaving programs and procedures, next to Idol, the object-oriented preprocessor from which Unicon grew."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Icon 9.5",
+      "code": "procedure main()\n   write(\"Hello, World!\")\nend\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Execution starts at procedure main. write adds a newline and writes does not. Semicolons are optional at line ends: the translator inserts one wherever a line ends an expression and the next line begins one.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Icon 9.5",
+      "code": "procedure factorial(n)\n   return if n <= 1 then 1 else n * factorial(n - 1)\nend\n\nprocedure main()\n   write(factorial(10))\nend\n",
+      "expected_output": "3628800\n",
+      "notes": "`if` is an expression, so its value can be returned directly. Integers have arbitrary precision, so factorial(30) prints all 33 digits of 265252859812191058636308480000000.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Icon 9.5",
+      "code": "procedure main()\n   every i := 1 to 15 do\n      write(if i % 15 = 0 then \"FizzBuzz\"\n            else if i % 3 = 0 then \"Fizz\"\n            else if i % 5 = 0 then \"Buzz\"\n            else i)\nend\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`every` drives the generator `1 to 15`, running the do clause once per value. `i % 15 = 0` either succeeds (producing 0) or fails, and `if` tests that success, not a truth value. The whole if-else chain is one expression whose value write prints.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Icon 9.5",
+      "code": "# Filtering is failure: even() fails for odd numbers, so every\n# backtracks into 1 to 10 for the next candidate.\nprocedure even(x)\n   if x % 2 = 0 then return x\nend\n\nprocedure square(x)\n   return x * x\nend\n\nprocedure main()\n   squares := []\n   every put(squares, square(even(1 to 10)))\n   line := \"\"\n   every line ||:= !squares || \" \"\n   write(trim(line))\nend\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Icon has no lambdas or list comprehensions; the idiom is a generator expression inside `every`. even returns only for even numbers and otherwise falls off its end, which fails, so square(even(1 to 10)) produces 4, 16, 36, 64 and 100 as `every` asks for more. `!squares` generates the list's elements for the join and trim removes the trailing blank. Procedures are values too, so a map procedure could take square as an argument.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Icon 9.5",
+      "code": "record Rectangle(width, height)\nrecord Triangle(base, height)\n\nprocedure area(s)\n   return case type(s) of {\n      \"Rectangle\": s.width * s.height\n      \"Triangle\":  s.base * s.height / 2\n   }\nend\n\nprocedure main()\n   every s := Rectangle(3, 4) | Triangle(10, 3) do\n      write(type(s), \": \", area(s))\nend\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Records are Icon's only user-defined types and have no methods, so area dispatches on type(s), which returns the record's name. Field references are resolved by name at run time, so s.height works for both records. `Rectangle(3, 4) | Triangle(10, 3)` is alternation, a generator of both shapes for `every` to iterate. / on integers is integer division.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Goal-directed evaluation",
+      "concepts": [
+        "generators"
+      ],
+      "dialect": "Icon 9.5",
+      "code": "# An expression succeeds with a value, fails, or generates values on demand.\n# Failure, not true/false, drives control flow: when a step fails, Icon\n# backtracks into the most recent generator for its next value.\n\nprocedure words(s)                     # suspend makes this a generator\n   s ? while tab(upto(&letters)) do {  # scan to the next letter,\n      word := tab(many(&letters))      # take the run of letters,\n      suspend word                     # hand it out, resume here later\n   }\nend\n\nprocedure main()\n   every w := words(\"Goal-directed evaluation, generators and scanning\") do\n      if *w > 8 then write(w)          # *w > 8 fails for shorter words\n\n   # Three nested generators: the final test fails until a triple fits\n   every (a := 1 to 20) & (b := a to 20) & (c := b to 20) & a^2 + b^2 = c^2 do\n      write(a, \" \", b, \" \", c)\n\n   write((\"C\" | \"SNOBOL\" | \"Icon\") == ![\"ALGOL\", \"Icon\"])  # | and ! backtrack too\nend\n",
+      "expected_output": "evaluation\ngenerators\n3 4 5\n5 12 13\n6 8 10\n8 15 17\n9 12 15\n12 16 20\nIcon\n",
+      "notes": "words is the word generator of the Icon book: ? makes s the subject, upto and many find positions, and tab moves the cursor and returns the text it passes over. The word is assigned before `suspend` because resuming `suspend tab(...)` directly would make tab undo its move (data backtracking) and scan the same word forever. In the search, each failure of `a^2 + b^2 = c^2` resumes the most recent generator (c, then b, then a), so one expression does the work of three nested loops. The last line compares candidates from `|` and `!` until the string equality `==` succeeds.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Icon (University of Arizona)",
+        "version": "9.5.25a",
+        "docker_image": "plw-icon",
+        "dockerfile": "sandbox/icon/Dockerfile",
+        "install": "FROM debian:trixie-slim with gcc and make; build https://github.com/gtownsend/icon/archive/refs/tags/v9.5.25a.tar.gz (sha256 ab15b7fc5a96e8b4da1b76cc6c7935400879f8a54b0fcf94a947c02815f21006, commit 876c587) with make Configure name=linux (no X11 graphics) and make, pass make Test, then make Install dest=/opt/icon and copy /opt/icon into a fresh debian:trixie-slim.",
+        "compile": "icont -s -o {out} {file}",
+        "run": "{out}",
+        "notes": "The reference implementation, public domain. icont translates the source to ucode and links it into an icode file, a short /bin/sh header that execs iconx followed by the virtual machine code, deleting its intermediate .u1/.u2 files; no C compiler is needed at run time. Programs can `link` Icon Program Library modules (link numbers, link strings) from /opt/icon/lib. Translation errors name the file and line with exit status 1; a run-time error prints 'Run-time error N', the offending value and a traceback on stderr and exits with status 1. Output to a pipe is block-buffered until the program exits or calls flush(). Debian also packages Icon (icont and iconx: 9.5.24b in trixie, 9.5.25a in forky); it was not used here. Icon has no telemetry."
+      }
+    ],
+    "browser": null,
+    "notes": "Built without graphics, so WOpen and the other window functions do not exist (calling one is run-time error 106) and &features does not list graphics. There is no maintained in-browser implementation; Jcon, the Java VM implementation, is a separate unverified alternative."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Icon_(programming_language)",
+    "homepage": "https://www2.cs.arizona.edu/icon/",
+    "spec": "https://www2.cs.arizona.edu/icon/refernce/ref.htm"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Icon_(programming_language)",
+    "https://doi.org/10.1145/155360.155363",
+    "https://www2.cs.arizona.edu/icon/",
+    "https://www2.cs.arizona.edu/icon/uguide/faq.htm",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/tr78_3.pdf",
+    "https://www2.cs.arizona.edu/icon/inl/inl.htm",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/inl01.pdf",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/inl02.pdf",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/inl03.pdf",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/inl04.pdf",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/inl07.pdf",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/inl08.pdf",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/inl11.pdf",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/inl33.pdf",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/inl46.pdf",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/tr82_4.pdf",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/tr90_10.pdf",
+    "https://www2.cs.arizona.edu/icon/books.htm",
+    "https://www2.cs.arizona.edu/icon/ftp/doc/lb1up.pdf",
+    "https://www2.cs.arizona.edu/icon/uguide/index.htm",
+    "https://www2.cs.arizona.edu/icon/implver.htm",
+    "https://www2.cs.arizona.edu/icon/ftp/historic/",
+    "https://www2.cs.arizona.edu/icon/ftp/historic/v950.htm",
+    "https://github.com/gtownsend/icon",
+    "https://en.wikipedia.org/wiki/SNOBOL",
+    "https://en.wikipedia.org/wiki/Ralph_Griswold",
+    "https://en.wikipedia.org/wiki/Unicon_(programming_language)",
+    "https://en.wikipedia.org/wiki/Generator_(computer_programming)",
+    "https://peps.python.org/pep-0255/",
+    "https://doi.org/10.1145/1869631.1869640"
+  ]
+}

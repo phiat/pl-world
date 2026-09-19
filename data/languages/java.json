@@ -45,11 +45,11 @@
     { "id": "clu", "kind": "influence", "weight": "minor", "note": "Exception handling." },
     { "id": "pascal", "kind": "influence", "weight": "minor", "note": "UCSD Pascal's portable p-code virtual machine." },
     { "id": "object-pascal", "kind": "influence", "weight": "minor", "note": "Sun designed the JDK 1.1 event model and JavaBeans (1996) with Borland's input, prototyping Delphi-style bound method references before choosing inner classes." },
-    { "id": "oberon", "kind": "influence", "weight": "minor", "note": "Listed by Wikipedia on Wirth's account that Sun's Java team licensed and studied the Oberon compiler sources before Java's release; both share compactness, type safety, garbage collection and single inheritance." }
+    { "id": "oberon", "kind": "influence", "weight": "minor", "note": "Listed by Wikipedia on Wirth's account that Sun's Java team licensed and studied the Oberon compiler sources before Java's release; both share compactness, type safety, garbage collection and single inheritance." },
+    { "id": "modula3", "kind": "influence", "weight": "minor", "note": "Luca Cardelli calls Modula-3 'the stepping stone from Cedar/Mesa to Java'; RMI's reference-counting distributed garbage collection follows Modula-3's Network Objects, which Cardelli says was transferred directly to become Java RMI." }
   ],
   "influenced_by_external": [
-    { "name": "Mesa", "year": 1976 },
-    { "name": "Modula-3", "year": 1988 }
+    { "name": "Mesa", "year": 1976 }
   ],
   "influenced": ["csharp", "scala", "kotlin", "clojure", "javascript", "php", "typescript", "dart", "d"],
   "traits": {
@@ -168,6 +168,8 @@
     "https://en.wikipedia.org/wiki/Java_(programming_language)",
     "https://openjdk.org/jeps/512",
     "https://labs.leaningtech.com/blog/cheerpj-4.1",
-    "https://web.archive.org/web/20120627043929/http://java.sun.com/docs/white/delegates.html"
+    "https://web.archive.org/web/20120627043929/http://java.sun.com/docs/white/delegates.html",
+    "https://web.archive.org/web/20090105145818/http://www.computerworld.com.au/index.php/id%3B1422447371%3Bpp%3B3%3Bfp%3B4194304%3Bfpid%3B1",
+    "https://docs.oracle.com/javase/8/docs/platform/rmi/spec/rmi-arch4.html"
   ]
 }

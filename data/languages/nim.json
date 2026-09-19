@@ -56,13 +56,13 @@
     ".nimble"
   ],
   "color": "#ffc200",
-  "primary_parent": "object-pascal",
+  "primary_parent": "modula3",
   "influenced_by": [
     {
       "id": "object-pascal",
       "kind": "influence",
       "weight": "major",
-      "note": "Chosen as primary parent: 'Delphi' ranks second in the FAQ's list of influences, after Modula-3 (not in this set). Rumpf wrote the first compiler in Pascal/Delphi and translated it to Nim with pas2nim. Wikipedia credits Object Pascal for type-safe bit sets (set[char]), case statement syntax and many type and library names, and its Delphi-style T/P type-name prefixes were deprecated only in 0.10.2."
+      "note": "'Delphi' ranks second in the FAQ's list of influences, after Modula-3. Rumpf wrote the first compiler in Pascal/Delphi and translated it to Nim with pas2nim. Wikipedia credits Object Pascal for type-safe bit sets (set[char]), case statement syntax and many type and library names, and its Delphi-style T/P type-name prefixes were deprecated only in 0.10.2."
     },
     {
       "id": "ada",
@@ -123,14 +123,15 @@
       "kind": "platform",
       "weight": "minor",
       "note": "A second backend (`nim js`) targets browsers and Node.js."
+    },
+    {
+      "id": "modula3",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Chosen as primary parent: first in the FAQ's list of influences ('in order of impact'); source of the distinction between traced (`ref`) and untraced (`ptr`) pointers."
     }
   ],
   "influenced_by_external": [
-    {
-      "name": "Modula-3",
-      "year": 1988,
-      "note": "First in the FAQ's list of influences; source of the distinction between traced (`ref`) and untraced (`ptr`) pointers."
-    },
     {
       "name": "ParaSail",
       "year": 2009,

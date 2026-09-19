@@ -2,7 +2,7 @@
 // Only the grammars below are bundled (the full highlight.js build carries ~190 and weighs ~1 MB).
 import hljs from "highlight.js/lib/core";
 import type { LanguageFn } from "highlight.js";
-import { LEAN, LOGO, ODIN, UNISON, V } from "./keywords.ts";
+import { ICON, LEAN, LOGO, MODULA3, ODIN, SNOBOL, TCL, UNISON, V } from "./keywords.ts";
 import ada from "highlight.js/lib/languages/ada";
 import applescript from "highlight.js/lib/languages/applescript";
 import awk from "highlight.js/lib/languages/awk";
@@ -48,6 +48,7 @@ import smalltalk from "highlight.js/lib/languages/smalltalk";
 import sml from "highlight.js/lib/languages/sml";
 import sql from "highlight.js/lib/languages/sql";
 import swift from "highlight.js/lib/languages/swift";
+import tcl from "highlight.js/lib/languages/tcl";
 import typescript from "highlight.js/lib/languages/typescript";
 import vbnet from "highlight.js/lib/languages/vbnet";
 
@@ -73,6 +74,7 @@ const GRAMMARS = {
   fsharp,
   go,
   haskell,
+  icon,
   java,
   javascript,
   julia,
@@ -85,6 +87,7 @@ const GRAMMARS = {
   j,
   lua,
   matlab,
+  modula3,
   objectivec,
   ocaml,
   odin,
@@ -99,9 +102,11 @@ const GRAMMARS = {
   scala,
   scheme,
   smalltalk,
+  snobol,
   sml,
   sql,
   swift,
+  tcl: tclCommands,
   typescript,
   unison,
   v: vlang,
@@ -215,6 +220,82 @@ function logo(): ReturnType<LanguageFn> {
   };
 }
 
+// highlight.js's Tcl grammar predates lmap, try, tailcall and friends; the editor's Tcl mode shares this list.
+function tclCommands(api: Parameters<LanguageFn>[0]): ReturnType<LanguageFn> {
+  return { ...tcl(api), keywords: TCL.keywords };
+}
+
+// Icon has no highlight.js grammar. Python's gets the # comments and strings right but misses most of the words.
+// "…" strings and '…' csets, &keywords (&letters, &null) as symbols, $define-style preprocessor lines, radix numbers.
+function icon(): ReturnType<LanguageFn> {
+  return {
+    name: "Icon",
+    keywords: { keyword: ICON.keywords, built_in: ICON.builtins },
+    contains: [
+      hljs.HASH_COMMENT_MODE,
+      { scope: "string", begin: /"/, end: /"/, contains: [hljs.BACKSLASH_ESCAPE] },
+      { scope: "string", begin: /'/, end: /'/, contains: [hljs.BACKSLASH_ESCAPE] }, // csets
+      { scope: "symbol", begin: /&[a-z]+/ },
+      { scope: "meta", begin: /^[ \t]*\$[a-z]+/, end: /$/ },
+      { scope: "title.function", begin: /(?<=\bprocedure\s+)[A-Za-z_]\w*/ },
+      { scope: "title.class", begin: /(?<=\brecord\s+)[A-Za-z_]\w*/ },
+      { scope: "number", begin: /\b(?:\d+[rR][\da-zA-Z]+|\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)\b/ },
+    ],
+  };
+}
+
+// Modula-3 with Delphi's grammar breaks: `PROCEDURE P(...) =` has no `;` to end Delphi's heading rule, which then
+// runs through the body; Delphi's case-insensitive words also catch lower-case names, and "…" isn't a string there.
+function modula3(): ReturnType<LanguageFn> {
+  return {
+    name: "Modula-3",
+    keywords: { keyword: MODULA3.keywords, type: MODULA3.types, built_in: MODULA3.builtins, literal: MODULA3.literals },
+    contains: [
+      hljs.COMMENT(/\(\*/, /\*\)/, { contains: ["self"] }), // comments nest
+      { scope: "meta", begin: /<\*/, end: /\*>/ }, // pragmas: <*EXTERNAL*> <*NOWARN*>
+      { scope: "string", begin: /"/, end: /"/, contains: [hljs.BACKSLASH_ESCAPE] },
+      { scope: "string", begin: /'(?:\\.|[^'\\])+'/ }, // characters
+      { scope: "title.function", begin: /(?<=\bPROCEDURE\s+)[A-Za-z_]\w*/ },
+      { scope: "title.class", begin: /(?<=\b(?:MODULE|INTERFACE)\s+)[A-Za-z_]\w*/ },
+      { scope: "number", begin: /\b(?:\d+_[\da-fA-F]+|\d+(?:\.\d+(?:[EDX][+-]?\d+)?)?)\b/ }, // 16_FF 1.5D0
+    ],
+  };
+}
+
+// SNOBOL has no highlight.js grammar, and no relative has its layout: `*` in column 1 starts a comment, `-` a control
+// line, and a name in column 1 is a label. A statement ends in a goto field, :(L), :S(L1)F(L2) or :($computed);
+// labels and goto targets share a colour, and the system labels (END, RETURN, FRETURN, NRETURN) are keywords.
+function snobol(): ReturnType<LanguageFn> {
+  const keywords = { $pattern: /[A-Za-z][\w.]*/, built_in: SNOBOL.builtins };
+  const strings = [{ scope: "string", begin: /'/, end: /'/ }, { scope: "string", begin: /"/, end: /"/ }];
+  const systemLabel = new RegExp(`(?:${SNOBOL.labels.split(" ").join("|")})\\b`);
+  return {
+    name: "SNOBOL",
+    case_insensitive: true, // CSNOBOL4 folds names to upper case
+    keywords,
+    contains: [
+      hljs.COMMENT(/^\*/, /$/),
+      { scope: "meta", begin: /^-[a-z]/, end: /$/ }, // -INCLUDE, -CASE
+      { scope: "keyword", begin: new RegExp(`^${systemLabel.source}`) },
+      { scope: "symbol", begin: /^[a-z0-9][^\s;]*/ },
+      ...strings,
+      {
+        begin: /:(?=\s*[sf]?[(<])/, // the goto field runs to the end of the statement
+        end: /$|(?=;)/,
+        keywords,
+        contains: [
+          { scope: "keyword", begin: /(?<![\w.])[sf](?=\()/ },
+          { scope: "keyword", begin: new RegExp(`(?<=(?::|\\))\\s*[sf]?\\()${systemLabel.source}(?=\\))`) },
+          { scope: "symbol", begin: /(?<=(?::|\))\s*[sf]?\()[a-z][\w.]*(?=\))/ },
+          ...strings,
+        ],
+      },
+      { scope: "built_in", begin: /&[a-z]+/ }, // &ANCHOR, &TRIM, &UCASE
+      { scope: "number", begin: /\b\d+(?:\.\d*)?(?:e[+-]?\d+)?\b/ },
+    ],
+  };
+}
+
 // Odin has no highlight.js grammar. Go leaves proc/when/using/distinct, the sized types, #directives and $T unstyled,
 // and C's preprocessor rule swallows `#soa[]T` to the end of the line.
 // V: Go-like, with its own words, '…' and "…" strings with ${} interpolation, `c` runes, @[attributes] and $if.
@@ -301,6 +382,7 @@ for (const [name, grammar] of Object.entries(GRAMMARS)) hljs.registerLanguage(na
 const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   fortran: "fortran",
   lisp: "lisp",
+  snobol: "snobol",
   basic: "basic",
   logo: "logo",
   b: "c",
@@ -314,6 +396,7 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   prolog: "prolog",
   ml: "sml",
   awk: "awk",
+  icon: "icon",
   sql: "sql",
   scheme: "scheme",
   ada: "ada",
@@ -327,6 +410,8 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   erlang: "erlang",
   oberon: "delphi",
   perl: "perl",
+  modula3: "modula3",
+  tcl: "tcl",
   haskell: "haskell",
   j: "j",
   python: "python",

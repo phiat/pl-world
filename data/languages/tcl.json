@@ -1,0 +1,359 @@
+{
+  "id": "tcl",
+  "name": "Tcl",
+  "aliases": [
+    "Tool Command Language",
+    "TCL",
+    "Tcl/Tk",
+    "tclsh"
+  ],
+  "year": 1988,
+  "year_note": "Ousterhout conceived Tcl in autumn 1987, on sabbatical at DEC's Western Research Laboratory, and began using the first version at UC Berkeley in spring 1988, in a graphical text editor. He gave copies to a few early adopters in 1989, presented it at the Winter USENIX conference in January 1990 (the paper is dated December 1989) and then put the source on Berkeley's FTP site, from where it spread.",
+  "designers": [
+    "John Ousterhout"
+  ],
+  "organization": "University of California, Berkeley",
+  "country": "United States",
+  "tagline": "Everything is a string and every statement a command: an embeddable scripting language whose Tk toolkit made GUIs scriptable.",
+  "summary": "Tcl is a small interpreted command language designed to be embedded in C applications, in which every statement is a command and every value is a string. A script is words separated by spaces, with $ for variables, [ ] for command substitution and { } for quoting, so if, while and proc are ordinary commands and a program can define control structures of its own. John Ousterhout created it at UC Berkeley in 1988; with the Tk GUI toolkit and the Expect automation tool it had hundreds of thousands of developers by the late 1990s, and it remains the standard scripting language of chip-design (EDA) tools.",
+  "history": "John Ousterhout's group at UC Berkeley had written several interactive tools for integrated-circuit design, such as Magic and Crystal, each with its own weak and quirky command language. On sabbatical at DEC's Western Research Laboratory in 1987 he conceived an embeddable one instead: an interpreter packaged as a C library, providing variables, control structures and procedures, to which each application adds its own commands (hence Tool Command Language). He used the first version in 1988 and presented it at the Winter USENIX conference in January 1990. Don Libes of NIST heard the talk and within three weeks had built Expect, which automates interactive terminal programs; it was the first widely distributed Tcl application and for years the most popular.\n\nTk, a GUI toolkit written as a Tcl extension, followed in 1991 and made Tcl the easiest way to build GUIs on Unix, later bound to Perl and to Python, whose standard library includes Tcl/Tk as Tkinter. Usage grew about tenfold a year in the early 1990s. Ousterhout moved to Sun Microsystems Laboratories in 1994, where a team of a dozen ported Tcl/Tk to Windows and the Macintosh, moved the event loop and sockets into Tcl (7.5, 1996), added safe interpreters for untrusted code, and in Tcl 8.0 (1997) replaced the string interpreter with Brian Lewis's on-the-fly bytecode compiler. In 1998 Ousterhout founded Scriptics (later Ajuba Solutions) to sell Tcl tools while keeping the core free; 8.1 (1999) brought Unicode and thread safety. When Interwoven bought Ajuba in 2000, development passed to the community-run Tcl Core Team, which works through Tcl Improvement Proposals (TIPs).\n\nTcl 8.5 (2007) added dictionaries, anonymous functions (apply) and arbitrary-precision integers; 8.6 (2012) the TclOO object system, coroutines and tailcall on a stackless evaluation engine. Tcl 9.0 (September 2024), the first new major version in 27 years, removed the 2 GB limits on strings and lists, supports the full Unicode range, raises errors on malformed I/O encodings by default, can mount zip archives as filesystems and uses epoll or kqueue for its event loop. Tcl remains the industry-standard scripting language of electronic design automation tools and is embedded in network equipment such as Cisco IOS.",
+  "innovations": [
+    "An interpreter packaged as a C library that any application can embed and extend with its own commands, so that tools share one command language instead of each inventing its own",
+    "A syntax of twelve rules (the 'Dodekalogue') in which if, while and proc are ordinary commands, so programs define new control structures with uplevel and upvar",
+    "Everything is a string: Tcl 8.0's dual-ported values cache a typed internal form (integer, list, compiled bytecode) beside the string, keeping the string semantics without the cost",
+    "Tk (1991), a GUI toolkit driven entirely from scripts, later bound to Perl and to Python as Tkinter",
+    "Safe interpreters (Tcl 7.5, 1996, generalizing Borenstein and Rose's Safe-Tcl): untrusted scripts run in a restricted child interpreter that sees only the commands its parent grants",
+    "An event loop in the core (Tcl 7.5) with after, fileevent and vwait for callback-driven socket and file I/O, later combined with coroutines (8.6)"
+  ],
+  "paradigms": [
+    "multi-paradigm",
+    "imperative",
+    "procedural",
+    "object-oriented",
+    "functional",
+    "event-driven",
+    "reflective",
+    "metaprogramming",
+    "scripting"
+  ],
+  "family": "scripting",
+  "syntax_family": "other",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "untyped",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "'There is only one type of data in Tcl: strings' (Ousterhout, 1989). Each command reads its arguments as it needs them, as a number, list, dict or script, and raises an error when a string does not fit: incr on \"abc\" fails with 'expected integer but got \"abc\"'. Since Tcl 8.0 a value also caches a typed internal representation (integer, double, list, dict, bytecode) that is converted on demand, which programmers call shimmering, but the string form always defines the value. Variables are untyped and need no declaration. Wikipedia's infobox gives the typing as 'dynamic typing, everything is a string'."
+  },
+  "memory": "reference-counting",
+  "memory_note": "Values are reference-counted Tcl_Obj structures (since Tcl 8.0), shared until modified and copied on write. Variables, arrays, namespaces, TclOO objects and channels are not collected: they live until unset, destroyed or closed, or until the proc that owns them returns.",
+  "execution": [
+    "bytecode-vm"
+  ],
+  "status": "maintained",
+  "latest_version": "9.0.4 (26 June 2026); 9.1 is in beta",
+  "file_extensions": [
+    ".tcl",
+    ".tm"
+  ],
+  "color": "#e4cc98",
+  "primary_parent": "sh",
+  "influenced_by": [
+    {
+      "id": "sh",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Ousterhout's 1989 paper, citing Kernighan and Pike's 'The UNIX Programming Environment': 'Tcl's basic syntax is similar to that of the UNIX shells': a command is words separated by spaces or tabs, the first naming the command, commands end at a newline or semicolon, and $name substitutes a variable. Unlike a shell, every Tcl command returns a string result, and a substituted value is never split into words again unless the script asks for it."
+    },
+    {
+      "id": "lisp",
+      "kind": "influence",
+      "weight": "major",
+      "note": "The same paper says braces (nestable quotes) and bracketed command substitution 'give the language a Lisp-like flavor', that lists nest 'as in Lisp', and that Tcl 'has quite a bit of surface similarity to Lisp'; its Lisp reference is Abelson and Sussman's 'Structure and Interpretation of Computer Programs'. Ousterhout rejected Lisp itself as a command language because its data types and storage management were too unlike C's, and inverted its default: Tcl leaves arguments unevaluated unless they are in brackets, where Lisp evaluates them unless they are quoted."
+    },
+    {
+      "id": "awk",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed among Tcl's influences in its Wikipedia infobox, and AWK's infobox lists Tcl among the languages it influenced. As in AWK, arrays are associative, indexed by strings (Tcl 6.0, 1991), and every value can be treated as a string."
+    },
+    {
+      "id": "c",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "'Tcl expressions have the same operators and precedence as expressions in C' (Ousterhout, 1989), format and scan follow printf and scanf, and Tcl was built as a C library whose one data type, the string, was chosen as 'natural to C'."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "GNU Emacs",
+      "year": 1985,
+      "note": "Ousterhout's 1989 paper names the UNIX shells and Emacs as the best-known examples of powerful programmable command languages, the kind of language Tcl set out to give every interactive tool; it contrasts Emacs's centralized programmability with Tcl's interpreter embedded in each application."
+    }
+  ],
+  "influenced": [
+    "php",
+    "powershell"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if/elseif/else, while, for, foreach (over one or several lists at once), switch (exact, glob or regular-expression patterns), break and continue. All are ordinary commands that receive their conditions and bodies as braced arguments, so a program can rename or replace them and define new ones with uplevel; there are no keywords and no goto."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Nesting is limited to 1000 levels by default (interp recursionlimit raises it). Since 8.6 evaluation is stackless (the non-recursive engine), so deep Tcl recursion no longer consumes the C stack."
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "Every command finishes with a return code (ok, error, return, break, continue or a custom integer), which is how break and continue unwind through user-defined loops. catch traps any code and error raises one; 8.5 added a return-options dictionary carrying -errorcode and -errorinfo, and 8.6 added try … on/trap … finally and throw, which match error codes (lists such as {ARITH DIVZERO}) rather than exception classes."
+    },
+    "coroutines": {
+      "level": "core",
+      "since": 2012,
+      "version": "Tcl 8.6",
+      "note": "coroutine name cmd runs cmd as a new command that can suspend with yield, returning a value, and resume when called again; yieldto hands control to another command. With the event loop, a fileevent callback that resumes a coroutine lets I/O code read sequentially. Tcl 9.0 added coroinject and coroprobe for acting on a suspended coroutine."
+    },
+    "generators": {
+      "level": "supported",
+      "since": 2012,
+      "version": "Tcl 8.6",
+      "note": "No generator syntax or iterator protocol: a coroutine that yields inside a loop returns the next value each time it is called, but foreach and lmap cannot consume it directly."
+    },
+    "tail-calls": {
+      "level": "supported",
+      "since": 2012,
+      "version": "Tcl 8.6",
+      "note": "Not automatic: tailcall cmd ?arg …? explicitly replaces the current proc's frame with a call to cmd, so tail-recursive loops run in constant space and are not counted against the recursion limit."
+    },
+    "classes": {
+      "level": "core",
+      "since": 2012,
+      "version": "Tcl 8.6",
+      "note": "TclOO, built in since 8.6 (oo::class create, constructor, method, variable). Each object is a command with its own namespace, classes are themselves objects, and both can be redefined at run time; 9.0 added private members, class variables and methods, abstract and singleton classes and configurable properties. Earlier code used extensions such as [incr Tcl] (now built on TclOO), XOTcl and Snit."
+    },
+    "inheritance": {
+      "level": "core",
+      "since": 2012,
+      "version": "Tcl 8.6",
+      "note": "Multiple inheritance (superclass A B) with a linearized method order and next to call the overridden method; meta-classes are subclasses of oo::class."
+    },
+    "traits-mixins": {
+      "level": "supported",
+      "since": 2012,
+      "version": "Tcl 8.6",
+      "note": "TclOO mixins add a class's methods to another class or to a single object (oo::objdefine $obj mixin …), and filters are methods that wrap every call to an object's methods."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "Namespaces and TclOO objects keep state behind the commands that operate on it, and 9.0's private variables and methods are hidden from subclasses and callers. Nothing is sealed, though: introspection (info object vars, namespace eval into an object's namespace) reaches any state. C extensions can define opaque value types (Tcl_ObjType)."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Namespaces (8.0) group commands and variables, with namespace export/import, and namespace ensemble (8.5) turns one into a single command with subcommands. package require loads a versioned package, a script library or a C extension found through pkgIndex.tcl files or as a Tcl Module (.tm file, 8.5)."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "since": 2007,
+      "version": "Tcl 8.5",
+      "note": "Commands are named rather than values, but a callback is simply a command prefix, a list such as {puts -nonewline} that the receiver extends with arguments and runs: the convention of Tk's -command options, after and lsort -command. apply (8.5) runs an anonymous function written as a list {params body}, and lmap (8.6) and the tcl::mathop commands (8.5) make map/filter code practical. There are no closures: a lambda captures nothing, so values are built into the list (partial application) or reached with upvar."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "Values are immutable, with value semantics: after set b $a, changing a with lappend a x or dict set a k v never affects b, because those commands store a new value in the variable (updating in place only when no one else holds the value). Variables are mutable, arrays are collections of variables, and TclOO objects are mutable; 9.0's const creates a variable that cannot be changed."
+    },
+    "reference-counting": {
+      "level": "core",
+      "since": 1997,
+      "version": "Tcl 8.0",
+      "note": "Every value is a reference-counted Tcl_Obj, freed when its count drops to zero. Values cannot form cycles, since a list or dict contains values rather than references, so reference counting alone reclaims them. Before 8.0 values were C strings copied between commands."
+    },
+    "actors": {
+      "level": "library",
+      "note": "The Thread package, bundled with the Tcl source distribution, gives each thread its own interpreter and no shared variables; threads communicate by posting scripts to one another's event queues (thread::send -async), a mailbox model close to actors. Deliberately shared state goes through its separate tsv commands."
+    },
+    "homoiconicity": {
+      "level": "core",
+      "note": "A script is a string and a command is a list of words, so code is built with list commands and run with eval, uplevel or apply, and procs receive their bodies as ordinary arguments: that is how new control structures are written. Unlike Lisp's, the representation is flat text rather than a tree of symbols; nesting appears only when a braced word is itself evaluated."
+    },
+    "reflection": {
+      "level": "core",
+      "note": "info lists commands, procs with their arguments and bodies, variables, the call stack (info level, info frame) and, since 8.6, objects and classes (info object, info class); trace runs callbacks when a variable is read or written or a command is called; rename and proc replace any command, built-ins included, while the program runs."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "note": "Any command, built-ins included, can be redefined or renamed in a running program, re-sourcing a changed file replaces its procs, and TclOO classes can be redefined with existing objects picking up the new methods. There is no module versioning or state migration as in Erlang."
+    },
+    "regex-builtin": {
+      "level": "core",
+      "note": "regexp and regsub are built-in commands, as are switch -regexp and lsearch -regexp; patterns are ordinary (usually braced) strings rather than literal syntax. Since 8.1 (1999) the engine is Henry Spencer's advanced regular expressions with Unicode support; 9.0 added regsub -command to compute each replacement."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1988,
+      "event": "Ousterhout writes the first Tcl interpreter at UC Berkeley and uses it in a graphical text editor"
+    },
+    {
+      "year": 1990,
+      "event": "'Tcl: An Embeddable Command Language' presented at Winter USENIX (January); source released by FTP; Don Libes releases Expect"
+    },
+    {
+      "year": 1991,
+      "event": "First release of Tk (January); Tcl 6.0 adds associative arrays, and upvar follows"
+    },
+    {
+      "year": 1994,
+      "event": "Ousterhout joins Sun Microsystems Laboratories to lead a Tcl team"
+    },
+    {
+      "year": 1996,
+      "event": "Tcl 7.5: Windows and Macintosh ports, sockets, the event loop moved from Tk into Tcl, safe interpreters"
+    },
+    {
+      "year": 1997,
+      "event": "Tcl 8.0 (August): on-the-fly bytecode compiler, Tcl_Obj values and namespaces"
+    },
+    {
+      "year": 1998,
+      "event": "Ousterhout founds Scriptics (January); Tcl/Tk receives the 1997 ACM Software System Award"
+    },
+    {
+      "year": 1999,
+      "event": "Tcl 8.1: Unicode, thread safety and Henry Spencer's new regular-expression engine"
+    },
+    {
+      "year": 2000,
+      "event": "Tcl Core Team formed; development moves to the community and the TIP process"
+    },
+    {
+      "year": 2007,
+      "event": "Tcl 8.5 (December): dict, apply, arbitrary-precision integers and {*} argument expansion"
+    },
+    {
+      "year": 2012,
+      "event": "Tcl 8.6 (December): TclOO, coroutines, tailcall, try/finally and lmap"
+    },
+    {
+      "year": 2024,
+      "event": "Tcl 9.0 (September): 64-bit sizes, full Unicode, zip filesystems, epoll/kqueue notifiers and lseq"
+    }
+  ],
+  "trivia": [
+    "Tcl stands for Tool Command Language; it is usually pronounced 'tickle', and conventionally written Tcl rather than TCL.",
+    "Don Libes built Expect, and wrote a paper on it, in the three weeks after hearing Ousterhout's January 1990 USENIX talk; for years it was the most popular Tcl application.",
+    "SQLite began as a Tcl extension, and SQLite's primary test suite is written in Tcl.",
+    "In late September 1994 Richard Stallman posted 'Why you should not use Tcl' to comp.lang.tcl; the month-long flame war that followed, the 'Tcl War', ended when the GNU Project announced its own extension language, later named Guile.",
+    "At Tcl conferences Ousterhout gauged support for proposed features by a show of hands and a rough count; the results became known as 'Ouster-votes', and their accuracy was often debated."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Tcl 9.0",
+      "code": "puts \"Hello, World!\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "puts writes its argument and a newline to standard output. The double quotes only group the two words into one argument; they do not make a string type, since every value is already a string (puts Hi works too).",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Tcl 9.0",
+      "code": "proc factorial {n} {\n    expr {$n <= 1 ? 1 : $n * [factorial [expr {$n - 1}]]}\n}\n\nputs [factorial 10]\n",
+      "expected_output": "3628800\n",
+      "notes": "A proc returns the result of its last command, here expr. The braces pass the expression to expr unsubstituted; expr then substitutes $n itself and runs the bracketed recursive call. Integers have arbitrary precision (since 8.5), so [factorial 30] is exact as well. Runs unchanged on Tcl 8.6.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Tcl 9.0",
+      "code": "for {set i 1} {$i <= 15} {incr i} {\n    if {$i % 15 == 0} {\n        puts FizzBuzz\n    } elseif {$i % 3 == 0} {\n        puts Fizz\n    } elseif {$i % 5 == 0} {\n        puts Buzz\n    } else {\n        puts $i\n    }\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "for, if and incr are ordinary commands: the braces pass the condition and bodies unevaluated, and for and if evaluate them. Braces are quoting, not block syntax, which is why } elseif { and } else { must stay on the line of the closing brace, since a newline ends the command. Runs unchanged on Tcl 8.6.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Tcl 9.0",
+      "code": "# lmap maps a body over a list; continue drops the element.\nset squares [lmap x [lseq 1 10] {\n    if {$x % 2} continue\n    expr {$x * $x}\n}]\nputs $squares\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "lseq, new in Tcl 9.0, makes the list 1 … 10; lmap (8.6) collects the result of each pass of its body and skips any pass that ends in continue. puts prints the list as its string form, the elements separated by spaces. On Tcl 8.6 write the range as {1 2 3 4 5 6 7 8 9 10}.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Tcl 9.0 (TclOO)",
+      "code": "oo::class create Rectangle {\n    variable width height\n    constructor {w h} {\n        set width $w\n        set height $h\n    }\n    method area {} { expr {$width * $height} }\n}\n\noo::class create Triangle {\n    variable base height\n    constructor {b h} {\n        set base $b\n        set height $h\n    }\n    method area {} { expr {$base * $height / 2} }\n}\n\n# Each object is a new command: [$shape area] calls its area method.\nforeach shape [list [Rectangle new 3 4] [Triangle new 10 3]] {\n    set class [namespace tail [info object class $shape]]\n    puts \"$class: [$shape area]\"\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "TclOO has been built in since Tcl 8.6 (2012). variable declares per-object state visible in every method. Rectangle new 3 4 returns the name of a new command (such as ::oo::Obj12), so an object is called like any other command with the method name as its first argument; the two classes share only a method named area, not a base class. Before TclOO, Tcl code modelled this with dicts or arrays and a type tag, or with extensions such as [incr Tcl] and Snit. Runs unchanged on Tcl 8.6.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Everything is a string, every statement a command",
+      "concepts": [
+        "homoiconicity",
+        "reflection",
+        "first-class-functions"
+      ],
+      "dialect": "Tcl 9.0",
+      "code": "# Every statement is a command, even if and while, so you can write your own:\n# the body arrives as an unevaluated string and runs in the caller's frame.\nproc unless {cond body} {\n    if {![uplevel 1 [list expr $cond]]} { uplevel 1 $body }\n}\n# upvar binds a local name to a variable of the caller (call by name).\nproc swap {aName bName} {\n    upvar 1 $aName a $bName b\n    lassign [list $b $a] a b\n}\nset x 1; set y 2\nswap x y\nunless {$x < $y} { puts \"swapped: x=$x y=$y\" }\n\n# Everything is a string: one value read as text, as a list, and as code.\nset v {3 4 5}\nputs \"[string length $v] chars, [llength $v] items, sum [expr [join $v +]]\"\n\n# A lambda is a two-element list: apply calls it, lmap maps it over a list.\nputs [lmap w {tcl is fun} {apply {s {string toupper $s}} $w}]\nputs \"unless takes {[info args unless]}\"\n",
+      "expected_output": "swapped: x=2 y=1\n5 chars, 3 items, sum 12\nTCL IS FUN\nunless takes {cond body}\n",
+      "notes": "unless is not special syntax: it receives its condition and body as strings and uses uplevel to evaluate them in the caller's frame, as the built-in if does with its own arguments. upvar makes a and b aliases for the caller's x and y. expr [join $v +] deliberately builds the expression 3+4+5 from data and evaluates it; ordinary code braces its expressions so they are compiled once and never substituted twice (the idiomatic sum is tcl::mathop::+ {*}$v). info args reads a proc's parameter list at run time, and info body returns its source. Runs unchanged on Tcl 8.6.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Tcl (tclsh), built from the official source release",
+        "version": "9.0.4",
+        "docker_image": "plw-tcl",
+        "dockerfile": "sandbox/tcl/Dockerfile",
+        "run": "tclsh {file}",
+        "notes": "There is no official Docker image, and Debian stable (trixie) packages 9.0.1, so the image builds tcl9.0.4-src.tar.gz (sha256-pinned; SourceForge's published md5 and sha1 match) on debian:trixie-slim in a multi-stage build and keeps only /opt/tcl (88 MB image). The script library travels inside libtcl9.0.so as a zip archive, and the bundled Thread, [incr Tcl], SQLite and TDBC packages are included. LANG=C.UTF-8 makes the standard channels UTF-8: in the C locale Tcl 9 would use ISO 8859-1 and, with strict encodings by default, raise an error on any character outside Latin-1. All six snippets also pass with a read-only root filesystem."
+      },
+      {
+        "name": "Tcl 8.6 (tclsh8.6), cross-check",
+        "version": "8.6.14",
+        "install": "apt-get install -y tcl8.6",
+        "run": "tclsh8.6 {file}",
+        "notes": "Ubuntu 24.04's package, run on the host. hello, factorial, fizzbuzz, shapes and signature print identical output; higher-order fails only because lseq is new in 9.0, and prints the same with the range written as a literal list."
+      }
+    ],
+    "browser": {
+      "name": "wacl (Tcl compiled to WebAssembly)",
+      "url": "https://github.com/ecky-l/wacl",
+      "notes": "A Tcl 8.6 interpreter built with Emscripten, with an event loop and a JavaScript bridge, and a demo page at ecky-l.github.io/wacl. Unmaintained since 2017 and older than Tcl 9, so the higher-order snippet's lseq is missing; the snippets have not been run there."
+    },
+    "notes": "Snippets run on Tcl 9.0.4, the current stable release, built from source. All six were verified; run one at a time a snippet takes about 0.2 s end to end (179–213 ms measured), of which tclsh itself needs about 5 ms and the rest is container startup. There is no separate compile step: Tcl compiles each script and proc body to bytecode in memory the first time it runs."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+    "homepage": "https://www.tcl-lang.org/",
+    "spec": "https://www.tcl-lang.org/man/tcl9.0/TclCmd/Tcl.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Tcl_(programming_language)",
+    "https://www.tcl-lang.org/about/history.html",
+    "https://web.stanford.edu/~ouster/cgi-bin/tclHistory.php",
+    "https://web.stanford.edu/~ouster/cgi-bin/papers/tcl-usenix.pdf",
+    "https://github.com/tcltk/tcl/blob/core-8-6-branch/changes",
+    "https://github.com/tcltk/tcl/blob/core-9-0-4/changes.md",
+    "https://www.tcl-lang.org/software/tcltk/9.0.html",
+    "https://www.tcl-lang.org/software/tcltk/download.html",
+    "https://www.tcl-lang.org/man/tcl9.0/TclCmd/Tcl.html",
+    "https://www.tcl-lang.org/man/tcl9.0/TclCmd/uplevel.html",
+    "https://www.tcl-lang.org/man/tcl9.0/TclCmd/lseq.html",
+    "https://sourceforge.net/projects/tcl/files/Tcl/9.0.4/",
+    "https://sources.debian.org/src/tcl9.0/",
+    "https://en.wikipedia.org/wiki/AWK",
+    "https://en.wikipedia.org/wiki/Lisp_(programming_language)",
+    "https://en.wikipedia.org/wiki/PHP",
+    "https://en.wikipedia.org/wiki/PowerShell",
+    "https://devblogs.microsoft.com/powershell/powershell-and-wpf-wtf/",
+    "https://talks.php.net/show/mysql07key",
+    "https://en.wikipedia.org/wiki/Homoiconicity",
+    "https://en.wikipedia.org/wiki/Expect",
+    "https://en.wikipedia.org/wiki/GNU_Guile",
+    "https://vanderburg.org/old_pages/Tcl/war/",
+    "https://sqlite.org/tclsqlite.html",
+    "https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml",
+    "https://github.com/ecky-l/wacl"
+  ]
+}

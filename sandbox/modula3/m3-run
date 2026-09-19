@@ -1,0 +1,48 @@
+#!/bin/sh
+# m3-run -- build and run one Modula-3 source file with Critical Mass Modula-3 (cm3), offline.
+#
+#   m3-run FILE            build and run FILE
+#   m3-run --build FILE    compile only (the sandbox's compile step)
+#   m3-run --exec          run what --build compiled (the sandbox's run step)
+#
+# cm3 builds packages, not single files: it wants a directory holding src/m3makefile. /opt/plw-m3 is
+# such a package, importing libm3 (IO, Fmt, Text, Thread, the generic Seq/List/Table instances ...).
+# It is copied to /tmp/plw-m3, FILE is installed as src/<Module>.m3 (cm3 warns unless a module's file
+# is named after it; `MODULE Hello EXPORTS Main;` and `UNSAFE MODULE Main;` work too), the m3makefile
+# is pointed at that module, and cm3 compiles and links /tmp/plw-m3/AMD64_LINUX/prog. Build output
+# goes to stderr and names FILE rather than the copy. Nothing is written outside /tmp.
+set -e
+dir=/tmp/plw-m3
+export HOME=/tmp TMPDIR=/tmp
+
+build() {
+  src=$1
+  [ -f "$src" ] || { echo "m3-run: no such file: $src" >&2; exit 2; }
+  name=$(sed -n 's/^[[:space:]]*\(UNSAFE[[:space:]][[:space:]]*\)\{0,1\}MODULE[[:space:]][[:space:]]*\([A-Za-z][A-Za-z0-9_]*\).*/\2/p' "$src" | head -n 1)
+  if [ -z "$name" ]; then
+    echo "m3-run: no 'MODULE Name;' header found in $src" >&2
+    exit 2
+  fi
+  rm -rf "$dir"
+  cp -a /opt/plw-m3 "$dir"
+  rm -f "$dir"/src/*.m3
+  cp "$src" "$dir/src/$name.m3"
+  printf 'import("libm3")\nimplementation("%s")\nprogram("prog")\n' "$name" >"$dir/src/m3makefile"
+  cd "$dir"
+  rc=0
+  cm3 -silent >"$dir.log" 2>&1 || rc=$?
+  sed -e "s|\.\./src/$name\.m3|$(basename "$src")|g" "$dir.log" >&2
+  return $rc
+}
+
+run() {
+  [ -x "$dir/AMD64_LINUX/prog" ] || { echo "m3-run: nothing built; run m3-run --build FILE first" >&2; exit 2; }
+  exec "$dir/AMD64_LINUX/prog"
+}
+
+case "$1" in
+  --build) build "$2" ;;
+  --exec) run ;;
+  -*) echo "usage: m3-run [--build] FILE | m3-run --exec" >&2; exit 2 ;;
+  *) build "$1"; run ;;
+esac

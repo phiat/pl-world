@@ -87,7 +87,8 @@
     "c",
     "ada",
     "dylan",
-    "matlab"
+    "matlab",
+    "icon"
   ],
   "traits": {
     "structured-control": {

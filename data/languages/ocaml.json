@@ -67,6 +67,12 @@
       "kind": "influence",
       "weight": "minor",
       "note": "Caml Light (and its ZINC prototype) used a Modula-2-style module system: an .ml implementation plus an .mli interface per compilation unit."
+    },
+    {
+      "id": "modula3",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Wikipedia lists Modula-3 among OCaml's influences."
     }
   ],
   "influenced_by_external": [
@@ -74,10 +80,6 @@
       "name": "Caml",
       "year": 1987,
       "note": "Inria's ML dialect for the Categorical Abstract Machine; Caml Light (1990) and Caml Special Light (1995) led to Objective Caml."
-    },
-    {
-      "name": "Modula-3",
-      "year": 1988
     },
     {
       "name": "Eff",

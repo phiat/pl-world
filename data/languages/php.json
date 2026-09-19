@@ -42,11 +42,10 @@
     { "id": "javascript", "kind": "influence", "weight": "minor" },
     { "id": "kotlin", "kind": "influence", "weight": "minor" },
     { "id": "rust", "kind": "influence", "weight": "minor" },
-    { "id": "swift", "kind": "influence", "weight": "minor" }
+    { "id": "swift", "kind": "influence", "weight": "minor" },
+    { "id": "tcl", "kind": "influence", "weight": "minor", "note": "Listed among PHP's influences in both languages' Wikipedia infoboxes; the Tcl article cites Rasmus Lerdorf's talk 'PHP on Hormones' (MySQL Conference, April 2007), whose published slides do not say what was borrowed." }
   ],
-  "influenced_by_external": [
-    { "name": "Tcl", "year": 1988 }
-  ],
+  "influenced_by_external": [],
   "influenced": [],
   "traits": {
     "structured-control": { "level": "core", "note": "Also alternative colon syntax (`foreach (...): ... endforeach;`) for templates." },

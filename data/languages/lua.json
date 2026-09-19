@@ -41,11 +41,11 @@
     { "id": "modula2", "kind": "influence", "weight": "minor", "note": "Control-structure syntax (while, if, repeat–until); the authors cite 'Modula'." },
     { "id": "clu", "kind": "influence", "weight": "minor", "note": "Multiple assignment and multiple return values." },
     { "id": "cpp", "kind": "influence", "weight": "minor", "note": "Declaring local variables only where they are needed." },
-    { "id": "awk", "kind": "influence", "weight": "minor", "note": "Associative arrays (with SNOBOL), the name gsub, and automatic string-to-number coercion in arithmetic, per the HOPL III paper." }
+    { "id": "awk", "kind": "influence", "weight": "minor", "note": "Associative arrays (with SNOBOL), the name gsub, and automatic string-to-number coercion in arithmetic, per the HOPL III paper." },
+    { "id": "snobol", "kind": "influence", "weight": "minor", "note": "Associative arrays: 'From SNOBOL and Awk we took associative arrays, which we called tables' (HOPL III), though Lua made tables objects rather than attaching them to variables; Lua 2.5's pattern matching (1996) was added 'in the tradition of Snobol, Icon, Awk, and Perl'." }
   ],
   "influenced_by_external": [
-    { "name": "SOL (Simple Object Language)", "note": "Tecgraf's data-description language; Lua kept its table-constructor syntax for records and lists." },
-    { "name": "SNOBOL", "year": 1962, "note": "Associative arrays, which Lua made into first-class tables; string pattern matching." }
+    { "name": "SOL (Simple Object Language)", "note": "Tecgraf's data-description language; Lua kept its table-constructor syntax for records and lists." }
   ],
   "influenced": ["ruby", "julia", "gleam"],
   "traits": {

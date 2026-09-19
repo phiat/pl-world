@@ -1,0 +1,284 @@
+{
+  "id": "snobol",
+  "name": "SNOBOL",
+  "aliases": [
+    "SNOBOL4",
+    "SNOBOL3",
+    "SPITBOL",
+    "Macro SNOBOL4",
+    "CSNOBOL4"
+  ],
+  "year": 1962,
+  "year_note": "Farber, Griswold and Polonsky began designing SNOBOL at Bell Labs in the fall of 1962, the year Wikipedia gives. A first implementation ran on an IBM 7090 early in 1963, Farber announced the language outside Bell Labs in October 1963, and the Journal of the ACM paper appeared in January 1964. SNOBOL2 (April 1964, never generally distributed outside Bell Labs) added built-in functions and SNOBOL3 (July 1964) programmer-defined functions. SNOBOL4, a substantially new language on a portable virtual machine, ran in 1966, was first sent outside Bell Labs in June 1967 and is the definitive version, shown here.",
+  "designers": [
+    "David J. Farber",
+    "Ralph E. Griswold",
+    "Ivan P. Polonsky"
+  ],
+  "organization": "Bell Labs",
+  "country": "United States",
+  "tagline": "Bell Labs' string language: every statement succeeds or fails, and patterns are values you build, name, combine and match.",
+  "summary": "SNOBOL is a series of string-processing languages designed at Bell Labs between 1962 and 1967 by David Farber, Ralph Griswold and Ivan Polonsky, culminating in SNOBOL4. A statement has the form label, subject, pattern, = replacement, goto: the subject string is matched against the pattern, the matched part may be replaced, and the goto branches on whether the statement succeeded or failed. SNOBOL4 made patterns a first-class data type, built from primitives such as SPAN, BREAK and ARB with concatenation and alternation and able to describe context-free grammars, and added tables (associative arrays), programmer-defined record types and run-time compilation. Widely taught and used for text processing in the humanities in the 1970s, it was succeeded by Griswold's Icon and influenced AWK and Lua.",
+  "history": "In 1962 Ralph Griswold and Ivan Polonsky, in the Programming Research Studies Department of Bell Labs at Holmdel, New Jersey, were doing formula manipulation in SCL, the department head Chester Lee's symbolic language, and David Farber had obtained Victor Yngve's COMIT for them to try. Finding both inadequate, the three designed a language of their own in the fall of 1962. Farber wrote the compiler and interpreter for the IBM 7090, Griswold and Polonsky the backtracking pattern matcher, and the first usable version took about three weeks. It had a single data type, the string, no declarations and no functions, and each statement's success or failure chose the next statement. SNOBOL spread quickly through Bell Labs and then, after a talk at the University of Michigan in October 1963 and a Journal of the ACM paper in January 1964, to other IBM 7090/94 sites through the SHARE user group.\n\nSNOBOL2 (April 1964) added built-in functions and functions written in assembly language; SNOBOL3, running in July 1964, added programmer-defined functions, was widely distributed and was rewritten elsewhere in incompatible dialects. Facing the move to third-generation computers, Griswold, Polonsky and James Poage designed SNOBOL4 (in earnest from February 1966) as a new language, implemented in SIL, a machine-independent macro language that grew out of Douglas McIlroy's string-manipulation macros, so that it could be carried to any machine with a macro assembler. SNOBOL4 made patterns data objects built by functions and operators, and added integers and reals, arrays, programmer-defined data types, unevaluated expressions, run-time compilation and, at McIlroy's urging in mid-1969, tables. It was first sent outside Bell Labs in June 1967; by the end of that year some 58 copies for IBM 360 systems had been sent out, and 'The SNOBOL4 Programming Language' (1968; the 1971 second edition is the 'Green Book') became the standard reference.\n\nRobert Dewar and Ken Belcher's SPITBOL compiler for the IBM 360 (described in 1971) and James Gimpel's SITBOL for the PDP-10 (1972) answered the charge that SNOBOL4 was too slow; Dewar and Anthony McCann's portable Macro SPITBOL followed in the 1970s and became free software in 2009. Griswold left Bell Labs for the University of Arizona in 1971, where SL5 and then Icon recast SNOBOL's backtracking and success and failure as an ALGOL-like expression language. SNOBOL4 stayed popular for text processing in the humanities through the 1970s and 1980s, until AWK and Perl made regular expressions the everyday tool. Phil Budne's CSNOBOL4, a C port of the original SIL implementation, and the open-source x86-64 SPITBOL keep it running today.",
+  "innovations": [
+    "Patterns as a first-class data type (SNOBOL4): built by concatenation, alternation (|) and pattern-valued functions such as SPAN, BREAK, ARB, ARBNO and LEN, stored in variables and combined into larger patterns; with unevaluated expressions (*P) they can be recursive, matching context-free grammars rather than only regular languages",
+    "Backtracking pattern matching, adopted in the first SNOBOL where COMIT kept the first match of each constituent, so a pattern tries every alternative before it fails",
+    "Success and failure as control flow: every statement succeeds or fails and its goto (:S(label) F(label)) branches on the outcome, predicates such as EQ and LT return the null string or fail, and Icon later generalized the idea into goal-directed evaluation",
+    "Whole strings as values assigned to variables, of any length and with no declarations, where COMIT and SCL worked on a single workspace; storage was managed and garbage-collected automatically",
+    "The TABLE, an associative array indexed by any value (added in 1969), which Lua's designers name, with AWK, as the source of Lua's tables",
+    "Indirect reference ($X, the variable whose name is the value of X), run-time compilation with CODE() and EVAL(), and computed gotos, so programs can build and run their own code",
+    "A portable implementation: Macro SNOBOL4 was written in SIL, a macro language for an abstract machine, and ported to IBM, CDC, UNIVAC, DEC and other computers, with its source distributed freely"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "scripting"
+  ],
+  "family": "scripting",
+  "syntax_family": "other",
+  "block_style": "line-based",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "duck",
+    "notes": "No declarations: any variable holds any value, and DATATYPE() reports STRING, INTEGER, REAL, PATTERN, ARRAY, TABLE, NAME, EXPRESSION, CODE or the name of a DATA() type. Values convert by context: '12' + 1 is 13, the null string counts as 0, numbers become strings when concatenated and strings become patterns when matched, but 'ABC' + 1 stops the program with 'Illegal data type'. A field function such as HEIGHT() works on any DATA() type that has a field of that name. The original SNOBOL had only strings and did arithmetic on strings of digits."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Strings, patterns and structures live in one heap that the implementation reclaims automatically; SNOBOL4 calls a garbage collection a 'storage regeneration'. The language has no allocation or freeing operations, and even the first SNOBOL left varying-length strings and their storage entirely to the implementation.",
+  "execution": [
+    "interpreted"
+  ],
+  "status": "historical",
+  "latest_version": "SNOBOL4 (Macro SNOBOL4 3.11, 1975); CSNOBOL4 2.3.4 (April 2026); SPITBOL x64 4.0f (January 2024)",
+  "file_extensions": [
+    ".sno",
+    ".sbl"
+  ],
+  "color": "#9fc5d9",
+  "primary_parent": null,
+  "influenced_by": [],
+  "influenced_by_external": [
+    {
+      "name": "SCL (Symbolic Communication Language)",
+      "year": 1962,
+      "note": "Chester Lee's Bell Labs language for symbolic expressions, which Griswold and Polonsky were using. Griswold called it a more immediate influence than COMIT: string orientation, pattern matching and transformation, branching on success or failure, and the idea of run-time compilation. It was never released outside Bell Labs."
+    },
+    {
+      "name": "COMIT",
+      "year": 1957,
+      "note": "Victor Yngve's string language for machine translation at MIT, which Farber obtained for the group. SNOBOL's statement format and conditional gotos resemble COMIT's, but SNOBOL named the string being examined (COMIT worked on an implicit workspace) and added backtracking, which COMIT's matcher lacked."
+    }
+  ],
+  "influenced": [
+    "awk",
+    "icon",
+    "lua"
+  ],
+  "traits": {
+    "recursion": {
+      "level": "core",
+      "since": 1964,
+      "version": "SNOBOL3",
+      "note": "DEFINE('FACT(N)') creates a function at run time; its body is ordinary labelled statements, and a goto to RETURN (or FRETURN, to fail) leaves it. Parameters and locals are saved and restored around each call, a form of dynamic scoping, so recursion works. The original SNOBOL had no functions."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "No handlers in standard SNOBOL4: an execution error ends the program unless &ERRLIMIT is positive, in which case most errors make the statement fail instead and &ERRTYPE holds the error number. SPITBOL's SETEXIT(label), also in CSNOBOL4, sends control to a handler label."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Functions are not values but are named by strings: DEFINE can create or redefine one at run time from a computed prototype, APPLY('F', x) calls the function whose name it is given, and OPSYN makes synonyms. There are no anonymous functions or closures."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Automatic from the first SNOBOL (1963); SNOBOL4 calls a collection a storage regeneration, and CSNOBOL4 can trace them (&GTRACE)."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "since": 1968,
+      "version": "SNOBOL4",
+      "note": "Evaluation is strict, but the unary * operator makes an unevaluated expression, evaluated later by EVAL() or when a pattern match reaches it; *EXPR inside a pattern is how recursive patterns are written."
+    },
+    "operator-overloading": {
+      "level": "supported",
+      "note": "OPSYN binds an operator to a function: operators with no built-in meaning, such as binary #, can be given one, and built-in operators such as + can be redefined, with the function dispatching on DATATYPE()."
+    },
+    "reflection": {
+      "level": "core",
+      "note": "Indirect reference ($name) reads and writes variables and labels whose names are computed; CODE() compiles a string of statements at run time and :<C> jumps into it; DATATYPE, FIELD, ARG and LOCAL inspect values, record types and functions; DEFINE, DATA and OPSYN change the program while it runs."
+    },
+    "homoiconicity": {
+      "level": "supported",
+      "note": "Program text is a string, SNOBOL's basic data type, and CODE() and EVAL() turn strings into statements and expressions at run time; Wikipedia lists SNOBOL among homoiconic languages. Compiled code is an opaque CODE value, though, not a structure a program can take apart."
+    },
+    "regex-builtin": {
+      "level": "core",
+      "note": "Not regular-expression syntax: pattern matching is SNOBOL's statement form and patterns are a built-in data type, combined with operators (blank for concatenation, | for alternation, . and $ to capture) and functions (SPAN, BREAK, ARB, ARBNO, LEN, POS). They can express any regular expression, with ARBNO as the Kleene star, and more, since recursive patterns match context-free languages."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1962,
+      "event": "Farber, Griswold and Polonsky begin designing a string language at Bell Labs, Holmdel (fall)"
+    },
+    {
+      "year": 1963,
+      "event": "First SNOBOL implementation runs on an IBM 7090; first public talk, at the University of Michigan (October)"
+    },
+    {
+      "year": 1964,
+      "event": "'SNOBOL, a String Manipulation Language' in the Journal of the ACM (January); SNOBOL2 (April) and SNOBOL3, with programmer-defined functions (July)"
+    },
+    {
+      "year": 1966,
+      "event": "SNOBOL4 running experimentally on the IBM 7094 (April) and on the IBM 360 by year's end; SNOBOL3 described in the Bell System Technical Journal"
+    },
+    {
+      "year": 1967,
+      "event": "SNOBOL4 first sent outside Bell Labs (June); some 58 IBM 360 systems distributed by year's end"
+    },
+    {
+      "year": 1968,
+      "event": "'The SNOBOL4 Programming Language' (Griswold, Poage and Polonsky) published by Prentice-Hall"
+    },
+    {
+      "year": 1969,
+      "event": "Tables added to SNOBOL4 at Douglas McIlroy's urging; Version 3, the last Bell Labs release (November)"
+    },
+    {
+      "year": 1971,
+      "event": "Second edition of the manual, the 'Green Book'; Dewar and Belcher's SPITBOL compiler; Griswold moves to the University of Arizona"
+    },
+    {
+      "year": 1972,
+      "event": "SITBOL for the PDP-10; Griswold's 'The Macro Implementation of SNOBOL4'"
+    },
+    {
+      "year": 1975,
+      "event": "Macro SNOBOL4 Version 3.11 (May 19), the SIL source that CSNOBOL4 still ports"
+    },
+    {
+      "year": 2004,
+      "event": "CSNOBOL4 1.0, Phil Budne's C port of Macro SNOBOL4"
+    },
+    {
+      "year": 2009,
+      "event": "Macro SPITBOL released under the GNU GPL (April)"
+    },
+    {
+      "year": 2026,
+      "event": "CSNOBOL4 2.3.4 (April), released in honor of David Farber, who died in February"
+    }
+  ],
+  "trivia": [
+    "The language was first called SCL7 and then SEXI (String EXpression Interpreter), until, as Farber tells it, a computer-center clerk read the job card 'SEXI FARBER' and said 'That's what you think'. Griswold came up with SNOBOL and only then the phrase 'StriNg Oriented symBOlic Language', meant as a lampoon of cute language acronyms.",
+    "Farber wrote the first SNOBOL compiler in macro FAP on the back of a business envelope one evening; Griswold recalled that 'it has been said that the compiler ran as if it had been coded on the back of an envelope'.",
+    "The first implementation's error messages included 'ALL OUT OF SPACE, YELL FOR HELP' and 'NO END STATEMENT, WHISPER FOR HELP'.",
+    "Bell Labs' patent department used SNOBOL3 as a test case for patenting software; the designers, arguing for free distribution, were told that Euclid's algorithm could have been patented had it not already been disclosed, and the department gave up because SNOBOL had been made public in 1963.",
+    "Griswold called SPITBOL ('SPeedy ImplemenTation of snoBOL') probably the worst of the puns SNOBOL inspired, a list that also includes FASBOL, SNOFLAKE, ELFBOL and SLOBOL."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "SNOBOL4 (CSNOBOL4 2.3.4)",
+      "code": "        OUTPUT = 'Hello, World!'\nEND\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "OUTPUT is a variable associated with standard output: every value assigned to it is written as a line. Column 1 is reserved for labels, so a statement starts with a blank, and the label END in column 1 ends the program. SNOBOL3 printed by assigning to SYSPOT (the 'system peripheral output tape'), and the IBM 7090's 48-character BCD code had no lower-case letters: SYSPOT = \"HELLO, WORLD\".",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "SNOBOL4 (CSNOBOL4 2.3.4)",
+      "code": "        DEFINE('FACT(N)')                    :(FACT_END)\nFACT    FACT = LE(N, 1) 1                    :S(RETURN)\n        FACT = N * FACT(N - 1)               :(RETURN)\nFACT_END\n        OUTPUT = FACT(10)\nEND\n",
+      "expected_output": "3628800\n",
+      "notes": "DEFINE('FACT(N)') creates the function when it runs: the body is the statements from the label FACT on, and the function returns the value of the variable FACT when control reaches the label RETURN. The goto on the DEFINE line jumps over the body, which would otherwise run as ordinary code. LE(N, 1) returns the null string when it succeeds and fails otherwise, and a failure anywhere makes the whole statement fail, so :S(RETURN) is taken only when N <= 1. N is saved and restored around each call. Defined functions arrived in SNOBOL3 (1964), which wrote DEFINE(\"FACT(N)\",\"FACT\"), .LE(N,\"1\") (numbers were quoted strings of digits) and the goto as /S(RETURN).",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "SNOBOL4 (CSNOBOL4 2.3.4)",
+      "code": "        I = 0\nLOOP    I = LT(I, 15) I + 1                        :F(END)\n        OUTPUT = EQ(REMDR(I, 15), 0) 'FizzBuzz'    :S(LOOP)\n        OUTPUT = EQ(REMDR(I, 3), 0) 'Fizz'         :S(LOOP)\n        OUTPUT = EQ(REMDR(I, 5), 0) 'Buzz'         :S(LOOP)\n        OUTPUT = I                                 :(LOOP)\nEND\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "SNOBOL has no if, while or for: loops and choices are gotos on success or failure. LT(I, 15) returns the null string, so LT(I, 15) I + 1 is just I + 1 while I < 15; once the test fails, the assignment fails and :F(END) ends the loop. Each OUTPUT line is guarded the same way by EQ, and :S(LOOP) skips the rest after a line is printed. The SNOBOL3 paper's own loop reads N = .LT(N,\"100\") N + \"1\" /S(COMPUTE).",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "SNOBOL4 (CSNOBOL4 2.3.4)",
+      "code": "*       Functions are named by strings: APPLY(F, X) calls F(X).\n        DEFINE('EVEN(X)')\n        DEFINE('SQUARE(X)')\n        DEFINE('KEEPMAP(A,P,F)I,V')          :(KEEPMAP_END)\nEVEN    EQ(REMDR(X, 2), 0)                   :S(RETURN)F(FRETURN)\nSQUARE  SQUARE = X * X                       :(RETURN)\nKEEPMAP I = I + 1\n        V = A<I>                             :F(RETURN)\n        KEEPMAP = APPLY(P, V) KEEPMAP ' ' APPLY(F, V)   :(KEEPMAP)\nKEEPMAP_END\n        XS = ARRAY(10)\nFILL    N = N + 1\n        XS<N> = N                            :S(FILL)\n        S = KEEPMAP(XS, 'EVEN', 'SQUARE')\n        S ' ' =\n        OUTPUT = S\nEND\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Functions are not values, but they are named by strings, so KEEPMAP takes the names 'EVEN' and 'SQUARE' and calls them with APPLY. EVEN is a predicate: it returns through FRETURN to fail, and a failed APPLY(P, V) makes the whole assignment fail, which skips that element. Reading or writing an array element out of bounds fails too, which ends both loops. The goto :(KEEPMAP) is a plain jump back to the label, not a recursive call. KEEPMAP builds ' 4 16 36 64 100', and the statement S ' ' = matches the first blank and replaces it with nothing. <> subscripts are SNOBOL4's; CSNOBOL4 and SPITBOL also accept [].",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "SNOBOL4 (CSNOBOL4 2.3.4)",
+      "code": "        DATA('RECTANGLE(WIDTH,HEIGHT)')\n        DATA('TRIANGLE(BASE,HEIGHT)')\n        DEFINE('AREA(S)')                    :(AREA_END)\n*       Dispatch by a computed goto to the label AREA_<type>.\nAREA                                         :($('AREA_' DATATYPE(S)))\nAREA_RECTANGLE\n        AREA = WIDTH(S) * HEIGHT(S)          :(RETURN)\nAREA_TRIANGLE\n        AREA = BASE(S) * HEIGHT(S) / 2       :(RETURN)\nAREA_END\n        OUTPUT = 'Rectangle: ' AREA(RECTANGLE(3, 4))\n        OUTPUT = 'Triangle: ' AREA(TRIANGLE(10, 3))\nEND\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "DATA('RECTANGLE(WIDTH,HEIGHT)') defines a record type at run time, with a constructor RECTANGLE() and a field function for each field; both types share the field function HEIGHT. There are no methods: AREA dispatches with a computed goto, :($('AREA_' DATATYPE(S))), which jumps to the label named by the string AREA_RECTANGLE or AREA_TRIANGLE. Integer division truncates, so 10 * 3 / 2 is 15. Programmer-defined data types were added to SNOBOL4 in late 1966; earlier SNOBOLs had only strings.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Patterns are values, even recursive ones",
+      "concepts": [
+        "regex-builtin",
+        "lazy-evaluation"
+      ],
+      "dialect": "SNOBOL4 (CSNOBOL4 2.3.4)",
+      "code": "*       Patterns are values: name them, combine them, nest them.\n        NUM    = SPAN('0123456789')\n        OP     = ANY('+-*/')\n*       *EXPR is looked up only when the match reaches it, so EXPR\n*       can contain itself: a recursive, context-free pattern.\n        TERM   = NUM | '(' *EXPR ')'\n        EXPR   = TERM ARBNO(OP TERM)\n        WHOLE  = POS(0) EXPR RPOS(0)\n        TESTS  = '1+2,(3*(4-5))/6,2*(1+,((7)),(8,'\nNEXT    TESTS BREAK(',') . T ',' =           :F(END)\n        T WHOLE                              :S(YES)\n        OUTPUT = 'no   ' T                   :(NEXT)\nYES     OUTPUT = 'yes  ' T                   :(NEXT)\nEND\n",
+      "expected_output": "yes  1+2\nyes  (3*(4-5))/6\nno   2*(1+\nyes  ((7))\nno   (8\n",
+      "notes": "NUM, OP, TERM, EXPR and WHOLE are ordinary variables holding patterns, built with pattern functions (SPAN, ANY, ARBNO, POS, RPOS), concatenation (a blank) and alternation (|). The unary * defers the lookup of EXPR until the match reaches it, so the pattern is recursive and recognizes nested parentheses, which no regular expression can. The loop is itself pattern matching: BREAK(',') . T assigns the text before the next comma to T if the match succeeds, the = with nothing after it deletes what matched, and when TESTS is empty the match fails and :F(END) stops. The original SNOBOL had patterns only as fixed notation written in each statement; patterns as data objects arrived with SNOBOL4.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "CSNOBOL4",
+        "version": "2.3.4",
+        "docker_image": "plw-snobol",
+        "dockerfile": "sandbox/snobol/Dockerfile",
+        "install": "FROM debian:trixie-slim (build stage with gcc, make and m4): download https://ftp.regressive.org/snobol4/snobol4-2.3.4.tar.gz (sha256 702f73b4107438bd251ebc253d335994f37bb40379242360d876e2de6dc03f78), ./configure --prefix=/usr/local --without-modules --without-readline --without-docs && make install_notiming (which runs the regression tests), then copy /usr/local/bin and /usr/local/lib/snobol4 into a fresh debian:trixie-slim.",
+        "run": "snobol4 {file}",
+        "notes": "Phil Budne's BSD-licensed C port of Macro SNOBOL4, the original Bell Labs implementation written in SIL (Version 3.11), with the SPITBOL and SNOBOL4B extensions; it needs only libc and libm. Upstream publishes no checksum, so the SHA-256 was recorded at download; the tarball's hand-written sources match the REL_2_3_4 tag of github.com/philbudne/csnobol4. A program is compiled and run in one step, in well under a second. Case folding is on by default, so lower-case names also work. Compile errors and run-time errors are reported on stderr with the file and line, and the exit status is 1."
+      },
+      {
+        "name": "SPITBOL x64",
+        "version": "4.0f",
+        "docker_image": "debian:trixie-slim",
+        "install": "apt-get install -y gcc libc6-dev make nasm; unpack https://github.com/spitbol/x64/archive/refs/tags/v4.0f.tar.gz and run make bootsbl && make BASEBOL=./bootsbl spitbol, which assembles the pre-translated bootstrap sources and then rebuilds SPITBOL with itself",
+        "run": "./sbl -b {file}",
+        "notes": "Cross-check: the GPL-licensed Macro SPITBOL for x86-64 Linux printed exactly the same output for all six snippets. -b suppresses the banner."
+      }
+    ],
+    "browser": {
+      "name": "Snoflake",
+      "url": "https://atdt.github.io/snoflake/demo/",
+      "notes": "A BSD-licensed JavaScript port of Macro SNOBOL4 that follows the same Version 3.11 SIL source and runs unmodified in the browser. All six snippets printed the expected output with Snoflake 1.1.9 under Node."
+    },
+    "notes": "Snippets are standard SNOBOL4 as described in the 1971 'Green Book', written in upper case with statements indented past column 1. They avoid SPITBOL extensions and so also run on SPITBOL and Snoflake. INPUT reads standard input, which is empty in the sandbox, so a read fails at once. None of the snippets were run on a 1960s IBM system; SNOBOL3 and earlier differed substantially (see each snippet's notes)."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/SNOBOL",
+    "homepage": "https://www.regressive.org/snobol4/",
+    "spec": "https://ftp.regressive.org/snobol/misc/ftp.cs.arizona.edu/gb.pdf"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/SNOBOL",
+    "https://web.archive.org/web/20190302233559/http://pdfs.semanticscholar.org/a404/c09b14e2b03496604387f532fd33975179ec.pdf",
+    "https://doi.org/10.1145/960118.808393",
+    "https://archive.org/details/bstj45-6-895",
+    "https://en.wikipedia.org/wiki/COMIT",
+    "https://en.wikipedia.org/wiki/SPITBOL",
+    "https://en.wikipedia.org/wiki/Icon_(programming_language)",
+    "https://en.wikipedia.org/wiki/Ralph_Griswold",
+    "https://en.wikipedia.org/wiki/David_J._Farber",
+    "https://en.wikipedia.org/wiki/Homoiconicity",
+    "https://www.lua.org/doc/hopl.pdf",
+    "https://www.gnu.org/software/gawk/manual/html_node/History.html",
+    "https://www.regressive.org/snobol4/",
+    "https://www.regressive.org/snobol4/csnobol4/",
+    "https://www.regressive.org/snobol4/csnobol4/2.3/",
+    "https://github.com/philbudne/csnobol4",
+    "https://github.com/spitbol/x64",
+    "https://github.com/atdt/snoflake",
+    "https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml"
+  ]
+}

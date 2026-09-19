@@ -86,6 +86,12 @@
       "kind": "influence",
       "weight": "minor",
       "note": "Ars Technica (2005) found features inherited 'from Bash and SQL', and SQL's Wikipedia infobox lists PowerShell among the languages it influenced. Where-Object, Sort-Object, Group-Object and Select-Object correspond to SQL's WHERE, ORDER BY, GROUP BY and SELECT."
+    },
+    {
+      "id": "tcl",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Snover: 'Tcl/TK had a huge influence on me and thus on PowerShell': an embeddable scripting language ('The language was OK but the architecture just captured my imagination'), the model for PowerShell's hosting API, with Tk's quick GUIs layered on top. The Monad Manifesto builds on John Ousterhout's paper 'Scripting: Higher Level Programming for the 21st Century'. Wikipedia's infobox lists Tcl and Tk among PowerShell's influences."
     }
   ],
   "influenced_by_external": [
@@ -101,11 +107,6 @@
     {
       "name": "Control Language (IBM System/38, AS/400)",
       "note": "The other system with a common command parser named in the Monad Manifesto, alongside VMS DCL."
-    },
-    {
-      "name": "Tcl/Tk",
-      "year": 1988,
-      "note": "Snover: 'Tcl/TK had a huge influence on me and thus on PowerShell': an embeddable scripting language, the model for PowerShell's hosting API, with quick GUIs layered on top. The Monad Manifesto builds on John Ousterhout's paper 'Scripting: Higher Level Programming for the 21st Century'."
     },
     {
       "name": "Puppet",

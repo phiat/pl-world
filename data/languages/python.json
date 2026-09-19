@@ -47,12 +47,12 @@
     { "id": "ml", "kind": "influence", "weight": "minor" },
     { "id": "ada", "kind": "influence", "weight": "minor" },
     { "id": "apl", "kind": "influence", "weight": "minor" },
-    { "id": "dylan", "kind": "influence", "weight": "minor", "note": "The C3 method resolution order adopted in Python 2.3 comes from 'A Monotonic Superclass Linearization for Dylan' (Barrett et al., OOPSLA 1996)." }
+    { "id": "dylan", "kind": "influence", "weight": "minor", "note": "The C3 method resolution order adopted in Python 2.3 comes from 'A Monotonic Superclass Linearization for Dylan' (Barrett et al., OOPSLA 1996)." },
+    { "id": "modula3", "kind": "influence", "weight": "major", "note": "Van Rossum: 'besides ABC, my main influence was Modula-3'. A summer at DEC SRC, where the final Modula-3 report was being written, gave Python its exception handling, modules and the explicit self parameter; the tutorial calls Python's classes a mixture of C++'s and Modula-3's." },
+    { "id": "icon", "kind": "influence", "weight": "minor", "note": "PEP 255 names Icon, 'a novel language where every expression is a generator', alongside Sather's CLU-derived iterators as models for Python's generators (Python 2.2, 2001)." }
   ],
   "influenced_by_external": [
-    { "name": "ABC", "year": 1987, "note": "Van Rossum worked on ABC at CWI; Python took its indentation-based grouping, very-high-level data types and interactive use." },
-    { "name": "Modula-3", "year": 1988, "note": "Origin of Python's exception syntax and semantics, per van Rossum." },
-    { "name": "Icon", "year": 1977, "note": "Generators (PEP 255)." }
+    { "name": "ABC", "year": 1987, "note": "Van Rossum worked on ABC at CWI; Python took its indentation-based grouping, very-high-level data types and interactive use." }
   ],
   "influenced": ["ruby", "javascript", "go", "fsharp", "julia", "swift", "nim", "mojo", "d", "v"],
   "traits": {
@@ -181,6 +181,9 @@
     "https://docs.python.org/3/whatsnew/2.0.html",
     "https://peps.python.org/pep-0255/",
     "https://docs.python.org/3/howto/mro.html",
-    "https://doi.org/10.1145/236337.236343"
+    "https://doi.org/10.1145/236337.236343",
+    "https://www.python.org/doc/essays/foreword/",
+    "https://web.archive.org/web/20070501105422/http://www.amk.ca/python/writing/gvr-interview",
+    "https://docs.python.org/3/tutorial/classes.html"
   ]
 }

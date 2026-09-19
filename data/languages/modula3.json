@@ -1,0 +1,319 @@
+{
+  "id": "modula3",
+  "name": "Modula-3",
+  "aliases": [
+    "Modula 3",
+    "M3",
+    "SRC Modula-3"
+  ],
+  "year": 1988,
+  "year_note": "Maurice Wilkes proposed the project to Niklaus Wirth on 6 November 1986. The Modula-3 Report was published by Digital and Olivetti in August 1988 (SRC Research Report 31); the committee revised the language in January 1989 after the first implementations (revised report, SRC Research Report 52, November 1989), and a last set of changes (December 1990) went into Systems Programming with Modula-3 (1991), the definitive reference.",
+  "designers": [
+    "Luca Cardelli",
+    "James Donahue",
+    "Lucille Glassman",
+    "Mick Jordan",
+    "Bill Kalsow",
+    "Greg Nelson"
+  ],
+  "organization": "DEC Systems Research Center and Olivetti Research Center",
+  "country": "United States",
+  "tagline": "Modula-2 grown up for systems work: objects, threads, exceptions and garbage collection, with unsafe code fenced into marked modules.",
+  "summary": "Modula-3 is a systems programming language designed at Digital's Systems Research Center (SRC) and the Olivetti Research Center as the successor to Modula-2 and its SRC extension Modula-2+. It keeps Modula-2's separately compiled interfaces and adds objects with single inheritance, partially opaque types, exceptions, threads, generic modules and garbage collection, while confining unchecked low-level operations to modules explicitly marked UNSAFE. It was never widely adopted in industry but was influential in research and teaching, and it shaped Python's exceptions and classes and Nim's traced and untraced pointers.",
+  "history": "On 6 November 1986 Maurice Wilkes, who had recently left DEC and joined Olivetti's research strategy board, wrote to Niklaus Wirth proposing that Modula-2+ be revised and standardised as a successor to Modula-2. Modula-2+ was the language of DEC's Systems Research Center (SRC): Paul Rovner's group had extended Modula-2 with exceptions, threads and automatic storage management, ideas mostly drawn from Xerox PARC's Mesa and Cedar, and used it to build the Topaz operating system for the Firefly multiprocessor workstation. Wirth gave the project his blessing, and a committee from SRC and the new Olivetti Research Center formed: Luca Cardelli, Jim Donahue, Mick Jordan, Bill Kalsow and Greg Nelson designed the language, with Paul Rovner as a founding member, and Lucille Glassman and Nelson wrote the specification. They agreed to select 'simple, safe, proven features rather than experimenting with our own untried ideas', and gave the definition a budget of fifty pages.\n\nThe Modula-3 Report appeared in August 1988, and implementation began at once at both companies: SRC Modula-3 by Bill Kalsow and Eric Muller, and Olivetti Modula-3 by Mick Jordan's group. In January 1989 the committee revised the language in the light of that experience, introducing branded types and lifting the restrictions that had hobbled partially opaque types; the revised report and a final round of changes went into Systems Programming with Modula-3 (1991), edited by Nelson, which also covers the language's I/O streams, threads and the Trestle window system. SRC distributed its compiler under a liberal licence, and through the 1990s Modula-3 was used for teaching, with textbooks by Samuel Harbison (1992) and Robert Sedgewick (1993), and for research systems such as the University of Washington's SPIN operating system, Cardelli's Obliq language and SRC's Network Objects, whose distributed garbage collection Java RMI followed.\n\nThe decline of DEC left the language without its main sponsor. Critical Mass, Inc. sold a commercial compiler, CM3, with the Reactor IDE by Bill Kalsow and Farshad Nayeri (1996) and a Java virtual machine written in Modula-3, but ceased active operations in 2000 and passed its sources to elego Software Solutions, which released them as open source (CM3 5.1) and in 2002 also took over the PM3 distribution from the École Polytechnique de Montréal. CM3 is now maintained by volunteers on GitHub; its d5.12.0 release (March 2026) made EXTENDED a 128-bit floating-point type on AMD64 Linux. Guido van Rossum, who had met most of the designers during a summer at SRC, called Modula-3 his main influence besides ABC.",
+  "innovations": [
+    "Partially opaque types: an object type declared as an unknown subtype (TYPE T <: Public) in an interface, with its representation revealed in full in one module and in part, through REVEAL, to 'friend' modules",
+    "Explicit isolation of unsafe code, following Cedar: DISPOSE, LOOPHOLE, ADR and address arithmetic compile only in modules and interfaces marked UNSAFE, so safe modules cannot corrupt the runtime",
+    "Traced and untraced references side by side: garbage-collected REF types for ordinary data, and UNTRACED REF for the parts of a system that cannot afford a collector",
+    "Structural type equivalence defined through a single subtype relation, with BRANDED types to make otherwise identical types distinct",
+    "Generic interfaces and modules parameterised by whole interfaces, instantiated per unit and type-checked after expansion",
+    "Exceptions as part of a procedure's type (RAISES sets), with TRY-EXCEPT and TRY-FINALLY; the language even defines EXIT and RETURN as exceptions",
+    "Threads, MUTEX and the LOCK statement in the language, simplified from Mesa's monitors by way of Modula-2+"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured",
+    "object-oriented",
+    "generic",
+    "concurrent"
+  ],
+  "family": "algol",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "structural",
+    "notes": "Unlike Modula-2, types are equivalent by structure; BRANDED reference and object types opt out, and the concrete type revealed for an opaque type must be branded. Every expression's type follows from its subexpressions, with no automatic conversions. Array bounds, NIL dereferences, narrowing and subrange assignments are checked at run time; unchecked operations (LOOPHOLE, DISPOSE, ADR, address arithmetic) are allowed only in UNSAFE modules and interfaces."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "REF types, objects and TEXT are traced and collected automatically; UNTRACED REF memory lives outside the collected heap and is freed with DISPOSE, which only UNSAFE modules may call. SRC Modula-3's collector was based on Joel Bartlett's mostly-copying collector for ambiguous roots.",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "maintained",
+  "latest_version": "CM3 d5.12.0 (March 2026)",
+  "file_extensions": [
+    ".m3",
+    ".i3",
+    ".mg",
+    ".ig"
+  ],
+  "color": "#223388",
+  "primary_parent": "modula2",
+  "influenced_by": [
+    {
+      "id": "modula2",
+      "kind": "successor",
+      "weight": "major",
+      "note": "Proposed to Wirth as Modula-2's successor, and Wirth blessed the name; the committee called Modula-2 'the starting point of our starting point' (Modula-2+) and kept its interfaces with essentially no changes."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Modula-2+",
+      "year": 1984,
+      "note": "SRC's extension of Modula-2 with exceptions, threads and garbage collection, used for the Topaz system; the committee's 'technical starting point'."
+    },
+    {
+      "name": "Mesa",
+      "year": 1976,
+      "note": "Named as an ancestor in the report; its monitors, simplified in Modula-2+, became Modula-3's threads, MUTEX and LOCK."
+    },
+    {
+      "name": "Cedar",
+      "note": "Named as an ancestor in the report; Modula-3 follows Cedar in allowing a few unsafe features only in modules explicitly marked unsafe, alongside garbage collection."
+    },
+    {
+      "name": "Euclid",
+      "note": "Called a 'cousin' the language resembles in the report's preface, together with Object Pascal and Oberon."
+    }
+  ],
+  "influenced": [
+    "python",
+    "java",
+    "csharp",
+    "nim",
+    "ocaml"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "IF/ELSIF, WHILE, REPEAT, FOR … BY, CASE and LOOP with EXIT, each closed by END; TYPECASE dispatches on a reference's run-time type, WITH binds names to values, and TRY-FINALLY and LOCK guarantee clean-up."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Nested procedures, and block statements (declarations followed by BEGIN … END) anywhere in a statement sequence; FOR and WITH introduce their own scoped names."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "exceptions": {
+      "level": "core",
+      "note": "EXCEPTION declarations (optionally carrying an argument), RAISE, TRY-EXCEPT with ELSE, and TRY-FINALLY. A procedure's RAISES set is part of its type, and raising an exception outside it is a checked runtime error. Van Rossum took Python's exception handling from Modula-3."
+    },
+    "coroutines": {
+      "level": "library",
+      "since": 2018,
+      "note": "The language itself has preemptive threads (Thread.Fork, MUTEX, LOCK, Thread.Condition); CM3 added a Coroutine interface to its m3core runtime library in 2018."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "supported",
+      "note": "Local only: a variable, constant, parameter or field may omit its type when an initialiser or default supplies it (VAR n := 0), and WITH and FOR names take the type of their expression."
+    },
+    "generics": {
+      "level": "core",
+      "note": "GENERIC INTERFACE and GENERIC MODULE units take whole interfaces as parameters and are instantiated per unit (INTERFACE IntSeq = Sequence(Integer) END IntSeq); each instance is expanded and type-checked separately, and there are no generic procedures or type constraints."
+    },
+    "structural-typing": {
+      "level": "core",
+      "note": "All type equivalence is structural, reviving ALGOL 68's rule after Modula-2's name equivalence; BRANDED reference and object types are distinct from every other type."
+    },
+    "classes": {
+      "level": "core",
+      "note": "OBJECT types are reference types with fields and methods, whose method suites come from METHODS defaults and OVERRIDES; there is no separate class construct, and, as in Simula, objects are always references."
+    },
+    "inheritance": {
+      "level": "core",
+      "note": "Single inheritance by subtyping (Sub = Super OBJECT … END); multiple inheritance was left out deliberately."
+    },
+    "abstract-data-types": {
+      "level": "core",
+      "note": "Opaque types (TYPE T <: Public) hide a representation; REVEAL gives it in full in one module, while partial revelations give 'friend' modules more than ordinary clients see."
+    },
+    "modules": {
+      "level": "core",
+      "note": "INTERFACE and MODULE units compiled separately; a module may export several interfaces (MODULE M EXPORTS A, B), and imported names are qualified (IO.Put) unless listed in FROM … IMPORT."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Procedure types let top-level procedures be stored, passed and returned with checked signatures, including RAISES sets; there are no anonymous procedures, and objects with a single method (such as Thread.Closure) are the idiomatic stand-in."
+    },
+    "closures": {
+      "level": "supported",
+      "note": "Downward only: a local procedure can be passed as a parameter and still sees its enclosing variables, but it cannot be assigned or returned."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Traced references are the default; the designers called garbage collection 'the only way to achieve an adequate level of safety'."
+    },
+    "pointers": {
+      "level": "supported",
+      "note": "UNTRACED REF memory is allocated with NEW and freed with DISPOSE; DISPOSE, LOOPHOLE, ADR and ADDRESS arithmetic are allowed only in UNSAFE modules and interfaces."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1986,
+      "event": "Maurice Wilkes writes to Wirth proposing Modula-2+ be revised as Modula-2's successor; the DEC SRC–Olivetti committee forms"
+    },
+    {
+      "year": 1988,
+      "event": "Modula-3 Report published by Digital and Olivetti (August)"
+    },
+    {
+      "year": 1989,
+      "event": "Language revised after the first implementations: branded types, relaxed opaque types (revised report, November)"
+    },
+    {
+      "year": 1991,
+      "event": "Systems Programming with Modula-3, edited by Greg Nelson, becomes the definitive reference"
+    },
+    {
+      "year": 1993,
+      "event": "Robert Sedgewick publishes Algorithms in Modula-3"
+    },
+    {
+      "year": 1994,
+      "event": "SRC's Network Objects, a distributed-object system later followed by Java RMI"
+    },
+    {
+      "year": 1996,
+      "event": "Critical Mass, Inc. ships its CM3 compiler with the Reactor IDE"
+    },
+    {
+      "year": 2000,
+      "event": "Critical Mass winds down; elego Software Solutions inherits the CM3 sources, later released as open source (CM3 5.1)"
+    },
+    {
+      "year": 2013,
+      "event": "The modula3/cm3 repository is created on GitHub, today the home of CM3 development"
+    },
+    {
+      "year": 2026,
+      "event": "CM3 d5.12.0: EXTENDED becomes a 128-bit float on AMD64 Linux"
+    }
+  ],
+  "trivia": [
+    "Following C. A. R. Hoare's rule of thumb, the committee gave the definition a 'complexity budget' of fifty pages and ended up over budget by six lines plus the syntax equations.",
+    "Wirth reviewed the evolving design and, in the committee's words, made many valuable suggestions, 'not one of which was a suggested addition'.",
+    "The language definition specifies EXIT and RETURN in terms of two exceptions, the exit-exception and the return-exception, which programs cannot name.",
+    "The Python tutorial explains classes in Smalltalk and C++ terms, noting that Modula-3's object semantics are closer to Python's, 'but I expect that few readers have heard of it'.",
+    "Luca Cardelli has described Modula-3 as 'the stepping stone from Cedar/Mesa to Java'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Modula-3 (CM3 d5.12.0)",
+      "code": "MODULE Main;\nIMPORT IO;\n\nBEGIN\n  IO.Put(\"Hello, World!\\n\")\nEND Main.\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "A program is the module that exports the Main interface: MODULE Main does so implicitly, while MODULE Hello EXPORTS Main names it. IO is a convenience interface over the Wr (writer) streams, and \"\\n\" escapes work in TEXT literals.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Modula-3 (CM3 d5.12.0)",
+      "code": "MODULE Main;\nIMPORT IO, Fmt;\n\nPROCEDURE Factorial(n: CARDINAL): INTEGER =\n  BEGIN\n    IF n <= 1 THEN RETURN 1 ELSE RETURN n * Factorial(n - 1) END\n  END Factorial;\n\nBEGIN\n  IO.Put(Fmt.Int(Factorial(10)) & \"\\n\")\nEND Main.\n",
+      "expected_output": "3628800\n",
+      "notes": "A procedure body follows an = sign, and END repeats the procedure's name. CARDINAL is the subrange [0 .. LAST(INTEGER)] rather than Modula-2's separate unsigned type; Fmt.Int returns a TEXT and & concatenates.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Modula-3 (CM3 d5.12.0)",
+      "code": "MODULE Main;\nIMPORT IO;\n\nBEGIN\n  FOR i := 1 TO 15 DO                (* the loop declares i itself *)\n    IF i MOD 15 = 0 THEN IO.Put(\"FizzBuzz\")\n    ELSIF i MOD 3 = 0 THEN IO.Put(\"Fizz\")\n    ELSIF i MOD 5 = 0 THEN IO.Put(\"Buzz\")\n    ELSE IO.PutInt(i)\n    END;\n    IO.Put(\"\\n\")\n  END\nEND Main.\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "The FOR statement declares its own read-only control variable, scoped to the loop. As in Modula-2, keywords are upper case and ELSIF chains close with a single END.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Modula-3 (CM3 d5.12.0)",
+      "code": "MODULE Main;\nIMPORT IO, Fmt, IntSeq;           (* IntSeq = the generic Sequence(Integer) *)\n\nTYPE\n  Pred = PROCEDURE (x: INTEGER): BOOLEAN;\n  Func = PROCEDURE (x: INTEGER): INTEGER;\n\nPROCEDURE IsEven(x: INTEGER): BOOLEAN = BEGIN RETURN x MOD 2 = 0 END IsEven;\nPROCEDURE Square(x: INTEGER): INTEGER = BEGIN RETURN x * x END Square;\n\nPROCEDURE FilterMap(xs: IntSeq.T; keep: Pred; f: Func): IntSeq.T =\n  VAR out := NEW(IntSeq.T).init();\n  BEGIN\n    FOR i := 0 TO xs.size() - 1 DO\n      WITH x = xs.get(i) DO\n        IF keep(x) THEN out.addhi(f(x)) END\n      END\n    END;\n    RETURN out\n  END FilterMap;\n\nVAR xs := NEW(IntSeq.T).init(); ys: IntSeq.T; line := \"\";\nBEGIN\n  FOR i := 1 TO 10 DO xs.addhi(i) END;\n  ys := FilterMap(xs, IsEven, Square);\n  FOR i := 0 TO ys.size() - 1 DO\n    IF i > 0 THEN line := line & \" \" END;\n    line := line & Fmt.Int(ys.get(i))\n  END;\n  IO.Put(line & \"\\n\")\nEND Main.\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "There are no lambdas: procedure types let top-level procedures be passed around. IntSeq is libm3's instance of the generic Sequence interface for integers (INTERFACE IntSeq = Sequence(Integer) END IntSeq), a growable sequence object; WITH binds a name to a value, and VAR declarations may leave the type to their initialiser.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Modula-3 (CM3 d5.12.0)",
+      "code": "MODULE Main;\nIMPORT IO, Fmt;\n\nTYPE\n  Shape = OBJECT METHODS area(): INTEGER END;       (* no default: abstract *)\n  Rectangle = Shape OBJECT width, height: INTEGER OVERRIDES area := RectArea END;\n  Triangle = Shape OBJECT base, height: INTEGER OVERRIDES area := TriArea END;\n\nPROCEDURE RectArea(r: Rectangle): INTEGER = BEGIN RETURN r.width * r.height END RectArea;\nPROCEDURE TriArea(t: Triangle): INTEGER = BEGIN RETURN t.base * t.height DIV 2 END TriArea;\n\nPROCEDURE Show(name: TEXT; s: Shape) =\n  BEGIN\n    IO.Put(name & \": \" & Fmt.Int(s.area()) & \"\\n\")\n  END Show;\n\nBEGIN\n  Show(\"Rectangle\", NEW(Rectangle, width := 3, height := 4));\n  Show(\"Triangle\", NEW(Triangle, base := 10, height := 3))\nEND Main.\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Object types are references built by extending a supertype (Shape OBJECT … END). A method declared without a procedure is NIL until a subtype OVERRIDES it, and calling it is a checked runtime error; methods must be top-level procedures whose first parameter is the object. NEW allocates an object and initialises fields by name. Because type equivalence is structural, two object types with the same fields and methods would be the same type unless BRANDED.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Opaque objects and exceptions",
+      "concepts": [
+        "abstract-data-types",
+        "classes",
+        "exceptions"
+      ],
+      "dialect": "Modula-3 (CM3 d5.12.0)",
+      "code": "MODULE Main;\nIMPORT IO, Fmt;\n\nEXCEPTION Empty;\n\nTYPE\n  Stack <: Public;                  (* opaque: some subtype of Public *)\n  Public = OBJECT METHODS push(x: INTEGER); pop(): INTEGER RAISES {Empty} END;\n\nREVEAL                              (* the hidden representation *)\n  Stack = Public BRANDED OBJECT\n    items: ARRAY [1 .. 8] OF INTEGER;\n    n := 0;\n  OVERRIDES\n    push := Push;\n    pop := Pop;\n  END;\n\nPROCEDURE Push(s: Stack; x: INTEGER) = BEGIN INC(s.n); s.items[s.n] := x END Push;\n\nPROCEDURE Pop(s: Stack): INTEGER RAISES {Empty} =\n  BEGIN\n    IF s.n = 0 THEN RAISE Empty END;\n    DEC(s.n);\n    RETURN s.items[s.n + 1]\n  END Pop;\n\nVAR s := NEW(Stack);                (* a traced reference: garbage-collected *)\nBEGIN\n  FOR i := 1 TO 3 DO s.push(i * i) END;\n  TRY\n    LOOP IO.Put(Fmt.Int(s.pop()) & \" \") END     (* left only by the exception *)\n  EXCEPT\n    Empty => IO.Put(\"empty\\n\")\n  END\nEND Main.\n",
+      "expected_output": "9 4 1 empty\n",
+      "notes": "Stack <: Public declares an opaque type: code sees only Public's methods until a REVEAL says what Stack really is, and the revealed type must be BRANDED. In a real program the TYPE line sits in an interface (Stack.i3) and the REVEAL in the implementing module, so clients never see items or n; 'friend' interfaces can reveal part of the representation (partial revelation). RAISES {Empty} is part of Pop's type, and the LOOP ends only through the exception. The stack is a traced reference; memory managed by hand would use UNTRACED REF, which only an UNSAFE MODULE may DISPOSE.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Critical Mass Modula-3 (cm3)",
+        "version": "d5.12.0",
+        "docker_image": "plw-modula3",
+        "dockerfile": "sandbox/modula3/Dockerfile",
+        "install": "cm3_5.12.0_amd64.deb from the modula3/cm3 d5.12.0 GitHub release (checksum-verified; needs gcc, binutils and binutils-gold)",
+        "compile": "m3-run --build {file}",
+        "run": "m3-run --exec",
+        "notes": "plw-modula3 is debian:trixie-slim plus the prebuilt AMD64_LINUX .deb: the cm3 driver, the GCC-based cm3cg code generator, and the m3core and libm3 libraries. cm3 builds packages rather than files, so m3-run copies a template package (src/m3makefile importing libm3) from /opt/plw-m3 to /tmp, installs the file as src/<Module>.m3, compiles and links it with cm3 -silent, and --exec runs the result. Build messages go to stderr and name the user's file. Nothing is written outside /tmp; runs also pass with a read-only root filesystem. The .deb's cm3 -version still reports d5.11.9 because the version file was not bumped for the release; the 128-bit EXTENDED type confirms it is 5.12.0."
+      }
+    ],
+    "browser": null,
+    "notes": "A cold compile, link and run takes well under a second in the sandbox. Besides cm3cg, CM3 has a code generator that emits C (M3C). Historical implementations (SRC Modula-3, PM3, EzM3) are no longer maintained; CM3 is the only active one."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Modula-3",
+    "homepage": "https://modula3.github.io/cm3/",
+    "spec": "https://modula3.github.io/cm3/reference/index.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Modula-3",
+    "https://en.wikipedia.org/wiki/Modula-2%2B",
+    "http://www.bitsavers.org/pdf/dec/tech_reports/SRC-RR-52.pdf",
+    "https://modula3.github.io/cm3/reference/intro.html",
+    "https://modula3.github.io/cm3/reference/acks.html",
+    "https://modula3.github.io/cm3/reference/authors.html",
+    "https://modula3.github.io/cm3/reference/stmts.html",
+    "https://modula3.github.io/cm3/reference/procs.html",
+    "https://modula3.github.io/cm3/reference/calls.html",
+    "https://modula3.github.io/cm3/reference/revelations.html",
+    "https://modula3.github.io/cm3/reference/variables.html",
+    "https://modula3.github.io/cm3/help/bib.html",
+    "https://modula3.github.io/start.html",
+    "https://modula3.github.io/about-cm3.html",
+    "https://modula3.elegosoft.com/cm3/doc/help/CM3_IDE/intro.pdf",
+    "https://github.com/modula3/cm3",
+    "https://github.com/modula3/cm3/releases/tag/d5.12.0",
+    "https://web.archive.org/web/20090105145818/http://www.computerworld.com.au/index.php/id%3B1422447371%3Bpp%3B3%3Bfp%3B4194304%3Bfpid%3B1",
+    "https://www.python.org/doc/essays/foreword/",
+    "https://web.archive.org/web/20070501105422/http://www.amk.ca/python/writing/gvr-interview",
+    "https://docs.python.org/3/faq/design.html",
+    "https://docs.python.org/3/tutorial/classes.html",
+    "https://docs.oracle.com/javase/8/docs/platform/rmi/spec/rmi-arch4.html",
+    "https://nim-lang.org/faq.html",
+    "https://en.wikipedia.org/wiki/SPIN_(operating_system)",
+    "https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml"
+  ]
+}

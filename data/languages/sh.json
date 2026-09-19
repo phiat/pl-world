@@ -101,7 +101,8 @@
   "influenced": [
     "perl",
     "julia",
-    "powershell"
+    "powershell",
+    "tcl"
   ],
   "traits": {
     "structured-control": {

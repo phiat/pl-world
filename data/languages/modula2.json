@@ -97,7 +97,8 @@
   "influenced": [
     "ada",
     "lua",
-    "oberon"
+    "oberon",
+    "modula3"
   ],
   "traits": {
     "structured-control": {

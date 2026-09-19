@@ -85,9 +85,10 @@
     "origin": {
       "lang": "clu",
       "year": 1975,
-      "note": "CLU iterators; Icon (1977) generalized generators."
+      "note": "CLU iterators (after Alphard's generators); Icon (1977) made any expression a generator driven by goal-directed backtracking, and PEP 255 cites Icon as a model for Python's."
     },
     "popularized_by": [
+      "icon",
       "python",
       "csharp",
       "javascript"

@@ -38,14 +38,14 @@
   "color": "#c30e9b",
   "primary_parent": "c",
   "influenced_by": [
-    { "id": "c", "kind": "influence", "weight": "major", "note": "Expression syntax and operators (with C's precedence from 1985), if/while/for, printf, and the braces of actions and functions." }
+    { "id": "c", "kind": "influence", "weight": "major", "note": "Expression syntax and operators (with C's precedence from 1985), if/while/for, printf, and the braces of actions and functions." },
+    { "id": "snobol", "kind": "influence", "weight": "minor", "note": "String processing; listed among AWK's influences (Wikipedia, citing Pilavakis and Robbins), and the gawk manual's recipe for AWK includes 'one part snobol'. SNOBOL4's TABLE (1969) was an associative array built into a language before AWK's." }
   ],
   "influenced_by_external": [
     { "name": "sed", "year": 1974, "note": "The line-at-a-time, pattern-directed processing model, and /regex/ addresses inherited from ed." },
-    { "name": "egrep", "note": "Alfred Aho's extended regular expressions, the syntax AWK's patterns use." },
-    { "name": "SNOBOL", "year": 1962, "note": "String processing; listed among AWK's influences. SNOBOL4's tables were an earlier form of associative array." }
+    { "name": "egrep", "note": "Alfred Aho's extended regular expressions, the syntax AWK's patterns use." }
   ],
-  "influenced": ["perl", "lua", "javascript"],
+  "influenced": ["perl", "lua", "javascript", "tcl"],
   "traits": {
     "structured-control": { "level": "core", "note": "if/else, while, for, for (key in array) and do-while, plus `next` (skip to the next record) and `exit`." },
     "recursion": { "level": "core", "since": 1985, "version": "new awk (nawk)", "note": "User-defined functions arrived in 1985. Scalars are passed by value and arrays by reference; extra parameters serve as local variables, since every other variable is global." },

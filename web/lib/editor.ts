@@ -16,7 +16,7 @@ import {
   syntaxHighlighting,
 } from "@codemirror/language";
 import { tagHighlighter, tags as t } from "@lezer/highlight";
-import { LEAN, LOGO, ODIN, UNISON, V } from "./keywords.ts";
+import { ICON, LEAN, LOGO, MODULA3, ODIN, SNOBOL, TCL, UNISON, V } from "./keywords.ts";
 
 export type EditorHandle = {
   setReadOnly(readOnly: boolean): void;
@@ -297,6 +297,149 @@ const logoParser: StreamParser<{ naming: boolean }> = {
   },
 };
 
+// Modula-3: Pascal's mode reads the `{` of a set or RAISES {E} as a comment, so it gets its own. Case-sensitive words,
+// nesting (* *) comments that may span lines, <* pragmas *>, and the name after PROCEDURE/MODULE/INTERFACE.
+const M3_KW = new Set(MODULA3.keywords.split(" "));
+const M3_TY = new Set(MODULA3.types.split(" "));
+const M3_BI = new Set(MODULA3.builtins.split(" "));
+const M3_LIT = new Set(MODULA3.literals.split(" "));
+const modula3Parser: StreamParser<{ depth: number; naming: boolean }> = {
+  name: "modula3",
+  startState: () => ({ depth: 0, naming: false }),
+  token(stream, state) {
+    if (state.depth > 0) {
+      while (!stream.eol()) {
+        if (stream.match("(*")) state.depth++;
+        else if (stream.match("*)")) {
+          if (--state.depth === 0) break;
+        } else stream.next();
+      }
+      return "comment";
+    }
+    if (stream.eatSpace()) return null;
+    if (stream.match("(*")) {
+      state.depth = 1;
+      return "comment";
+    }
+    if (stream.match(/^<\*.*?(?:\*>|$)/)) return "meta";
+    if (stream.match(/^"(?:[^"\\]|\\.)*"?/) || stream.match(/^'(?:[^'\\]|\\.)+'/)) return "string";
+    if (stream.match(/^(?:\d+_[\da-fA-F]+|\d+(?:\.\d+(?:[EDX][+-]?\d+)?)?)(?![\w])/)) return "number";
+    if (stream.match(/^[A-Za-z_]\w*/)) {
+      const word = stream.current();
+      if (state.naming) return (state.naming = false, "variableName.definition");
+      if (word === "PROCEDURE" || word === "MODULE" || word === "INTERFACE") state.naming = true;
+      if (M3_KW.has(word)) return "keyword";
+      if (M3_TY.has(word)) return "typeName";
+      if (M3_BI.has(word)) return "variableName.standard";
+      return M3_LIT.has(word) ? "atom" : "variableName";
+    }
+    stream.next();
+    return null;
+  },
+};
+
+// SNOBOL has no legacy mode. Same classes as its hljs grammar: column 1 holds a comment, a control line or a label,
+// and after the `:` of a goto field, S/F and the system labels are keywords and the other targets labels.
+const SNOBOL_BI = new Set(SNOBOL.builtins.split(" "));
+const SNOBOL_LABELS = new Set(SNOBOL.labels.split(" "));
+const snobolParser: StreamParser<{ goto: boolean; target: boolean }> = {
+  name: "snobol",
+  startState: () => ({ goto: false, target: false }),
+  token(stream, state) {
+    if (stream.sol()) {
+      state.goto = state.target = false;
+      if (stream.match(/^\*.*/)) return "comment";
+      if (stream.match(/^-[A-Za-z].*/)) return "meta";
+      if (stream.match(/^[A-Za-z0-9][^\s;]*/)) {
+        return SNOBOL_LABELS.has(stream.current().toUpperCase()) ? "keyword" : "labelName";
+      }
+    }
+    if (stream.eatSpace()) return null;
+    if (stream.match(/^'[^']*'?/) || stream.match(/^"[^"]*"?/)) return "string";
+    if (stream.match(/^:(?=\s*[SFsf]?[(<])/)) return (state.goto = true, null);
+    if (state.goto) {
+      const before = stream.string.slice(0, stream.pos);
+      if (/[:)]\s*$/.test(before) && stream.match(/^[SFsf](?=\()/)) return "keyword";
+      if (/[:)]\s*[SFsf]?$/.test(before) && stream.match(/^\((?=\s*[A-Za-z][\w.]*\s*\))/)) {
+        state.target = true;
+        return null;
+      }
+    }
+    if (stream.match(/^&[A-Za-z]+/)) return "variableName.standard";
+    if (stream.match(/^\d+(?:\.\d*)?(?:[eE][+-]?\d+)?/)) return "number";
+    if (stream.match(/^[A-Za-z][\w.]*/)) {
+      const word = stream.current().toUpperCase();
+      if (state.target) return (state.target = false, SNOBOL_LABELS.has(word) ? "keyword" : "labelName");
+      return SNOBOL_BI.has(word) ? "variableName.standard" : "variableName";
+    }
+    stream.next();
+    return null;
+  },
+};
+
+// Tcl: the legacy mode colours a "string" outside parentheses, and every operator, as a comment. Same classes as the
+// hljs grammar: # comments only where a command starts, "…" strings that may span lines, and the name after proc.
+const TCL_KW = new Set(TCL.keywords.split(" "));
+const tclParser: StreamParser<{ string: boolean; command: boolean; naming: boolean }> = {
+  name: "tcl",
+  startState: () => ({ string: false, command: true, naming: false }),
+  token(stream, state) {
+    if (state.string) {
+      while (!stream.eol()) {
+        const ch = stream.next();
+        if (ch === "\\") stream.next();
+        else if (ch === '"') {
+          state.string = false;
+          break;
+        }
+      }
+      return "string";
+    }
+    if (stream.sol()) state.command = true;
+    if (stream.eatSpace()) return null;
+    const command = state.command;
+    state.command = false;
+    if (command && stream.match(/^#.*/)) return "comment";
+    if (stream.eat(";")) return (state.command = true, null);
+    if (stream.eat('"')) return (state.string = true, tclParser.token(stream, state));
+    if (stream.match(/^\$(?:\{[^}]*\}?|(?:::)?[A-Za-z_]\w*(?:::[A-Za-z_]\w*)*)/)) return "variableName";
+    if (stream.match(/^(?:0[bB][01]+|0[xX][\da-fA-F]+|\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)(?![\w.])/)) return "number";
+    if (stream.match(/^(?:::)?[A-Za-z_][\w]*(?:::[\w]+)*/)) {
+      const word = stream.current();
+      if (state.naming) return (state.naming = false, "variableName.definition");
+      if (word === "proc") state.naming = true;
+      return TCL_KW.has(word) ? "keyword" : "variableName";
+    }
+    stream.next();
+    return null;
+  },
+};
+
+// Icon has no legacy mode. Same classes as its hljs grammar; the name after `procedure` or `record` is a definition.
+const iconKeywords = new Set(ICON.keywords.split(" "));
+const iconBuiltins = new Set(ICON.builtins.split(" "));
+const iconParser: StreamParser<{ naming: boolean }> = {
+  name: "icon",
+  startState: () => ({ naming: false }),
+  token(stream, state) {
+    if (stream.eatSpace()) return null;
+    if (stream.match(/^#.*/)) return "comment";
+    if (stream.match(/^"(?:[^"\\]|\\.)*"?/) || stream.match(/^'(?:[^'\\]|\\.)*'?/)) return "string";
+    if (stream.match(/^&[a-z]+/)) return "labelName";
+    if (!stream.string.slice(0, stream.start).trim() && stream.match(/^\$[a-z]+.*/)) return "meta";
+    if (stream.match(/^(?:\d+[rR][\da-zA-Z]+|\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)(?![\w])/)) return "number";
+    if (stream.match(/^[A-Za-z_]\w*/)) {
+      const word = stream.current();
+      if (state.naming) return (state.naming = false, "variableName.definition");
+      if (word === "procedure" || word === "record") state.naming = true;
+      if (iconKeywords.has(word)) return "keyword";
+      return iconBuiltins.has(word) ? "variableName.standard" : "variableName";
+    }
+    stream.next();
+    return null;
+  },
+};
+
 // Odin: the clike factory with Odin's words, plus hooks for #directives, @(attributes), $T parameters and raw strings.
 const words = (s: string) => Object.fromEntries(s.split(" ").map((w) => [w, true]));
 const odinMode = () =>
@@ -350,6 +493,7 @@ const MODES: Record<string, () => Promise<Extension>> = {
   algol60: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
   cobol: () => import("@codemirror/legacy-modes/mode/cobol").then((m) => legacy(m.cobol)),
   lisp: () => import("@codemirror/legacy-modes/mode/commonlisp").then((m) => legacy(m.commonLisp)),
+  snobol: () => Promise.resolve(legacy(snobolParser as StreamParser<unknown>)),
   basic: () => import("@codemirror/legacy-modes/mode/vb").then((m) => legacy(m.vb)),
   apl: () => import("@codemirror/legacy-modes/mode/apl").then((m) => legacy(m.apl)),
   simula: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
@@ -365,6 +509,7 @@ const MODES: Record<string, () => Promise<Extension>> = {
   sql: () => import("@codemirror/legacy-modes/mode/sql").then((m) => legacy(m.standardSQL)),
   scheme: () => import("@codemirror/legacy-modes/mode/scheme").then((m) => legacy(m.scheme)),
   awk: () => import("@codemirror/legacy-modes/mode/perl").then((m) => legacy(m.perl)),
+  icon: () => Promise.resolve(legacy(iconParser as StreamParser<unknown>)),
   modula2: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
   sh: () => import("@codemirror/legacy-modes/mode/shell").then((m) => legacy(m.shell)),
   ada: () => import("@codemirror/legacy-modes/mode/vhdl").then((m) => legacy(m.vhdl)),
@@ -377,6 +522,8 @@ const MODES: Record<string, () => Promise<Extension>> = {
   eiffel: () => import("@codemirror/legacy-modes/mode/eiffel").then((m) => legacy(m.eiffel)),
   erlang: () => import("@codemirror/legacy-modes/mode/erlang").then((m) => legacy(m.erlang)),
   perl: () => import("@codemirror/legacy-modes/mode/perl").then((m) => legacy(m.perl)),
+  modula3: () => Promise.resolve(legacy(modula3Parser as StreamParser<unknown>)),
+  tcl: () => Promise.resolve(legacy(tclParser as StreamParser<unknown>)),
   oberon: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
   hypertalk: () => Promise.resolve(legacy(hyperTalkParser as StreamParser<unknown>)),
   self: () => import("@codemirror/legacy-modes/mode/smalltalk").then((m) => legacy(m.smalltalk)),

@@ -105,6 +105,12 @@
       "kind": "influence",
       "weight": "minor",
       "note": "Properties and events for rapid application development."
+    },
+    {
+      "id": "modula3",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Wikipedia lists Modula-3 among C#'s influences. Like Modula-3, C# pairs garbage-collected safe code with code explicitly marked unsafe, and has a built-in lock statement."
     }
   ],
   "influenced_by_external": [
@@ -117,10 +123,6 @@
       "name": "Cω",
       "year": 2004,
       "note": "Microsoft Research language whose query and stream features led to LINQ."
-    },
-    {
-      "name": "Modula-3",
-      "year": 1988
     }
   ],
   "influenced": [
