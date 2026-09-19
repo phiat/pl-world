@@ -1,0 +1,308 @@
+{
+  "id": "sh",
+  "name": "Bourne shell",
+  "aliases": [
+    "sh",
+    "Bash",
+    "Bourne-Again SHell",
+    "POSIX shell",
+    "POSIX sh"
+  ],
+  "year": 1979,
+  "year_note": "Ken Thompson's shell (1971), also installed as sh, and John Mashey's PWB shell (1975) came first. Stephen Bourne began a new shell at Bell Labs around 1976, and it replaced Thompson's in Version 7 Unix in 1979. It never had version numbers: shell functions arrived with System V Release 2 in 1984. David Korn's KornShell (announced 1983) extended it, and its 1988 version was the basis of the POSIX.2 shell standard (IEEE Std 1003.2-1992). Brian Fox wrote Bash for the GNU Project, releasing a first beta in June 1989; Chet Ramey has maintained it since the early 1990s.",
+  "designers": [
+    "Stephen Bourne"
+  ],
+  "organization": "Bell Labs",
+  "country": "United States",
+  "tagline": "The Unix command language: commands, pipes and strings in ALGOL 68-style if … fi, standardized as POSIX sh and carried on by Bash.",
+  "summary": "The Bourne shell is the command language of Unix: an interactive command interpreter that is also a programming language, in which each statement runs a command and every value is a string. Stephen Bourne wrote it at Bell Labs for Version 7 Unix (1979), adding variables, ALGOL 68-style control structures, command substitution and here-documents to the pipes and redirection of Ken Thompson's first Unix shell. Standardized by POSIX and extended by the KornShell and by GNU Bash, today's dominant implementation, it is the scripting language that every Unix-like system provides as /bin/sh.",
+  "history": "Ken Thompson's shell, the first Unix shell (1971), ran commands with < and > redirection and, from 1973, joined them with pipes, an idea of Doug McIlroy's. But if and goto were separate programs, it had no variables, and a script could not act as a filter because the script itself was the shell's standard input. John Mashey's PWB shell (1975) added variables, if-then-else and while loops while staying compatible with Thompson's. Stephen Bourne, who had helped write the ALGOL 68C compiler at Cambridge before joining the Unix group at Bell Labs, started a new shell around 1976, and it replaced Thompson's as sh in Version 7 Unix (1979). It added named variables, command substitution, here-documents, trap for signals, parameter expansions such as ${name-default}, redirection of numbered file descriptors (2> for errors) and the environment of exported variables, which Bourne designed with Mashey and Dennis Ritchie. Its control structures came from ALGOL 68: every compound command closes with its own keyword (if … fi, case … esac, do … done), so any command can be replaced by any compound command. Bill Joy's C shell, released with 2BSD the same year, chose C-like syntax and interactive features instead.\n\nAT&T kept extending the shell in each Unix release without ever giving it a version number: System III (1981) added # comments and a built-in test, System V Release 2 (1984) added functions, the last feature Bourne himself worked on, Release 3 (1986) added getopts and gave each function call its own positional parameters, and Release 4 (1989) added job control. David Korn's KornShell, announced at USENIX in 1983 and built on the Bourne shell's source, added C-shell history, aliases and job control, $(…) command substitution, [[ … ]] tests, $(( … )) arithmetic and arrays. The 1988 KornShell was the basis of the POSIX.2 standard (IEEE Std 1003.2-1992), which defined the sh language independently of any one program; Kenneth Almquist's ash (1989) and descendants such as Debian's dash implement it on the BSDs and many Linux systems.\n\nBrian Fox began Bash, the 'Bourne-Again SHell', in January 1988 as a Free Software Foundation employee, because a free shell that could run existing scripts was essential to the GNU system; the first beta, 0.99, came out on 8 June 1989, and Chet Ramey, an early contributor, took over maintenance in the early 1990s. Bash extends the POSIX shell with features from ksh and csh: arrays, (( … )) and $'…' in 2.0 (1996), [[ … ]] in 2.02 (1998), regular-expression matching with =~ in 3.0 (2004) and associative arrays in 4.0 (2009). It became the default shell of GNU/Linux distributions and, from 2003 until zsh replaced it in 2019, of macOS; in 2014 the Shellshock bugs in its import of functions from environment variables, present since 1989, allowed remote code execution through CGI scripts. After Ubuntu (2006) and Debian (2011) switched /bin/sh to dash, portable POSIX sh and 'bashisms' again had to be told apart. Bash 5.3 (July 2025) added ${ command; }, a command substitution that runs without forking a subshell.",
+  "innovations": [
+    "A command interpreter designed as a programming language (Version 7 Unix, 1979): scripts that work as filters, with variables and structured control flow and without goto",
+    "Command substitution: a command's output spliced back into the script as words (`…`, later the KornShell's $(…)), an idea Perl, PHP, Ruby and PowerShell adopted",
+    "Here-documents (<<), which embed a block of input text inside a script",
+    "The Unix environment: named variables exported to child processes and inherited by them, designed by Bourne with John Mashey and Dennis Ritchie",
+    "Redirection of numbered file descriptors, with 2> keeping error messages apart from the data on standard output",
+    "Parameter expansions (${name-default}, ${name=default}, ${name?message}, ${name+alternate}) that supply a default, assign one or stop with an error inline",
+    "ALGOL 68-style closed compound commands (if … fi, case … esac, do … done), so any command can be replaced by any compound command",
+    "The POSIX shell (1992): a standard command language that every Unix-like system provides as /bin/sh"
+  ],
+  "paradigms": [
+    "scripting",
+    "imperative",
+    "procedural",
+    "concurrent"
+  ],
+  "family": "scripting",
+  "syntax_family": "algol",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "untyped",
+    "strength": "weak",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "Every value is a string; Bash's indexed (2.0) and associative (4.0) arrays of strings are a kind of variable, not a type of value. Arithmetic contexts ($(( )), (( )) and test's -lt and friends) read strings as signed integers (64-bit in Bash on current platforms, with no floating point); inside $(( )) a bare name is read as a variable, and in Bash an unset or empty one counts as 0. declare -i marks a variable whose assignments are evaluated arithmetically."
+  },
+  "memory": "stack",
+  "memory_note": "Nothing to manage: there are no pointers, references or objects, and values are strings copied on assignment. Global variables last until unset; `local` variables (Bash) are popped when their function returns. Bash frees each old value as soon as it is replaced; there is no garbage collector.",
+  "execution": [
+    "interpreted"
+  ],
+  "status": "active",
+  "latest_version": "Bash 5.3 (July 2025; patch level 5.3.20); POSIX.1-2024 (Issue 8)",
+  "file_extensions": [
+    ".sh",
+    ".bash"
+  ],
+  "color": "#89e051",
+  "primary_parent": "algol68",
+  "influenced_by": [
+    {
+      "id": "algol68",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Bourne had helped write the ALGOL 68C compiler at Cambridge. The shell's closed compound commands (if … elif … else … fi, case … in … esac, for/while … do … done, with done in place of od) come from ALGOL 68, and he wrote the V7 shell's C source with macros that made it look like ALGOL 68."
+    },
+    {
+      "id": "c",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Arithmetic expansion $(( … )) uses a subset of C's integer operators and precedence (the part the KornShell supported); Bash adds C-style for (( ; ; )) loops and $'…' strings with C escapes."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Thompson shell",
+      "year": 1971,
+      "note": "The first Unix shell, also called sh: command lines with < and > redirection, pipes (from 1973), globbing and & for background commands."
+    },
+    {
+      "name": "PWB shell (Mashey shell)",
+      "year": 1975,
+      "note": "John Mashey's extension of the Thompson shell: variables, if-then-else and while, scripts run as commands, and $ for a variable's value."
+    },
+    {
+      "name": "C shell",
+      "year": 1979,
+      "note": "Bill Joy's csh: history, aliases, job control, brace expansion and ~ for home directories, taken up by the KornShell and Bash."
+    },
+    {
+      "name": "KornShell",
+      "year": 1983,
+      "note": "David Korn's extension of the Bourne shell: $(…), $(( … )) and (( … )) arithmetic, [[ … ]], arrays and command-line editing, most of which Bash adopted."
+    },
+    {
+      "name": "POSIX.2 shell (IEEE Std 1003.2-1992)",
+      "year": 1992,
+      "note": "Standardized the language from the System V shell and ksh88; Bash aims to conform and has a --posix mode."
+    }
+  ],
+  "influenced": [
+    "perl",
+    "julia"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if … elif … else … fi, case … esac, and for, while and until loops over do … done, with break and continue; Bourne left out goto entirely. A condition is any command, true when its exit status is 0. Bash adds C-style for (( ; ; )) loops (2.04) and select menus."
+    },
+    "recursion": {
+      "level": "supported",
+      "since": 1986,
+      "version": "System V Release 3 shell",
+      "note": "Functions arrived in System V Release 2 (1984) and could recurse cleanly once Release 3 gave each call its own positional parameters; before that a script recursed by running itself as a new process. A function returns only an exit status, so results come back through $(…), usually one subshell per call. Bash's `local` variables are dynamically, not lexically, scoped."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "No try/catch: failures are exit statuses tested with if, && and ||. set -e (in the shell since 1979) aborts on an unchecked failure, trap runs handlers on signals, on EXIT and, in Bash, on ERR, and a subshell ( … ) || handler contains an abort, a rough equivalent of catch."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "No module system: the . command (source in Bash) runs another file in the current shell, sharing one global namespace of variables and functions. The usual unit of reuse is a separate script or program on PATH, called like any command."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Functions are not values, but a command name is just a word: a function's name can be stored in a variable, passed as an argument and called as \"$f\" (see the map & filter snippet). There are no anonymous functions or closures, only code strings run with eval."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Bash can list and print its own functions and variables at run time (declare -F, declare -f name, ${!prefix@}, compgen -A function), inspect the call stack (FUNCNAME, caller), and define, redefine or unset functions from code built as strings with eval."
+    },
+    "regex-builtin": {
+      "level": "supported",
+      "since": 2004,
+      "version": "Bash 3.0",
+      "note": "Only through Bash's [[ string =~ regex ]], which matches POSIX extended regular expressions and puts captures in the BASH_REMATCH array. POSIX sh has only glob patterns (case, ${var#pattern}) and hands regular expressions to grep, sed, awk or expr."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1971,
+      "event": "Thompson shell ships with the first edition of Unix"
+    },
+    {
+      "year": 1973,
+      "event": "Pipes added to Unix and its shell at Doug McIlroy's suggestion"
+    },
+    {
+      "year": 1975,
+      "event": "PWB (Mashey) shell adds variables and control flow"
+    },
+    {
+      "year": 1979,
+      "event": "Bourne shell released as the shell of Version 7 Unix"
+    },
+    {
+      "year": 1983,
+      "event": "KornShell announced at USENIX by David Korn"
+    },
+    {
+      "year": 1984,
+      "event": "System V Release 2 shell adds functions"
+    },
+    {
+      "year": 1989,
+      "event": "Brian Fox releases Bash 0.99 for the GNU Project (8 June); Kenneth Almquist posts ash"
+    },
+    {
+      "year": 1992,
+      "event": "POSIX.2 (IEEE Std 1003.2-1992) standardizes the shell language"
+    },
+    {
+      "year": 1996,
+      "event": "Bash 2.0: indexed arrays, (( … )) and $'…'"
+    },
+    {
+      "year": 2004,
+      "event": "Bash 3.0: regular-expression matching with [[ =~ ]]"
+    },
+    {
+      "year": 2009,
+      "event": "Bash 4.0: associative arrays, coproc and mapfile"
+    },
+    {
+      "year": 2014,
+      "event": "Shellshock vulnerabilities in Bash disclosed and patched (September)"
+    },
+    {
+      "year": 2024,
+      "event": "POSIX.1-2024 (Issue 8) adds $'…' quoting to the standard shell"
+    },
+    {
+      "year": 2025,
+      "event": "Bash 5.3 adds ${ command; } substitution without a subshell (5 July)"
+    }
+  ],
+  "trivia": [
+    "Bourne wrote the shell's C source with macros from a header, mac.h, that made it read like ALGOL 68 (IF … THEN … FI, WHILE … DO … OD). The dialect was nicknamed 'Bournegol', and fixing a bug in it helped start the International Obfuscated C Code Contest in 1984.",
+    "POSIX's rationale explains that the standard kept do … done rather than do … od, which would have matched if … fi and case … esac, because od is already the name of a standard utility (the octal dump program).",
+    "Instead of checking for memory exhaustion, Bourne's shell caught the memory-fault signal, extended its data segment with sbrk and resumed; Bourne recalled that everyone who ported Unix to a new computer ran into this when porting the shell.",
+    "Bourne did not name it after himself: at Bell Labs, he said, 'we just called it the shell or sh'.",
+    "The name Bash, for 'Bourne-Again SHell', is a pun on Stephen Bourne's name."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "POSIX sh (run by Bash 5.x)",
+      "code": "echo 'Hello, World!'\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "echo is a shell builtin (since System V Release 2 in 1984; the V7 shell ran the /bin/echo program). Single quotes keep every character literal; in an interactive Bash, a ! inside double quotes can trigger history expansion. Because echo treats options and backslashes differently from shell to shell, portable scripts print arbitrary data with printf '%s\\n'.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Bash 5.x",
+      "code": "# A function can only return an exit status (0-255), so it \"returns\" a\n# value by printing it, and the caller captures the output with $( ).\nfactorial() {\n    local n=$1\n    if (( n <= 1 )); then\n        echo 1\n    else\n        echo $(( n * $(factorial $(( n - 1 ))) ))\n    fi\n}\n\nfactorial 10\n",
+      "expected_output": "3628800\n",
+      "notes": "A function's return status is only an exit code from 0 to 255, so the result travels on standard output and the caller captures it with $(…), which runs each recursive call in a subshell (a forked copy of the shell). local (Bash, also in dash and BusyBox ash, but not POSIX) scopes n to the call, and (( … )) is the ksh and Bash arithmetic command; $(( … )) is POSIX, so a portable version tests [ \"$1\" -le 1 ] instead. The 1979 shell had neither functions (1984) nor arithmetic: a script recursed by running itself as a new process and computed with the external expr command.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Bash 5.x",
+      "code": "for i in {1..15}; do\n    case $(( i % 15 )) in\n        0)        echo FizzBuzz ;;\n        3|6|9|12) echo Fizz ;;\n        5|10)     echo Buzz ;;\n        *)        echo \"$i\" ;;\n    esac\ndone\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "case matches a word against glob patterns: | separates alternatives, ;; ends a branch and esac, like fi, is an ALGOL 68-style reversed keyword. Unlike ML-style pattern matching, a case pattern binds no variables. The word here is i mod 15, whose value decides between Fizz, Buzz and FizzBuzz. {1..15} is Bash brace expansion (3.0, from zsh); POSIX sh would count with while [ \"$i\" -le 15 ] and i=$((i + 1)). The 1979 shell had no $(( )) either, and would have run expr $i % 15 in backquotes.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Bash 5.x",
+      "code": "# A function's name is just a word, so it can be passed as an argument\n# and called as \"$1\". Lists are streams of lines flowing through a pipeline.\nfilter() { local x; while read -r x; do \"$1\" \"$x\" && echo \"$x\"; done; }\nmap()    { local x; while read -r x; do \"$1\" \"$x\"; done; }\n\nis_even() { (( $1 % 2 == 0 )); }\nsquare()  { echo $(( $1 * $1 )); }\n\n# The unquoted $( ) is split into words, which echo joins with spaces.\necho $(printf '%s\\n' {1..10} | filter is_even | map square)\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "Functions are not values in the shell, but a command name is just a word: filter and map receive a function's name and call it as \"$1\". The list is a stream with one number per line, and each stage of the pipeline runs in its own subshell, concurrently with the others. is_even answers with its exit status: the (( … )) command succeeds when the expression is non-zero, and && tests exactly that. The unquoted $(…) is split into words at whitespace, and echo prints them separated by single spaces. {1..10}, local and (( … )) are Bash extensions; the pipeline and read -r are POSIX.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "POSIX sh (run by Bash 5.x)",
+      "code": "# A shape is a line of text: its kind, then its dimensions. The kind picks\n# the area function by name, so a new shape needs only a new function.\narea_Rectangle() { echo $(( $1 * $2 )); }        # width height\narea_Triangle()  { echo $(( $1 * $2 / 2 )); }    # base height\n\nwhile read -r kind a b; do\n    echo \"$kind: $(area_\"$kind\" \"$a\" \"$b\")\"\ndone <<'END'\nRectangle 3 4\nTriangle 10 3\nEND\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "The shell has no records or objects: data are lines of text, and read -r splits each line at whitespace into kind, a and b. Dispatch is by name: area_\"$kind\" is assembled from the data and run as a command, much as a method is looked up by an object's class, and an unknown kind fails with 'command not found'. The input is a here-document, a 1979 Bourne shell feature; quoting its delimiter ('END') turns off expansion inside it. The snippet is plain POSIX sh and also runs under BusyBox ash. Bash 4.0's associative arrays (declare -A) can hold named fields.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Pipelines: small programs joined by |",
+      "dialect": "POSIX sh (run by Bash 5.x)",
+      "code": "# Doug McIlroy's word-frequency pipeline (1986): six small programs, each\n# doing one job, joined by pipes. The shell supplies only the plumbing.\ntext='Write programs that do one thing and do it well.\nWrite programs to work together.\nWrite programs to handle text streams,\nbecause that is a universal interface.'\n\nprintf '%s\\n' \"$text\" |\n    tr -cs 'A-Za-z' '\\n' |   # one word per line\n    tr 'A-Z' 'a-z' |         # fold to lower case\n    sort |                   # bring equal words together\n    uniq -c |                # count each run of equal lines\n    sort -rn |               # most frequent first\n    sed 3q                   # print three lines, then quit\n",
+      "expected_output": "      3 write\n      3 programs\n      2 to\n",
+      "notes": "Doug McIlroy wrote this pipeline in 1986, reviewing Donald Knuth's literate program for the same task (print the most common words of a text) in Jon Bentley's 'Programming Pearls' column. The six stages are separate processes running concurrently: tr turns every run of non-letters into one newline, sort brings equal words together, uniq -c counts each run, sort -rn puts the largest counts first (POSIX breaks ties by comparing whole lines, here in reverse), and sed 3q quits after three lines. McIlroy read a file and took the count as an argument (sed ${1}q); the text here is Peter Salus's 1994 summary of the Unix philosophy, which he credited to McIlroy, who had also proposed the pipe in 1973. The tools are BusyBox's in the sandbox; GNU coreutils print the same.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "GNU Bash",
+        "version": "5.3.20",
+        "docker_image": "bash:5.3.20-alpine3.24",
+        "run": "bash {file}",
+        "notes": "The Docker Official Image on Alpine 3.24: bash is /usr/local/bin/bash, while /bin/sh and external commands such as tr, sort, uniq and sed are BusyBox 1.37. All six snippets also gave identical output under Bash 3.2.57 (the version macOS still ships) and Bash 5.2.21 with GNU coreutils."
+      },
+      {
+        "name": "BusyBox ash (POSIX sh)",
+        "version": "1.37.0",
+        "run": "sh {file}",
+        "notes": "The hello, shapes and signature snippets are plain POSIX sh and run unchanged under the image's BusyBox ash; the other three need Bash's {a..b} brace ranges or (( … )) arithmetic command."
+      }
+    ],
+    "browser": {
+      "name": "WebVM (Debian in the browser via CheerpX)",
+      "url": "https://webvm.io/",
+      "notes": "Runs an unmodified Debian, including real Bash, through CheerpX's x86-to-WebAssembly virtualization; a whole virtual machine rather than an embeddable interpreter, and the snippets have not been run there."
+    },
+    "notes": "Snippets run on GNU Bash, the dominant implementation, in the Docker Official Image pinned to an exact patch release. All six were verified with Bash 5.3.20; a run takes about 150 ms end to end (144–186 ms measured serially), almost all of it container startup, since there is no compile step."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Bourne_shell",
+    "homepage": "https://www.gnu.org/software/bash/",
+    "spec": "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Bourne_shell",
+    "https://en.wikipedia.org/wiki/Unix_shell",
+    "https://en.wikipedia.org/wiki/Bash_(Unix_shell)",
+    "https://en.wikipedia.org/wiki/Thompson_shell",
+    "https://en.wikipedia.org/wiki/PWB_shell",
+    "https://en.wikipedia.org/wiki/KornShell",
+    "https://en.wikipedia.org/wiki/Almquist_shell",
+    "https://en.wikipedia.org/wiki/Stephen_R._Bourne",
+    "https://en.wikipedia.org/wiki/Command_substitution",
+    "https://en.wikipedia.org/wiki/Unix_philosophy",
+    "https://www.in-ulm.de/~mascheck/bourne/",
+    "https://web.archive.org/web/20251218034624/https://www.computerwoche.de/article/2720775/the-a-z-of-programming-languages-bourne-shell.html",
+    "https://www.tuhs.org/cgi-bin/utree.pl?file=V7/usr/man/man1/sh.1",
+    "https://www.tuhs.org/cgi-bin/utree.pl?file=V7/usr/src/cmd/sh/mac.h",
+    "https://www.tuhs.org/cgi-bin/utree.pl?file=V7/usr/src/cmd/sh/fault.c",
+    "https://www.ioccc.org/faq.html",
+    "https://web.archive.org/web/20151105130220/http://www2.research.att.com/sw/download/man/man1/ksh88.html",
+    "https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html",
+    "https://pubs.opengroup.org/onlinepubs/9799919799/xrat/V4_xcu_chap01.html",
+    "https://www.gnu.org/software/bash/",
+    "https://www.gnu.org/software/bash/manual/html_node/What-is-Bash_003f.html",
+    "https://tiswww.case.edu/php/chet/bash/bashtop.html",
+    "https://tiswww.case.edu/php/chet/bash/NEWS",
+    "https://mywiki.wooledge.org/BashFAQ/061",
+    "https://doi.org/10.1145/5948.315654",
+    "https://github.com/Perl/perl5/blob/perl-1.0/perl.man.1",
+    "https://docs.julialang.org/en/v1/manual/running-external-programs/",
+    "https://github.com/leaningtech/webvm"
+  ]
+}

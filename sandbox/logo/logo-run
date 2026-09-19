@@ -1,0 +1,19 @@
+#!/bin/sh
+# logo-run FILE -- run a Logo program file with UCBLogo and exit.
+#
+# UCBLogo loads the files named on its command line and then reads instructions from stdin; at end of
+# input it says goodbye on stdout. run.lg loads FILE instead and ends with BYE, so a program needs no
+# BYE of its own and stdout carries only its output, line-buffered (stdbuf) so that it streams. UCBLogo
+# prints errors on stdout and always exits with status 0, so run.lg catches an error that stops the
+# program and hands the message back here: it goes to stderr as "FILE: message", with exit status 1.
+[ $# -eq 1 ] && [ -f "$1" ] || { echo "usage: logo-run FILE" >&2; exit 2; }
+status=$(mktemp /tmp/plw-logo.XXXXXX) || exit 125
+trap 'rm -f "$status"' EXIT
+stdbuf -oL ucblogo /opt/plw-logo/run.lg - "$1" "$status" </dev/null
+rc=$?
+[ $rc -eq 0 ] || exit $rc
+if [ -s "$status" ]; then
+  printf '%s: %s\n' "$1" "$(cat "$status")" >&2
+  exit 1
+fi
+exit 0

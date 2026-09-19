@@ -125,7 +125,8 @@
   "influenced": [
     "kotlin",
     "fsharp",
-    "csharp"
+    "csharp",
+    "unison"
   ],
   "traits": {
     "structured-control": {

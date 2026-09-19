@@ -83,7 +83,8 @@
   ],
   "influenced": [
     "erlang",
-    "clojure"
+    "clojure",
+    "lean"
   ],
   "traits": {
     "logic-unification": {

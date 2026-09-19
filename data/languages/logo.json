@@ -1,0 +1,285 @@
+{
+  "id": "logo",
+  "name": "Logo",
+  "aliases": [
+    "LOGO",
+    "Berkeley Logo",
+    "UCBLogo"
+  ],
+  "year": 1967,
+  "year_note": "Seymour Papert, Wally Feurzeig, Daniel Bobrow and Cynthia Solomon specified Logo at Bolt, Beranek and Newman (BBN) in 1966, and Bobrow's first implementation, written in Lisp for BBN's SDS 940, was tried with children in the summer of 1967. Wikipedia gives 1967 and names Feurzeig, Papert and Solomon; the HOPL IV 'History of Logo' (2020), co-written by Solomon, dates the invention to 1966 and adds Bobrow. Logo has never had a standard; this entry describes the common core and Brian Harvey's Berkeley Logo (UCBLogo), the reference free implementation.",
+  "designers": [
+    "Seymour Papert",
+    "Wally Feurzeig",
+    "Cynthia Solomon",
+    "Daniel Bobrow"
+  ],
+  "organization": "Bolt, Beranek and Newman (BBN); MIT AI Lab Logo Group",
+  "country": "United States",
+  "tagline": "Lisp without parentheses, made for children: words, lists and recursion, and a turtle that draws as it walks.",
+  "summary": "Logo is a dialect of Lisp designed as a programming language for children, begun at Bolt, Beranek and Newman (BBN) and developed from 1969 by the Logo Group at the MIT AI Lab. It keeps Lisp's interactive evaluation, recursion, list processing and dynamic scope but drops the parentheses: procedures take a fixed number of inputs, \"word quotes a word, :name reads a variable, and square brackets quote lists that serve both as data and as blocks of instructions. Its first microworld was English words and sentences; the turtle, a floor robot and then a screen cursor steered with FORWARD and RIGHT, made turtle geometry its best-known idea, and Seymour Papert's book Mindstorms (1980) carried Logo into schools around the world.",
+  "history": "In 1966 Seymour Papert, then consulting for Wally Feurzeig's education group at BBN, watched schoolchildren learning algebra with a version of Telcomp, BBN's JOSS-like language, and concluded that children needed a language of their own. With Feurzeig, Daniel Bobrow and Cynthia Solomon he specified what the group called \"Baby Lisp\" or \"Lisp without parentheses\", a language for playing with words and sentences. Bobrow implemented it in Lisp on BBN's SDS 940 under the name Ghost, and Feurzeig renamed it Logo, from the Greek logos, 'word'. After trials with ten-year-olds in 1967, a revised Logo on a time-shared PDP-1 ran a year-long course at Muzzey Junior High School in Lexington, Massachusetts (1968–69), where seventh graders wrote Pig Latin translators, sentence generators and games. Alan Kay's visit to those classrooms in 1969 shaped his idea of a personal computer for children and, through it, Smalltalk.\n\nIn 1969 Papert and Solomon started the Logo Group at the MIT AI Lab. Turtles, named after W. Grey Walter's robot tortoises, arrived in 1969–70: first tethered floor robots, then display turtles on graphics screens, programmed with FORWARD, BACK, RIGHT, LEFT, PENUP and PENDOWN relative to the turtle's own position and heading. The group built Logo systems for the PDP-10 and PDP-11, and Papert's Mindstorms and Abelson and diSessa's Turtle Geometry (both 1980) set out the constructionist theory and the mathematics behind them. In 1981 Logo reached personal computers as TI Logo, Terrapin Logo (the MIT Logo Group's Apple II version) and Apple Logo from Logo Computer Systems, Inc. (LCSI); LCSI's dialect dropped special forms, so IF and REPEAT became ordinary procedures taking quoted instruction lists, and most later Logos follow one of these two lines.\n\nLogo was never standardized: the Logo Tree Project counted 308 dialects by 2020. Brian Harvey's free Berkeley Logo (UCBLogo, 1988) aimed at a portable, ambitious common core and served as the language of his Computer Science Logo Style books; volunteers maintain it on GitHub, and MSWLogo and FMSLogo derive from it. Logo's descendants lie mostly outside this collection: LogoWriter and MicroWorlds in schools, StarLogo and NetLogo for agent-based simulation with thousands of turtles, the block languages Scratch and Snap!, and turtle graphics modules in many languages, including Python's standard library.",
+  "innovations": [
+    "The first programming language designed explicitly for children, as a place to learn mathematics by making things (Papert's constructionism, set out in Mindstorms, 1980)",
+    "Turtle geometry: drawing with a floor robot or screen turtle steered relative to its own position and heading (FORWARD 100 RIGHT 90), later copied by turtle libraries in many languages, including Python's standard library",
+    "A Lisp without parentheses: procedures with fixed numbers of inputs, infix arithmetic, \"word to quote a word and :name as shorthand for THING \"name",
+    "Words and sentences as the basic data, with FIRST, BUTFIRST, LAST, BUTLAST, WORD and SENTENCE working on the letters of a word and the words of a list alike",
+    "Commands versus operations: procedures either act or OUTPUT a value, and the top level is a read-eval loop that asks what to do with a stray value ('You don't say what to do with 5')",
+    "Control structures as ordinary procedures that take quoted instruction lists (REPEAT 4 [FORWARD 100 RIGHT 90], IF test [...]), made uniform by LCSI's Apple Logo",
+    "Debugging in the language itself: PAUSE opens a Logo prompt inside the running procedures, where dynamic scope makes every active variable visible"
+  ],
+  "paradigms": [
+    "procedural",
+    "functional",
+    "imperative",
+    "reflective"
+  ],
+  "family": "lisp",
+  "syntax_family": "other",
+  "block_style": "keyword-end",
+  "typing": {
+    "discipline": "dynamic",
+    "strength": "strong",
+    "inference": "none",
+    "equivalence": "n/a",
+    "notes": "Values are words, lists and (in UCBLogo) arrays. Numbers are words that look like numbers, so \"3 + 4 is 7 and WORD 1 2 is the number 12, but words, lists and arrays are never converted into each other: SUM [3] 4 fails with 'sum doesn't like [3] as input'. Variables have no types, and TRUE and FALSE are ordinary words."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Automatic from the start, to spare children any explicit allocation. UCBLogo allocates nodes in segments and reclaims them with a generational mark-and-sweep collector (GC runs one on demand). Most Logos have no list mutation; UCBLogo's .SETFIRST, .SETBF and .SETITEM are marked dangerous by the dot, and its arrays are mutable.",
+  "execution": [
+    "interpreted"
+  ],
+  "status": "maintained",
+  "latest_version": "UCBLogo 6.2.5 (2025)",
+  "file_extensions": [
+    ".lg",
+    ".logo"
+  ],
+  "color": "#2e7d32",
+  "primary_parent": "lisp",
+  "influenced_by": [
+    {
+      "id": "lisp",
+      "kind": "dialect",
+      "weight": "major",
+      "note": "'Logo is, first of all, a dialect of Lisp' (HOPL IV): its designers were Lisp users who kept Lisp's interactive development, recursion, lists (FIRST/BUTFIRST as car/cdr), RUN as eval and APPLY, dynamic scope, garbage collection and case insensitivity, while dropping the parentheses. The first implementation was written in Lisp."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Jean Piaget's constructivism",
+      "note": "Papert worked in Piaget's Genetic Epistemology group in Geneva from 1958 to 1963; the HOPL history names constructivism as one of Logo's two theoretical frameworks."
+    },
+    {
+      "name": "Marvin Minsky's AI research at MIT",
+      "note": "The other framework named by the HOPL history; Papert co-directed the MIT AI Lab with Minsky, and the Logo Group was part of it."
+    },
+    {
+      "name": "TELCOMP / Stringcomp (BBN)",
+      "year": 1964,
+      "note": "BBN's JOSS-derived interactive language, which Feurzeig extended with strings for classroom use; Logo took its interactive, conversational style from Lisp and Telcomp, and Papert's classroom visits prompted the new language."
+    },
+    {
+      "name": "W. Grey Walter's robot tortoises",
+      "note": "Elmer and Elsie, the wandering automata that gave Logo's turtles their name."
+    }
+  ],
+  "influenced": [
+    "smalltalk"
+  ],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "REPEAT (the original loop), IF, IFELSE and TEST with IFTRUE/IFFALSE are procedures that take quoted instruction lists. UCBLogo's library adds FOR, WHILE, UNTIL, DO.WHILE and FOREACH, written in Logo, and TAG and GOTO work inside a procedure."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Logo's main control structure: anything subtler than REPEAT is written as a recursive procedure, and recursion over FIRST and BUTFIRST is the staple of word and list processing."
+    },
+    "tail-calls": {
+      "level": "supported",
+      "note": "UCBLogo eliminates tail calls in both commands and operations, so recursive loops run in constant space. The HOPL history calls tail call elimination for commands very important for a language that loops by recursion, but not every dialect does it for operations."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "CATCH and THROW with named tags; CATCH \"ERROR traps run-time errors, ERROR reports what went wrong, THROW \"ERROR raises one, and ERRACT can pause at the point of error."
+    },
+    "first-class-functions": {
+      "level": "supported",
+      "note": "Procedures are not values. Higher-order procedures take a procedure's name (MAP \"SQUARE), a template with ? slots ([? * ?]) or a named-slot lambda list ([[x] :x * :x]); RUN and APPLY are primitives, while MAP, FILTER, REDUCE and FOREACH are UCBLogo library procedures written in Logo. With dynamic scope there are no closures."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "Words and lists cannot be changed in most dialects, so structure can be shared safely (UCBLogo's dotted mutators aside); variables, though, are reassigned freely with MAKE."
+    },
+    "prototypes": {
+      "level": "supported",
+      "since": 1986,
+      "version": "Object Logo",
+      "note": "Object Logo (Coral Software, 1986) made objects specializations of other objects with KINDOF, with no class/instance split. UCBLogo 6.2 (2020) added an optional subset of that design (KINDOF, ONEOF, ASK, turtles as objects), compiled in only with --enable-objects and absent from this sandbox."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Always automatic; UCBLogo uses a generational mark-and-sweep collector."
+    },
+    "macros": {
+      "level": "supported",
+      "note": "UCBLogo's .MACRO and .DEFMACRO define procedures whose output, an instruction list, runs in place of the call in the caller's context; they expand at run time, not compile time."
+    },
+    "homoiconicity": {
+      "level": "core",
+      "note": "Instruction lists are ordinary lists: IF, REPEAT and RUN take them as inputs, TEXT outputs a procedure as a list of lists, and DEFINE turns such a list into a procedure."
+    },
+    "reflection": {
+      "level": "core",
+      "note": "RUN and RUNRESULT evaluate lists, THING reads a variable whose name is computed, and TEXT, DEFINE, COPYDEF, PROCEDURES, DEFINEDP, PRIMITIVEP and ARITY inspect and change the workspace."
+    },
+    "hot-code-reload": {
+      "level": "supported",
+      "note": "Procedures live in an interactive workspace and are looked up by name at each call. A paused program (PAUSE, or ERRACT set to pause on error) gives a Logo prompt inside the running procedures; a procedure redefined there with EDIT or DEFINE is used when the program resumes with CONTINUE."
+    }
+  },
+  "milestones": [
+    {
+      "year": 1966,
+      "event": "Papert, Feurzeig, Bobrow and Solomon specify Logo at BBN; Bobrow implements it in Lisp on the SDS 940"
+    },
+    {
+      "year": 1967,
+      "event": "Logo tried with ten-year-olds at the Hanscom School, Lincoln, Massachusetts"
+    },
+    {
+      "year": 1968,
+      "event": "Year-long Logo course for seventh graders at Muzzey Junior High, Lexington, on BBN's time-shared PDP-1 (1968–69)"
+    },
+    {
+      "year": 1969,
+      "event": "Papert and Solomon start the Logo Group at the MIT AI Lab; Alan Kay visits the Lexington classrooms"
+    },
+    {
+      "year": 1970,
+      "event": "'Teaching Children Thinking' symposium at MIT (11 April); floor and display turtles used with fifth graders at the Bridge School, Lexington (1970–71)"
+    },
+    {
+      "year": 1980,
+      "event": "Papert's Mindstorms and Abelson and diSessa's Turtle Geometry published"
+    },
+    {
+      "year": 1981,
+      "event": "Logo reaches personal computers: TI Logo, Terrapin Logo and LCSI's Apple Logo"
+    },
+    {
+      "year": 1985,
+      "event": "LCSI's LogoWriter; first volume of Brian Harvey's Computer Science Logo Style"
+    },
+    {
+      "year": 1986,
+      "event": "Object Logo (Coral Software) brings prototype-based objects to Logo"
+    },
+    {
+      "year": 1988,
+      "event": "Brian Harvey's Berkeley Logo (UCBLogo)"
+    },
+    {
+      "year": 2020,
+      "event": "'History of Logo' presented at HOPL IV; UCBLogo 6.2 adds optional objects (December)"
+    },
+    {
+      "year": 2025,
+      "event": "UCBLogo 6.2.5 released (February)"
+    }
+  ],
+  "trivia": [
+    "Daniel Bobrow first called the language Ghost, after the children's word game; Wally Feurzeig renamed it Logo, from the Greek logos, 'word'.",
+    "The turtles were named after W. Grey Walter's robot tortoises, Elmer and Elsie.",
+    "In 1972 a twelve-year-old, Jonathan Pledge, exploring turtle behaviour, devised a universal maze-escaping algorithm that keeps count of the turtle's total turning: the Pledge algorithm.",
+    "Logo has no standard: at a Logo conference, developers could agree only that a Logo must have the word and sentence primitives FIRST, BUTFIRST, LAST, BUTLAST, WORD and SENTENCE.",
+    "Because an instruction can only be parsed by knowing how many inputs each procedure takes, Logo is not a context-free language.",
+    "The Logo Tree Project counted 308 implementations and dialects of Logo by March 2020."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "UCBLogo (Berkeley Logo) 6.2",
+      "code": "print [Hello, World!]\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Square brackets quote a list of words, so no string syntax is needed: 'Hello,' and 'World!' are just words, and PRINT shows a list without its outer brackets. The program needs no BYE here, since the sandbox's logo-run wrapper supplies it; run interactively, UCBLogo would print this and wait at its ? prompt.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "UCBLogo (Berkeley Logo) 6.2",
+      "code": "to factorial :n\n  if :n = 0 [output 1]\n  output :n * factorial :n - 1\nend\n\nprint factorial 10\n",
+      "expected_output": "3628800\n",
+      "notes": "TO … END defines a procedure, :n reads its input, and OUTPUT returns a value (a procedure that outputs is an operation; one that doesn't is a command). Infix arithmetic binds more tightly than a procedure's inputs, so factorial :n - 1 means factorial (:n - 1). IF takes an instruction list. The earliest Logos wrote conditionals as a special form, IF :N = 0 THEN OUTPUT 1; LCSI's Apple Logo made IF an ordinary procedure taking lists, the style UCBLogo follows.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "UCBLogo (Berkeley Logo) 6.2",
+      "code": "to fizzbuzz :n\n  if 0 = remainder :n 15 [output \"FizzBuzz]\n  if 0 = remainder :n 3 [output \"Fizz]\n  if 0 = remainder :n 5 [output \"Buzz]\n  output :n\nend\n\nrepeat 15 [print fizzbuzz repcount]\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "REPEAT, Logo's one primitive loop from the start, runs an instruction list a fixed number of times; REPCOUNT, a UCBLogo primitive, reports the current repetition. \"Fizz is a quoted word (an open quote only), and FIZZBUZZ outputs either a word or a number, since numbers are words too.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "UCBLogo (Berkeley Logo) 6.2",
+      "code": "; A template is a list of code; ? stands for the current item.\nprint map [? * ?] filter [0 = remainder ? 2] iseq 1 10\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "ISEQ 1 10 outputs the list [1 2 3 4 5 6 7 8 9 10]. MAP and FILTER take a template, an instruction list in which ? stands for the item; UCBLogo also accepts a named-slot form ([[x] :x * :x]) or a procedure's name (MAP \"SQUARE). All three are UCBLogo library procedures written in Logo on top of the primitive APPLY; Logos without them write such loops as recursive procedures over FIRST and BUTFIRST.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "UCBLogo (Berkeley Logo) 6.2",
+      "code": "; A shape is a list whose first word names its kind:\n; [rectangle width height] or [triangle base height].\nto rectangle.area :width :height\n  output :width * :height\nend\n\nto triangle.area :base :height\n  output :base * :height / 2\nend\n\n; Dispatch on the tag: build the procedure name, then apply it.\nto area :shape\n  output apply (word first :shape \".area) butfirst :shape\nend\n\nprint sentence \"Rectangle: area [rectangle 3 4]\nprint sentence \"Triangle: area [triangle 10 3]\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Logo has no records or classes (UCBLogo's optional prototype objects are not compiled into the sandbox build), so a shape is a list tagged by its first word. AREA builds a procedure name from the tag with WORD and calls it with APPLY, a data-directed dispatch that works because procedures are called by name. Division that comes out even gives an integer, so 10 * 3 / 2 prints 15.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Words, sentences, and procedures as lists",
+      "concepts": [
+        "recursion",
+        "homoiconicity"
+      ],
+      "dialect": "UCBLogo (Berkeley Logo) 6.2",
+      "code": "; Pig Latin, a favourite of the first Logo classrooms (1968-69).\nto pig :word\n  if memberp first :word [a e i o u] [output word :word \"ay]\n  output pig word butfirst :word first :word\nend\n\nto latin :sentence\n  if emptyp :sentence [output []]\n  output sentence pig first :sentence latin butfirst :sentence\nend\n\nprint latin [the turtle speaks pig latin]\n; A procedure is a list of lists that programs can read:\nshow text \"pig\n",
+      "expected_output": "ethay urtletay eaksspay igpay atinlay\n[[word] [if memberp first :word [a e i o u] [output word :word \"ay]] [output pig word butfirst :word first :word]]\n",
+      "notes": "FIRST and BUTFIRST take apart a word letter by letter and a sentence word by word; WORD and SENTENCE put them back together. The inputs are named word and sentence, the same as the procedures, because Logo keeps procedures and variables apart: word is the procedure, :word the variable. TEXT outputs the definition of PIG as a list of lists (its inputs, then one list per line), and DEFINE would turn such a list back into a procedure. The HOPL history shows the Muzzey classroom version, with PIG for sentences, PIGWORD for words and VOWEL? testing MEMBERP :LETTER \"AEIOU. As there, a word with no vowel would recurse forever.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container+wasm",
+    "toolchains": [
+      {
+        "name": "UCBLogo (Berkeley Logo)",
+        "version": "6.2.5",
+        "docker_image": "plw-logo",
+        "dockerfile": "sandbox/logo/Dockerfile",
+        "install": "Build https://github.com/jrincayc/ucblogo-code/releases/download/version_6.2.5/ucblogo-6.2.5.tar.gz (sha256 8f4033a79c95efd0d4d2fb257b1f45dd7ba33cf7a2c8d942c29b5467ce31a4fa) with ./configure --disable-wx --disable-x11 --disable-docs after applying sandbox/logo/nographics.patch; the binary needs only libc, libm and libtinfo.",
+        "run": "logo-run {file}",
+        "notes": "A headless build: without wxWidgets or X11, UCBLogo uses its plain terminal front end and nographics.c. The patch fixes two bugs of that build, a heap overflow on the first FORWARD or BACK and headings never reduced modulo 360, as upstream pull requests #247 and #242 do. logo-run (baked into the image) runs the file through a small driver, run.lg, that loads it and then exits, so a program needs no BYE and stdout carries only its output, line-buffered through stdbuf. UCBLogo itself prints error messages on stdout and exits with status 0; the driver catches an error that stops the program and logo-run reports it on stderr as FILE: message with exit status 1. THROW \"TOPLEVEL ends a program quietly, but a THROW to a tag with no CATCH still leaves UCBLogo's own message and farewell on stdout. UCBLogo has no telemetry."
+      }
+    ],
+    "browser": {
+      "name": "jslogo",
+      "url": "https://www.calormen.com/jslogo/",
+      "notes": "Joshua Bell's JavaScript Logo (Apache 2.0) implements a subset of UCBLogo with a canvas turtle; the HOPL history suggests it for trying Logo online. All six snippets ran under its interpreter (commit ea74c38, driven from Deno with a stub turtle), except that TEXT returns a procedure's body as a single list, so the signature's second line differs. Tail-call elimination is still on its to-do list, so very deep recursive loops can fail there."
+    },
+    "notes": "Turtle graphics cannot appear in text output. In the sandbox, FORWARD, RIGHT, PENUP and the other turtle commands run but draw nothing: the headless build has no screen, so they only move an invisible turtle whose state POS and HEADING report (logo-run selects WINDOW mode, so positions are not wrapped around a pretend screen). For pictures, use jslogo or a graphical UCBLogo, FMSLogo or other Logo. UCBLogo's TO refuses to redefine an existing procedure (ERASE it first, or use DEFINE). Dialects differ: UCBLogo follows LCSI-style syntax (no special forms except TO) with Terrapin-style tokenization, so [2+3] is a list of one word."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Logo_(programming_language)",
+    "homepage": "https://el.media.mit.edu/logo-foundation/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Logo_(programming_language)",
+    "https://doi.org/10.1145/3386329",
+    "https://people.eecs.berkeley.edu/~bh/HOPL.pdf",
+    "https://en.wikipedia.org/wiki/UCBLogo",
+    "https://people.eecs.berkeley.edu/~bh/logo.html",
+    "https://github.com/jrincayc/ucblogo-code",
+    "https://en.wikipedia.org/wiki/TELCOMP",
+    "https://worrydream.com/EarlyHistoryOfSmalltalk/",
+    "https://docs.python.org/3/library/turtle.html",
+    "https://github.com/inexorabletash/jslogo"
+  ]
+}

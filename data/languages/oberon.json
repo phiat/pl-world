@@ -82,7 +82,8 @@
   "influenced": [
     "go",
     "java",
-    "nim"
+    "nim",
+    "odin"
   ],
   "traits": {
     "structured-control": {

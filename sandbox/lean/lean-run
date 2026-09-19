@@ -1,0 +1,56 @@
+#!/bin/sh
+# lean-run -- check, compile and run one Lean 4 file for the PL World sandbox, without network access.
+#
+#   lean-run FILE           --build, then --exec
+#   lean-run --build FILE   elaborate FILE (type checking, tactic proofs, macros, #eval) and compile it to a native
+#                           executable (the sandbox's compile step)
+#   lean-run --exec         run what --build produced (the sandbox's run step)
+#
+# `lean -c` elaborates the whole file and emits C; leanc (Lean's bundled clang, lld and glibc sysroot) then links it
+# statically against the Lean runtime and libraries, as `lake build` does for an executable. Elaboration messages
+# (warnings, errors, and the output of #eval, #check and #print) are compile-time output, so --build prints them to
+# stderr and a failed proof fails the compile step; --exec prints only what the program itself writes.
+#
+# A file without a `main` is treated as a script, like a buffer in the Lean editor: --build only checks it, and --exec
+# prints its messages (e.g. #eval results) to stdout. Everything is written under /tmp.
+set -e
+dir=/tmp/plw-lean
+export HOME=/tmp
+
+build() {
+  [ -f "$1" ] || { echo "lean-run: no such file: $1" >&2; exit 2; }
+  rm -rf "$dir"
+  mkdir -p "$dir"
+  # lean names the module after the file's path relative to --root, and refuses files outside it.
+  set +e
+  lean --root="$(dirname "$1")" -c "$dir/main.c" "$1" > "$dir/messages" 2>&1
+  rc=$?
+  set -e
+  if [ "$rc" -ne 0 ]; then
+    cat "$dir/messages" >&2
+    rm -rf "$dir"
+    exit "$rc"
+  fi
+  if grep -q '^int main(' "$dir/main.c"; then
+    cat "$dir/messages" >&2
+    leanc -O3 -DNDEBUG -o "$dir/prog" "$dir/main.c"
+  fi
+}
+
+run() {
+  [ -f "$dir/messages" ] || { echo "lean-run: nothing built; run lean-run --build FILE first" >&2; exit 2; }
+  if [ -x "$dir/prog" ]; then
+    exec "$dir/prog"
+  fi
+  cat "$dir/messages"
+  if [ ! -s "$dir/messages" ]; then
+    echo "lean-run: the file checks, but defines no main to run (in a module file, write public def main)" >&2
+  fi
+}
+
+case "$1" in
+  --build) build "$2" ;;
+  --exec) run ;;
+  -*) echo "usage: lean-run [--build] FILE | lean-run --exec" >&2; exit 2 ;;
+  *) build "$1"; run ;;
+esac

@@ -137,7 +137,9 @@
     "clojure",
     "csharp",
     "java",
-    "cpp"
+    "cpp",
+    "lean",
+    "unison"
   ],
   "traits": {
     "type-classes": {

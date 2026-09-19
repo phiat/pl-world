@@ -12,9 +12,11 @@ import {
   indentUnit,
   StreamLanguage,
   type StreamParser,
+  type StringStream,
   syntaxHighlighting,
 } from "@codemirror/language";
 import { tagHighlighter, tags as t } from "@lezer/highlight";
+import { LEAN, LOGO, ODIN, UNISON } from "./keywords.ts";
 
 export type EditorHandle = {
   setReadOnly(readOnly: boolean): void;
@@ -126,6 +128,198 @@ const pythonWith = (keywords: string[]) =>
     legacy((m as unknown as { mkPython(conf: object): StreamParser<unknown> }).mkPython({ extra_keywords: keywords }))
   );
 
+// Lean has no CodeMirror mode: `--` and nestable `/- … -/` comments, strings and char literals, #commands,
+// @[attributes], «quoted names», keywords and core tactics, and the name after def/theorem/structure.
+const set = (s: string) => new Set(s.split(" "));
+const LEAN_KW = set(LEAN.keywords),
+  LEAN_TAC = set(LEAN.tactics),
+  LEAN_TY = set(LEAN.types),
+  LEAN_LIT = set(LEAN.literals);
+const LEAN_DEFS = set("def theorem lemma abbrev structure class inductive opaque axiom");
+const leanParser: StreamParser<{ depth: number; def: boolean }> = {
+  name: "lean",
+  startState: () => ({ depth: 0, def: false }),
+  token(stream, state) {
+    if (state.depth > 0) {
+      while (!stream.eol()) {
+        if (stream.match("/-")) state.depth++;
+        else if (stream.match("-/")) {
+          if (--state.depth === 0) break;
+        } else stream.next();
+      }
+      return "comment";
+    }
+    if (stream.eatSpace()) return null;
+    if (stream.match("--")) {
+      stream.skipToEnd();
+      return "comment";
+    }
+    if (stream.match("/-")) {
+      state.depth = 1;
+      return "comment";
+    }
+    if (stream.match(/^"(?:[^"\\]|\\.)*"?/)) return "string";
+    if (stream.match(/^'(?:\\.|[^\\'])'/)) return "string"; // identifiers consume their own primes, so this is a char
+    if (stream.match(/^#[a-z_]+/)) return "meta";
+    if (stream.match(/^@\[[^\]]*\]?/)) return "meta";
+    if (stream.match(/^«[^»]*»?/)) return state.def ? ((state.def = false), "def") : "variable";
+    if (stream.match(/^(?:0[xX][\da-fA-F_]+|0[bB][01_]+|0[oO][0-7_]+|\d[\d_]*(?:\.\d+)?(?:[eE][+-]?\d+)?)/)) {
+      return "number";
+    }
+    if (stream.match(/^[A-Za-z_λÀ-ɏͰ-Ͽ][\w'!?.À-ɏͰ-Ͽ]*/)) {
+      const w = stream.current().replace(/\.$/, "");
+      if (state.def) {
+        state.def = false;
+        return "def";
+      }
+      if (LEAN_KW.has(w)) {
+        state.def = LEAN_DEFS.has(w);
+        return "keyword";
+      }
+      if (LEAN_TAC.has(w)) return "builtin";
+      if (LEAN_TY.has(w)) return "type";
+      if (LEAN_LIT.has(w)) return "atom";
+      return "variable";
+    }
+    state.def = false;
+    stream.next();
+    return null;
+  },
+};
+
+// Unison has no CodeMirror mode. Haskell's leaves ability/cases/handle/with unstyled and marks '{IO} an error.
+// Nestable {- -} comments, {{ }} docs and """ text can span lines; `---` folds away the rest of the file.
+const UNISON_KW = new Set(UNISON.keywords.split(" "));
+const unisonParser: StreamParser<{ depth: number; docs: number; text: boolean; fold: boolean }> = {
+  name: "unison",
+  startState: () => ({ depth: 0, docs: 0, text: false, fold: false }),
+  token(stream, state) {
+    if (state.fold) {
+      stream.skipToEnd();
+      return "comment";
+    }
+    if (state.depth > 0) {
+      while (!stream.eol()) {
+        if (stream.match("{-")) state.depth++;
+        else if (stream.match("-}")) {
+          if (--state.depth === 0) break;
+        } else stream.next();
+      }
+      return "comment";
+    }
+    if (state.docs > 0) {
+      while (!stream.eol()) {
+        if (stream.match("{{")) state.docs++;
+        else if (stream.match("}}")) {
+          if (--state.docs === 0) break;
+        } else stream.next();
+      }
+      return "string";
+    }
+    if (state.text) {
+      if (stream.skipTo('"""')) {
+        stream.match('"""');
+        state.text = false;
+      } else stream.skipToEnd();
+      return "string";
+    }
+    if (stream.eatSpace()) return null;
+    if (stream.match("---")) {
+      state.fold = true;
+      stream.skipToEnd();
+      return "comment";
+    }
+    if (stream.match(/^--.*/)) return "comment";
+    if (stream.match("{-")) {
+      state.depth = 1;
+      return "comment";
+    }
+    if (stream.match("{{")) {
+      state.docs = 1;
+      return "string";
+    }
+    if (stream.match('"""')) {
+      state.text = true;
+      return "string";
+    }
+    if (stream.match(/^"(?:[^"\\]|\\.)*"?/)) return "string";
+    if (stream.match(/^\?(?:\\.|[^\s\\])/)) return "string";
+    if (stream.match(/^(?:0xs[\da-fA-F]*|0x[\da-fA-F]+|0o[0-7]+|0b[01]+|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/)) {
+      return "number";
+    }
+    // A sign belongs to the literal (+3 is an Int) unless it follows a name or a number: n-1 is a subtraction.
+    if (!/[\w.]/.test(stream.string.charAt(stream.start - 1)) && stream.match(/^[+-]\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/)) {
+      return "number";
+    }
+    if (stream.match(/^['!](?=[\w({[])/)) return "meta";
+    if (stream.match(/^[A-Z][\w!']*/)) return "type";
+    if (stream.match(/^[a-z_][\w!']*/)) {
+      const word = stream.current(), rest = stream.string.slice(stream.pos);
+      if (UNISON_KW.has(word)) return "keyword";
+      if (word === "true" || word === "false") return "atom";
+      // A signature (`name : Type`), or a definition at the start of a line.
+      const first = stream.string.slice(0, stream.start).trim() === "";
+      if ((first && /^\s*:(?![:=])/.test(rest)) || (stream.start === 0 && /^[^=]*=(?!=)/.test(rest))) return "def";
+      return "variable";
+    }
+    stream.next();
+    return null;
+  },
+};
+
+// Logo has no legacy mode either. Same classes as its hljs grammar; `to` at the start of a line names a procedure.
+const logoKeywords = new Set(LOGO.keywords.split(" "));
+const logoBuiltins = new Set(LOGO.builtins.split(" "));
+const logoParser: StreamParser<{ naming: boolean }> = {
+  name: "logo",
+  startState: () => ({ naming: false }),
+  token(stream, state) {
+    if (stream.sol()) state.naming = false;
+    if (stream.eatSpace()) return null;
+    if (stream.match(/^;.*/)) return "comment";
+    if (stream.match(/^"\|[^|]*\|?/) || stream.match(/^"[^\s\[\]();]*/)) return "string";
+    if (stream.match(/^:[^\s\[\]();+\-*\/=<>]+/) || stream.match(/^\?\d*(?![\w.?])/)) return "labelName";
+    if (stream.match(/^\d+(?:\.\d+)?(?:e[+-]?\d+)?(?![\w.])/i)) return "number";
+    if (stream.match(/^[+\-*\/=<>]+/)) return "operator";
+    if (stream.match(/^[^\s\[\]();"+\-*\/=<>]+/)) {
+      const word = stream.current().toLowerCase();
+      if (state.naming) return (state.naming = false, "variableName.definition");
+      if (word === "to" || word === ".macro") {
+        state.naming = stream.string.slice(0, stream.start).trim() === "";
+        return "keyword";
+      }
+      if (logoKeywords.has(word)) return "keyword";
+      if (logoBuiltins.has(word)) return "variableName.standard";
+      return word === "true" || word === "false" ? "bool" : "variableName";
+    }
+    stream.next();
+    return null;
+  },
+};
+
+// Odin: the clike factory with Odin's words, plus hooks for #directives, @(attributes), $T parameters and raw strings.
+const words = (s: string) => Object.fromEntries(s.split(" ").map((w) => [w, true]));
+const odinMode = () =>
+  import("@codemirror/legacy-modes/mode/clike").then((m) =>
+    legacy(m.clike({
+      name: "odin",
+      keywords: words(ODIN.keywords),
+      types: words(ODIN.types),
+      builtin: words(ODIN.builtins),
+      atoms: words(ODIN.literals),
+      blockKeywords: words("if else when for switch case do defer"),
+      isOperatorChar: /[+\-*&%=<>!?|\/^~]/,
+      isIdentifierChar: /[\w_\xa1-\uffff]/, // no `$`, so the hook below can mark $T
+      indentStatements: false,
+      hooks: {
+        "#": (s: StringStream) => (s.eat("+"), s.eatWhile(/[\w_]/), "meta"),
+        "@": (s: StringStream) => (s.match(/^\([^)]*\)/) || s.eatWhile(/[\w_]/), "meta"),
+        "$": (s: StringStream) => (s.eatWhile(/[\w_]/), "type"),
+        "`": (s: StringStream) => (s.skipTo("`") ? s.next() : s.skipToEnd(), "string"),
+      },
+    }))
+  );
+
 // Modes per language. Close relatives stand in where CodeMirror has no mode of its own:
 // the ALGOL family (Oberon, Object Pascal) uses Pascal, Ada uses VHDL (itself derived from Ada), Prolog uses
 // Erlang (whose syntax came from Prolog), Elixir uses Ruby, Zig and Gleam use Rust, AWK uses Perl, B uses C and
@@ -138,6 +332,7 @@ const MODES: Record<string, () => Promise<Extension>> = {
   basic: () => import("@codemirror/legacy-modes/mode/vb").then((m) => legacy(m.vb)),
   apl: () => import("@codemirror/legacy-modes/mode/apl").then((m) => legacy(m.apl)),
   simula: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
+  logo: () => Promise.resolve(legacy(logoParser as StreamParser<unknown>)),
   algol68: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
   b: () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.c)),
   forth: () => import("@codemirror/legacy-modes/mode/forth").then((m) => legacy(m.forth)),
@@ -150,6 +345,7 @@ const MODES: Record<string, () => Promise<Extension>> = {
   scheme: () => import("@codemirror/legacy-modes/mode/scheme").then((m) => legacy(m.scheme)),
   awk: () => import("@codemirror/legacy-modes/mode/perl").then((m) => legacy(m.perl)),
   modula2: () => import("@codemirror/legacy-modes/mode/pascal").then((m) => legacy(m.pascal)),
+  sh: () => import("@codemirror/legacy-modes/mode/shell").then((m) => legacy(m.shell)),
   ada: () => import("@codemirror/legacy-modes/mode/vhdl").then((m) => legacy(m.vhdl)),
   "common-lisp": () => import("@codemirror/legacy-modes/mode/commonlisp").then((m) => legacy(m.commonLisp)),
   "objective-c": () => import("@codemirror/legacy-modes/mode/clike").then((m) => legacy(m.objectiveC)),
@@ -187,10 +383,13 @@ const MODES: Record<string, () => Promise<Extension>> = {
   elixir: () => import("@codemirror/legacy-modes/mode/ruby").then((m) => legacy(m.ruby)),
   julia: () => import("@codemirror/legacy-modes/mode/julia").then((m) => legacy(m.julia)),
   rust: () => import("@codemirror/legacy-modes/mode/rust").then((m) => legacy(m.rust)),
+  lean: () => Promise.resolve(legacy(leanParser as StreamParser<unknown>)),
   typescript: () => import("@codemirror/legacy-modes/mode/javascript").then((m) => legacy(m.typescript)),
   swift: () => import("@codemirror/legacy-modes/mode/swift").then((m) => legacy(m.swift)),
   zig: () => import("@codemirror/legacy-modes/mode/rust").then((m) => legacy(m.rust)),
+  odin: odinMode,
   gleam: () => import("@codemirror/legacy-modes/mode/rust").then((m) => legacy(m.rust)),
+  unison: () => Promise.resolve(legacy(unisonParser as StreamParser<unknown>)),
   mojo: () => pythonWith(MOJO_KEYWORDS),
 };
 

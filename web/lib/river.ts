@@ -1,5 +1,5 @@
 // River island props, built once on the server. The concept pages pass `only` to ship a single trait per
-// language instead of all 55.
+// language instead of all of them.
 import type { RiverEdge, RiverNode } from "../islands/River.tsx";
 import type { TraitLite } from "./meta.ts";
 import { edges, languages } from "./world.ts";

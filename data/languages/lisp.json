@@ -90,7 +90,8 @@
     "smalltalk",
     "swift",
     "nim",
-    "newtonscript"
+    "newtonscript",
+    "logo"
   ],
   "traits": {
     "structured-control": {

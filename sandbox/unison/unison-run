@@ -1,0 +1,99 @@
+#!/bin/bash
+# unison-run -- typecheck, compile and run one Unison scratch file without network access.
+#
+#   unison-run FILE           typecheck FILE, compile its `main` and run it
+#   unison-run --build FILE   typecheck and compile only (the sandbox's compile step)
+#   unison-run --exec         run what --build compiled (the sandbox's run step)
+#
+# Unison code lives in a codebase (a SQLite database), not in text files, and the base library is normally
+# downloaded from Unison Share. /opt/plw-unison/codebase was created when the image was built, with a pinned
+# @unison/base release (7.19.2, see setup.md) installed into the project plw/main. --build copies it to /tmp
+# (about 17 MB), then runs a UCM transcript that loads FILE as a scratch file, adds its definitions to plw/main
+# (`update`) and `compile`s `main` into a self-contained .uc file. --exec runs that file with
+# `ucm run.compiled`, which prints nothing but the program's own output. Nothing is written outside /tmp.
+#
+# UCM prints diagnostics on stdout. A failed build prints only the error from the transcript, on stderr. When
+# a running program fails (`bug`, an unhandled exception), `run.compiled` prints a "⚠️" callout on stdout and
+# exits 1; the filter below passes the program's output through untouched and moves the callout to stderr.
+set -u
+dir=/tmp/plw-unison
+ucm=/opt/unison/unison/unison
+export HOME=/tmp XDG_DATA_HOME=/tmp/.local/share XDG_CACHE_HOME=/tmp/.cache XDG_CONFIG_HOME=/tmp/.config
+# No LSP server (it would listen on port 5757) and no lock file; the codebase copy is private to this run.
+export UNISON_LSP_ENABLED=false UNISON_CODEBASE_LOCK=false
+
+strip_ansi() { sed 's/\x1b\[[0-9;]*m//g'; }
+
+build() {
+  [ -f "$1" ] || { echo "unison-run: no such file: $1" >&2; exit 2; }
+  rm -rf "$dir"
+  mkdir -p "$dir"
+  cp -a /opt/plw-unison/codebase "$dir/codebase"
+  src=$(readlink -f "$1")
+  case "$src" in
+    *.u) ;;
+    *) cp "$src" "$dir/main.u"; src="$dir/main.u" ;;
+  esac
+  # When stdout is a pipe the runtime block-buffers it, so output would only appear at exit, and be lost if the
+  # program were killed (a timeout). plw_entry switches stdout to line buffering and then runs main. If that
+  # does not compile (main is not a '{IO, Exception} a), main.uc is not written and user.uc (plain main) is used.
+  h=lib.unison_base_7_19_2.IO.Handle
+  cat > "$dir/entry.u" <<EOF
+plw_entry : '{IO, Exception} ()
+plw_entry = do
+  $h.setBuffering $h.stdOut $h.BufferMode.LineBuffering
+  _ = main()
+  ()
+EOF
+  {
+    echo '```ucm'
+    echo "plw/main> load $src"
+    echo "plw/main> update"
+    echo "plw/main> compile main $dir/user"
+    echo "plw/main> load $dir/entry.u"
+    echo "plw/main> update"
+    echo "plw/main> compile plw_entry $dir/main"
+    echo '```'
+  } > "$dir/build.md"
+  "$ucm" --codebase "$dir/codebase" transcript.in-place "$dir/build.md" > "$dir/build.log" 2>&1
+  [ -f "$dir/main.uc" ] && return 0
+  [ -f "$dir/user.uc" ] && { mv "$dir/user.uc" "$dir/main.uc"; return 0; }
+  # The transcript's output file ends with the error inside a ``` fence.
+  if [ -f "$dir/build.output.md" ] && grep -q '^The transcript failed' "$dir/build.output.md"; then
+    sed -n '/^The transcript failed/,$p' "$dir/build.output.md" | sed '1,2d; /^``` *$/d' | strip_ansi >&2
+  else
+    strip_ansi < "$dir/build.log" >&2
+  fi
+  exit 1
+}
+
+run() {
+  [ -f "$dir/main.uc" ] || { echo "unison-run: nothing built; run unison-run --build FILE first" >&2; exit 2; }
+  cd "$dir"
+  "$ucm" run.compiled "$dir/main.uc" | perl -e '
+    $| = 1;
+    my ($held, $err) = (0, 0);
+    while (my $line = <STDIN>) {
+      if ($err) {
+        $line =~ s/\e\[[0-9;]*m//g;
+        $line =~ s/^  //;
+        print STDERR $line;
+        next;
+      }
+      # UCM error callout: a blank line, then "  ⚠️", then the message indented by two spaces.
+      if ($line eq "  \xe2\x9a\xa0\xef\xb8\x8f\n") { $err = 1; $held = 0; <STDIN>; next; }
+      if ($held) { print "\n"; $held = 0; }
+      if ($line eq "\n") { $held = 1; next; }
+      print $line;
+    }
+    print "\n" if $held;
+  '
+  exit "${PIPESTATUS[0]}"
+}
+
+case "${1:-}" in
+  --build) build "${2:-}" ;;
+  --exec) run ;;
+  -* | "") echo "usage: unison-run [--build] FILE | unison-run --exec" >&2; exit 2 ;;
+  *) build "$1"; run ;;
+esac

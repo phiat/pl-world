@@ -66,14 +66,15 @@
       "kind": "influence",
       "weight": "major",
       "note": "A small, self-describing core; the environment is written in the language itself."
+    },
+    {
+      "id": "logo",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Kay's 1969 visit to Papert, Feurzeig and Solomon's Logo classrooms shaped the Dynabook as a medium for children; he writes that Smalltalk-71 'was very influenced by FLEX, PLANNER, LOGO, META II', and the first Smalltalk class experiments with children reproduced Logo turtle graphics."
     }
   ],
   "influenced_by_external": [
-    {
-      "name": "Logo",
-      "year": 1967,
-      "note": "Seymour Papert's educational language; Smalltalk began as a language for children."
-    },
     {
       "name": "Sketchpad",
       "year": 1963,
@@ -111,7 +112,8 @@
     "object-pascal",
     "dart",
     "newtonscript",
-    "dylan"
+    "dylan",
+    "unison"
   ],
   "traits": {
     "structured-control": {
@@ -298,6 +300,7 @@
     "https://en.wikipedia.org/wiki/Squeak",
     "https://en.wikipedia.org/wiki/Pharo",
     "https://www.gnu.org/software/smalltalk/",
-    "https://pharo.org"
+    "https://pharo.org",
+    "https://worrydream.com/EarlyHistoryOfSmalltalk/"
   ]
 }

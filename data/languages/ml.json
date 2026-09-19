@@ -105,7 +105,8 @@
     "cpp",
     "kotlin",
     "csharp",
-    "python"
+    "python",
+    "lean"
   ],
   "traits": {
     "type-inference": {

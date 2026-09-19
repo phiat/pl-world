@@ -180,7 +180,8 @@
     "php",
     "nim",
     "gleam",
-    "mojo"
+    "mojo",
+    "lean"
   ],
   "traits": {
     "structured-control": {

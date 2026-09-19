@@ -109,7 +109,8 @@
     "rust",
     "php",
     "dart",
-    "mojo"
+    "mojo",
+    "lean"
   ],
   "traits": {
     "structured-control": {

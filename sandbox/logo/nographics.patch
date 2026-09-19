@@ -1,0 +1,45 @@
+UCBLogo 6.2.5: fixes for the headless (nographics) build, which only graphics.c includes.
+1. nographics.h defines GR_SIZE as 1, but safe_to_save() writes a pointer into the one-byte
+   record_buffer on the first FORWARD or BACK, corrupting the heap (a crash soon after). Same fix as
+   the open upstream pull request https://github.com/jrincayc/ucblogo-code/pull/247.
+2. nographics.h defines fmod(x,y) as x, so turtle headings are never reduced modulo 360
+   (RIGHT 370 leaves HEADING at 370). Removed upstream by https://github.com/jrincayc/ucblogo-code/pull/242.
+
+--- a/graphics.c
++++ b/graphics.c
+@@ -167,6 +167,11 @@
+     return;
+ #endif
+ 
++#if !defined(HAVE_WX) && !defined(WIN32) && !defined(x_window)
++    /* Headless (nographics) build: no turtle icon to draw. */
++    return;
++#endif
++
+     if (!turtle_shown) {
+ 		if (!graphics_setup) {
+ 			graphics_setup++;
+@@ -1681,6 +1686,13 @@
+ BOOLEAN safe_to_save(void) {
+     char *newbuf;
+ 
++#if !defined(HAVE_WX) && !defined(WIN32) && !defined(x_window)
++    /* Headless (nographics) build: nographics.h sets GR_SIZE to 1, so recording
++       a move would write a pointer past the one-byte record_buffer. There is no
++       window to redraw, so record nothing. */
++    return FALSE;
++#endif
++
+     if (!refresh_p || drawing_turtle) return FALSE;
+     if (record == 0) {	/* first time */
+ 	record = record_buffer;
+--- a/nographics.h
++++ b/nographics.h
+@@ -84,7 +84,6 @@
+ #define tone(p,d) nop()
+ #define get_pen_pattern(p) nop()
+ #define set_pen_pattern(p) nop()
+-#define fmod(x,y) x
+ #define set_list_pen_pattern(p) nop()
+ 
+ #define prepare_to_draw_turtle nop();

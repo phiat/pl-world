@@ -88,7 +88,8 @@
     "nim",
     "newtonscript",
     "hypertalk",
-    "dylan"
+    "dylan",
+    "odin"
   ],
   "traits": {
     "structured-control": {

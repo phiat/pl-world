@@ -40,11 +40,11 @@
     { "id": "lisp", "kind": "influence", "weight": "minor" },
     { "id": "basic", "kind": "influence", "weight": "minor" },
     { "id": "cpp", "kind": "influence", "weight": "minor" },
-    { "id": "awk", "kind": "influence", "weight": "major", "note": "Perl 1.0 was pitched at problems that 'would ordinarily use sed or awk or sh': associative arrays, the -n input loop and <> 'somewhat like sed -n or awk', the .. line-range operator, and the a2p awk-to-Perl translator it shipped with." }
+    { "id": "awk", "kind": "influence", "weight": "major", "note": "Perl 1.0 was pitched at problems that 'would ordinarily use sed or awk or sh': associative arrays, the -n input loop and <> 'somewhat like sed -n or awk', the .. line-range operator, and the a2p awk-to-Perl translator it shipped with." },
+    { "id": "sh", "kind": "influence", "weight": "major", "note": "Perl 1.0's manual says it 'combines (in the author's opinion, anyway) some of the best features of C, sed, awk, and sh': $-prefixed variables, interpolation in double-quoted strings, here-documents and backtick command substitution." }
   ],
   "influenced_by_external": [
-    { "name": "sed", "year": 1974, "note": "s/// substitution and the regex-driven line-editing model." },
-    { "name": "Unix shell (sh)", "year": 1979, "note": "$-prefixed variables, string interpolation, here-documents and backticks." }
+    { "name": "sed", "year": 1974, "note": "s/// substitution and the regex-driven line-editing model." }
   ],
   "influenced": ["php", "python", "ruby", "javascript", "julia"],
   "traits": {
@@ -161,6 +161,7 @@
     "https://perldoc.perl.org/perl5400delta",
     "https://en.wikipedia.org/wiki/CPAN",
     "https://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions",
-    "https://github.com/Perl/perl5/blob/perl-1.0/perl.man.1"
+    "https://github.com/Perl/perl5/blob/perl-1.0/perl.man.1",
+    "https://perldoc.perl.org/perl"
   ]
 }

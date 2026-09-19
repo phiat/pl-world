@@ -1,0 +1,302 @@
+{
+  "id": "odin",
+  "name": "Odin",
+  "aliases": [
+    "odin-lang"
+  ],
+  "year": 2016,
+  "year_note": "Ginger Bill started Odin in July 2016. The FAQ dates the start to 'one evening in late July', but the oldest commit in the public repository is dated 7 July 2016 and says an earlier repository 'went bad'. The first tagged release (v0.0.3c) followed in November 2016. Since May 2021 releases have been monthly snapshots named dev-YYYY-MM. There is no 1.0 yet, though the FAQ calls the language itself 'pretty much done'.",
+  "designers": [
+    "Ginger Bill (Bill Hall)"
+  ],
+  "tagline": "'The C alternative for the joy of programming': a data-oriented systems language with manual memory and an implicit context.",
+  "summary": "Odin is a statically typed, compiled systems language, pitched by its designer as 'the C alternative for the joy of programming' and a language for data-oriented programming. It pairs Pascal-style declarations and Go-like brace syntax with C's domain: manual memory management, no garbage collector, no exceptions, no methods and no operator overloading. Its distinctive features are an implicit `context` that passes an allocator and a logger through every call, tagged unions, `distinct` types, multiple return values with `or_return`, and built-in types for data-oriented and maths-heavy code: `#soa` structure-of-arrays containers, array arithmetic with swizzles, matrices and quaternions.",
+  "history": "Ginger Bill (Bill Hall) began Odin in July 2016 out of frustration with C++. He had first tried to add slices and `defer` to C through an 'augmented' C compiler, and he credits Sean Barrett's talk 'Advice for Writing Small Programs in C' with convincing him that much of what makes scripting languages convenient is built-in arrays, hash maps and good libraries. Odin started as a Pascal-like language with `begin` and `end`. When it went public, its syntax moved toward the name-first declarations of Jonathan Blow's Jai (`x := 1`, `K :: 1`, `f :: proc() {}`). By Bill's account about 70% of the language existed after three months, and the remaining 30% took seven years. The FAQ lists its influences 'in order of philosophy and impact' as Pascal, C, Go, Oberon-2, Newsqueak and GLSL, and names Niklaus Wirth and Rob Pike as the project's design idols.\n\nThe 0.x releases (2016–2020) added most of the distinctive feature set. Parametric polymorphism and type-based tagged unions arrived in v0.6 (2017), array programming with swizzles in v0.7 (2017), `distinct` types in v0.8 (2018), and `#soa` arrays, slices and dynamic arrays in v0.12 (2020). Monthly dev releases began in 2021. That year also brought the `or_return` and `or_else` operators and a built-in `matrix` type, and `#must_tail` followed in 2026. The compiler is written in C++ with an LLVM back end, and the project deliberately has no package manager: the compiler instead ships the `base:`, `core:` and `vendor:` library collections, the last bundling bindings for SDL, raylib, Vulkan, OpenGL, stb and others. Bill works at JangaFX, which writes all its products in Odin, including EmberGen, LiquiGen, GeoGen and IlluGen.",
+  "innovations": [
+    "The implicit `context`: a per-scope value passed by pointer to every Odin-convention call, carrying the allocator, temp allocator, logger, assertion handler and random generator. Callers can use it to redirect how third-party code allocates or logs. Hall adapted the idea from Jai.",
+    "Built-in structure-of-arrays types (`#soa[N]T`, `#soa[]T`, `#soa[dynamic]T`, `soa_zip`): code keeps array-of-structs syntax while each field is stored contiguously",
+    "Shading-language maths built into a C-level systems language: element-wise arithmetic and `.xyzw`/`.rgba` swizzles on fixed arrays, plus `matrix[R, C]T` and quaternion types",
+    "`or_return` and `or_else`: operators that propagate or replace a failed result from multiple return values, as Odin's alternative to exceptions",
+    "A standard distribution that ships curated C-library bindings (the `vendor:` collection) in place of a package manager"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural",
+    "structured",
+    "generic",
+    "data-oriented"
+  ],
+  "family": "c",
+  "syntax_family": "c-braces",
+  "block_style": "braces",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "No implicit numeric conversions. A plain `Name :: T` declaration is an alias, while `distinct T` creates a new type that needs an explicit conversion. `x := expr` infers local types, untyped constants take their type from context, and `$T` parameters are inferred at call sites. `any` and `typeid` carry run-time type information."
+  },
+  "memory": "manual",
+  "memory_note": "Every allocation goes through an allocator (`new`/`free`, `make`/`delete`), by default the one in the implicit `context`. `context.temp_allocator` is a growing arena that is emptied with `free_all`. Cleanup uses `defer`: there are no destructors, no ownership tracking and no garbage collector.",
+  "execution": [
+    "native-compiled"
+  ],
+  "status": "active",
+  "latest_version": "dev-2026-09",
+  "file_extensions": [
+    ".odin"
+  ],
+  "color": "#60AFFE",
+  "primary_parent": "pascal",
+  "influenced_by": [
+    {
+      "id": "pascal",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Listed first in the FAQ ('in order of philosophy and impact'). Odin began as a Pascal-like language with begin/end and keeps Pascal's `name: type` declarations and `^` pointers."
+    },
+    {
+      "id": "c",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Listed second in the FAQ. Odin is designed as a C replacement for the same domain, with manual memory, C calling conventions (`proc \"c\"`) and a `foreign` system for linking C libraries."
+    },
+    {
+      "id": "go",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Listed third in the FAQ. Visible in `for` as the only loop, `switch` without implicit fallthrough, Go-style slice expressions, multiple return values with the `value, ok` idiom, and directory-based packages."
+    },
+    {
+      "id": "oberon",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Oberon-2 is listed fourth in the FAQ, and Wirth is one of the two design idols it names. One of Odin's stated principles, a specification 'possible to be memorized by a mere mortal', echoes Wirth's minimalism."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Jai",
+      "year": 2014,
+      "note": "Jonathan Blow's unreleased language. Odin took its name-first declaration syntax (`x := 1`, `K :: 1`), and Hall says it was 'the main inspiration' for the implicit context."
+    },
+    {
+      "name": "Newsqueak",
+      "note": "Rob Pike's concurrent language, listed fifth in the FAQ. Pike and Wirth are the two design idols the FAQ names."
+    },
+    {
+      "name": "GLSL",
+      "note": "Listed last in the FAQ. Shading languages are the source of the component-wise vector arithmetic and `.xyzw`/`.rgba` swizzles that Odin supports on small fixed arrays."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "`for` is the only loop, used for ranges (`1..=15`) and `for x in xs`. `switch` cases break by default, with an explicit `fallthrough`. Labelled `break`/`continue` and one-line `do` bodies are also available."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "`defer` runs at the end of the enclosing scope, not the procedure (unlike Go). Every control statement can start with an init statement (`if x := f(); x > 0`)."
+    },
+    "recursion": {
+      "level": "core"
+    },
+    "tail-calls": {
+      "level": "supported",
+      "since": 2026,
+      "version": "dev-2026-02",
+      "note": "`#must_tail` on a call (`return #must_tail f(n - 1)`) requires the compiler to emit a tail call. It is not automatic."
+    },
+    "pattern-matching": {
+      "level": "supported",
+      "note": "`switch v in u` is a type switch that binds the stored variant, and `switch` over an enum or union must be exhaustive unless marked `#partial`. There is no destructuring or nested pattern syntax."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Local only: `x := expr`, untyped constants, and `$T` parameters deduced from the arguments."
+    },
+    "generics": {
+      "level": "core",
+      "since": 2017,
+      "version": "v0.6.0",
+      "note": "Parametric polymorphism: `$T` parameters on procedures, parameterised structs and unions (`Stack :: struct($T: typeid, $N: int)`), specialisation (`$T/[]$E`) and `where` clauses. Procedure groups (`proc{a, b}`) provide explicit overloading."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "`union { A, B }` is a tagged union whose variants are ordinary types, and it may also be nil. `union #no_nil` forbids the nil state, and `struct #raw_union` gives an untagged C-style union."
+    },
+    "option-types": {
+      "level": "supported",
+      "note": "`Maybe(T)` is a union of nil and T, unwrapped with `.?` or `or_else`, and `value, ok` pairs are the everyday idiom. Ordinary pointers can still be nil."
+    },
+    "inheritance": {
+      "level": "supported",
+      "note": "Structure only: `using base: Base` embeds a struct, promotes its fields and lets `^Derived` convert implicitly to `^Base` (the FAQ calls this subtype polymorphism). There are no methods, overriding or virtual dispatch."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "`@(private)` and `@(private=\"file\")` hide declarations from other packages or files, but struct fields cannot be hidden."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Every directory is a package, imported through a collection path (`import \"core:fmt\"`). The compiler ships the `base:`, `core:` and `vendor:` collections, and there is deliberately no official package manager."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Procedures are values and can be written as anonymous literals. The allocator and logger interfaces in `context` are procedure values. Literals cannot capture local variables."
+    },
+    "immutability": {
+      "level": "supported",
+      "note": "Procedure parameters are immutable (copy to a local to modify), and `::` declares compile-time constants, but ordinary variables have no read-only qualifier."
+    },
+    "pointers": {
+      "level": "core",
+      "note": "`^T` pointers with a postfix `p^` dereference (Pascal-style), and multi-pointers `[^]T` for C-style indexing. `^T` has no pointer arithmetic (`core:mem` helpers exist). Memory comes from explicit allocators or the context's allocator."
+    },
+    "csp-channels": {
+      "level": "library",
+      "note": "`core:sync/chan` provides typed buffered and unbuffered channels with a select, used with threads from `core:thread`. There is no `go` statement or channel syntax."
+    },
+    "reflection": {
+      "level": "core",
+      "note": "Every type has run-time type information: `typeid`, `type_info_of` and the `any` type. `core:reflect` walks struct fields and union variants, which is how `core:fmt` prints any value. Types cannot be created or changed at run time."
+    },
+    "compile-time-execution": {
+      "level": "supported",
+      "note": "There is deliberately no general compile-time execution of procedures. Compile-time work is limited to constant expressions, `when` conditionals, `#assert`, `#config` and `#load` directives, and `$` parameter specialisation."
+    },
+    "array-programming": {
+      "level": "supported",
+      "since": 2017,
+      "version": "v0.7.0",
+      "note": "Element-wise arithmetic, comparison and swizzles (`v.zyx`, `swizzle(v, 2, 1, 0)`) work on fixed-length arrays, and `matrix[R, C]T` (added 2021) supports matrix-vector products. Slices and dynamic arrays do not get array arithmetic."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "since": 2024,
+      "version": "dev-2024-09",
+      "note": "`core:text/regex` package; there are no regex literals."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2016,
+      "event": "Ginger Bill starts Odin in July; the first tagged release, v0.0.3c, follows in November"
+    },
+    {
+      "year": 2017,
+      "event": "v0.6: parametric polymorphism and type-based tagged unions; v0.7: array programming and swizzles"
+    },
+    {
+      "year": 2018,
+      "event": "v0.8: `distinct` types"
+    },
+    {
+      "year": 2020,
+      "event": "v0.12: `#soa` structure-of-arrays arrays, slices and dynamic arrays"
+    },
+    {
+      "year": 2021,
+      "event": "Monthly dev-YYYY-MM releases begin (May); `or_return` and `or_else` operators (September) and the built-in `matrix` type (November)"
+    },
+    {
+      "year": 2026,
+      "event": "dev-2026-02 adds `#must_tail` and link-time optimisation; dev-2026-09 adds experimental inline assembly templates"
+    }
+  ],
+  "trivia": [
+    "'Odin' was the project's original codename, and it stuck.",
+    "The compiler is written in C++ 'in a very C style', and the FAQ says it will not be self-hosted until after 1.0.",
+    "The English Wikipedia article on Odin was deleted after a deletion discussion in March 2026 and moved to draft space in April. Hall wrote about the episode in 'Odin's Fiasco with Wikipedia'."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Odin dev-2026-09",
+      "code": "package main\n\nimport \"core:fmt\"\n\nmain :: proc() {\n\tfmt.println(\"Hello, World!\")\n}\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "Every file begins with a `package` clause, and `core:` names the standard library collection. `main :: proc() {}` binds a procedure literal to a constant.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Odin dev-2026-09",
+      "code": "package main\n\nimport \"core:fmt\"\n\nfactorial :: proc(n: u64) -> u64 {\n\tif n <= 1 do return 1\n\treturn n * factorial(n - 1)\n}\n\nmain :: proc() {\n\tfmt.println(factorial(10))\n}\n",
+      "expected_output": "3628800\n",
+      "notes": "`name :: proc(...) -> T` declares a procedure as a compile-time constant. `do` allows a single-statement body on the same line.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Odin dev-2026-09",
+      "code": "package main\n\nimport \"core:fmt\"\n\nmain :: proc() {\n\tfor i in 1 ..= 15 {\n\t\tswitch {\n\t\tcase i % 15 == 0: fmt.println(\"FizzBuzz\")\n\t\tcase i % 3 == 0:  fmt.println(\"Fizz\")\n\t\tcase i % 5 == 0:  fmt.println(\"Buzz\")\n\t\tcase:             fmt.println(i)\n\t\t}\n\t}\n}\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "`1 ..= 15` is an inclusive range (`..<` is half-open). A `switch` with no subject works like an if/else chain, `case:` is the default, and cases never fall through unless marked `fallthrough`.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Odin dev-2026-09",
+      "code": "package main\n\nimport \"core:fmt\"\nimport \"core:slice\"\n\nmain :: proc() {\n\tnums: [10]int\n\tfor &n, i in nums do n = i + 1\n\n\t// Procedure literals cannot capture variables: Odin has no closures.\n\t// filter and mapper allocate their results, here from the scratch arena.\n\tevens := slice.filter(nums[:], proc(n: int) -> bool { return n % 2 == 0 }, context.temp_allocator)\n\tsquares := slice.mapper(evens, proc(n: int) -> int { return n * n }, context.temp_allocator)\n\tdefer free_all(context.temp_allocator)\n\n\tfor s, i in squares {\n\t\tif i > 0 do fmt.print(\" \")\n\t\tfmt.print(s)\n\t}\n\tfmt.println()\n}\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "`core:slice` has `filter`, `mapper` and `reduce`, which take non-capturing procedure literals. Both allocate, so the allocator is passed explicitly (it defaults to `context.allocator`). `free_all(context.temp_allocator)` releases the whole scratch arena at once. A plain `for` loop appending to a `[dynamic]int` would be just as idiomatic.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Odin dev-2026-09",
+      "code": "package main\n\nimport \"core:fmt\"\nimport \"core:reflect\"\n\nRectangle :: struct { width, height: int }\nTriangle  :: struct { base, height: int }\n\n// A tagged union: the hidden tag records which variant is stored.\nShape :: union { Rectangle, Triangle }\n\narea :: proc(s: Shape) -> int {\n\tswitch v in s { // type switch: in each case `v` has that variant's type\n\tcase Rectangle: return v.width * v.height\n\tcase Triangle:  return v.base * v.height / 2\n\t}\n\treturn 0 // only for a nil Shape\n}\n\nmain :: proc() {\n\tshapes := []Shape{Rectangle{3, 4}, Triangle{10, 3}}\n\tfor s in shapes {\n\t\t// Run-time type info: the variant's typeid prints as its name.\n\t\tfmt.printfln(\"%v: %d\", reflect.union_variant_typeid(s), area(s))\n\t}\n}\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "The variants of a tagged union are ordinary struct types. The type switch must cover every variant (or be marked `#partial`), and a union may also be nil, hence the final `return 0`. Odin has no methods, so `area` is a plain procedure. `reflect.union_variant_typeid` reads the stored variant's `typeid`, which `fmt` prints as its name.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Data-oriented by default: context allocators, #soa and swizzles",
+      "concepts": [
+        "array-programming",
+        "pointers"
+      ],
+      "dialect": "Odin dev-2026-09",
+      "code": "package main\n\nimport \"core:fmt\"\nimport \"core:mem\"\n\nParticle :: struct { pos, vel: [3]f32 } // arrays of up to 4 get .xyzw/.rgba swizzles\n\nmain :: proc() {\n\t// Every Odin call receives an implicit `context`. Point its allocator at an\n\t// arena, and everything allocated below comes out of this stack buffer.\n\tbuf: [256]byte\n\tarena: mem.Arena\n\tmem.arena_init(&arena, buf[:])\n\tcontext.allocator = mem.arena_allocator(&arena)\n\n\t// #soa: indexed like an array of structs, stored as a struct of arrays.\n\tps := make(#soa[]Particle, 3)\n\tfor &p, i in ps do p = {pos = f32(i), vel = {1, 2, 3}} // a scalar fills every lane\n\tfor &p in ps do p.pos += p.vel * 2                    // element-wise arithmetic\n\n\tfmt.println(ps[2].pos, ps.pos[2].zyx, ps[2].pos.xx) // AoS or SoA indexing; swizzles\n\tfmt.println(\"arena bytes used:\", arena.offset)\n}\n",
+      "expected_output": "[4, 6, 8] [8, 6, 4] [4, 4]\narena bytes used: 72\n",
+      "notes": "Assigning `context.allocator` affects every call made from this scope, including `make` and any library code, without changing their signatures. This is the mechanism Hall designed for intercepting third-party code. `#soa[]Particle` stores all the `pos` values and then all the `vel` values, yet it is indexed like an array of structs (`ps[2].pos`) or field first (`ps.pos[2]`). Fixed arrays support element-wise arithmetic, scalar broadcast and GLSL-style swizzles (`.zyx`, `.xx`). The arena reports 72 bytes: three particles with two `[3]f32` fields each.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Odin (official release)",
+        "version": "dev-2026-09",
+        "docker_image": "plw-odin",
+        "dockerfile": "sandbox/odin/Dockerfile",
+        "install": "apt-get install -y clang && curl -fsSL https://github.com/odin-lang/Odin/releases/download/dev-2026-09/odin-linux-amd64-dev-2026-09.tar.gz | tar -xz -C /opt/odin --strip-components=1",
+        "compile": "odin build {file} -file -out:{out}",
+        "run": "{out}",
+        "notes": "There is no official Docker image. plw-odin is debian:trixie-slim plus the official, sha256-checked dev-2026-09 Linux tarball, a statically linked compiler with LLVM 20.1.8 built in. It also installs Debian's clang 19, which Odin calls only as its linker driver. `-file` builds a single file as its own package. Compiles use the default `-o:minimal` (`-o:none` was not measurably faster). They take about 1.5–3 s depending on host load, split roughly 55/45 between type checking and LLVM code generation, and peak at about 390 MB of memory. The compiler keeps no build cache, has no telemetry, and writes nothing outside /src and /tmp."
+      }
+    ],
+    "browser": null,
+    "notes": "Odin can target wasm32 (`-target:js_wasm32`), but the compiler itself does not run in a browser. Pin the release: monthly dev snapshots still change the core library."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Draft:Odin_(programming_language)",
+    "homepage": "https://odin-lang.org/",
+    "spec": "https://odin-lang.org/docs/spec/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Draft:Odin_(programming_language)",
+    "https://odin-lang.org/docs/faq/",
+    "https://odin-lang.org/docs/overview/",
+    "https://odin-lang.org/docs/install/",
+    "https://github.com/odin-lang/Odin/releases",
+    "https://github.com/odin-lang/Odin/commit/7430008fd7088339821923bdff533369b7967904",
+    "https://www.gingerbill.org/article/2024/04/04/video-that-inspired-odin/",
+    "https://www.gingerbill.org/article/2018/03/12/on-the-aesthetics-of-the-syntax-of-declarations/",
+    "https://www.gingerbill.org/article/2025/12/15/odins-most-misunderstood-feature-context/",
+    "https://www.gingerbill.org/article/2026/04/20/odin-wikipedia-fiasco/",
+    "https://jangafx.com/insights/vdb-a-deep-dive",
+    "https://odin-lang.org/showcase/",
+    "https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml"
+  ]
+}

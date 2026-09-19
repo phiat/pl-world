@@ -1,0 +1,364 @@
+{
+  "id": "unison",
+  "name": "Unison",
+  "aliases": [],
+  "year": 2019,
+  "year_note": "Paul Chiusano began research in 2013 (first commit 19 September 2013) and announced the project in September 2014; a first prototype, built around a browser-based structure editor, was open-sourced in May 2015. The year here is that of the first public release of the language in its current form, the alpha M1 of 2 August 2019. Unison 1.0 followed on 25 November 2025.",
+  "designers": [
+    "Paul Chiusano",
+    "Rúnar Bjarnason",
+    "Arya Irani"
+  ],
+  "organization": "Unison Computing",
+  "country": "United States",
+  "tagline": "A functional language whose code is content-addressed: each definition is named by a hash of its syntax tree and kept in a database.",
+  "summary": "Unison is a statically typed functional language in which every definition is identified by a hash of its syntax tree, while human-readable names are stored separately as metadata. Code lives in a codebase database managed by the Unison Codebase Manager (UCM) rather than in text files, so definitions are typechecked once, renaming never breaks anything and different versions of a dependency can coexist. Effects are tracked in types through abilities, algebraic effects and handlers modelled on the research language Frank. Because code can be sent between machines by hash, one typed program can describe a whole distributed system, which the company behind the language sells as Unison Cloud.",
+  "history": "Paul Chiusano left a full-time job in 2013 to research what became Unison, funding the work with consulting. Announcing it on his blog in September 2014, he described it variously as a new programming language, a distributed computing platform and 'a reimagining of the Web'. The first prototype, open-sourced on GitHub with the unisonweb.org site in May 2015, paired a 'node' written in Haskell with a semantic editor written in Elm, in which programs typechecked by construction. In February 2018 Chiusano, Rúnar Bjarnason (his co-author on the book Functional Programming in Scala) and Arya Irani founded Unison Computing, a public benefit corporation in Boston, to develop it full-time.\n\nThe language they released kept its code in ordinary text 'scratch files': the codebase manager watches them, typechecks what changes and adds definitions to an append-only codebase on request. In March 2019 a Haskell-based compiler and interpreter for an intermediate representation replaced the earlier Scala runtime, and the first public alpha, M1, came out on 2 August 2019; Chiusano introduced the language to a wide audience at Strange Loop that September. The M2 release (June 2021) moved codebases from a Git-friendly tree of files to SQLite, about 100 times smaller, and brought a rewritten runtime with software transactional memory. Unison Share, the code-hosting site, went live in July 2021, and projects with branches arrived in 2023.\n\nUnison Cloud, a hosted platform on which services and batch jobs are deployed straight from Unison code, became generally available in February 2024, and Unison Share's implementation was open-sourced that May under the MIT licence the language itself uses. A native-code backend begun in 2022, targeting Chez Scheme and later Racket, was removed in July 2025, after a round of interpreter optimisations earlier that year. Unison 1.0, released on 25 November 2025, marked the point at which, in the team's words, 'the language, distributed runtime, and developer workflow have stabilized'.",
+  "innovations": [
+    "Content-addressed code: each definition is identified by a SHA3-512 hash of its syntax tree, with names kept as separate metadata, so code is parsed and typechecked only once, renames are instant and non-breaking, and two versions of a dependency never conflict",
+    "The codebase as a database instead of text files: an append-only store of typed definitions managed by the Unison Codebase Manager, edited through scratch files and updates that never leave the codebase in a broken state",
+    "Abilities: typed algebraic effects and handlers (after Frank) in place of monads, so I/O, exceptions, generators and coroutines all appear in function types and are handled the same way",
+    "Distributed programming by hash: a computation can be sent to another node, which fetches the definitions it lacks on the fly, letting one typed program describe a whole distributed system (the basis of Unison Cloud)",
+    "Typed durable storage: any value, functions included, can be persisted and loaded back later without hand-written encoders, because the definitions it refers to never change",
+    "Hash-aware tooling: Unison Share renders all published code fully hyperlinked, with computable documentation and type-based search across the ecosystem"
+  ],
+  "paradigms": [
+    "functional",
+    "concurrent"
+  ],
+  "family": "ml",
+  "syntax_family": "ml",
+  "block_style": "indentation",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "global",
+    "equivalence": "mixed",
+    "notes": "Bidirectional typechecking with higher-rank polymorphism, after Dunfield and Krishnaswami (2013); type signatures are optional. Abilities are part of function types, as in Nat ->{IO, Exception} (). Types declared with `type` are unique (nominal); `structural type` declarations are equal when their structure is. There are no type classes: an ambiguous name such as + is resolved by type among Nat.+, Float.+ and the rest."
+  },
+  "memory": "tracing-gc",
+  "memory_note": "Programs run on UCM's interpreter, which uses the garbage collector of the GHC (Haskell) runtime.",
+  "execution": [
+    "interpreted"
+  ],
+  "status": "active",
+  "latest_version": "UCM 1.4.0 (August 2026); @unison/base 7.19.2",
+  "file_extensions": [
+    ".u"
+  ],
+  "color": "#ff4756",
+  "primary_parent": "haskell",
+  "influenced_by": [
+    {
+      "id": "haskell",
+      "kind": "influence",
+      "weight": "major",
+      "note": "The bibliography names Haskell first among Unison's main influences, for purely functional programming. The FAQ calls Unison 'a descendant of Haskell' (type inference, pattern matching, algebraic data types, purity), but it is strict, uses abilities instead of monads, and its `do` only delays a block. UCM itself is written in Haskell."
+    },
+    {
+      "id": "erlang",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Named in the bibliography as a main influence 'for its ideas on distributed execution and handling of failures', which Unison pursues with code shipped between nodes by hash and the Remote ability of Unison Cloud."
+    },
+    {
+      "id": "scala",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed among the languages the team 'looked at and taken inspiration from'. Chiusano and Bjarnason came from the Scala functional-programming community, and the runtime was written in Scala until 2019."
+    },
+    {
+      "id": "smalltalk",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Listed in the bibliography among the languages the team 'looked at and taken inspiration from'."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Frank",
+      "year": 2017,
+      "note": "Abilities are based on Lindley, McBride and McLaughlin's 'Do Be Do Be Do' (POPL 2017). Unison differs in that ability polymorphism uses ordinary type variables, and an empty ability set means a pure function rather than an ability-polymorphic one."
+    },
+    {
+      "name": "Complete and Easy Bidirectional Typechecking for Higher-Rank Polymorphism",
+      "year": 2013,
+      "note": "The type system is an implementation of Dunfield and Krishnaswami's ICFP 2013 system."
+    },
+    {
+      "name": "Elm",
+      "year": 2012,
+      "note": "Listed among the languages the team took inspiration from; the 2015 prototype's editor was written in Elm."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "supported",
+      "note": "if … then … else and match … with are expressions; there are no loop statements, so iteration is recursion or collection functions such as List.foreach, List.map and List.foldLeft."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "Indented blocks (after =, do, let or ->) are expressions whose bindings are local to the block."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Mutually recursive definitions are hashed together as one cycle, so their hashes do not depend on names."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "No try/catch syntax: failure is an ability. IO operations report errors through base's Exception ability (raise, catch), alongside Abort and Throw, and handling them is ordinary ability handling."
+    },
+    "coroutines": {
+      "level": "supported",
+      "note": "Not a separate feature: a handler receives the rest of the computation as resume, so coroutines and cooperative schedulers are written as abilities and handlers. IO.concurrent.fork starts lightweight threads."
+    },
+    "generators": {
+      "level": "library",
+      "note": "base's Stream ability (emit, Stream.toList, Stream.take, Stream.range); any generator is an ability plus a handler, as in the signature snippet."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "match … with and cases lambdas, with guards, as-patterns, tuple and list patterns (h +: t, init :+ last), and request patterns such as { yield x -> resume } in handlers; matches are checked for exhaustiveness."
+    },
+    "tail-calls": {
+      "level": "core",
+      "note": "Tail calls run in constant stack space and are the only looping mechanism."
+    },
+    "continuations": {
+      "level": "supported",
+      "note": "No call/cc: a handler gets the suspended rest of the computation as a function, resume, which it may call, keep or drop. The runtime implements abilities with delimited continuations."
+    },
+    "static-typing": {
+      "level": "core"
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Bidirectional inference with higher-rank polymorphism; signatures on top-level definitions, including their ability requirements, are optional."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Type parameters in functions, data types and abilities ([a], Optional a, Yield a), and higher-rank polymorphism."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "type declarations define sum and product types; single-constructor types can be records with named fields."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "No null: Optional a (Some, None) is built in, alongside Either and the Abort and Throw abilities."
+    },
+    "structural-typing": {
+      "level": "supported",
+      "note": "Types declared with `type` are unique (nominal) by default; a `structural type` is identified by its structure, so two structural declarations of the same shape are the same type."
+    },
+    "modules": {
+      "level": "supported",
+      "note": "No module system with export lists: definitions live in hierarchical namespaces (List.map), use clauses import names, and each project installs its libraries under lib (lib.install). Definitions are cached by hash, not compiled per file."
+    },
+    "operator-overloading": {
+      "level": "supported",
+      "note": "No type classes or overloading, but operators are ordinary definitions (Nat.+, Float.+, a user's Money.+) and type-directed name resolution picks the one whose type fits."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "Lambdas (x -> x * x), cases lambdas and partial application; a delayed computation ('a, written with do) is a function of ()."
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "core",
+      "note": "Values are immutable, and so is code: definitions in a codebase are only ever added, never changed. Mutable references come from the IO and Scope abilities (Ref)."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "Strict by default; ' and do delay a computation, forced with (); the Stream ability gives lazy generators."
+    },
+    "purity": {
+      "level": "core",
+      "note": "A function can only perform the effects its type lists, as in Nat ->{IO, Exception} (); functions with no abilities in their types are pure."
+    },
+    "effect-handlers": {
+      "level": "core",
+      "note": "Abilities, after Frank (2017): user-defined ability declarations, handle … with handlers that match requests and may resume them, and ability polymorphism through ordinary type variables. IO and Exception are abilities too."
+    },
+    "garbage-collection": {
+      "level": "core",
+      "note": "Provided by the GHC runtime that the interpreter runs on."
+    },
+    "stm": {
+      "level": "supported",
+      "since": 2021,
+      "version": "M2",
+      "note": "TVar and STM.atomically builtins, backed by GHC's software transactional memory."
+    },
+    "async-await": {
+      "level": "library",
+      "note": "No async/await syntax: I/O is direct-style on lightweight threads (IO.concurrent.fork, Promise, MVar), and the Unison Cloud client's Remote ability forks tasks at other locations and awaits their results (Remote.fork, Remote.await)."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "Code is a runtime value: termLink and typeLink give a definition's hash, and base's reflection namespace (Code.lookup, Code.serialize, Value.serialize, Value.load) serializes and loads code and values, which Unison Cloud uses to move computations between nodes."
+    },
+    "significant-whitespace": {
+      "level": "core",
+      "note": "Indentation delimits blocks and match cases."
+    },
+    "regex-builtin": {
+      "level": "library",
+      "note": "No regex literals: base's Pattern combinators match Text (Text.patterns.digit, Pattern.many, Pattern.capture, Pattern.run)."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2013,
+      "event": "Paul Chiusano begins research; first commit on 19 September"
+    },
+    {
+      "year": 2014,
+      "event": "Unison announced on Chiusano's blog (14 September)"
+    },
+    {
+      "year": 2015,
+      "event": "First prototype open-sourced with unisonweb.org (May): a Haskell node and a semantic editor written in Elm"
+    },
+    {
+      "year": 2018,
+      "event": "Chiusano, Rúnar Bjarnason and Arya Irani found Unison Computing, a public benefit corporation (February)"
+    },
+    {
+      "year": 2019,
+      "event": "First public alpha, M1 (2 August); Strange Loop talk 'Unison: a new distributed programming language' (September)"
+    },
+    {
+      "year": 2021,
+      "event": "M2 (3 June): SQLite codebase format and a rewritten runtime with STM; Unison Share goes live (July)"
+    },
+    {
+      "year": 2023,
+      "event": "Projects and branches (June); contributions, Unison Share's pull requests (November)"
+    },
+    {
+      "year": 2024,
+      "event": "Unison Cloud generally available (February); Unison Share open-sourced (May)"
+    },
+    {
+      "year": 2025,
+      "event": "Native Racket backend removed (July); Unison 1.0 released (25 November)"
+    }
+  ],
+  "trivia": [
+    "Unison hashes definitions with 512-bit SHA3. The FAQ estimates that writing a billion unique definitions every second would produce a collision about once every 100 trillion years, and suggests wrapping a colliding term in the identity function to change its hash.",
+    "Chiusano's application for an SBIR research grant for Unison was rejected; one reviewer wrote that 'this proposed project is totally unrealistic and lacks any sound technology foundation.'",
+    "Early on, Chiusano hoped the Unison structure editor would make serious programming possible on a tablet: 'I have this dream of sitting under a tree with an iPad, doing real programming on a warm summer day.'"
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Unison 1.4 (UCM 1.4.0, @unison/base 7.19.2)",
+      "code": "main : '{IO, Exception} ()\nmain = do printLine \"Hello, World!\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "'{IO, Exception} () is the type of a delayed computation that may use the IO and Exception abilities, and do delays the block after it. There is no special entry point: ucm runs any such definition, with `run main` at its prompt or `ucm run.file hello.u main` from the shell. printLine comes from the base library (@unison/base), a Unison Share project installed into each project's lib namespace.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Unison 1.4 (UCM 1.4.0, @unison/base 7.19.2)",
+      "code": "factorial : Nat -> Nat\nfactorial = cases\n  0 -> 1\n  n -> n * factorial (n - 1)\n\nmain : '{IO, Exception} ()\nmain = do printLine (Nat.toText (factorial 10))\n",
+      "expected_output": "3628800\n",
+      "notes": "cases is a lambda that pattern-matches its argument, short for factorial n = match n with …. Nat is a 64-bit unsigned integer, and - on Nat stops at zero rather than going negative. The signature is optional; ucm infers Nat -> Nat. When the definition is added to the codebase it is stored under its hash, and the name factorial is just a label for it.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Unison 1.4 (UCM 1.4.0, @unison/base 7.19.2)",
+      "code": "fizzbuzz : Nat -> Text\nfizzbuzz n = match (n % 3, n % 5) with\n  (0, 0) -> \"FizzBuzz\"\n  (0, _) -> \"Fizz\"\n  (_, 0) -> \"Buzz\"\n  _ -> Nat.toText n\n\nmain : '{IO, Exception} ()\nmain = do Nat.range 1 16 |> List.foreach (n -> printLine (fizzbuzz n))\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "match takes the tuple (n % 3, n % 5) apart in one step. There are no loop statements: Nat.range 1 16 builds the list 1–15 (the upper bound is exclusive), and List.foreach runs an effectful function on each element; recursion is the other way to loop.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Unison 1.4 (UCM 1.4.0, @unison/base 7.19.2)",
+      "code": "main : '{IO, Exception} ()\nmain = do\n  Nat.range 1 11\n    |> List.filter Nat.isEven\n    |> List.map (x -> x * x)\n    |> List.map Nat.toText\n    |> Text.join \" \"\n    |> printLine\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "x |> f applies f to x, so each stage receives the list as its last argument. Nat.isEven is passed by name and x -> x * x is a lambda. Each function is referenced by hash once the code is in the codebase, so renaming List.filter later would not break this definition.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Unison 1.4 (UCM 1.4.0, @unison/base 7.19.2)",
+      "code": "type Shape\n  = Rectangle Nat Nat\n  | Triangle Nat Nat\n\narea : Shape -> Nat\narea = cases\n  Rectangle width height -> width * height\n  Triangle base height -> base * height / 2\n\nmain : '{IO, Exception} ()\nmain = do\n  printLine (\"Rectangle: \" ++ Nat.toText (area (Rectangle 3 4)))\n  printLine (\"Triangle: \" ++ Nat.toText (area (Triangle 10 3)))\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "Shape is a sum type with two constructors, which ucm files under the type's namespace (Shape.Rectangle). A plain `type` is unique: identified by its name, unlike a `structural type`, which would be the same type as any other declaration with the same shape. / on Nat is integer division and ++ concatenates Text. There are no classes or interfaces: behaviour lives in functions that match on the data.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Abilities: an infinite generator with a pure handler",
+      "concepts": [
+        "effect-handlers",
+        "generators",
+        "continuations",
+        "purity"
+      ],
+      "dialect": "Unison 1.4 (UCM 1.4.0, @unison/base 7.19.2)",
+      "code": "-- A user-defined ability (an algebraic effect) with one operation.\nability Yield a where\n  yield : a ->{Yield a} ()\n\n-- An infinite generator in direct style; the effect shows in its type.\nfibs : '{Yield Nat} ()\nfibs = do\n  go : Nat -> Nat ->{Yield Nat} ()\n  go a b =\n    yield a\n    go b (a + b)\n  go 0 1\n\n-- A pure handler: it resumes the generator until it has n values,\n-- then stops, discarding the rest of the infinite computation.\ntake : Nat -> '{Yield a} () -> [a]\ntake n gen =\n  go k = cases\n    { yield x -> resume } ->\n      if k <= 1 then [x] else x +: (handle resume () with go (k - 1))\n    { _ } -> []\n  if n == 0 then [] else handle gen() with go n\n\nmain : '{IO, Exception} ()\nmain = do\n  take 10 fibs |> List.map Nat.toText |> Text.join \" \" |> printLine\n",
+      "expected_output": "0 1 1 2 3 5 8 13 21 34\n",
+      "notes": "ability Yield declares an effect with one operation. fibs performs it in direct style, and its type '{Yield Nat} () records the effect. A handler matches requests: { yield x -> resume } receives the yielded value and the rest of the generator as the function resume, and { _ } matches its end. take resumes the generator only until it has n values and then returns without resuming, so the infinite loop simply stops. Because take handles Yield completely, its type lists no abilities: it is a pure function. Another handler could print, sum or interleave the same fibs without changing it; base provides this pattern ready-made as the Stream ability (emit, Stream.take, Stream.toList).",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "UCM (Unison Codebase Manager)",
+        "version": "1.4.0 (@unison/base 7.19.2)",
+        "docker_image": "plw-unison",
+        "dockerfile": "sandbox/unison/Dockerfile",
+        "compile": "unison-run --build {file}",
+        "run": "unison-run --exec",
+        "notes": "plw-unison is debian:trixie-slim with the official ucm 1.4.0 Linux release, pinned by SHA-256, and a codebase made when the image is built: a UCM transcript creates the project plw/main and runs lib.install @unison/base/releases/7.19.2, since sandbox runs have no network for Unison Share. unison-run --build copies that 17 MB codebase to /tmp and runs a transcript that loads the file, adds its definitions (update) and compiles main to a self-contained .uc file; errors are printed on stderr. unison-run --exec runs it with ucm run.compiled, with stdout line-buffered and UCM's crash report moved from stdout to stderr. A snippet takes about 0.55 s in all: 0.35–0.45 s to typecheck and compile, 30 ms to run, with UCM peaking at about 180 MB of memory."
+      }
+    ],
+    "browser": null,
+    "notes": "ucm sends no telemetry; the sandbox also disables its language server. Unison Share (lib.install, pull, push) needs network access, and Unison Cloud needs an account, so neither is available to sandbox runs. ucm run.file FILE main runs a scratch file in one step, but prints UCM's banner and typechecking output on the same stdout as the program."
+  },
+  "links": {
+    "homepage": "https://www.unison-lang.org/",
+    "spec": "https://www.unison-lang.org/docs/language-reference/"
+  },
+  "sources": [
+    "https://www.unison-lang.org/unison-1-0/",
+    "https://www.unison-lang.org/docs/the-big-idea/",
+    "https://www.unison-lang.org/docs/usage-topics/bibliography/",
+    "https://www.unison-lang.org/docs/usage-topics/general-faqs/",
+    "https://www.unison-lang.org/docs/fundamentals/data-types/unique-and-structural-types/",
+    "https://www.unison-lang.org/docs/fundamentals/abilities/writing-abilities/",
+    "https://www.unison-lang.org/docs/language-reference/",
+    "https://www.unison-lang.org/docs/usage-topics/docker/",
+    "https://www.unison-lang.org/docs/tooling/ucm-env-vars/",
+    "https://www.unison-lang.org/unison-computing/",
+    "https://www.unison-lang.org/about-us/",
+    "https://www.unison-lang.org/blog/benefit-corp-report/",
+    "https://www.unison-lang.org/blog/new-years-update2019/",
+    "https://www.unison-lang.org/blog/march_2019-update/",
+    "https://www.unison-lang.org/blog/heres-whats-been-happening-with-unison/",
+    "https://www.unison-lang.org/blog/m2-release/",
+    "https://www.unison-lang.org/blog/jit-announce/",
+    "https://www.unison-lang.org/blog/projects-are-here/",
+    "https://www.unison-lang.org/blog/introducing-contributions/",
+    "https://www.unison-lang.org/blog/unison-share-is-open-source/",
+    "https://pchiusano.github.io/2014-09-14/unison.html",
+    "https://pchiusano.github.io/2015-01-30/unison-update0.html",
+    "https://pchiusano.github.io/2015-05-08/unison-update8.html",
+    "https://github.com/unisonweb/unison/commit/2cb2e7396247bbe4578e35babc86e7bf8a0a6bed",
+    "https://github.com/unisonweb/unison/releases/tag/release%2FM1",
+    "https://github.com/unisonweb/unison/releases/tag/release%2F1.0.0",
+    "https://github.com/unisonweb/unison/releases/tag/release%2F1.4.0",
+    "https://github.com/unisonweb/unison/pull/3931",
+    "https://github.com/unisonweb/unison/pull/5805",
+    "https://github.com/unisonweb/unison/blob/trunk/LICENSE",
+    "https://share.unison-lang.org/@unison/base",
+    "https://www.youtube.com/watch?v=gCWtkvDQ2ZI",
+    "https://arxiv.org/abs/1611.09259",
+    "https://arxiv.org/abs/1306.6032",
+    "https://en.wikipedia.org/wiki/Effect_system"
+  ]
+}

@@ -93,7 +93,8 @@
     "rust",
     "go",
     "dart",
-    "gleam"
+    "gleam",
+    "unison"
   ],
   "traits": {
     "structured-control": {

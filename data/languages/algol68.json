@@ -73,7 +73,8 @@
     "c",
     "cpp",
     "ada",
-    "python"
+    "python",
+    "sh"
   ],
   "traits": {
     "structured-control": {

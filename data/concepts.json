@@ -290,6 +290,20 @@
     ]
   },
   {
+    "id": "dependent-types",
+    "name": "Dependent types",
+    "category": "types",
+    "summary": "Types can depend on values (a vector of length n, a proof that i < n), so specifications and proofs are checked by the type checker.",
+    "origin": {
+      "external": "Automath (N. G. de Bruijn)",
+      "year": 1967,
+      "note": "Automath was the first practical system to exploit the Curry–Howard correspondence; Martin-Löf type theory (1972) and the calculus of constructions (1988) followed, then Coq, Agda, Idris and Lean. Haskell (GADTs, DataKinds) and Scala (path-dependent types) offer restricted forms."
+    },
+    "popularized_by": [
+      "lean"
+    ]
+  },
+  {
     "id": "interfaces",
     "name": "Interfaces / protocols",
     "category": "types",
@@ -551,7 +565,8 @@
     "summary": "User-defined effects that code can perform and handlers can intercept and resume.",
     "origin": {
       "external": "Eff",
-      "year": 2012
+      "year": 2012,
+      "note": "Plotkin and Pretnar's handlers of algebraic effects (2009), first built into a language in Eff; Frank (2017) typed them as abilities, which Unison adopted as its only effect mechanism."
     },
     "popularized_by": [
       "ocaml"

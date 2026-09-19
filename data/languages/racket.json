@@ -48,7 +48,7 @@
     { "name": "Concurrent ML (John Reppy)", "year": 1991, "note": "Racket's event system (sync, channels, choice-evt) is based on Concurrent ML." },
     { "name": "Chez Scheme", "year": 1985, "note": "Compiler back end and runtime of Racket CS, the default implementation since 8.0 (2021)." }
   ],
-  "influenced": ["clojure", "rust", "scheme"],
+  "influenced": ["clojure", "rust", "scheme", "lean"],
   "traits": {
     "structured-control": { "level": "core", "note": "if, cond, case, when/unless, and the for family of loops over sequences." },
     "block-scope": { "level": "core", "note": "Lexical scope throughout: let, let*, letrec and internal definitions in any body." },

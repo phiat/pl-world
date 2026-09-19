@@ -45,7 +45,7 @@
     { "name": "Assembly (PDP-11)", "year": 1970, "note": "Operators like ++ map naturally onto PDP-11 addressing modes (though they predate it in B)." },
     { "name": "PL/I", "year": 1964, "note": "Via Multics; the -> operator and some syntax." }
   ],
-  "influenced": ["cpp", "objective-c", "java", "javascript", "csharp", "perl", "php", "python", "go", "rust", "zig", "swift", "lua", "julia", "awk", "dart", "mojo"],
+  "influenced": ["cpp", "objective-c", "java", "javascript", "csharp", "perl", "php", "python", "go", "rust", "zig", "swift", "lua", "julia", "awk", "dart", "mojo", "odin", "sh"],
   "traits": {
     "structured-control": { "level": "core" },
     "block-scope": { "level": "core" },

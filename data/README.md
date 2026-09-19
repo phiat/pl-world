@@ -6,8 +6,8 @@ Source-of-truth data for the PL World explorer. JSON files are hand-editable and
 | File | What |
 | --- | --- |
 | `schema.ts` | zod schema + TS types for everything below (the contract) |
-| `languages/<id>.json` | one file per language (63 ids, listed in `LANGUAGE_IDS` in `schema.ts`) |
-| `concepts.json` | 55 concepts ("genes"): origin language/year and popularizers |
+| `languages/<id>.json` | one file per language (68 ids, listed in `LANGUAGE_IDS` in `schema.ts`) |
+| `concepts.json` | 56 concepts ("genes"): origin language/year and popularizers |
 | `tasks.json` | 6 comparison tasks every language implements (the "windows") |
 
 `languages/c.json` is the **reference example** — match its depth and tone.
@@ -30,7 +30,7 @@ goes in `influenced_by_external`. Choose `kind` carefully (`successor`, `dialect
 borrowed feature). `primary_parent` is the single most direct ancestor among those ids (it drives
 the tree layout) — `null` only for true roots (e.g. Fortran, Lisp, APL).
 
-**Traits.** Walk through *all 55* concepts in `concepts.json` for each language. Include a
+**Traits.** Walk through *all 56* concepts in `concepts.json` for each language. Include a
 concept only if present, with `level`:
 `core` (central, idiomatic, built in) · `supported` (exists but limited or non-central) ·
 `library` (standard or ubiquitous library). Describe the language **as it is today**, and use
@@ -69,7 +69,8 @@ php #4F5D95, ocaml #ef7a08, csharp #7355dd, scala #c22d40, fsharp #b845fc, cloju
 go #00ADD8, rust #dea584, kotlin #A97BFF, elixir #6e4a7e, julia #a270ba, typescript #3178c6,
 swift #F05138, zig #ec915c, awk #c30e9b, object-pascal null (#C9A227), oberon null (#6b8cae), j #9EEDFF,
 racket #3c5caa, nim #ffc200, dart #00B4AB, gleam #ffaff3, hypertalk null (#8FB339), applescript #101F1F,
-newtonscript null (#8a6f4d), mojo #ff4c1f, dylan #6c616e`
+newtonscript null (#8a6f4d), mojo #ff4c1f, dylan #6c616e, logo null (#2e7d32), sh #89e051, lean null (#1b998b),
+odin #60AFFE, unison null (#ff4756)`
 
 **Validate** with `deno task validate <id> [<id>...]` until it reports 0 errors.
 

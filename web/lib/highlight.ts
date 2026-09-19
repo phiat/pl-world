@@ -2,9 +2,11 @@
 // Only the grammars below are bundled (the full highlight.js build carries ~190 and weighs ~1 MB).
 import hljs from "highlight.js/lib/core";
 import type { LanguageFn } from "highlight.js";
+import { LEAN, LOGO, ODIN, UNISON } from "./keywords.ts";
 import ada from "highlight.js/lib/languages/ada";
 import applescript from "highlight.js/lib/languages/applescript";
 import awk from "highlight.js/lib/languages/awk";
+import bash from "highlight.js/lib/languages/bash";
 import basic from "highlight.js/lib/languages/basic";
 import c from "highlight.js/lib/languages/c";
 import clojure from "highlight.js/lib/languages/clojure";
@@ -47,6 +49,7 @@ const GRAMMARS = {
   ada,
   applescript,
   awk,
+  bash,
   basic,
   c,
   clojure,
@@ -65,13 +68,16 @@ const GRAMMARS = {
   javascript,
   julia,
   kotlin,
+  lean,
   lisp,
   livecodeserver,
+  logo,
   nim,
   j,
   lua,
   objectivec,
   ocaml,
+  odin,
   perl,
   php,
   prolog,
@@ -86,6 +92,7 @@ const GRAMMARS = {
   sql,
   swift,
   typescript,
+  unison,
 };
 // J has no grammar of its own in highlight.js; this covers its lexical skeleton.
 function j(): ReturnType<LanguageFn> {
@@ -136,6 +143,122 @@ function dylan(): ReturnType<LanguageFn> {
   };
 }
 
+// Lean has no highlight.js grammar. Haskell gets `--` comments right but not nestable `/- … -/` blocks, «quoted»
+// names or Lean's keywords (def, theorem, by, fun, match … with, namespace); OCaml misses `--` comments entirely.
+const LEAN_IDENT = /[A-Za-z_À-ɏͰ-κμ-Ͽἀ-῿][\w'!?À-ɏͰ-Ͽἀ-῿₀-₉]*/;
+const LEAN_NAME = new RegExp(`«[^»\\n]*»|${LEAN_IDENT.source}(?:\\.${LEAN_IDENT.source})*`);
+function lean(): ReturnType<LanguageFn> {
+  return {
+    name: "Lean",
+    keywords: {
+      $pattern: /[A-Za-z_λÀ-ɏͰ-Ͽ][\w'!?À-ɏͰ-Ͽ]*/,
+      keyword: LEAN.keywords,
+      built_in: LEAN.tactics,
+      type: LEAN.types,
+      literal: LEAN.literals,
+    },
+    contains: [
+      hljs.COMMENT(/--/, /$/),
+      hljs.COMMENT(/\/-/, /-\//, { contains: ["self"] }), // block and doc comments (/-- -/, /-! -/) nest
+      { begin: /«/, end: /»/ }, // «quoted names» may contain spaces and keywords
+      { scope: "string", begin: /"/, end: /"/, contains: [hljs.BACKSLASH_ESCAPE] },
+      { scope: "string", begin: /(?<![\w'])'(?:\\.|[^\\'\n])'/ }, // 'a', but not the prime in h'
+      { scope: "meta", begin: /#[a-z_]+\b/ }, // #eval #check #print
+      { scope: "meta", begin: /@\[/, end: /\]/ }, // @[simp]
+      { scope: "symbol", begin: /`\(/ }, // syntax quotations `(term)
+      {
+        begin: [/\b(?:def|theorem|lemma|abbrev|opaque|axiom)/, /\s+/, LEAN_NAME],
+        beginScope: { 1: "keyword", 3: "title.function" },
+      },
+      { begin: [/\b(?:structure|class|inductive)/, /\s+/, LEAN_NAME], beginScope: { 1: "keyword", 3: "title.class" } },
+      {
+        scope: "number",
+        begin: /\b(?:0[xX][\da-fA-F_]+|0[bB][01_]+|0[oO][0-7_]+|\d[\d_]*(?:\.\d+)?(?:[eE][+-]?\d+)?)\b/,
+      },
+      { scope: "operator", begin: /[→←↦↔∀∃¬∧∨≠≤≥×∘⟨⟩▸·]|:=|=>|<;>|\|>\.?|<\||\.\.\.[=<]?|<\.\.\./ },
+    ],
+  };
+}
+
+// Logo has no highlight.js grammar, and Lisp's and Scheme's read the open quote of "word as a string running to the
+// next quote. "words are strings, :variables and ? template slots symbols, and the name after `to` a title.
+function logo(): ReturnType<LanguageFn> {
+  return {
+    name: "Logo",
+    case_insensitive: true,
+    keywords: { $pattern: /[a-z.][\w.?]*/, keyword: LOGO.keywords, built_in: LOGO.builtins, literal: LOGO.literals },
+    contains: [
+      hljs.COMMENT(/;/, /$/),
+      {
+        begin: [/^[ \t]*(?:to|\.macro)/, /[ \t]+/, /[^\s\[\]();]+/],
+        beginScope: { 1: "keyword", 3: "title.function" },
+      },
+      { scope: "string", begin: /"\|/, end: /\|/ }, // "|word with spaces|
+      { scope: "string", begin: /"[^\s\[\]();]*/ },
+      { scope: "symbol", begin: /:[^\s\[\]();+\-*\/=<>]+/ },
+      { scope: "symbol", begin: /(?<![\w.?])\?\d*(?![\w.?])/ },
+      { scope: "number", begin: /(?<![\w.])\d+(?:\.\d+)?(?:e[+-]?\d+)?(?![\w.])/ },
+    ],
+  };
+}
+
+// Odin has no highlight.js grammar. Go leaves proc/when/using/distinct, the sized types, #directives and $T unstyled,
+// and C's preprocessor rule swallows `#soa[]T` to the end of the line.
+function odin(): ReturnType<LanguageFn> {
+  return {
+    name: "Odin",
+    keywords: { keyword: ODIN.keywords, type: ODIN.types, literal: ODIN.literals, built_in: ODIN.builtins },
+    contains: [
+      hljs.C_LINE_COMMENT_MODE,
+      hljs.COMMENT(/\/\*/, /\*\//, { contains: ["self"] }), // block comments nest
+      { scope: "string", begin: /"/, end: /"/, contains: [hljs.BACKSLASH_ESCAPE] },
+      { scope: "string", begin: /`/, end: /`/ }, // raw strings
+      { scope: "string", begin: /'(?:\\.|[^'\\])+'/ }, // runes
+      { scope: "meta", begin: /#\+?[A-Za-z_]\w*/ }, // #soa #partial #must_tail #assert #+build
+      { scope: "meta", begin: /@\(/, end: /\)/, contains: [{ scope: "string", begin: /"/, end: /"/ }] },
+      { scope: "meta", begin: /@[A-Za-z_]\w*/ },
+      { scope: "type", begin: /\$[A-Za-z_]\w*/ }, // polymorphic parameters: $T, $N
+      { scope: "title.function", begin: /\b[A-Za-z_]\w*(?=\s*::\s*(?:#force_inline\s+|#force_no_inline\s+)?proc\b)/ },
+      {
+        scope: "title.class",
+        begin: /\b[A-Za-z_]\w*(?=\s*::\s*(?:distinct\s+)?(?:struct|union|enum|bit_set|bit_field)\b)/,
+      },
+      { scope: "operator", begin: /::|:=|->|---|\.\.[=<]|\^/ },
+      { scope: "number", begin: /\b(?:0[xbodhz][0-9A-Fa-f_]+|\d[\d_]*(?:\.\d[\d_]*)?(?:[eE][+-]?\d+)?i?)\b/ },
+    ],
+  };
+}
+
+// Unison has no highlight.js grammar. Haskell's reads `ability` as a function name, leaves cases/match/with/handle
+// unstyled, and a quote inside a {{ }} doc literal starts a string that runs on past the doc.
+function unison(): ReturnType<LanguageFn> {
+  return {
+    name: "Unison",
+    keywords: { $pattern: /[A-Za-z_][\w!']*/, keyword: UNISON.keywords, literal: UNISON.literals },
+    contains: [
+      { scope: "comment", begin: /---/, end: /(?![\s\S])/ }, // a fold: the rest of the file is ignored
+      hljs.COMMENT(/--/, /$/),
+      hljs.COMMENT(/\{-/, /-\}/, { contains: ["self"] }), // block comments nest
+      { scope: "string", begin: /\{\{/, end: /\}\}/, contains: ["self"] }, // doc literals
+      { scope: "string", begin: /"""/, end: /"""/ },
+      { scope: "string", begin: /"/, end: /"/, contains: [hljs.BACKSLASH_ESCAPE] },
+      { scope: "string", begin: /\?(?:\\.|[^\s\\])/ }, // characters: ?a ?\n
+      { scope: "meta", begin: /(?<![\w!'])['!](?=[\w({[])/ }, // ' (or do) delays a computation, ! forces one
+      // Names being declared: `name : Type` signatures, and definitions that start a line.
+      { scope: "title.function", begin: /(?<=^[ \t]*)[a-z_][\w!']*(?=[ \t]*:(?![:=]))/ },
+      {
+        scope: "title.function",
+        begin: /^(?!(?:ability|alias|namespace|structural|type|unique|use)\b)[a-z_][\w!']*(?=[^\n=]*=(?!=))/,
+      },
+      { scope: "type", begin: /\b[A-Z][\w!']*/ }, // types, abilities, constructors and namespaces
+      {
+        scope: "number",
+        begin: /(?<![\w.])(?:0xs[\da-fA-F]*|0x[\da-fA-F]+|0o[0-7]+|0b[01]+|[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/,
+      },
+    ],
+  };
+}
+
 for (const [name, grammar] of Object.entries(GRAMMARS)) hljs.registerLanguage(name, grammar as LanguageFn);
 
 /** Language id → highlight.js grammar (a close relative where the language has none of its own). */
@@ -143,9 +266,11 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   fortran: "fortran",
   lisp: "lisp",
   basic: "basic",
+  logo: "logo",
   b: "c",
   pascal: "delphi",
   modula2: "delphi",
+  sh: "bash",
   c: "c",
   smalltalk: "smalltalk",
   self: "smalltalk",
@@ -190,8 +315,11 @@ const GRAMMAR: Record<string, keyof typeof GRAMMARS> = {
   elixir: "elixir",
   julia: "julia",
   typescript: "typescript",
+  lean: "lean",
   swift: "swift",
   gleam: "rust",
+  unison: "unison",
+  odin: "odin",
   mojo: "python",
 };
 

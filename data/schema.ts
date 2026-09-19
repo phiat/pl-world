@@ -14,10 +14,11 @@ export const LANGUAGE_IDS = [
   "apl",
   "basic",
   "simula",
+  "logo",
   "bcpl",
   "algol68",
   "b",
-  // 1970–1978: systems, structure, new paradigms
+  // 1970–1979: systems, structure, new paradigms
   "pascal",
   "forth",
   "c",
@@ -29,6 +30,7 @@ export const LANGUAGE_IDS = [
   "awk",
   "scheme",
   "modula2",
+  "sh",
   // 1980–1990: objects, modules, functional purity
   "ada",
   "objective-c",
@@ -70,9 +72,12 @@ export const LANGUAGE_IDS = [
   "elixir",
   "julia",
   "typescript",
+  "lean",
   "swift",
   "zig",
+  "odin",
   "gleam",
+  "unison",
   "mojo",
 ] as const;
 
@@ -281,7 +286,7 @@ export const Language = z.object({
   snippets: z.record(TaskId, Snippet),
   runtime: Runtime,
   links: z.object({
-    wikipedia: z.string().url(),
+    wikipedia: z.string().url().optional(), // absent when there is no article (Unison)
     homepage: z.string().url().optional(),
     spec: z.string().url().optional(),
   }),

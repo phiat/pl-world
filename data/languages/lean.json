@@ -1,0 +1,424 @@
+{
+  "id": "lean",
+  "name": "Lean",
+  "aliases": [
+    "Lean 4",
+    "Lean 3",
+    "Lean Theorem Prover"
+  ],
+  "year": 2013,
+  "year_note": "Leonardo de Moura started Lean at Microsoft Research in 2013 (first commit July 2013); Lean 0.1 was released in June 2014 and the system was described at CADE-25 in 2015. Those early versions are now called Lean 1 and 2. Lean 3 followed in January 2017. Lean 4, a reimplementation largely in Lean itself that is not backward compatible, was begun in April 2018, had its first milestone release in January 2021 and reached 4.0.0 in September 2023. This entry describes Lean 4.",
+  "designers": [
+    "Leonardo de Moura",
+    "Sebastian Ullrich"
+  ],
+  "organization": "Microsoft Research; Lean FRO (since 2023)",
+  "country": "United States",
+  "tagline": "A dependently typed functional language in which programs and their proofs live together, checked by a small kernel and compiled to C.",
+  "summary": "Lean is a proof assistant and a strict, purely functional programming language based on dependent type theory, specifically the Calculus of Inductive Constructions. In one language it states theorems, proves them by hand or with tactics such as simp, omega and grind, and writes the programs those theorems are about, and a small trusted kernel re-checks every proof. Lean 4 is implemented largely in Lean: its parser, elaborator and tactics can be extended with hygienic macros and metaprograms, and its compiler emits C for a reference-counting runtime that updates unshared data in place. It hosts Mathlib, the community library of formalized mathematics, and is used for software verification and AI-assisted theorem proving.",
+  "history": "Leonardo de Moura, who had co-created the Z3 SMT solver at Microsoft Research, began Lean there in 2013 to bridge interactive and automated theorem proving: a small trusted kernel based on dependent type theory, Coq's Calculus of Inductive Constructions, surrounded by automation. The 2015 system description, by de Moura, Soonho Kong, Jeremy Avigad, Floris van Doorn and Jakob von Raumer of Microsoft Research and Carnegie Mellon, reported work on category theory, abstract algebra and homotopy type theory; the kernel mode and library for homotopy type theory were later dropped. Lean 3 (January 2017), written mainly in C++, made Lean its own metalanguage: tactics became Lean programs run by a virtual machine (Ebner et al., ICFP 2017). The community library mathlib, begun in July 2017, grew around it, and between 2020 and 2022 the Liquid Tensor Experiment used it to check a theorem of Dustin Clausen and Peter Scholze in condensed mathematics.\n\nLean 4, developed from 2018 by de Moura and Sebastian Ullrich, rewrote the system in Lean itself so that users could extend any part of it: a hygienic macro system custom-built for theorem proving (2020), tabled type class resolution for the large instance hierarchies of formal mathematics (2020), and a compiler that emits C, whose reference-counting runtime reuses the memory of unshared values ('Counting Immutable Beans', 2019). The same work turned Lean into a general-purpose functional programming language with a do-notation that admits mutable locals, loops and early return. The first milestone release appeared in January 2021; the community finished porting mathlib to Lean 4 in July 2023, and 4.0.0 was released that September.\n\nIn July 2023 de Moura and Ullrich founded the Lean Focused Research Organization (FRO), a nonprofit under Convergent Research, which now ships a release each month; de Moura moved from Microsoft Research to Amazon Web Services. Releases in 2025 added grind, a tactic built on SMT-solver techniques, and a new code generator. Lean received the 2025 ACM SIGPLAN Programming Languages Software Award, and it is used for mathematics (Mathlib, Terence Tao's formalization of the polynomial Freiman–Ruzsa conjecture, a project to formalize Fermat's Last Theorem), software verification such as AWS's Cedar policy language, and as the target language of AI provers such as DeepMind's AlphaProof.",
+  "innovations": [
+    "A hygienic macro system for a theorem-proving language with conventional, non-parenthesized syntax: syntax, macro_rules and elab extend the parser and elaborator, and much of Lean is defined the same way, down to the notation command, itself a macro-generating macro (Ullrich and de Moura, 2020)",
+    "A proof assistant rewritten in itself as an efficient general-purpose language: Lean 4's elaborator, tactics and compiler are ordinary Lean code that any file can import and extend",
+    "Reference counting tuned for pure code ('Counting Immutable Beans', 2019): borrowed references plus reset/reuse let pure functions update unshared arrays, strings and trees in place, the style later named 'functional but in-place'",
+    "Tabled type class resolution (2020), a Prolog-style instance search that terminates on cyclic instances and stays fast on the diamond-shaped hierarchies of formal mathematics",
+    "A do-notation extended with mutable locals, for and while loops, break, continue and early return, all translated back into pure monadic code ('do' Unchained, ICFP 2022)",
+    "SMT-style proof automation inside a small-kernel proof assistant: grind (2025) combines congruence closure, E-matching and arithmetic solvers, and its proofs are checked by the kernel",
+    "Made large collaborative formalization practical: Mathlib, a single library spanning undergraduate to research mathematics, and projects such as the Liquid Tensor Experiment (2020–2022)"
+  ],
+  "paradigms": [
+    "functional",
+    "declarative",
+    "metaprogramming"
+  ],
+  "family": "ml",
+  "syntax_family": "ml",
+  "block_style": "indentation",
+  "typing": {
+    "discipline": "static",
+    "strength": "strong",
+    "inference": "local",
+    "equivalence": "nominal",
+    "notes": "Dependent type theory: the Calculus of Inductive Constructions with a hierarchy of universes and an impredicative, proof-irrelevant Prop. Types can depend on values, propositions are types and proofs are terms, and types that compute to the same value are equal by definition. The elaborator infers implicit arguments, instances and most local types by unification, but top-level parameters usually need annotations, unlike Hindley–Milner languages."
+  },
+  "memory": "reference-counting",
+  "memory_note": "Compiled code uses reference counting with borrowed parameters and reset/reuse, so a value with a single reference is updated in place (Array.push, String.append, rebuilding a tree) instead of being copied. Pure values cannot form cycles, so there is no cycle collector; objects shared between threads switch to atomic counts. The compiler erases proofs and types before emitting C.",
+  "execution": [
+    "native-compiled",
+    "interpreted"
+  ],
+  "status": "active",
+  "latest_version": "4.34.0",
+  "file_extensions": [
+    ".lean"
+  ],
+  "color": "#1b998b",
+  "primary_parent": "haskell",
+  "influenced_by": [
+    {
+      "id": "haskell",
+      "kind": "influence",
+      "weight": "major",
+      "note": "Type classes after Wadler and Blott, monads with do-notation (desugared as in the Haskell 98 report) and a Haskell-inspired layout rule; Repr corresponds to Haskell's Show. The compiler's transformations draw on GHC's, though Lean is strict."
+    },
+    {
+      "id": "ml",
+      "kind": "influence",
+      "weight": "major",
+      "note": "The LCF tradition, in which ML was created as a metalanguage for writing proof procedures. Lean is its own metalanguage, so tactics are ordinary programs in a tactic monad (Ebner et al., 2017). Wikipedia lists ML among Lean's influences."
+    },
+    {
+      "id": "prolog",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Instance search is a small logic program: Lean 4's tabled type class resolution is based on the tabled resolution procedure introduced for Prolog (Sagonas and Swift's SLG machine)."
+    },
+    {
+      "id": "scheme",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Lean 4's macro system 'takes ideas from the Scheme family': hygienic expansion itself (Kohlbecker et al., 1986) and leaving hygiene to the macro's quotations rather than the expander (Clinger and Rees, 1991)."
+    },
+    {
+      "id": "racket",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "'The main inspiration' for the hygiene algorithm was Racket's sets of scopes (Flatt, 2016), simplified to cheap equality checks on names."
+    },
+    {
+      "id": "rust",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Antiquotation splices such as $[...],* follow Rust's macro_rules; do-notation copied Rust's let mut and if let."
+    },
+    {
+      "id": "swift",
+      "kind": "influence",
+      "weight": "minor",
+      "note": "Explicit inc/dec instructions in the compiler's IR and borrowed references came from the Swift compiler ('Counting Immutable Beans')."
+    }
+  ],
+  "influenced_by_external": [
+    {
+      "name": "Calculus of Inductive Constructions",
+      "year": 1988,
+      "note": "Coquand and Huet's calculus of constructions (1988) extended with inductive types (Coquand and Paulin, 1990): Lean's logical foundation."
+    },
+    {
+      "name": "Coq (now Rocq)",
+      "year": 1989,
+      "note": "The proof assistant built on the same calculus; Lean follows its tactic-style proofs, and the 2015 design allowed exporting proofs to Coq and Matita."
+    },
+    {
+      "name": "Martin-Löf type theory",
+      "year": 1972,
+      "note": "Without an impredicative Prop, early Lean's kernel implemented a version of Martin-Löf type theory; its homotopy type theory library used this predicative, proof-relevant mode."
+    },
+    {
+      "name": "Idris",
+      "year": 2007,
+      "note": "Lean 3's metaprogramming framework was 'most similar' to Idris's tactic monad and quotations; Lean 4's nested actions (← e) resemble Idris's !e."
+    },
+    {
+      "name": "Mizar and Isabelle/Isar",
+      "note": "Lean's declarative proof style (have, show) was described as resembling Mizar and Isabelle/Isar."
+    },
+    {
+      "name": "Z3 and SMT solving",
+      "note": "De Moura's earlier SMT solver; Lean set out to join automated and interactive proving, and grind brings SMT techniques (congruence closure, E-matching) into the prover."
+    }
+  ],
+  "influenced": [],
+  "traits": {
+    "structured-control": {
+      "level": "core",
+      "note": "if and match are expressions; inside do blocks, for … in, while, repeat, break, continue and early return are available and compile back to pure code."
+    },
+    "block-scope": {
+      "level": "core",
+      "note": "let bindings, do-block scopes, where clauses and let rec for local helpers."
+    },
+    "recursion": {
+      "level": "core",
+      "note": "Every recursive definition must be shown to terminate, structurally or by a well-founded measure (termination_by, decreasing_by); partial def opts out for code that only runs, at the price of being opaque to proofs."
+    },
+    "exceptions": {
+      "level": "supported",
+      "note": "Monadic rather than a run-time unwinding mechanism: throw and try/catch/finally are do-notation for any monad with a MonadExcept instance (IO, Except, ExceptT). Pure code returns Option or Except; panic! reports an error and continues with a default value."
+    },
+    "generators": {
+      "level": "supported",
+      "note": "No yield. for … in works over any type with a ForIn instance, and core Lean's iterator library provides lazy, composable iterators (xs.iter.map f |>.toList)."
+    },
+    "pattern-matching": {
+      "level": "core",
+      "note": "Dependent pattern matching with exhaustiveness checking, on several values at once; definitions by equations compile to match."
+    },
+    "tail-calls": {
+      "level": "supported",
+      "note": "Self tail calls compile to loops (a goto in the generated C); mutual tail calls are ordinary calls, left to the C compiler to optimize."
+    },
+    "static-typing": {
+      "level": "core",
+      "note": "Dependent types: types can mention values (a vector of length n, a proof that i < a.size), and the kernel re-checks every definition and proof."
+    },
+    "type-inference": {
+      "level": "core",
+      "note": "Bidirectional elaboration with higher-order unification infers implicit arguments, instances and most local types; top-level parameters are usually annotated, and undeclared type variables in signatures become implicit arguments automatically."
+    },
+    "generics": {
+      "level": "core",
+      "note": "Implicit type arguments and universe polymorphism; since types are ordinary values, functions can also take and return types."
+    },
+    "algebraic-data-types": {
+      "level": "core",
+      "note": "inductive types, including indexed families and mutual and nested inductives, and structures; the kernel derives an induction principle for each."
+    },
+    "type-classes": {
+      "level": "core",
+      "note": "class and instance, with outParams, default methods and deriving (Repr, BEq, DecidableEq, Hashable, Ord). Resolution is a tabled search that stays efficient with diamonds and terminates on cyclic instances (Selsam, Ullrich and de Moura, 2020). Type classes also drive operators, coercions and Mathlib's algebraic hierarchy."
+    },
+    "option-types": {
+      "level": "core",
+      "note": "Option α (none | some a); there is no null, and xs[i]? returns an Option when no bounds proof is available."
+    },
+    "dependent-types": {
+      "level": "core",
+      "note": "Types may mention values: Vector α n, Fin n, and propositions such as 0 < xs.size, whose proofs are ordinary arguments. The kernel is the calculus of inductive constructions."
+    },
+    "interfaces": {
+      "level": "supported",
+      "note": "Type classes fill this role."
+    },
+    "inheritance": {
+      "level": "supported",
+      "note": "A structure or class can extend one or more parents, inheriting their fields and default values and projecting to them; there are no virtual methods or subclass polymorphism."
+    },
+    "abstract-data-types": {
+      "level": "supported",
+      "note": "private definitions and private constructors (structure … where private mk ::) hide a representation, and module files distinguish public from private declarations."
+    },
+    "modules": {
+      "level": "core",
+      "note": "Each file is a module loaded with import (import Std.Data.HashMap); namespaces, sections and open organize names. In files that begin with module, names and definition bodies are private unless declared public, and proofs are never exported."
+    },
+    "design-by-contract": {
+      "level": "supported",
+      "note": "Checked at compile time rather than at run time: a precondition is a proof argument (h : i < a.size), a postcondition a subtype {x // p x} or a theorem about the function, and Std.Do's mvcgen verifies Hoare-style specifications of monadic code."
+    },
+    "operator-overloading": {
+      "level": "core",
+      "note": "Operators are type class methods (HAdd, Mul, LT, …), and infix, notation and syntax declare new operators with precedences."
+    },
+    "first-class-functions": {
+      "level": "core",
+      "note": "fun x => e (or fun x ↦ e), and the · placeholder: (· % 2 == 0)."
+    },
+    "closures": {
+      "level": "core"
+    },
+    "immutability": {
+      "level": "core",
+      "note": "All values are immutable. let mut in a do block rebinds a local name and is desugared to pure code; IO.Ref and ST.Ref are explicit mutable cells; unshared arrays and strings are updated in place by the runtime."
+    },
+    "lazy-evaluation": {
+      "level": "supported",
+      "note": "Strict by default; Thunk α is a built-in memoized suspension."
+    },
+    "purity": {
+      "level": "core",
+      "note": "Functions are pure, and effects live in monads such as IO, EIO ε, ST σ and StateT. unsafe definitions (e.g. unsafeBaseIO) are marked and kept out of the logic, so proofs cannot depend on them."
+    },
+    "reference-counting": {
+      "level": "core",
+      "note": "The Lean 4 runtime counts references precisely enough to reuse memory: borrowed parameters avoid count updates, and reset/reuse turn functional updates of unshared values into in-place writes (Ullrich and de Moura, 2019). Pure data cannot be cyclic."
+    },
+    "macros": {
+      "level": "core",
+      "since": 2021,
+      "version": "Lean 4",
+      "note": "macro, syntax with macro_rules, notation and infix, and elab for elaborator extensions; Lean 3 had only mixfix notation."
+    },
+    "hygienic-macros": {
+      "level": "core",
+      "since": 2021,
+      "version": "Lean 4",
+      "note": "Hygienic by default: syntax quotations tag identifiers they introduce with macro scopes (Ullrich and de Moura, 2020, adapting Racket's sets of scopes); set_option hygiene false opts out."
+    },
+    "compile-time-execution": {
+      "level": "core",
+      "note": "#eval runs code during elaboration, decide and native_decide prove propositions by evaluating decision procedures, and macros, elaborators and tactics are Lean programs run by the compiler (natively if precompiled, otherwise interpreted)."
+    },
+    "reflection": {
+      "level": "supported",
+      "note": "At compile time: metaprograms that import Lean inspect and extend the environment (declarations, types, syntax, Expr) in MetaM. Compiled programs carry no run-time type information."
+    },
+    "significant-whitespace": {
+      "level": "core",
+      "note": "do blocks and tactic blocks are delimited by indentation (column positions); ; separates items written on one line."
+    },
+    "csp-channels": {
+      "level": "library",
+      "note": "Std.Channel and Std.CloseableChannel (Std.Sync) connect tasks; send and recv return Tasks, and ch.sync gives a blocking view."
+    },
+    "async-await": {
+      "level": "library",
+      "note": "Std.Async provides an Async monad with await over tasks and libuv-based I/O (timers, TCP, UDP, DNS, processes); Task and IO.asTask underneath run work on a thread pool."
+    }
+  },
+  "milestones": [
+    {
+      "year": 2013,
+      "event": "Leonardo de Moura starts Lean at Microsoft Research (first commit July 2013)"
+    },
+    {
+      "year": 2014,
+      "event": "Lean 0.1 released"
+    },
+    {
+      "year": 2015,
+      "event": "'The Lean Theorem Prover (System Description)' presented at CADE-25; first university course taught in Lean at Carnegie Mellon"
+    },
+    {
+      "year": 2017,
+      "event": "Lean 3.0 released (January), with tactics written in Lean; mathlib begun (July)"
+    },
+    {
+      "year": 2018,
+      "event": "Development of Lean 4 begins"
+    },
+    {
+      "year": 2019,
+      "event": "'Counting Immutable Beans' describes Lean 4's reference-counting runtime (IFL 2019)"
+    },
+    {
+      "year": 2020,
+      "event": "Hygienic macro system ('Beyond Notations', IJCAR 2020) and tabled type class resolution for Lean 4"
+    },
+    {
+      "year": 2021,
+      "event": "First Lean 4 milestone release (January)"
+    },
+    {
+      "year": 2022,
+      "event": "Liquid Tensor Experiment completed in Lean 3 (July)"
+    },
+    {
+      "year": 2023,
+      "event": "Lean FRO founded and mathlib ported to Lean 4 (July); Lean 4.0.0 released (September)"
+    },
+    {
+      "year": 2024,
+      "event": "DeepMind's AlphaProof reaches IMO silver-medal level, writing its proofs in Lean"
+    },
+    {
+      "year": 2025,
+      "event": "ACM SIGPLAN Programming Languages Software Award; the grind tactic and a new code generator ship"
+    }
+  ],
+  "trivia": [
+    "mimalloc, Microsoft's general-purpose memory allocator, was initially developed by Daan Leijen for the runtime systems of the Koka and Lean languages.",
+    "The 2015 system description later won the 2025 CADE Skolem Award, given to conference papers that have stood the test of time.",
+    "The Liquid Tensor Experiment began as a public challenge: in December 2020 Peter Scholze asked whether a proof assistant could check a central theorem of his and Dustin Clausen's condensed mathematics, and Lean users formalized the key lemma by June 2021 and the whole theorem in July 2022."
+  ],
+  "snippets": {
+    "hello": {
+      "dialect": "Lean 4.34",
+      "code": "def main : IO Unit :=\n  IO.println \"Hello, World!\"\n",
+      "expected_output": "Hello, World!\n",
+      "notes": "main is an IO action. It may also return IO UInt32 (the exit code) or take the command-line arguments as a List String. The sandbox compiles the file to C with lean -c and links it with leanc; lean --run main.lean interprets it instead.",
+      "verified": true
+    },
+    "factorial": {
+      "dialect": "Lean 4.34",
+      "code": "def factorial : Nat → Nat\n  | 0     => 1\n  | n + 1 => (n + 1) * factorial n\n\ndef main : IO Unit :=\n  IO.println (factorial 10)\n",
+      "expected_output": "3628800\n",
+      "notes": "Nat is the arbitrary-precision natural numbers, so factorial 50 is exact too. The definition is by equations; the pattern n + 1 matches any successor, and the termination checker accepts the recursion because it is on a structurally smaller argument. Without that, Lean would ask for a termination proof or a partial def.",
+      "verified": true
+    },
+    "fizzbuzz": {
+      "dialect": "Lean 4.34",
+      "code": "def fizzbuzz (n : Nat) : String :=\n  match n % 3, n % 5 with\n  | 0, 0 => \"FizzBuzz\"\n  | 0, _ => \"Fizz\"\n  | _, 0 => \"Buzz\"\n  | _, _ => toString n\n\ndef main : IO Unit := do\n  for i in 1...=15 do\n    IO.println (fizzbuzz i)\n",
+      "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n",
+      "notes": "match inspects two values at once, and the compiler checks that the alternatives are exhaustive. 1...=15 is a closed range (1...<16 is half-open); for is do-notation over any type with a ForIn instance.",
+      "verified": true
+    },
+    "higher-order": {
+      "dialect": "Lean 4.34",
+      "code": "def main : IO Unit := do\n  let squares := (1...=10).toList\n    |>.filter (· % 2 == 0)\n    |>.map (fun x => x * x)\n  IO.println (\" \".intercalate (squares.map toString))\n",
+      "expected_output": "4 16 36 64 100\n",
+      "notes": "(· % 2 == 0) is shorthand for fun x => x % 2 == 0, and |>. continues a method chain on the next line. Mathlib code usually writes fun x ↦ x * x.",
+      "verified": true
+    },
+    "shapes": {
+      "dialect": "Lean 4.34",
+      "code": "inductive Shape where\n  | rectangle (width height : Nat)\n  | triangle (base height : Nat)\n\nnamespace Shape\n\ndef area : Shape → Nat\n  | rectangle w h => w * h\n  | triangle b h  => b * h / 2\n\ndef name : Shape → String\n  | rectangle .. => \"Rectangle\"\n  | triangle ..  => \"Triangle\"\n\nend Shape\n\ndef main : IO Unit := do\n  for s in [Shape.rectangle 3 4, .triangle 10 3] do\n    IO.println s!\"{s.name}: {s.area}\"\n",
+      "expected_output": "Rectangle: 12\nTriangle: 15\n",
+      "notes": "An inductive type with two constructors, and functions defined by pattern matching on them. Because area and name live in the Shape namespace, s.area works as dot notation, and .triangle 10 3 can omit the type name because the list's element type is already known. For an open-ended set of shapes one would define a type class with an instance per structure.",
+      "verified": true
+    },
+    "signature": {
+      "title": "Programs with proofs",
+      "concepts": [
+        "dependent-types",
+        "static-typing",
+        "design-by-contract",
+        "compile-time-execution"
+      ],
+      "dialect": "Lean 4.34",
+      "code": "-- Propositions are types and proofs are programs: the compiler checks\n-- every theorem here before it emits a line of C.\n\ndef sumTo : Nat → Nat\n  | 0     => 0\n  | n + 1 => (n + 1) + sumTo n\n\n-- Gauss's formula, for every n: proved by induction, not tested.\ntheorem two_mul_sumTo (n : Nat) : 2 * sumTo n = n * (n + 1) := by\n  induction n with\n  | zero => rfl\n  | succ n ih => simp only [sumTo]; grind\n\n-- A fact about one input, settled by evaluation inside the compiler.\nexample : sumTo 100 = 5050 := by decide\n\n-- A precondition as an argument: `xs[xs.size / 2]` type-checks only\n-- because `h` lets the compiler prove the index is in bounds.\ndef middle (xs : Array Nat) (h : 0 < xs.size) : Nat := xs[xs.size / 2]\n\ndef main : IO Unit := do\n  IO.println s!\"sumTo 100 = {sumTo 100}\"\n  IO.println s!\"middle = {middle #[2, 3, 5, 7, 11] (by decide)}\"\n",
+      "expected_output": "sumTo 100 = 5050\nmiddle = 5\n",
+      "notes": "sumTo is an ordinary program and two_mul_sumTo a theorem about it: induction splits the goal, simp only [sumTo] unfolds one step, and grind closes the arithmetic using the induction hypothesis ih; the kernel then re-checks the resulting proof term. by decide proves sumTo 100 = 5050 by evaluating it at compile time. In middle, indexing needs a proof that xs.size / 2 is in bounds, which Lean derives from h automatically, and the caller supplies 0 < 5 with by decide. Make the theorem false or drop h, and the file no longer compiles. Proofs are erased before code generation, so they cost nothing at run time.",
+      "verified": true
+    }
+  },
+  "runtime": {
+    "strategy": "container",
+    "toolchains": [
+      {
+        "name": "Lean 4 (lean -c + leanc)",
+        "version": "4.34.0",
+        "docker_image": "plw-lean",
+        "dockerfile": "sandbox/lean/Dockerfile",
+        "install": "Unpack https://github.com/leanprover/lean4/releases/download/v4.34.0/lean-4.34.0-linux.tar.zst (sha256 caaa98356098c85dc0fcbbd28e1ec66f39eb6551829972b752ff20e1286b646b) and put its bin/ on PATH; leanc bundles clang, lld and a glibc sysroot, so no system C compiler is needed.",
+        "compile": "lean-run --build {file}",
+        "run": "lean-run --exec",
+        "notes": "plw-lean is debian:trixie-slim with the official Lean 4.34.0 release (no elan, Lake packages or Mathlib), trimmed of library sources, .ilean editor indexes and Lake. Init, Std and Lean stay, so import Std and import Lean work offline. lean-run (baked into the image) runs lean -c, which elaborates the file and checks every proof, then links the C with leanc -O3 against the static Lean libraries. Elaboration messages (warnings, errors, #eval and #check output) are compile-phase output on stderr, so a failed proof fails the compile step. A file without a main is treated as a script, and its messages (e.g. #eval results) are printed as the program's output. In the sandbox (2 CPUs) a snippet builds in about 0.35 s at about 105 MB peak memory and runs in milliseconds; a program that imports Lean for metaprogramming needs about 1.1 s and 475 MB, because it links the compiler's own library. Everything is written under /tmp, so it also runs on a read-only root filesystem as an unprivileged user. The image is about 2.9 GB, over half of it the Lean library (its .olean, .ir and static archive files), kept so that import Lean works; the binaries contain no telemetry."
+      },
+      {
+        "name": "Lean 4 interpreter (lean --run)",
+        "version": "4.34.0",
+        "run": "lean --run {file}",
+        "notes": "Same release, no linking: interprets main's compiler IR, while library code runs natively. About 0.12 s for hello in the sandbox, but elaboration messages are printed to stdout along with the program's output, and a file without a main fails, so the sandbox uses lean-run instead."
+      }
+    ],
+    "browser": null,
+    "notes": "No in-browser Lean 4 is published. The official web editor, live.lean-lang.org (lean4web), runs Lean and Mathlib on a server; the retired Lean 3 web editor ran Lean itself in the browser."
+  },
+  "links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+    "homepage": "https://lean-lang.org/",
+    "spec": "https://lean-lang.org/doc/reference/latest/"
+  },
+  "sources": [
+    "https://en.wikipedia.org/wiki/Lean_(proof_assistant)",
+    "https://lean-fro.org/about/",
+    "https://lean-lang.org/papers/system.pdf",
+    "https://lean-lang.org/papers/tactic.pdf",
+    "https://doi.org/10.1007/978-3-030-79876-5_37",
+    "https://arxiv.org/abs/1908.05647",
+    "https://arxiv.org/abs/2001.10490",
+    "https://arxiv.org/abs/2001.04301",
+    "https://lean-lang.org/papers/do.pdf",
+    "https://github.com/leanprover/lean4/releases/tag/v4.0.0-m1",
+    "https://github.com/leanprover/lean4/releases/tag/v4.0.0",
+    "https://github.com/leanprover/lean4/releases/tag/v4.34.0",
+    "https://lean-lang.org/doc/reference/latest/",
+    "https://en.wikipedia.org/wiki/Leonardo_de_Moura",
+    "https://en.wikipedia.org/wiki/Haskell",
+    "https://github.com/microsoft/mimalloc",
+    "https://xenaproject.wordpress.com/2020/12/05/liquid-tensor-experiment/",
+    "https://leanprover-community.github.io/blog/posts/lte-final/",
+    "https://github.com/leanprover-community/lean4web"
+  ]
+}

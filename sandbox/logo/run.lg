@@ -1,0 +1,10 @@
+; Driver for logo-run: ucblogo run.lg - FILE STATUSFILE
+; There is no screen, so the turtle gets an unbounded field (WINDOW) instead of wrapping around the
+; 100-step square that the headless build pretends to have. The program is loaded, then BYE exits
+; before UCBLogo's prompt and farewell; THROW "TOPLEVEL ends the program quietly. An error that
+; reaches the top level stops the program, and its message goes to STATUSFILE for the shell wrapper,
+; which copies it to stderr and exits with status 1.
+window
+catch "toplevel [catch "error [load first :command.line]]
+apply [[e] [if not emptyp :e [openwrite last :command.line setwrite last :command.line (type first butfirst :e) if not emptyp item 3 :e [(type "| in | item 3 :e "|: | item 4 :e)] print " setwrite [] close last :command.line]]] (list error)
+bye
