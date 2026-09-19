@@ -4,12 +4,15 @@
     "@std/cli": "jsr:@std/cli@^1",
     "elkjs": "npm:elkjs@^0.12.0",
     "elkjs/": "npm:/elkjs@^0.12.0/",
+    "playwright": "npm:playwright@1.62.1",
     "zod": "npm:zod@^4.6.5"
   },
   "tasks": {
     "validate": "deno run -A scripts/validate.ts",
-    "build:db": "deno run -A scripts/build-db.ts",
+    "build:db": "deno run -A scripts/build-db.ts && deno run -A scripts/docs.ts",
     "build:layout": "deno run -A scripts/build-layout.ts",
+    "docs": "deno run -A scripts/docs.ts",
+    "screenshots": "deno run -A scripts/screenshots.ts",
     "prototype": "deno run -A scripts/build-db.ts && deno run -A design/prototype/build.ts",
     "runner": "deno run --allow-net=127.0.0.1 --allow-read --allow-run=docker --allow-env runner/main.ts",
     "web": "deno task --cwd web dev",

@@ -6,9 +6,9 @@ Source-of-truth data for the PL World explorer. JSON files are hand-editable and
 | File | What |
 | --- | --- |
 | `schema.ts` | zod schema + TS types for everything below (the contract) |
-| `languages/<id>.json` | one file per language (68 ids, listed in `LANGUAGE_IDS` in `schema.ts`) |
-| `concepts.json` | 56 concepts ("genes"): origin language/year and popularizers |
-| `tasks.json` | 6 comparison tasks every language implements (the "windows") |
+| `languages/<id>.json` | one file per language (<!--languages-->68<!--/--> ids, listed in `LANGUAGE_IDS` in `schema.ts`) |
+| `concepts.json` | <!--concepts-->56<!--/--> concepts ("genes"): origin language/year and popularizers |
+| `tasks.json` | <!--tasks-->6<!--/--> comparison tasks every language implements (the "windows") |
 
 `languages/c.json` is the **reference example** — match its depth and tone.
 
@@ -30,7 +30,7 @@ goes in `influenced_by_external`. Choose `kind` carefully (`successor`, `dialect
 borrowed feature). `primary_parent` is the single most direct ancestor among those ids (it drives
 the tree layout) — `null` only for true roots (e.g. Fortran, Lisp, APL).
 
-**Traits.** Walk through *all 56* concepts in `concepts.json` for each language. Include a
+**Traits.** Walk through *all <!--concepts-->56<!--/-->* concepts in `concepts.json` for each language. Include a
 concept only if present, with `level`:
 `core` (central, idiomatic, built in) · `supported` (exists but limited or non-central) ·
 `library` (standard or ubiquitous library). Describe the language **as it is today**, and use
@@ -38,7 +38,7 @@ concept only if present, with `level`:
 `since: 2014, version: "Java 8"`). Use `note` for nuance. Omitted concept = absent.
 If a language is the concept's `origin` or in `popularized_by`, it must have that trait.
 
-**Snippets.** All 6 tasks from `tasks.json`; `expected_output` must match the task exactly
+**Snippets.** All <!--tasks-->6<!--/--> tasks from `tasks.json`; `expected_output` must match the task exactly
 (`higher-order` prints `4 16 36 64 100`). Write idiomatic code that shows the language's
 character — the point is side-by-side comparison, so an ML should look like ML and APL like APL.
 For historical languages, use a classic dialect that a modern open-source implementation can
@@ -87,3 +87,5 @@ odin #60AFFE, unison null (#ff4756)`
    `deno task validate` with no ids for the cross-reference report.
 5. Web: map the id to a highlight.js grammar in `web/lib/highlight.ts` and a CodeMirror mode in `web/lib/editor.ts`
    (a close relative is fine), or it renders as plain text.
+6. `deno task build:db` also refreshes the counts the Markdown docs quote (see `scripts/docs.ts`); commit those with
+   the language.

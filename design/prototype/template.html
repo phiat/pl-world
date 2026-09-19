@@ -681,7 +681,7 @@ function openPlacard(id) {
     <div class="pl-sec"><h4 class="eyebrow">Parents</h4><div class="chips">${parents.map((e) => langChip(e.parent, ` <small>${e.kind}</small>`)).join("") || '<span class="note">A root of the tree</span>'}</div>
       ${l.influenced_by_external.length ? `<p class="note" style="margin:8px 0 0">Also: ${l.influenced_by_external.map((x) => esc(x.name) + (x.year ? " (" + x.year + ")" : "")).join(", ")}</p>` : ""}</div>
     ${laterInfluences(id).length ? `<div class="pl-sec"><h4 class="eyebrow">Later borrowed from</h4><div class="chips">${laterInfluences(id).map((e) => langChip(e.parent, ` <small>${byId[e.parent].year}</small>`)).join("")}</div></div>` : ""}
-    <div class="pl-sec"><h4 class="eyebrow">Children</h4><div class="chips">${kids.map((e) => langChip(e.child, ` <small>${byId[e.child].year}</small>`)).join("") || '<span class="note">None among these 50</span>'}</div></div>
+    <div class="pl-sec"><h4 class="eyebrow">Children</h4><div class="chips">${kids.map((e) => langChip(e.child, ` <small>${byId[e.child].year}</small>`)).join("") || '<span class="note">None among these languages</span>'}</div></div>
     <div class="pl-sec"><h4 class="eyebrow">Code</h4>
       <div class="tabs" role="tablist">${tasks.map((t) => `<button role="tab" data-task="${t.id}" aria-selected="${t.id === placardTask}">${t.id === "signature" ? "★ " : ""}${esc(t.name)}</button>`).join("")}</div>
       <div id="plCode"></div>

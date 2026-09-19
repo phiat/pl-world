@@ -18,6 +18,8 @@ jobs:
           deno-version: v2.x
       - name: Validate data
         run: deno task validate
+      - name: Docs quote current counts
+        run: deno task docs --check
       - name: Format and lint (scripts, runner, schema)
         run: deno fmt --check scripts runner data/*.ts && deno lint scripts runner data
       - name: Generate dist/ (the web app type-imports world.json and genealogy.json)
