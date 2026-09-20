@@ -19,11 +19,23 @@ export default define.page(function App({ Component, url }) {
         <meta property="og:site_name" content="PL World" />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+        {
+          /* The fonts are self-hosted (see static/fonts/README.md), so there is no third-party origin to
+            preconnect to. These two carry the body text and are worth fetching before the CSS names them. */
+        }
         <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=Courier+Prime:wght@400;700&family=VT323&display=swap"
+          rel="preload"
+          href="/fonts/ibm-plex-sans-condensed-400-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossorigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/ibm-plex-mono-400-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossorigin="anonymous"
         />
       </head>
       <body>

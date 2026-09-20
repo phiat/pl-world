@@ -1,0 +1,30 @@
+# Headers for the files Workers Assets serves straight from _fresh/client, which never reach worker.js — so
+# they would otherwise miss the ones it sets on pages. The deploy task copies this file to the root of the
+# assets directory; Cloudflare reads it there at upload and does not serve it. See worker.js for the page
+# headers and the reasoning behind them.
+#
+# Rules do not replace each other: a header named under two matching patterns is sent twice, and two values
+# for Cross-Origin-Resource-Policy is the same to a browser as none. So each path sets its own.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'none'; base-uri 'none'; frame-ancestors 'none'
+
+/assets/*
+  Cross-Origin-Resource-Policy: same-origin
+
+# Named by family, weight and subset, so a file only changes when the font itself is replaced.
+/fonts/*
+  Cross-Origin-Resource-Policy: same-origin
+  Cache-Control: public, max-age=2592000
+
+# The social card and the favicon are the two files meant to be fetched from other origins.
+/og.png
+  Cross-Origin-Resource-Policy: cross-origin
+  Access-Control-Allow-Origin: *
+
+/favicon.ico
+  Cross-Origin-Resource-Policy: cross-origin

@@ -8,6 +8,9 @@ export type { Concept, Edge, Language };
 
 const world = raw as unknown as World;
 
+/** When scripts/build-db.ts last regenerated the data set: the only thing that dates a page here. */
+export const generatedAt: string = (raw as { generated_at: string }).generated_at;
+
 export const languages: Language[] = world.languages.slice().sort((a, b) =>
   a.year - b.year || a.name.localeCompare(b.name)
 );

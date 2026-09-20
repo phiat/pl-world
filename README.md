@@ -84,8 +84,41 @@ open in your browser can't submit code). This is enough for local use. A public 
 The web app also runs on Cloudflare Workers, read-only: there is no runner behind it, so Run shows each snippet's
 recorded output (verified on its real toolchain) and points to this repo for live runs. `wrangler.jsonc` and
 `web/worker.js` wrap the Fresh build, serve static files from Workers Assets and cache rendered pages at the edge per
-deployed version. Put `CLOUDFLARE_API_TOKEN` in `.env` (git-ignored) or the environment, then `deno task deploy`. To
+deployed version. `worker.js` also sets the security headers, including a Content-Security-Policy carrying the nonce
+Fresh put on the page's one inline script; `web/_headers` does the same for the files Workers Assets serves directly,
+since those never reach the worker. Put `CLOUDFLARE_API_TOKEN` in `.env` (git-ignored) or the environment, then `deno task deploy`. To
 back a hosted copy with a runner, set `RUNNER_URL` on the worker.
+
+## For crawlers and agents
+
+The same data the pages are built from, in the forms an automated reader looks for. `web/lib/agent.ts` generates
+all of it from the request's origin, so a preview deploy describes itself rather than production.
+
+| Path                        | What it is                                                                                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/robots.txt`               | Crawl rules and a `Content-Signal` policy: `search=yes, ai-input=yes, ai-train=no` — index it, ground an answer on it and cite it, but do not put it in a training corpus. |
+| `/sitemap.xml`              | Every page: the five sections, <!--languages-->80<!--/--> language pages and <!--concepts-->56<!--/--> concept pages.                                                      |
+| `/llms.txt`                 | The [llmstxt.org](https://llmstxt.org) index — the whole site as one page of links.                                                                                        |
+| `/.well-known/api-catalog`  | [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727) link set pointing at the API. Pages also carry it as a `Link: …; rel="api-catalog"` header.                             |
+| `/.well-known/security.txt` | [RFC 9116](https://www.rfc-editor.org/rfc/rfc9116): where to report something.                                                                                             |
+
+Every page is also served as Markdown — ask for it with `Accept: text/markdown` and the same URL returns the page
+as text, code snippets in fenced blocks:
+
+```sh
+curl -H 'Accept: text/markdown' https://pl-world.phiat99.workers.dev/lang/haskell
+```
+
+And as JSON, read-only, CORS-open, under `/api`:
+
+| Endpoint                             | Returns                                                                                           |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `/api`                               | What is here and how to ask for it.                                                               |
+| `/api/languages`                     | Every language in brief; `?full=1` for the complete records.                                      |
+| `/api/languages/:id`                 | One language in full, plus its lineage and its closest relatives by trait.                        |
+| `/api/concepts`, `/api/concepts/:id` | The <!--concepts-->56<!--/--> concepts, and every language that has one.                          |
+| `/api/edges`                         | The <!--edges-->391<!--/--> lineage links, each with its reason; `?of=c` narrows to one language. |
+| `/api/tasks`                         | The <!--tasks-->6<!--/--> programs every language is asked to write.                              |
 
 ## Contributing
 

@@ -26,8 +26,12 @@
     "images": "deno run --allow-read --allow-run --allow-env runner/images.ts",
     "verify": "deno run --allow-read --allow-write=data/languages --allow-run=docker --allow-env runner/verify.ts",
     "test": "deno test --allow-read --allow-run=docker --allow-env runner/",
-    "preview": "deno task --cwd web build && npx --yes wrangler@4 dev",
-    "deploy": "deno task --cwd web build && npx --yes wrangler@4 deploy"
+    "build:web": {
+      "description": "Build the app, then drop web/_headers at the root of the assets directory Cloudflare uploads",
+      "command": "deno task --cwd web build && cp web/_headers web/_fresh/client/_headers"
+    },
+    "preview": "deno task build:web && npx --yes wrangler@4 dev",
+    "deploy": "deno task build:web && npx --yes wrangler@4 deploy"
   },
   "fmt": {
     "lineWidth": 120,
